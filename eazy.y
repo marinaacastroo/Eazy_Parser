@@ -1,5 +1,4 @@
 %{
-
   #include <stdio.h>
   extern FILE *yyin;
   extern int yylex();
@@ -7,8 +6,19 @@
   #define YYDEBUG 1
 
   int yyerror(char *);
-
 %}
+
+/* Prioridades para evitar conflictos */
+%left OR
+%left AND
+%left '|' '@' '&'
+%left EQ NEQ
+%left '<' '>' LE GE
+%left '+' '-'
+%left '*' '/' MOD
+%right POTENCIA
+%right '!' '~' TAMANO
+
 
 %token ABSTRACTO AND ASIG AND_ASIG CADA CADENA CARACTER CLASE COMO CONSTANTES CONSTRUCTOR CONTINUAR CTC_CADENA
 %token CTC_CARACTER CTC_ENTERA CTC_REAL DE DEFECTO DESTRUCTOR DEVOLVER DIV_ASIG EJECUTA ENCAMBIO ENTERO
@@ -23,12 +33,13 @@
 /* programa */
 /************/
 programa:
-    PRINCIPIO lista_instrucciones FIN
-    ;
+      declaracion_funciones PRINCIPIO lista_instrucciones FIN
+    | PRINCIPIO lista_instrucciones FIN
+;
 
-/***************/
+/**************/
 /* expresiones */
-/***************/
+/**************/
 
 /* Constantes */
 expresion_constante:
@@ -36,13 +47,13 @@ expresion_constante:
     | CTC_REAL
     | CTC_CADENA
     | CTC_CARACTER
-    ;
+;
 
 /* Nombre compuesto */
 nombre:
       IDENTIFICADOR
     | nombre PTOS IDENTIFICADOR
-    ;
+;
 
 /* Expresión básica */
 expresion_basica:
@@ -50,13 +61,13 @@ expresion_basica:
     | '(' expresion ')'
     | '^' expresion_basica
     | REF expresion_basica
-    ;
+;
 
 /* Índices */
 indice:
       '[' expresion ']'
     | '{' expresion '}'
-    ;
+;
 
 /* Expresión indexada */
 expresion_indexada:
@@ -65,25 +76,25 @@ expresion_indexada:
     | expresion_indexada '^' '?' expresion_basica
     | expresion_indexada indice
     | expresion_indexada '^' '?' indice
-    ;
+;
 
 /* Expresión funcional */
 expresion_funcional:
       IDENTIFICADOR '(' lista_expresiones ')'
-    ;
+;
 
 /* Lista de expresiones separadas por ';' */
 lista_expresiones:
       expresion
     | lista_expresiones ';' expresion
-    ;
+;
 
 /* Primario */
 primario:
       expresion_constante
     | expresion_indexada
     | expresion_funcional
-    ;
+;
 
 /* Expresión unaria */
 expresion_unaria:
@@ -92,13 +103,13 @@ expresion_unaria:
     | '!' primario
     | '~' primario
     | TAMANO primario
-    ;
+;
 
 /* Expresión de potencia (**) */
 expresion_potencia:
       expresion_unaria
     | expresion_unaria POTENCIA expresion_potencia
-    ;
+;
 
 /* Expresión multiplicativa (*, /, mod) */
 expresion_mult:
@@ -106,39 +117,39 @@ expresion_mult:
     | expresion_mult '/' expresion_potencia
     | expresion_mult MOD expresion_potencia
     | expresion_potencia
-    ;
+;
 
 /* Expresión aditiva (+, -) */
 expresion_add:
       expresion_add '+' expresion_mult
     | expresion_add '-' expresion_mult
     | expresion_mult
-    ;
+;
 
 /* Expresión de desplazamiento (<-, ->) */
 expresion_desplazamiento:
       expresion_desplazamiento FLECHA_IZDA expresion_add
     | expresion_desplazamiento FLECHA_DCHA expresion_add
     | expresion_add
-    ;
+;
 
 /* Expresión AND binario (&) */
 expresion_and_binario:
       expresion_and_binario '&' expresion_desplazamiento
     | expresion_desplazamiento
-    ;
+;
 
 /* Expresión XOR binario (@) */
 expresion_xor_binario:
       expresion_xor_binario '@' expresion_and_binario
     | expresion_and_binario
-    ;
+;
 
 /* Expresión OR binario (|) */
 expresion_or_binario:
       expresion_or_binario '|' expresion_xor_binario
     | expresion_xor_binario
-    ;
+;
 
 /* Expresión relacional (<, >, <=, >=, ==, !=) */
 expresion_relacional:
@@ -149,31 +160,31 @@ expresion_relacional:
     | expresion_or_binario EQ expresion_or_binario
     | expresion_or_binario NEQ expresion_or_binario
     | expresion_or_binario
-    ;
+;
 
 /* Expresión AND lógico (&&) */
 expresion_and:
       expresion_and AND expresion_relacional
     | expresion_relacional
-    ;
+;
 
 /* Expresión OR lógico (||) */
 expresion_or:
       expresion_or OR expresion_and
     | expresion_and
-    ;
+;
 
 /* Expresión lógica final */
 expresion_logica:
       expresion_or
-    ;
+;
 
 /* Expresión raíz */
 expresion:
       expresion_logica
     | expresion_logica SI expresion SINO expresion
     | expresion_logica PARA CADA IDENTIFICADOR EN expresion
-    ;
+;
 
 /*****************/
 /* instrucciones */
@@ -182,42 +193,70 @@ expresion:
 lista_instrucciones:
       instruccion
     | lista_instrucciones instruccion
-    ;
+;
 
 instruccion:
-      asignacion
+      expresion_instruccion
     | instruccion_condicional
     | instruccion_bucle
     | instruccion_de_salto
     | instruccion_constructor
     | instruccion_destructor
-    ;
+;
 
-asignacion:
-    expresion_indexada ASIG expresion
-    ;
+/* Para que no haya conflictos con expresiones */
+expresion_instruccion:
+      expresion_indexada ASIG expresion
+    | expresion
+;
 
 instruccion_condicional:
     SI expresion instruccion SINO instruccion
-    ;
+;
 
 instruccion_bucle:
     MIENTRAS expresion instruccion
-    ;
+;
 
 instruccion_de_salto:
       CONTINUAR
     | SALTAR
     | DEVOLVER expresion
-    ;
+;
 
 instruccion_constructor:
     CONSTRUCTOR expresion
-    ;
+;
 
 instruccion_destructor:
     DESTRUCTOR expresion
-    ;
+;
+
+/**********************/
+/* Declaración funciones */
+/**********************/
+
+declaracion_funciones:
+      declaracion_funcion
+    | declaracion_funciones declaracion_funcion
+;
+
+declaracion_funcion:
+    especificacion_funcion PRINCIPIO lista_instrucciones FIN
+;
+
+especificacion_funcion:
+    FUNCION IDENTIFICADOR '(' declaracion_argumentos ')'
+;
+
+declaracion_argumentos:
+      declaracion_argumento
+    | declaracion_argumentos ',' declaracion_argumento
+;
+
+declaracion_argumento:
+    IDENTIFICADOR
+;
 
 %%
 
