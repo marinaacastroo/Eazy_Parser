@@ -1716,7 +1716,9 @@ yyreturn:
 int yyerror(char *s) {
   fflush(stdout);
   printf("*****************, %s\n",s);
-  }
+  return 0;
+}
+
 
 int yywrap() {
   return(1);
