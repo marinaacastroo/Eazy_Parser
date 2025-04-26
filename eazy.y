@@ -24,7 +24,7 @@
 /* programa */
 /************/
 programa:
-    expresion
+    PRINCIPIO lista_instrucciones FIN
     ;
 
 /***************/
@@ -186,6 +186,49 @@ expresion:
 /*****************/
 /* instrucciones */
 /*****************/
+
+
+
+lista_instrucciones:
+      instruccion
+    | lista_instrucciones instruccion
+;
+
+instruccion:
+      asignacion
+    | instruccion_condicional
+    | instruccion_bucle
+    | instruccion_de_salto
+    | instruccion_constructor
+    | instruccion_destructor
+;
+
+asignacion:
+    expresion_indexada ASIG expresion
+;
+
+instruccion_condicional:
+    SI expresion instruccion SINO instruccion
+;
+
+instruccion_bucle:
+    MIENTRAS expresion instruccion
+;
+
+instruccion_de_salto:
+      CONTINUAR
+    | SALTAR
+    | DEVOLVER expresion
+;
+
+instruccion_constructor:
+    CONSTRUCTOR expresion
+;
+
+instruccion_destructor:
+    DESTRUCTOR expresion
+;
+
 
 %%
 
