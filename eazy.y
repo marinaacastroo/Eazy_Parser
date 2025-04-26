@@ -31,13 +31,141 @@ programa:
 /* expresiones */
 /***************/
 
-expresion:
+/* Constantes */
+expresion_constante:
       CTC_ENTERA
     | CTC_REAL
-    | CTC_CARACTER
     | CTC_CADENA
-    | IDENTIFICADOR
+    | CTC_CARACTER
     ;
+
+/* Nombre compuesto */
+nombre:
+      IDENTIFICADOR
+    | nombre PTOS IDENTIFICADOR
+    ;
+
+/* Expresión básica */
+expresion_basica:
+      nombre
+    | '(' expresion ')'
+    | '^' expresion_basica
+    | REF expresion_basica
+    ;
+
+/* Índices */
+indice:
+      '[' expresion ']'
+    | '{' expresion '}'
+    ;
+
+/* Expresión indexada */
+expresion_indexada:
+      expresion_basica
+    | expresion_indexada '?' expresion_basica
+    | expresion_indexada '^' '?' expresion_basica
+    | expresion_indexada indice
+    ;
+
+/* Expresión funcional */
+expresion_funcional:
+      IDENTIFICADOR '(' lista_expresiones ')'
+    ;
+
+/* Lista de expresiones separadas por ';' */
+lista_expresiones:
+      expresion
+    | lista_expresiones ';' expresion
+    ;
+
+/* Primario */
+primario:
+      expresion_constante
+    | expresion_indexada
+    | expresion_funcional
+    ;
+
+/* Expresión unaria */
+expresion_unaria:
+      primario
+    | '-' primario
+    | '!' primario
+    | '~' primario
+    | TAMANO primario
+    ;
+
+/* Expresión de potencia (**) */
+expresion_potencia:
+      expresion_unaria
+    | expresion_unaria POTENCIA expresion_potencia
+    ;
+
+/* Expresión multiplicativa (*, /, mod) */
+expresion_mult:
+      expresion_mult '*' expresion_potencia
+    | expresion_mult '/' expresion_potencia
+    | expresion_mult MOD expresion_potencia
+    | expresion_potencia
+    ;
+
+/* Expresión aditiva (+, -) */
+expresion_add:
+      expresion_add '+' expresion_mult
+    | expresion_add '-' expresion_mult
+    | expresion_mult
+    ;
+
+/* Expresión de desplazamiento (<-, ->) */
+expresion_desplazamiento:
+      expresion_desplazamiento FLECHA_IZDA expresion_add
+    | expresion_desplazamiento FLECHA_DCHA expresion_add
+    | expresion_add
+    ;
+
+/* Expresión de bits (&, @, |) */
+expresion_bits:
+      expresion_bits '&' expresion_desplazamiento
+    | expresion_bits '@' expresion_desplazamiento
+    | expresion_bits '|' expresion_desplazamiento
+    | expresion_desplazamiento
+    ;
+
+/* Expresión relacional (<, >, <=, >=, ==, !=) */
+expresion_relacional:
+      expresion_bits '<' expresion_bits
+    | expresion_bits '>' expresion_bits
+    | expresion_bits LE expresion_bits
+    | expresion_bits GE expresion_bits
+    | expresion_bits EQ expresion_bits
+    | expresion_bits NEQ expresion_bits
+    | expresion_bits
+    ;
+
+/* Expresión AND lógico (&&) */
+expresion_and:
+      expresion_and AND expresion_relacional
+    | expresion_relacional
+    ;
+
+/* Expresión OR lógico (||) */
+expresion_or:
+      expresion_or OR expresion_and
+    | expresion_and
+    ;
+
+/* Expresión lógica final */
+expresion_logica:
+      expresion_or
+    ;
+
+/* Expresión raíz */
+expresion:
+      expresion_logica
+    | expresion_logica SI expresion SINO expresion
+    | expresion_logica PARA CADA IDENTIFICADOR EN expresion
+    ;
+
+
 
 /************************/
 /* declaracion de tipos */
