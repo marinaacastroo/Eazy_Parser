@@ -83,139 +83,140 @@ Grammar
    15                   | expresion_indexada '?' expresion_basica
    16                   | expresion_indexada '^' '?' expresion_basica
    17                   | expresion_indexada indice
+   18                   | expresion_indexada '^' '?' indice
 
-   18 expresion_funcional: IDENTIFICADOR '(' lista_expresiones ')'
+   19 expresion_funcional: IDENTIFICADOR '(' lista_expresiones ')'
 
-   19 lista_expresiones: expresion
-   20                  | lista_expresiones ';' expresion
+   20 lista_expresiones: expresion
+   21                  | lista_expresiones ';' expresion
 
-   21 primario: expresion_constante
-   22         | expresion_indexada
-   23         | expresion_funcional
+   22 primario: expresion_constante
+   23         | expresion_indexada
+   24         | expresion_funcional
 
-   24 expresion_unaria: primario
-   25                 | '-' primario
-   26                 | '!' primario
-   27                 | '~' primario
-   28                 | TAMANO primario
+   25 expresion_unaria: primario
+   26                 | '-' primario
+   27                 | '!' primario
+   28                 | '~' primario
+   29                 | TAMANO primario
 
-   29 expresion_potencia: expresion_unaria
-   30                   | expresion_unaria POTENCIA expresion_potencia
+   30 expresion_potencia: expresion_unaria
+   31                   | expresion_unaria POTENCIA expresion_potencia
 
-   31 expresion_mult: expresion_mult '*' expresion_potencia
-   32               | expresion_mult '/' expresion_potencia
-   33               | expresion_mult MOD expresion_potencia
-   34               | expresion_potencia
+   32 expresion_mult: expresion_mult '*' expresion_potencia
+   33               | expresion_mult '/' expresion_potencia
+   34               | expresion_mult MOD expresion_potencia
+   35               | expresion_potencia
 
-   35 expresion_add: expresion_add '+' expresion_mult
-   36              | expresion_add '-' expresion_mult
-   37              | expresion_mult
+   36 expresion_add: expresion_add '+' expresion_mult
+   37              | expresion_add '-' expresion_mult
+   38              | expresion_mult
 
-   38 expresion_desplazamiento: expresion_desplazamiento FLECHA_IZDA expresion_add
-   39                         | expresion_desplazamiento FLECHA_DCHA expresion_add
-   40                         | expresion_add
+   39 expresion_desplazamiento: expresion_desplazamiento FLECHA_IZDA expresion_add
+   40                         | expresion_desplazamiento FLECHA_DCHA expresion_add
+   41                         | expresion_add
 
-   41 expresion_bits: expresion_bits '&' expresion_desplazamiento
-   42               | expresion_bits '@' expresion_desplazamiento
-   43               | expresion_bits '|' expresion_desplazamiento
-   44               | expresion_desplazamiento
+   42 expresion_bits: expresion_bits '&' expresion_desplazamiento
+   43               | expresion_bits '@' expresion_desplazamiento
+   44               | expresion_bits '|' expresion_desplazamiento
+   45               | expresion_desplazamiento
 
-   45 expresion_relacional: expresion_bits '<' expresion_bits
-   46                     | expresion_bits '>' expresion_bits
-   47                     | expresion_bits LE expresion_bits
-   48                     | expresion_bits GE expresion_bits
-   49                     | expresion_bits EQ expresion_bits
-   50                     | expresion_bits NEQ expresion_bits
-   51                     | expresion_bits
+   46 expresion_relacional: expresion_bits '<' expresion_bits
+   47                     | expresion_bits '>' expresion_bits
+   48                     | expresion_bits LE expresion_bits
+   49                     | expresion_bits GE expresion_bits
+   50                     | expresion_bits EQ expresion_bits
+   51                     | expresion_bits NEQ expresion_bits
+   52                     | expresion_bits
 
-   52 expresion_and: expresion_and AND expresion_relacional
-   53              | expresion_relacional
+   53 expresion_and: expresion_and AND expresion_relacional
+   54              | expresion_relacional
 
-   54 expresion_or: expresion_or OR expresion_and
-   55             | expresion_and
+   55 expresion_or: expresion_or OR expresion_and
+   56             | expresion_and
 
-   56 expresion_logica: expresion_or
+   57 expresion_logica: expresion_or
 
-   57 expresion: expresion_logica
-   58          | expresion_logica SI expresion SINO expresion
-   59          | expresion_logica PARA CADA IDENTIFICADOR EN expresion
+   58 expresion: expresion_logica
+   59          | expresion_logica SI expresion SINO expresion
+   60          | expresion_logica PARA CADA IDENTIFICADOR EN expresion
 
-   60 lista_instrucciones: instruccion
-   61                    | lista_instrucciones instruccion
+   61 lista_instrucciones: instruccion
+   62                    | lista_instrucciones instruccion
 
-   62 instruccion: asignacion
-   63            | instruccion_condicional
-   64            | instruccion_bucle
-   65            | instruccion_de_salto
-   66            | instruccion_constructor
-   67            | instruccion_destructor
+   63 instruccion: asignacion
+   64            | instruccion_condicional
+   65            | instruccion_bucle
+   66            | instruccion_de_salto
+   67            | instruccion_constructor
+   68            | instruccion_destructor
 
-   68 asignacion: expresion_indexada ASIG expresion
+   69 asignacion: expresion_indexada ASIG expresion
 
-   69 instruccion_condicional: SI expresion instruccion SINO instruccion
+   70 instruccion_condicional: SI expresion instruccion SINO instruccion
 
-   70 instruccion_bucle: MIENTRAS expresion instruccion
+   71 instruccion_bucle: MIENTRAS expresion instruccion
 
-   71 instruccion_de_salto: CONTINUAR
-   72                     | SALTAR
-   73                     | DEVOLVER expresion
+   72 instruccion_de_salto: CONTINUAR
+   73                     | SALTAR
+   74                     | DEVOLVER expresion
 
-   74 instruccion_constructor: CONSTRUCTOR expresion
+   75 instruccion_constructor: CONSTRUCTOR expresion
 
-   75 instruccion_destructor: DESTRUCTOR expresion
+   76 instruccion_destructor: DESTRUCTOR expresion
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
-'!' (33) 26
-'&' (38) 41
-'(' (40) 9 18
-')' (41) 9 18
-'*' (42) 31
-'+' (43) 35
-'-' (45) 25 36
-'/' (47) 32
-';' (59) 20
-'<' (60) 45
-'>' (62) 46
-'?' (63) 15 16
-'@' (64) 42
+'!' (33) 27
+'&' (38) 42
+'(' (40) 9 19
+')' (41) 9 19
+'*' (42) 32
+'+' (43) 36
+'-' (45) 26 37
+'/' (47) 33
+';' (59) 21
+'<' (60) 46
+'>' (62) 47
+'?' (63) 15 16 18
+'@' (64) 43
 '[' (91) 12
 ']' (93) 12
-'^' (94) 10 16
+'^' (94) 10 16 18
 '{' (123) 13
-'|' (124) 43
+'|' (124) 44
 '}' (125) 13
-'~' (126) 27
+'~' (126) 28
 error (256)
 ABSTRACTO (258)
-AND (259) 52
-ASIG (260) 68
+AND (259) 53
+ASIG (260) 69
 AND_ASIG (261)
-CADA (262) 59
+CADA (262) 60
 CADENA (263)
 CARACTER (264)
 CLASE (265)
 COMO (266)
 CONSTANTES (267)
-CONSTRUCTOR (268) 74
-CONTINUAR (269) 71
+CONSTRUCTOR (268) 75
+CONTINUAR (269) 72
 CTC_CADENA (270) 4
 CTC_CARACTER (271) 5
 CTC_ENTERA (272) 2
 CTC_REAL (273) 3
 DE (274)
 DEFECTO (275)
-DESTRUCTOR (276) 75
-DEVOLVER (277) 73
+DESTRUCTOR (276) 76
+DEVOLVER (277) 74
 DIV_ASIG (278)
 EJECUTA (279)
 ENCAMBIO (280)
 ENTERO (281)
 ENUMERACION (282)
-EQ (283) 49
-EN (284) 59
+EQ (283) 50
+EN (284) 60
 ES (285)
 ESCAPE (286)
 ESPECIFICO (287)
@@ -227,30 +228,30 @@ FI_ASIG (292)
 FICHERO (293)
 FIN (294) 1
 FINAL (295)
-FLECHA_DCHA (296) 39
-FLECHA_IZDA (297) 38
+FLECHA_DCHA (296) 40
+FLECHA_IZDA (297) 39
 FUNCION (298)
 GENERICO (299)
 HACER (300)
 HASH (301)
-GE (302) 48
-IDENTIFICADOR (303) 6 7 18 59
+GE (302) 49
+IDENTIFICADOR (303) 6 7 19 60
 IMPORTAR (304)
 INDIRECCION (305)
 LANZA (306)
-LE (307) 47
-MIENTRAS (308) 70
-MOD (309) 33
+LE (307) 48
+MIENTRAS (308) 71
+MOD (309) 34
 MOD_ASIG (310)
 MULT_ASIG (311)
 NADA (312)
-NEQ (313) 50
-OR (314) 54
+NEQ (313) 51
+OR (314) 55
 OTRA (315)
 OR_ASIG (316)
-PARA (317) 59
+PARA (317) 60
 POT_ASIG (318)
-POTENCIA (319) 30
+POTENCIA (319) 31
 PRINCIPIO (320) 1
 PRIVADO (321)
 PROGRAMA (322)
@@ -260,11 +261,11 @@ PUBLICO (325)
 REAL (326)
 REF (327) 11
 RESTA_ASIG (328)
-SALTAR (329) 72
-SI (330) 58 69
-SINO (331) 58 69
+SALTAR (329) 73
+SI (330) 59 70
+SINO (331) 59 70
 SUMA_ASIG (332)
-TAMANO (333) 28
+TAMANO (333) 29
 TABLA (334)
 TIPOS (335)
 ULTIMA (336)
@@ -280,60 +281,60 @@ $accept (105)
 programa (106)
     on left: 1, on right: 0
 expresion_constante (107)
-    on left: 2 3 4 5, on right: 21
+    on left: 2 3 4 5, on right: 22
 nombre (108)
     on left: 6 7, on right: 7 8
 expresion_basica (109)
     on left: 8 9 10 11, on right: 10 11 14 15 16
 indice (110)
-    on left: 12 13, on right: 17
+    on left: 12 13, on right: 17 18
 expresion_indexada (111)
-    on left: 14 15 16 17, on right: 15 16 17 22 68
+    on left: 14 15 16 17 18, on right: 15 16 17 18 23 69
 expresion_funcional (112)
-    on left: 18, on right: 23
+    on left: 19, on right: 24
 lista_expresiones (113)
-    on left: 19 20, on right: 18 20
+    on left: 20 21, on right: 19 21
 primario (114)
-    on left: 21 22 23, on right: 24 25 26 27 28
+    on left: 22 23 24, on right: 25 26 27 28 29
 expresion_unaria (115)
-    on left: 24 25 26 27 28, on right: 29 30
+    on left: 25 26 27 28 29, on right: 30 31
 expresion_potencia (116)
-    on left: 29 30, on right: 30 31 32 33 34
+    on left: 30 31, on right: 31 32 33 34 35
 expresion_mult (117)
-    on left: 31 32 33 34, on right: 31 32 33 35 36 37
+    on left: 32 33 34 35, on right: 32 33 34 36 37 38
 expresion_add (118)
-    on left: 35 36 37, on right: 35 36 38 39 40
+    on left: 36 37 38, on right: 36 37 39 40 41
 expresion_desplazamiento (119)
-    on left: 38 39 40, on right: 38 39 41 42 43 44
+    on left: 39 40 41, on right: 39 40 42 43 44 45
 expresion_bits (120)
-    on left: 41 42 43 44, on right: 41 42 43 45 46 47 48 49 50 51
+    on left: 42 43 44 45, on right: 42 43 44 46 47 48 49 50 51 52
 expresion_relacional (121)
-    on left: 45 46 47 48 49 50 51, on right: 52 53
+    on left: 46 47 48 49 50 51 52, on right: 53 54
 expresion_and (122)
-    on left: 52 53, on right: 52 54 55
+    on left: 53 54, on right: 53 55 56
 expresion_or (123)
-    on left: 54 55, on right: 54 56
+    on left: 55 56, on right: 55 57
 expresion_logica (124)
-    on left: 56, on right: 57 58 59
+    on left: 57, on right: 58 59 60
 expresion (125)
-    on left: 57 58 59, on right: 9 12 13 19 20 58 59 68 69 70 73 74
-    75
+    on left: 58 59 60, on right: 9 12 13 20 21 59 60 69 70 71 74 75
+    76
 lista_instrucciones (126)
-    on left: 60 61, on right: 1 61
+    on left: 61 62, on right: 1 62
 instruccion (127)
-    on left: 62 63 64 65 66 67, on right: 60 61 69 70
+    on left: 63 64 65 66 67 68, on right: 61 62 70 71
 asignacion (128)
-    on left: 68, on right: 62
-instruccion_condicional (129)
     on left: 69, on right: 63
-instruccion_bucle (130)
+instruccion_condicional (129)
     on left: 70, on right: 64
+instruccion_bucle (130)
+    on left: 71, on right: 65
 instruccion_de_salto (131)
-    on left: 71 72 73, on right: 65
+    on left: 72 73 74, on right: 66
 instruccion_constructor (132)
-    on left: 74, on right: 66
-instruccion_destructor (133)
     on left: 75, on right: 67
+instruccion_destructor (133)
+    on left: 76, on right: 68
 
 
 state 0
@@ -383,7 +384,7 @@ state 2
 
 state 3
 
-   74 instruccion_constructor: CONSTRUCTOR . expresion
+   75 instruccion_constructor: CONSTRUCTOR . expresion
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -419,14 +420,14 @@ state 3
 
 state 4
 
-   71 instruccion_de_salto: CONTINUAR .
+   72 instruccion_de_salto: CONTINUAR .
 
-    $default  reduce using rule 71 (instruccion_de_salto)
+    $default  reduce using rule 72 (instruccion_de_salto)
 
 
 state 5
 
-   75 instruccion_destructor: DESTRUCTOR . expresion
+   76 instruccion_destructor: DESTRUCTOR . expresion
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -462,7 +463,7 @@ state 5
 
 state 6
 
-   73 instruccion_de_salto: DEVOLVER . expresion
+   74 instruccion_de_salto: DEVOLVER . expresion
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -505,7 +506,7 @@ state 7
 
 state 8
 
-   70 instruccion_bucle: MIENTRAS . expresion instruccion
+   71 instruccion_bucle: MIENTRAS . expresion instruccion
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -554,14 +555,14 @@ state 9
 
 state 10
 
-   72 instruccion_de_salto: SALTAR .
+   73 instruccion_de_salto: SALTAR .
 
-    $default  reduce using rule 72 (instruccion_de_salto)
+    $default  reduce using rule 73 (instruccion_de_salto)
 
 
 state 11
 
-   69 instruccion_condicional: SI . expresion instruccion SINO instruccion
+   70 instruccion_condicional: SI . expresion instruccion SINO instruccion
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -666,7 +667,8 @@ state 16
    15 expresion_indexada: expresion_indexada . '?' expresion_basica
    16                   | expresion_indexada . '^' '?' expresion_basica
    17                   | expresion_indexada . indice
-   68 asignacion: expresion_indexada . ASIG expresion
+   18                   | expresion_indexada . '^' '?' indice
+   69 asignacion: expresion_indexada . ASIG expresion
 
     ASIG  shift, and go to state 58
     '^'   shift, and go to state 59
@@ -680,7 +682,7 @@ state 16
 state 17
 
     1 programa: PRINCIPIO lista_instrucciones . FIN
-   61 lista_instrucciones: lista_instrucciones . instruccion
+   62 lista_instrucciones: lista_instrucciones . instruccion
 
     CONSTRUCTOR    shift, and go to state 3
     CONTINUAR      shift, and go to state 4
@@ -709,51 +711,51 @@ state 17
 
 state 18
 
-   60 lista_instrucciones: instruccion .
+   61 lista_instrucciones: instruccion .
 
-    $default  reduce using rule 60 (lista_instrucciones)
+    $default  reduce using rule 61 (lista_instrucciones)
 
 
 state 19
 
-   62 instruccion: asignacion .
-
-    $default  reduce using rule 62 (instruccion)
-
-
-state 20
-
-   63 instruccion: instruccion_condicional .
+   63 instruccion: asignacion .
 
     $default  reduce using rule 63 (instruccion)
 
 
-state 21
+state 20
 
-   64 instruccion: instruccion_bucle .
+   64 instruccion: instruccion_condicional .
 
     $default  reduce using rule 64 (instruccion)
 
 
-state 22
+state 21
 
-   65 instruccion: instruccion_de_salto .
+   65 instruccion: instruccion_bucle .
 
     $default  reduce using rule 65 (instruccion)
 
 
-state 23
+state 22
 
-   66 instruccion: instruccion_constructor .
+   66 instruccion: instruccion_de_salto .
 
     $default  reduce using rule 66 (instruccion)
 
 
-state 24
+state 23
 
-   67 instruccion: instruccion_destructor .
+   67 instruccion: instruccion_constructor .
 
     $default  reduce using rule 67 (instruccion)
+
+
+state 24
+
+   68 instruccion: instruccion_destructor .
+
+    $default  reduce using rule 68 (instruccion)
 
 
 state 25
@@ -794,7 +796,7 @@ state 29
 state 30
 
     6 nombre: IDENTIFICADOR .
-   18 expresion_funcional: IDENTIFICADOR . '(' lista_expresiones ')'
+   19 expresion_funcional: IDENTIFICADOR . '(' lista_expresiones ')'
 
     '('  shift, and go to state 66
 
@@ -804,7 +806,7 @@ state 30
 
 state 31
 
-   28 expresion_unaria: TAMANO . primario
+   29 expresion_unaria: TAMANO . primario
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -825,7 +827,7 @@ state 31
 
 state 32
 
-   25 expresion_unaria: '-' . primario
+   26 expresion_unaria: '-' . primario
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -846,7 +848,7 @@ state 32
 
 state 33
 
-   26 expresion_unaria: '!' . primario
+   27 expresion_unaria: '!' . primario
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -867,7 +869,7 @@ state 33
 
 state 34
 
-   27 expresion_unaria: '~' . primario
+   28 expresion_unaria: '~' . primario
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -888,9 +890,9 @@ state 34
 
 state 35
 
-   21 primario: expresion_constante .
+   22 primario: expresion_constante .
 
-    $default  reduce using rule 21 (primario)
+    $default  reduce using rule 22 (primario)
 
 
 state 36
@@ -898,100 +900,101 @@ state 36
    15 expresion_indexada: expresion_indexada . '?' expresion_basica
    16                   | expresion_indexada . '^' '?' expresion_basica
    17                   | expresion_indexada . indice
-   22 primario: expresion_indexada .
+   18                   | expresion_indexada . '^' '?' indice
+   23 primario: expresion_indexada .
 
     '^'  shift, and go to state 59
     '['  shift, and go to state 60
     '{'  shift, and go to state 61
     '?'  shift, and go to state 62
 
-    '^'       [reduce using rule 22 (primario)]
-    $default  reduce using rule 22 (primario)
+    '^'       [reduce using rule 23 (primario)]
+    $default  reduce using rule 23 (primario)
 
     indice  go to state 63
 
 
 state 37
 
-   23 primario: expresion_funcional .
+   24 primario: expresion_funcional .
 
-    $default  reduce using rule 23 (primario)
+    $default  reduce using rule 24 (primario)
 
 
 state 38
 
-   24 expresion_unaria: primario .
+   25 expresion_unaria: primario .
 
-    $default  reduce using rule 24 (expresion_unaria)
+    $default  reduce using rule 25 (expresion_unaria)
 
 
 state 39
 
-   29 expresion_potencia: expresion_unaria .
-   30                   | expresion_unaria . POTENCIA expresion_potencia
+   30 expresion_potencia: expresion_unaria .
+   31                   | expresion_unaria . POTENCIA expresion_potencia
 
     POTENCIA  shift, and go to state 71
 
-    $default  reduce using rule 29 (expresion_potencia)
+    $default  reduce using rule 30 (expresion_potencia)
 
 
 state 40
 
-   34 expresion_mult: expresion_potencia .
+   35 expresion_mult: expresion_potencia .
 
-    $default  reduce using rule 34 (expresion_mult)
+    $default  reduce using rule 35 (expresion_mult)
 
 
 state 41
 
-   31 expresion_mult: expresion_mult . '*' expresion_potencia
-   32               | expresion_mult . '/' expresion_potencia
-   33               | expresion_mult . MOD expresion_potencia
-   37 expresion_add: expresion_mult .
+   32 expresion_mult: expresion_mult . '*' expresion_potencia
+   33               | expresion_mult . '/' expresion_potencia
+   34               | expresion_mult . MOD expresion_potencia
+   38 expresion_add: expresion_mult .
 
     MOD  shift, and go to state 72
     '*'  shift, and go to state 73
     '/'  shift, and go to state 74
 
-    $default  reduce using rule 37 (expresion_add)
+    $default  reduce using rule 38 (expresion_add)
 
 
 state 42
 
-   35 expresion_add: expresion_add . '+' expresion_mult
-   36              | expresion_add . '-' expresion_mult
-   40 expresion_desplazamiento: expresion_add .
+   36 expresion_add: expresion_add . '+' expresion_mult
+   37              | expresion_add . '-' expresion_mult
+   41 expresion_desplazamiento: expresion_add .
 
     '-'  shift, and go to state 75
     '+'  shift, and go to state 76
 
-    $default  reduce using rule 40 (expresion_desplazamiento)
+    $default  reduce using rule 41 (expresion_desplazamiento)
 
 
 state 43
 
-   38 expresion_desplazamiento: expresion_desplazamiento . FLECHA_IZDA expresion_add
-   39                         | expresion_desplazamiento . FLECHA_DCHA expresion_add
-   44 expresion_bits: expresion_desplazamiento .
+   39 expresion_desplazamiento: expresion_desplazamiento . FLECHA_IZDA expresion_add
+   40                         | expresion_desplazamiento . FLECHA_DCHA expresion_add
+   45 expresion_bits: expresion_desplazamiento .
 
     FLECHA_DCHA  shift, and go to state 77
     FLECHA_IZDA  shift, and go to state 78
 
-    $default  reduce using rule 44 (expresion_bits)
+    $default  reduce using rule 45 (expresion_bits)
 
 
 state 44
 
-   41 expresion_bits: expresion_bits . '&' expresion_desplazamiento
-   42               | expresion_bits . '@' expresion_desplazamiento
-   43               | expresion_bits . '|' expresion_desplazamiento
-   45 expresion_relacional: expresion_bits . '<' expresion_bits
-   46                     | expresion_bits . '>' expresion_bits
-   47                     | expresion_bits . LE expresion_bits
-   48                     | expresion_bits . GE expresion_bits
-   49                     | expresion_bits . EQ expresion_bits
-   50                     | expresion_bits . NEQ expresion_bits
-   51                     | expresion_bits .
+   42 expresion_bits: expresion_bits . '&' expresion_desplazamiento
+   43               | expresion_bits . '@' expresion_desplazamiento
+   44               | expresion_bits . '|' expresion_desplazamiento
+   46 expresion_relacional: expresion_bits . '<' expresion_bits
+   47                     | expresion_bits . '>' expresion_bits
+   48                     | expresion_bits . LE expresion_bits
+   49                     | expresion_bits . GE expresion_bits
+   50                     | expresion_bits . EQ expresion_bits
+   51                     | expresion_bits . NEQ expresion_bits
+   52                     | expresion_bits .
 
     EQ   shift, and go to state 79
     GE   shift, and go to state 80
@@ -1003,73 +1006,73 @@ state 44
     '<'  shift, and go to state 86
     '>'  shift, and go to state 87
 
-    $default  reduce using rule 51 (expresion_relacional)
+    $default  reduce using rule 52 (expresion_relacional)
 
 
 state 45
 
-   53 expresion_and: expresion_relacional .
+   54 expresion_and: expresion_relacional .
 
-    $default  reduce using rule 53 (expresion_and)
+    $default  reduce using rule 54 (expresion_and)
 
 
 state 46
 
-   52 expresion_and: expresion_and . AND expresion_relacional
-   55 expresion_or: expresion_and .
+   53 expresion_and: expresion_and . AND expresion_relacional
+   56 expresion_or: expresion_and .
 
     AND  shift, and go to state 88
 
-    $default  reduce using rule 55 (expresion_or)
+    $default  reduce using rule 56 (expresion_or)
 
 
 state 47
 
-   54 expresion_or: expresion_or . OR expresion_and
-   56 expresion_logica: expresion_or .
+   55 expresion_or: expresion_or . OR expresion_and
+   57 expresion_logica: expresion_or .
 
     OR  shift, and go to state 89
 
-    $default  reduce using rule 56 (expresion_logica)
+    $default  reduce using rule 57 (expresion_logica)
 
 
 state 48
 
-   57 expresion: expresion_logica .
-   58          | expresion_logica . SI expresion SINO expresion
-   59          | expresion_logica . PARA CADA IDENTIFICADOR EN expresion
+   58 expresion: expresion_logica .
+   59          | expresion_logica . SI expresion SINO expresion
+   60          | expresion_logica . PARA CADA IDENTIFICADOR EN expresion
 
     PARA  shift, and go to state 90
     SI    shift, and go to state 91
 
-    SI        [reduce using rule 57 (expresion)]
-    $default  reduce using rule 57 (expresion)
+    SI        [reduce using rule 58 (expresion)]
+    $default  reduce using rule 58 (expresion)
 
 
 state 49
 
-   74 instruccion_constructor: CONSTRUCTOR expresion .
+   75 instruccion_constructor: CONSTRUCTOR expresion .
 
-    $default  reduce using rule 74 (instruccion_constructor)
+    $default  reduce using rule 75 (instruccion_constructor)
 
 
 state 50
 
-   75 instruccion_destructor: DESTRUCTOR expresion .
+   76 instruccion_destructor: DESTRUCTOR expresion .
 
-    $default  reduce using rule 75 (instruccion_destructor)
+    $default  reduce using rule 76 (instruccion_destructor)
 
 
 state 51
 
-   73 instruccion_de_salto: DEVOLVER expresion .
+   74 instruccion_de_salto: DEVOLVER expresion .
 
-    $default  reduce using rule 73 (instruccion_de_salto)
+    $default  reduce using rule 74 (instruccion_de_salto)
 
 
 state 52
 
-   70 instruccion_bucle: MIENTRAS expresion . instruccion
+   71 instruccion_bucle: MIENTRAS expresion . instruccion
 
     CONSTRUCTOR    shift, and go to state 3
     CONTINUAR      shift, and go to state 4
@@ -1104,7 +1107,7 @@ state 53
 
 state 54
 
-   69 instruccion_condicional: SI expresion . instruccion SINO instruccion
+   70 instruccion_condicional: SI expresion . instruccion SINO instruccion
 
     CONSTRUCTOR    shift, and go to state 3
     CONTINUAR      shift, and go to state 4
@@ -1153,7 +1156,7 @@ state 57
 
 state 58
 
-   68 asignacion: expresion_indexada ASIG . expresion
+   69 asignacion: expresion_indexada ASIG . expresion
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1190,6 +1193,7 @@ state 58
 state 59
 
    16 expresion_indexada: expresion_indexada '^' . '?' expresion_basica
+   18                   | expresion_indexada '^' . '?' indice
 
     '?'  shift, and go to state 97
 
@@ -1295,14 +1299,14 @@ state 64
 
 state 65
 
-   61 lista_instrucciones: lista_instrucciones instruccion .
+   62 lista_instrucciones: lista_instrucciones instruccion .
 
-    $default  reduce using rule 61 (lista_instrucciones)
+    $default  reduce using rule 62 (lista_instrucciones)
 
 
 state 66
 
-   18 expresion_funcional: IDENTIFICADOR '(' . lista_expresiones ')'
+   19 expresion_funcional: IDENTIFICADOR '(' . lista_expresiones ')'
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1339,35 +1343,35 @@ state 66
 
 state 67
 
-   28 expresion_unaria: TAMANO primario .
+   29 expresion_unaria: TAMANO primario .
 
-    $default  reduce using rule 28 (expresion_unaria)
+    $default  reduce using rule 29 (expresion_unaria)
 
 
 state 68
 
-   25 expresion_unaria: '-' primario .
-
-    $default  reduce using rule 25 (expresion_unaria)
-
-
-state 69
-
-   26 expresion_unaria: '!' primario .
+   26 expresion_unaria: '-' primario .
 
     $default  reduce using rule 26 (expresion_unaria)
 
 
-state 70
+state 69
 
-   27 expresion_unaria: '~' primario .
+   27 expresion_unaria: '!' primario .
 
     $default  reduce using rule 27 (expresion_unaria)
 
 
+state 70
+
+   28 expresion_unaria: '~' primario .
+
+    $default  reduce using rule 28 (expresion_unaria)
+
+
 state 71
 
-   30 expresion_potencia: expresion_unaria POTENCIA . expresion_potencia
+   31 expresion_potencia: expresion_unaria POTENCIA . expresion_potencia
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1394,7 +1398,7 @@ state 71
 
 state 72
 
-   33 expresion_mult: expresion_mult MOD . expresion_potencia
+   34 expresion_mult: expresion_mult MOD . expresion_potencia
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1421,7 +1425,7 @@ state 72
 
 state 73
 
-   31 expresion_mult: expresion_mult '*' . expresion_potencia
+   32 expresion_mult: expresion_mult '*' . expresion_potencia
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1448,7 +1452,7 @@ state 73
 
 state 74
 
-   32 expresion_mult: expresion_mult '/' . expresion_potencia
+   33 expresion_mult: expresion_mult '/' . expresion_potencia
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1475,7 +1479,7 @@ state 74
 
 state 75
 
-   36 expresion_add: expresion_add '-' . expresion_mult
+   37 expresion_add: expresion_add '-' . expresion_mult
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1503,7 +1507,7 @@ state 75
 
 state 76
 
-   35 expresion_add: expresion_add '+' . expresion_mult
+   36 expresion_add: expresion_add '+' . expresion_mult
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1531,7 +1535,7 @@ state 76
 
 state 77
 
-   39 expresion_desplazamiento: expresion_desplazamiento FLECHA_DCHA . expresion_add
+   40 expresion_desplazamiento: expresion_desplazamiento FLECHA_DCHA . expresion_add
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1560,7 +1564,7 @@ state 77
 
 state 78
 
-   38 expresion_desplazamiento: expresion_desplazamiento FLECHA_IZDA . expresion_add
+   39 expresion_desplazamiento: expresion_desplazamiento FLECHA_IZDA . expresion_add
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1589,7 +1593,7 @@ state 78
 
 state 79
 
-   49 expresion_relacional: expresion_bits EQ . expresion_bits
+   50 expresion_relacional: expresion_bits EQ . expresion_bits
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1620,7 +1624,7 @@ state 79
 
 state 80
 
-   48 expresion_relacional: expresion_bits GE . expresion_bits
+   49 expresion_relacional: expresion_bits GE . expresion_bits
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1651,7 +1655,7 @@ state 80
 
 state 81
 
-   47 expresion_relacional: expresion_bits LE . expresion_bits
+   48 expresion_relacional: expresion_bits LE . expresion_bits
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1682,7 +1686,7 @@ state 81
 
 state 82
 
-   50 expresion_relacional: expresion_bits NEQ . expresion_bits
+   51 expresion_relacional: expresion_bits NEQ . expresion_bits
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1713,7 +1717,7 @@ state 82
 
 state 83
 
-   41 expresion_bits: expresion_bits '&' . expresion_desplazamiento
+   42 expresion_bits: expresion_bits '&' . expresion_desplazamiento
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1743,7 +1747,7 @@ state 83
 
 state 84
 
-   42 expresion_bits: expresion_bits '@' . expresion_desplazamiento
+   43 expresion_bits: expresion_bits '@' . expresion_desplazamiento
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1773,7 +1777,7 @@ state 84
 
 state 85
 
-   43 expresion_bits: expresion_bits '|' . expresion_desplazamiento
+   44 expresion_bits: expresion_bits '|' . expresion_desplazamiento
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1803,7 +1807,7 @@ state 85
 
 state 86
 
-   45 expresion_relacional: expresion_bits '<' . expresion_bits
+   46 expresion_relacional: expresion_bits '<' . expresion_bits
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1834,7 +1838,7 @@ state 86
 
 state 87
 
-   46 expresion_relacional: expresion_bits '>' . expresion_bits
+   47 expresion_relacional: expresion_bits '>' . expresion_bits
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1865,7 +1869,7 @@ state 87
 
 state 88
 
-   52 expresion_and: expresion_and AND . expresion_relacional
+   53 expresion_and: expresion_and AND . expresion_relacional
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1897,7 +1901,7 @@ state 88
 
 state 89
 
-   54 expresion_or: expresion_or OR . expresion_and
+   55 expresion_or: expresion_or OR . expresion_and
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1930,14 +1934,14 @@ state 89
 
 state 90
 
-   59 expresion: expresion_logica PARA . CADA IDENTIFICADOR EN expresion
+   60 expresion: expresion_logica PARA . CADA IDENTIFICADOR EN expresion
 
     CADA  shift, and go to state 122
 
 
 state 91
 
-   58 expresion: expresion_logica SI . expresion SINO expresion
+   59 expresion: expresion_logica SI . expresion SINO expresion
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -1973,14 +1977,14 @@ state 91
 
 state 92
 
-   70 instruccion_bucle: MIENTRAS expresion instruccion .
+   71 instruccion_bucle: MIENTRAS expresion instruccion .
 
-    $default  reduce using rule 70 (instruccion_bucle)
+    $default  reduce using rule 71 (instruccion_bucle)
 
 
 state 93
 
-   69 instruccion_condicional: SI expresion instruccion . SINO instruccion
+   70 instruccion_condicional: SI expresion instruccion . SINO instruccion
 
     SINO  shift, and go to state 124
 
@@ -2001,36 +2005,40 @@ state 95
 
 state 96
 
-   68 asignacion: expresion_indexada ASIG expresion .
+   69 asignacion: expresion_indexada ASIG expresion .
 
-    $default  reduce using rule 68 (asignacion)
+    $default  reduce using rule 69 (asignacion)
 
 
 state 97
 
    16 expresion_indexada: expresion_indexada '^' '?' . expresion_basica
+   18                   | expresion_indexada '^' '?' . indice
 
     IDENTIFICADOR  shift, and go to state 7
     REF            shift, and go to state 9
     '('            shift, and go to state 12
     '^'            shift, and go to state 13
+    '['            shift, and go to state 60
+    '{'            shift, and go to state 61
 
     nombre            go to state 14
     expresion_basica  go to state 125
+    indice            go to state 126
 
 
 state 98
 
    12 indice: '[' expresion . ']'
 
-    ']'  shift, and go to state 126
+    ']'  shift, and go to state 127
 
 
 state 99
 
    13 indice: '{' expresion . '}'
 
-    '}'  shift, and go to state 127
+    '}'  shift, and go to state 128
 
 
 state 100
@@ -2042,54 +2050,68 @@ state 100
 
 state 101
 
-   18 expresion_funcional: IDENTIFICADOR '(' lista_expresiones . ')'
-   20 lista_expresiones: lista_expresiones . ';' expresion
+   19 expresion_funcional: IDENTIFICADOR '(' lista_expresiones . ')'
+   21 lista_expresiones: lista_expresiones . ';' expresion
 
-    ')'  shift, and go to state 128
-    ';'  shift, and go to state 129
+    ')'  shift, and go to state 129
+    ';'  shift, and go to state 130
 
 
 state 102
 
-   19 lista_expresiones: expresion .
+   20 lista_expresiones: expresion .
 
-    $default  reduce using rule 19 (lista_expresiones)
+    $default  reduce using rule 20 (lista_expresiones)
 
 
 state 103
 
-   30 expresion_potencia: expresion_unaria POTENCIA expresion_potencia .
+   31 expresion_potencia: expresion_unaria POTENCIA expresion_potencia .
 
-    $default  reduce using rule 30 (expresion_potencia)
+    $default  reduce using rule 31 (expresion_potencia)
 
 
 state 104
 
-   33 expresion_mult: expresion_mult MOD expresion_potencia .
+   34 expresion_mult: expresion_mult MOD expresion_potencia .
 
-    $default  reduce using rule 33 (expresion_mult)
+    $default  reduce using rule 34 (expresion_mult)
 
 
 state 105
 
-   31 expresion_mult: expresion_mult '*' expresion_potencia .
-
-    $default  reduce using rule 31 (expresion_mult)
-
-
-state 106
-
-   32 expresion_mult: expresion_mult '/' expresion_potencia .
+   32 expresion_mult: expresion_mult '*' expresion_potencia .
 
     $default  reduce using rule 32 (expresion_mult)
 
 
+state 106
+
+   33 expresion_mult: expresion_mult '/' expresion_potencia .
+
+    $default  reduce using rule 33 (expresion_mult)
+
+
 state 107
 
-   31 expresion_mult: expresion_mult . '*' expresion_potencia
-   32               | expresion_mult . '/' expresion_potencia
-   33               | expresion_mult . MOD expresion_potencia
-   36 expresion_add: expresion_add '-' expresion_mult .
+   32 expresion_mult: expresion_mult . '*' expresion_potencia
+   33               | expresion_mult . '/' expresion_potencia
+   34               | expresion_mult . MOD expresion_potencia
+   37 expresion_add: expresion_add '-' expresion_mult .
+
+    MOD  shift, and go to state 72
+    '*'  shift, and go to state 73
+    '/'  shift, and go to state 74
+
+    $default  reduce using rule 37 (expresion_add)
+
+
+state 108
+
+   32 expresion_mult: expresion_mult . '*' expresion_potencia
+   33               | expresion_mult . '/' expresion_potencia
+   34               | expresion_mult . MOD expresion_potencia
+   36 expresion_add: expresion_add '+' expresion_mult .
 
     MOD  shift, and go to state 72
     '*'  shift, and go to state 73
@@ -2098,25 +2120,23 @@ state 107
     $default  reduce using rule 36 (expresion_add)
 
 
-state 108
-
-   31 expresion_mult: expresion_mult . '*' expresion_potencia
-   32               | expresion_mult . '/' expresion_potencia
-   33               | expresion_mult . MOD expresion_potencia
-   35 expresion_add: expresion_add '+' expresion_mult .
-
-    MOD  shift, and go to state 72
-    '*'  shift, and go to state 73
-    '/'  shift, and go to state 74
-
-    $default  reduce using rule 35 (expresion_add)
-
-
 state 109
 
-   35 expresion_add: expresion_add . '+' expresion_mult
-   36              | expresion_add . '-' expresion_mult
-   39 expresion_desplazamiento: expresion_desplazamiento FLECHA_DCHA expresion_add .
+   36 expresion_add: expresion_add . '+' expresion_mult
+   37              | expresion_add . '-' expresion_mult
+   40 expresion_desplazamiento: expresion_desplazamiento FLECHA_DCHA expresion_add .
+
+    '-'  shift, and go to state 75
+    '+'  shift, and go to state 76
+
+    $default  reduce using rule 40 (expresion_desplazamiento)
+
+
+state 110
+
+   36 expresion_add: expresion_add . '+' expresion_mult
+   37              | expresion_add . '-' expresion_mult
+   39 expresion_desplazamiento: expresion_desplazamiento FLECHA_IZDA expresion_add .
 
     '-'  shift, and go to state 75
     '+'  shift, and go to state 76
@@ -2124,66 +2144,12 @@ state 109
     $default  reduce using rule 39 (expresion_desplazamiento)
 
 
-state 110
-
-   35 expresion_add: expresion_add . '+' expresion_mult
-   36              | expresion_add . '-' expresion_mult
-   38 expresion_desplazamiento: expresion_desplazamiento FLECHA_IZDA expresion_add .
-
-    '-'  shift, and go to state 75
-    '+'  shift, and go to state 76
-
-    $default  reduce using rule 38 (expresion_desplazamiento)
-
-
 state 111
 
-   41 expresion_bits: expresion_bits . '&' expresion_desplazamiento
-   42               | expresion_bits . '@' expresion_desplazamiento
-   43               | expresion_bits . '|' expresion_desplazamiento
-   49 expresion_relacional: expresion_bits EQ expresion_bits .
-
-    '&'  shift, and go to state 83
-    '@'  shift, and go to state 84
-    '|'  shift, and go to state 85
-
-    $default  reduce using rule 49 (expresion_relacional)
-
-
-state 112
-
-   41 expresion_bits: expresion_bits . '&' expresion_desplazamiento
-   42               | expresion_bits . '@' expresion_desplazamiento
-   43               | expresion_bits . '|' expresion_desplazamiento
-   48 expresion_relacional: expresion_bits GE expresion_bits .
-
-    '&'  shift, and go to state 83
-    '@'  shift, and go to state 84
-    '|'  shift, and go to state 85
-
-    $default  reduce using rule 48 (expresion_relacional)
-
-
-state 113
-
-   41 expresion_bits: expresion_bits . '&' expresion_desplazamiento
-   42               | expresion_bits . '@' expresion_desplazamiento
-   43               | expresion_bits . '|' expresion_desplazamiento
-   47 expresion_relacional: expresion_bits LE expresion_bits .
-
-    '&'  shift, and go to state 83
-    '@'  shift, and go to state 84
-    '|'  shift, and go to state 85
-
-    $default  reduce using rule 47 (expresion_relacional)
-
-
-state 114
-
-   41 expresion_bits: expresion_bits . '&' expresion_desplazamiento
-   42               | expresion_bits . '@' expresion_desplazamiento
-   43               | expresion_bits . '|' expresion_desplazamiento
-   50 expresion_relacional: expresion_bits NEQ expresion_bits .
+   42 expresion_bits: expresion_bits . '&' expresion_desplazamiento
+   43               | expresion_bits . '@' expresion_desplazamiento
+   44               | expresion_bits . '|' expresion_desplazamiento
+   50 expresion_relacional: expresion_bits EQ expresion_bits .
 
     '&'  shift, and go to state 83
     '@'  shift, and go to state 84
@@ -2192,23 +2158,53 @@ state 114
     $default  reduce using rule 50 (expresion_relacional)
 
 
+state 112
+
+   42 expresion_bits: expresion_bits . '&' expresion_desplazamiento
+   43               | expresion_bits . '@' expresion_desplazamiento
+   44               | expresion_bits . '|' expresion_desplazamiento
+   49 expresion_relacional: expresion_bits GE expresion_bits .
+
+    '&'  shift, and go to state 83
+    '@'  shift, and go to state 84
+    '|'  shift, and go to state 85
+
+    $default  reduce using rule 49 (expresion_relacional)
+
+
+state 113
+
+   42 expresion_bits: expresion_bits . '&' expresion_desplazamiento
+   43               | expresion_bits . '@' expresion_desplazamiento
+   44               | expresion_bits . '|' expresion_desplazamiento
+   48 expresion_relacional: expresion_bits LE expresion_bits .
+
+    '&'  shift, and go to state 83
+    '@'  shift, and go to state 84
+    '|'  shift, and go to state 85
+
+    $default  reduce using rule 48 (expresion_relacional)
+
+
+state 114
+
+   42 expresion_bits: expresion_bits . '&' expresion_desplazamiento
+   43               | expresion_bits . '@' expresion_desplazamiento
+   44               | expresion_bits . '|' expresion_desplazamiento
+   51 expresion_relacional: expresion_bits NEQ expresion_bits .
+
+    '&'  shift, and go to state 83
+    '@'  shift, and go to state 84
+    '|'  shift, and go to state 85
+
+    $default  reduce using rule 51 (expresion_relacional)
+
+
 state 115
 
-   38 expresion_desplazamiento: expresion_desplazamiento . FLECHA_IZDA expresion_add
-   39                         | expresion_desplazamiento . FLECHA_DCHA expresion_add
-   41 expresion_bits: expresion_bits '&' expresion_desplazamiento .
-
-    FLECHA_DCHA  shift, and go to state 77
-    FLECHA_IZDA  shift, and go to state 78
-
-    $default  reduce using rule 41 (expresion_bits)
-
-
-state 116
-
-   38 expresion_desplazamiento: expresion_desplazamiento . FLECHA_IZDA expresion_add
-   39                         | expresion_desplazamiento . FLECHA_DCHA expresion_add
-   42 expresion_bits: expresion_bits '@' expresion_desplazamiento .
+   39 expresion_desplazamiento: expresion_desplazamiento . FLECHA_IZDA expresion_add
+   40                         | expresion_desplazamiento . FLECHA_DCHA expresion_add
+   42 expresion_bits: expresion_bits '&' expresion_desplazamiento .
 
     FLECHA_DCHA  shift, and go to state 77
     FLECHA_IZDA  shift, and go to state 78
@@ -2216,11 +2212,11 @@ state 116
     $default  reduce using rule 42 (expresion_bits)
 
 
-state 117
+state 116
 
-   38 expresion_desplazamiento: expresion_desplazamiento . FLECHA_IZDA expresion_add
-   39                         | expresion_desplazamiento . FLECHA_DCHA expresion_add
-   43 expresion_bits: expresion_bits '|' expresion_desplazamiento .
+   39 expresion_desplazamiento: expresion_desplazamiento . FLECHA_IZDA expresion_add
+   40                         | expresion_desplazamiento . FLECHA_DCHA expresion_add
+   43 expresion_bits: expresion_bits '@' expresion_desplazamiento .
 
     FLECHA_DCHA  shift, and go to state 77
     FLECHA_IZDA  shift, and go to state 78
@@ -2228,26 +2224,24 @@ state 117
     $default  reduce using rule 43 (expresion_bits)
 
 
+state 117
+
+   39 expresion_desplazamiento: expresion_desplazamiento . FLECHA_IZDA expresion_add
+   40                         | expresion_desplazamiento . FLECHA_DCHA expresion_add
+   44 expresion_bits: expresion_bits '|' expresion_desplazamiento .
+
+    FLECHA_DCHA  shift, and go to state 77
+    FLECHA_IZDA  shift, and go to state 78
+
+    $default  reduce using rule 44 (expresion_bits)
+
+
 state 118
 
-   41 expresion_bits: expresion_bits . '&' expresion_desplazamiento
-   42               | expresion_bits . '@' expresion_desplazamiento
-   43               | expresion_bits . '|' expresion_desplazamiento
-   45 expresion_relacional: expresion_bits '<' expresion_bits .
-
-    '&'  shift, and go to state 83
-    '@'  shift, and go to state 84
-    '|'  shift, and go to state 85
-
-    $default  reduce using rule 45 (expresion_relacional)
-
-
-state 119
-
-   41 expresion_bits: expresion_bits . '&' expresion_desplazamiento
-   42               | expresion_bits . '@' expresion_desplazamiento
-   43               | expresion_bits . '|' expresion_desplazamiento
-   46 expresion_relacional: expresion_bits '>' expresion_bits .
+   42 expresion_bits: expresion_bits . '&' expresion_desplazamiento
+   43               | expresion_bits . '@' expresion_desplazamiento
+   44               | expresion_bits . '|' expresion_desplazamiento
+   46 expresion_relacional: expresion_bits '<' expresion_bits .
 
     '&'  shift, and go to state 83
     '@'  shift, and go to state 84
@@ -2256,40 +2250,54 @@ state 119
     $default  reduce using rule 46 (expresion_relacional)
 
 
+state 119
+
+   42 expresion_bits: expresion_bits . '&' expresion_desplazamiento
+   43               | expresion_bits . '@' expresion_desplazamiento
+   44               | expresion_bits . '|' expresion_desplazamiento
+   47 expresion_relacional: expresion_bits '>' expresion_bits .
+
+    '&'  shift, and go to state 83
+    '@'  shift, and go to state 84
+    '|'  shift, and go to state 85
+
+    $default  reduce using rule 47 (expresion_relacional)
+
+
 state 120
 
-   52 expresion_and: expresion_and AND expresion_relacional .
+   53 expresion_and: expresion_and AND expresion_relacional .
 
-    $default  reduce using rule 52 (expresion_and)
+    $default  reduce using rule 53 (expresion_and)
 
 
 state 121
 
-   52 expresion_and: expresion_and . AND expresion_relacional
-   54 expresion_or: expresion_or OR expresion_and .
+   53 expresion_and: expresion_and . AND expresion_relacional
+   55 expresion_or: expresion_or OR expresion_and .
 
     AND  shift, and go to state 88
 
-    $default  reduce using rule 54 (expresion_or)
+    $default  reduce using rule 55 (expresion_or)
 
 
 state 122
 
-   59 expresion: expresion_logica PARA CADA . IDENTIFICADOR EN expresion
+   60 expresion: expresion_logica PARA CADA . IDENTIFICADOR EN expresion
 
-    IDENTIFICADOR  shift, and go to state 130
+    IDENTIFICADOR  shift, and go to state 131
 
 
 state 123
 
-   58 expresion: expresion_logica SI expresion . SINO expresion
+   59 expresion: expresion_logica SI expresion . SINO expresion
 
-    SINO  shift, and go to state 131
+    SINO  shift, and go to state 132
 
 
 state 124
 
-   69 instruccion_condicional: SI expresion instruccion SINO . instruccion
+   70 instruccion_condicional: SI expresion instruccion SINO . instruccion
 
     CONSTRUCTOR    shift, and go to state 3
     CONTINUAR      shift, and go to state 4
@@ -2306,7 +2314,7 @@ state 124
     nombre                   go to state 14
     expresion_basica         go to state 15
     expresion_indexada       go to state 16
-    instruccion              go to state 132
+    instruccion              go to state 133
     asignacion               go to state 19
     instruccion_condicional  go to state 20
     instruccion_bucle        go to state 21
@@ -2324,71 +2332,35 @@ state 125
 
 state 126
 
+   18 expresion_indexada: expresion_indexada '^' '?' indice .
+
+    $default  reduce using rule 18 (expresion_indexada)
+
+
+state 127
+
    12 indice: '[' expresion ']' .
 
     $default  reduce using rule 12 (indice)
 
 
-state 127
+state 128
 
    13 indice: '{' expresion '}' .
 
     $default  reduce using rule 13 (indice)
 
 
-state 128
-
-   18 expresion_funcional: IDENTIFICADOR '(' lista_expresiones ')' .
-
-    $default  reduce using rule 18 (expresion_funcional)
-
-
 state 129
 
-   20 lista_expresiones: lista_expresiones ';' . expresion
+   19 expresion_funcional: IDENTIFICADOR '(' lista_expresiones ')' .
 
-    CTC_CADENA     shift, and go to state 26
-    CTC_CARACTER   shift, and go to state 27
-    CTC_ENTERA     shift, and go to state 28
-    CTC_REAL       shift, and go to state 29
-    IDENTIFICADOR  shift, and go to state 30
-    REF            shift, and go to state 9
-    TAMANO         shift, and go to state 31
-    '('            shift, and go to state 12
-    '^'            shift, and go to state 13
-    '-'            shift, and go to state 32
-    '!'            shift, and go to state 33
-    '~'            shift, and go to state 34
-
-    expresion_constante       go to state 35
-    nombre                    go to state 14
-    expresion_basica          go to state 15
-    expresion_indexada        go to state 36
-    expresion_funcional       go to state 37
-    primario                  go to state 38
-    expresion_unaria          go to state 39
-    expresion_potencia        go to state 40
-    expresion_mult            go to state 41
-    expresion_add             go to state 42
-    expresion_desplazamiento  go to state 43
-    expresion_bits            go to state 44
-    expresion_relacional      go to state 45
-    expresion_and             go to state 46
-    expresion_or              go to state 47
-    expresion_logica          go to state 48
-    expresion                 go to state 133
+    $default  reduce using rule 19 (expresion_funcional)
 
 
 state 130
 
-   59 expresion: expresion_logica PARA CADA IDENTIFICADOR . EN expresion
-
-    EN  shift, and go to state 134
-
-
-state 131
-
-   58 expresion: expresion_logica SI expresion SINO . expresion
+   21 lista_expresiones: lista_expresiones ';' . expresion
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -2419,26 +2391,19 @@ state 131
     expresion_and             go to state 46
     expresion_or              go to state 47
     expresion_logica          go to state 48
-    expresion                 go to state 135
+    expresion                 go to state 134
+
+
+state 131
+
+   60 expresion: expresion_logica PARA CADA IDENTIFICADOR . EN expresion
+
+    EN  shift, and go to state 135
 
 
 state 132
 
-   69 instruccion_condicional: SI expresion instruccion SINO instruccion .
-
-    $default  reduce using rule 69 (instruccion_condicional)
-
-
-state 133
-
-   20 lista_expresiones: lista_expresiones ';' expresion .
-
-    $default  reduce using rule 20 (lista_expresiones)
-
-
-state 134
-
-   59 expresion: expresion_logica PARA CADA IDENTIFICADOR EN . expresion
+   59 expresion: expresion_logica SI expresion SINO . expresion
 
     CTC_CADENA     shift, and go to state 26
     CTC_CARACTER   shift, and go to state 27
@@ -2472,15 +2437,65 @@ state 134
     expresion                 go to state 136
 
 
+state 133
+
+   70 instruccion_condicional: SI expresion instruccion SINO instruccion .
+
+    $default  reduce using rule 70 (instruccion_condicional)
+
+
+state 134
+
+   21 lista_expresiones: lista_expresiones ';' expresion .
+
+    $default  reduce using rule 21 (lista_expresiones)
+
+
 state 135
 
-   58 expresion: expresion_logica SI expresion SINO expresion .
+   60 expresion: expresion_logica PARA CADA IDENTIFICADOR EN . expresion
 
-    $default  reduce using rule 58 (expresion)
+    CTC_CADENA     shift, and go to state 26
+    CTC_CARACTER   shift, and go to state 27
+    CTC_ENTERA     shift, and go to state 28
+    CTC_REAL       shift, and go to state 29
+    IDENTIFICADOR  shift, and go to state 30
+    REF            shift, and go to state 9
+    TAMANO         shift, and go to state 31
+    '('            shift, and go to state 12
+    '^'            shift, and go to state 13
+    '-'            shift, and go to state 32
+    '!'            shift, and go to state 33
+    '~'            shift, and go to state 34
+
+    expresion_constante       go to state 35
+    nombre                    go to state 14
+    expresion_basica          go to state 15
+    expresion_indexada        go to state 36
+    expresion_funcional       go to state 37
+    primario                  go to state 38
+    expresion_unaria          go to state 39
+    expresion_potencia        go to state 40
+    expresion_mult            go to state 41
+    expresion_add             go to state 42
+    expresion_desplazamiento  go to state 43
+    expresion_bits            go to state 44
+    expresion_relacional      go to state 45
+    expresion_and             go to state 46
+    expresion_or              go to state 47
+    expresion_logica          go to state 48
+    expresion                 go to state 137
 
 
 state 136
 
-   59 expresion: expresion_logica PARA CADA IDENTIFICADOR EN expresion .
+   59 expresion: expresion_logica SI expresion SINO expresion .
 
     $default  reduce using rule 59 (expresion)
+
+
+state 137
+
+   60 expresion: expresion_logica PARA CADA IDENTIFICADOR EN expresion .
+
+    $default  reduce using rule 60 (expresion)

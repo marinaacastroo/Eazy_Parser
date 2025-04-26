@@ -32,7 +32,7 @@ programa:
 /***************/
 
 /* Constantes */
-expresion_constante:
+expresion_constante :
       CTC_ENTERA
     | CTC_REAL
     | CTC_CADENA
@@ -64,7 +64,8 @@ expresion_indexada:
       expresion_basica
     | expresion_indexada '?' expresion_basica
     | expresion_indexada '^' '?' expresion_basica
-    | expresion_indexada indice
+    | expresion_indexada indice   
+    | expresion_indexada '^' '?' indice
     ;
 
 /* Expresión funcional */
