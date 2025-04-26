@@ -1,4 +1,3 @@
- 
 %{
 
   #include <stdio.h>
@@ -32,7 +31,7 @@ programa:
 /***************/
 
 /* Constantes */
-expresion_constante :
+expresion_constante:
       CTC_ENTERA
     | CTC_REAL
     | CTC_CADENA
@@ -64,7 +63,7 @@ expresion_indexada:
       expresion_basica
     | expresion_indexada '?' expresion_basica
     | expresion_indexada '^' '?' expresion_basica
-    | expresion_indexada indice   
+    | expresion_indexada indice
     | expresion_indexada '^' '?' indice
     ;
 
@@ -123,23 +122,33 @@ expresion_desplazamiento:
     | expresion_add
     ;
 
-/* Expresión de bits (&, @, |) */
-expresion_bits:
-      expresion_bits '&' expresion_desplazamiento
-    | expresion_bits '@' expresion_desplazamiento
-    | expresion_bits '|' expresion_desplazamiento
+/* Expresión AND binario (&) */
+expresion_and_binario:
+      expresion_and_binario '&' expresion_desplazamiento
     | expresion_desplazamiento
+    ;
+
+/* Expresión XOR binario (@) */
+expresion_xor_binario:
+      expresion_xor_binario '@' expresion_and_binario
+    | expresion_and_binario
+    ;
+
+/* Expresión OR binario (|) */
+expresion_or_binario:
+      expresion_or_binario '|' expresion_xor_binario
+    | expresion_xor_binario
     ;
 
 /* Expresión relacional (<, >, <=, >=, ==, !=) */
 expresion_relacional:
-      expresion_bits '<' expresion_bits
-    | expresion_bits '>' expresion_bits
-    | expresion_bits LE expresion_bits
-    | expresion_bits GE expresion_bits
-    | expresion_bits EQ expresion_bits
-    | expresion_bits NEQ expresion_bits
-    | expresion_bits
+      expresion_or_binario '<' expresion_or_binario
+    | expresion_or_binario '>' expresion_or_binario
+    | expresion_or_binario LE expresion_or_binario
+    | expresion_or_binario GE expresion_or_binario
+    | expresion_or_binario EQ expresion_or_binario
+    | expresion_or_binario NEQ expresion_or_binario
+    | expresion_or_binario
     ;
 
 /* Expresión AND lógico (&&) */
@@ -166,34 +175,14 @@ expresion:
     | expresion_logica PARA CADA IDENTIFICADOR EN expresion
     ;
 
-
-
-/************************/
-/* declaracion de tipos */
-/************************/
-
-/*****************************/
-/* declaracion de constantes */
-/*****************************/
-
-/****************************/
-/* declaracion de variables */
-/****************************/
-
-/****************************/
-/* declaracion de funciones */
-/****************************/
-
 /*****************/
 /* instrucciones */
 /*****************/
 
-
-
 lista_instrucciones:
       instruccion
     | lista_instrucciones instruccion
-;
+    ;
 
 instruccion:
       asignacion
@@ -202,34 +191,33 @@ instruccion:
     | instruccion_de_salto
     | instruccion_constructor
     | instruccion_destructor
-;
+    ;
 
 asignacion:
     expresion_indexada ASIG expresion
-;
+    ;
 
 instruccion_condicional:
     SI expresion instruccion SINO instruccion
-;
+    ;
 
 instruccion_bucle:
     MIENTRAS expresion instruccion
-;
+    ;
 
 instruccion_de_salto:
       CONTINUAR
     | SALTAR
     | DEVOLVER expresion
-;
+    ;
 
 instruccion_constructor:
     CONSTRUCTOR expresion
-;
+    ;
 
 instruccion_destructor:
     DESTRUCTOR expresion
-;
-
+    ;
 
 %%
 
@@ -239,20 +227,18 @@ int yyerror(char *s) {
   return 0;
 }
 
-
 int yywrap() {
-  return(1);
-  }
+  return 1;
+}
 
 int main(int argc, char *argv[]) {
-
   yydebug = 0;
 
   if (argc < 2) {
     printf("Uso: ./eazy NombreArchivo\n");
-    }
-  else {
-    yyin = fopen(argv[1],"r");
-    yyparse();
-    }
   }
+  else {
+    yyin = fopen(argv[1], "r");
+    yyparse();
+  }
+}
