@@ -39,82 +39,82 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     OR = 258,
+     ABSTRACTO = 258,
      AND = 259,
-     NEQ = 260,
-     EQ = 261,
-     GE = 262,
-     LE = 263,
-     MOD = 264,
-     POTENCIA = 265,
-     TAMANO = 266,
-     ABSTRACTO = 267,
-     ASIG = 268,
-     AND_ASIG = 269,
-     CADA = 270,
-     CADENA = 271,
-     CARACTER = 272,
-     CLASE = 273,
-     COMO = 274,
-     CONSTANTES = 275,
-     CONSTRUCTOR = 276,
-     CONTINUAR = 277,
-     CTC_CADENA = 278,
-     CTC_CARACTER = 279,
-     CTC_ENTERA = 280,
-     CTC_REAL = 281,
-     DE = 282,
-     DEFECTO = 283,
-     DESTRUCTOR = 284,
-     DEVOLVER = 285,
-     DIV_ASIG = 286,
-     EJECUTA = 287,
-     ENCAMBIO = 288,
-     ENTERO = 289,
-     ENUMERACION = 290,
-     EN = 291,
-     ES = 292,
-     ESCAPE = 293,
-     ESPECIFICO = 294,
-     ESTRUCTURA = 295,
-     ETIQUETA = 296,
-     EXCEPCION = 297,
-     FD_ASIG = 298,
-     FI_ASIG = 299,
-     FICHERO = 300,
-     FIN = 301,
-     FINAL = 302,
-     FLECHA_DCHA = 303,
-     FLECHA_IZDA = 304,
-     FUNCION = 305,
-     GENERICO = 306,
-     HACER = 307,
-     HASH = 308,
-     IDENTIFICADOR = 309,
-     IMPORTAR = 310,
-     INDIRECCION = 311,
-     LANZA = 312,
-     MIENTRAS = 313,
-     MOD_ASIG = 314,
-     MULT_ASIG = 315,
-     NADA = 316,
-     OTRA = 317,
-     OR_ASIG = 318,
-     PARA = 319,
-     POT_ASIG = 320,
-     PRINCIPIO = 321,
-     PRIVADO = 322,
-     PROGRAMA = 323,
-     PROTEGIDO = 324,
-     PTOS = 325,
-     PUBLICO = 326,
-     REAL = 327,
-     REF = 328,
-     RESTA_ASIG = 329,
-     SALTAR = 330,
-     SI = 331,
-     SINO = 332,
-     SUMA_ASIG = 333,
+     ASIG = 260,
+     AND_ASIG = 261,
+     CADA = 262,
+     CADENA = 263,
+     CARACTER = 264,
+     CLASE = 265,
+     COMO = 266,
+     CONSTANTES = 267,
+     CONSTRUCTOR = 268,
+     CONTINUAR = 269,
+     CTC_CADENA = 270,
+     CTC_CARACTER = 271,
+     CTC_ENTERA = 272,
+     CTC_REAL = 273,
+     DE = 274,
+     DEFECTO = 275,
+     DESTRUCTOR = 276,
+     DEVOLVER = 277,
+     DIV_ASIG = 278,
+     EJECUTA = 279,
+     ENCAMBIO = 280,
+     ENTERO = 281,
+     ENUMERACION = 282,
+     EQ = 283,
+     EN = 284,
+     ES = 285,
+     ESCAPE = 286,
+     ESPECIFICO = 287,
+     ESTRUCTURA = 288,
+     ETIQUETA = 289,
+     EXCEPCION = 290,
+     FD_ASIG = 291,
+     FI_ASIG = 292,
+     FICHERO = 293,
+     FIN = 294,
+     FINAL = 295,
+     FLECHA_DCHA = 296,
+     FLECHA_IZDA = 297,
+     FUNCION = 298,
+     GENERICO = 299,
+     HACER = 300,
+     HASH = 301,
+     GE = 302,
+     IDENTIFICADOR = 303,
+     IMPORTAR = 304,
+     INDIRECCION = 305,
+     LANZA = 306,
+     LE = 307,
+     MIENTRAS = 308,
+     MOD = 309,
+     MOD_ASIG = 310,
+     MULT_ASIG = 311,
+     NADA = 312,
+     NEQ = 313,
+     OR = 314,
+     OTRA = 315,
+     OR_ASIG = 316,
+     PARA = 317,
+     POT_ASIG = 318,
+     POTENCIA = 319,
+     PRINCIPIO = 320,
+     PRIVADO = 321,
+     PROGRAMA = 322,
+     PROTEGIDO = 323,
+     PTOS = 324,
+     PUBLICO = 325,
+     REAL = 326,
+     REF = 327,
+     RESTA_ASIG = 328,
+     SALTAR = 329,
+     SI = 330,
+     SINO = 331,
+     SUMA_ASIG = 332,
+     TAMANO = 333,
      TABLA = 334,
      TIPOS = 335,
      ULTIMA = 336,
@@ -124,82 +124,82 @@
    };
 #endif
 /* Tokens.  */
-#define OR 258
+#define ABSTRACTO 258
 #define AND 259
-#define NEQ 260
-#define EQ 261
-#define GE 262
-#define LE 263
-#define MOD 264
-#define POTENCIA 265
-#define TAMANO 266
-#define ABSTRACTO 267
-#define ASIG 268
-#define AND_ASIG 269
-#define CADA 270
-#define CADENA 271
-#define CARACTER 272
-#define CLASE 273
-#define COMO 274
-#define CONSTANTES 275
-#define CONSTRUCTOR 276
-#define CONTINUAR 277
-#define CTC_CADENA 278
-#define CTC_CARACTER 279
-#define CTC_ENTERA 280
-#define CTC_REAL 281
-#define DE 282
-#define DEFECTO 283
-#define DESTRUCTOR 284
-#define DEVOLVER 285
-#define DIV_ASIG 286
-#define EJECUTA 287
-#define ENCAMBIO 288
-#define ENTERO 289
-#define ENUMERACION 290
-#define EN 291
-#define ES 292
-#define ESCAPE 293
-#define ESPECIFICO 294
-#define ESTRUCTURA 295
-#define ETIQUETA 296
-#define EXCEPCION 297
-#define FD_ASIG 298
-#define FI_ASIG 299
-#define FICHERO 300
-#define FIN 301
-#define FINAL 302
-#define FLECHA_DCHA 303
-#define FLECHA_IZDA 304
-#define FUNCION 305
-#define GENERICO 306
-#define HACER 307
-#define HASH 308
-#define IDENTIFICADOR 309
-#define IMPORTAR 310
-#define INDIRECCION 311
-#define LANZA 312
-#define MIENTRAS 313
-#define MOD_ASIG 314
-#define MULT_ASIG 315
-#define NADA 316
-#define OTRA 317
-#define OR_ASIG 318
-#define PARA 319
-#define POT_ASIG 320
-#define PRINCIPIO 321
-#define PRIVADO 322
-#define PROGRAMA 323
-#define PROTEGIDO 324
-#define PTOS 325
-#define PUBLICO 326
-#define REAL 327
-#define REF 328
-#define RESTA_ASIG 329
-#define SALTAR 330
-#define SI 331
-#define SINO 332
-#define SUMA_ASIG 333
+#define ASIG 260
+#define AND_ASIG 261
+#define CADA 262
+#define CADENA 263
+#define CARACTER 264
+#define CLASE 265
+#define COMO 266
+#define CONSTANTES 267
+#define CONSTRUCTOR 268
+#define CONTINUAR 269
+#define CTC_CADENA 270
+#define CTC_CARACTER 271
+#define CTC_ENTERA 272
+#define CTC_REAL 273
+#define DE 274
+#define DEFECTO 275
+#define DESTRUCTOR 276
+#define DEVOLVER 277
+#define DIV_ASIG 278
+#define EJECUTA 279
+#define ENCAMBIO 280
+#define ENTERO 281
+#define ENUMERACION 282
+#define EQ 283
+#define EN 284
+#define ES 285
+#define ESCAPE 286
+#define ESPECIFICO 287
+#define ESTRUCTURA 288
+#define ETIQUETA 289
+#define EXCEPCION 290
+#define FD_ASIG 291
+#define FI_ASIG 292
+#define FICHERO 293
+#define FIN 294
+#define FINAL 295
+#define FLECHA_DCHA 296
+#define FLECHA_IZDA 297
+#define FUNCION 298
+#define GENERICO 299
+#define HACER 300
+#define HASH 301
+#define GE 302
+#define IDENTIFICADOR 303
+#define IMPORTAR 304
+#define INDIRECCION 305
+#define LANZA 306
+#define LE 307
+#define MIENTRAS 308
+#define MOD 309
+#define MOD_ASIG 310
+#define MULT_ASIG 311
+#define NADA 312
+#define NEQ 313
+#define OR 314
+#define OTRA 315
+#define OR_ASIG 316
+#define PARA 317
+#define POT_ASIG 318
+#define POTENCIA 319
+#define PRINCIPIO 320
+#define PRIVADO 321
+#define PROGRAMA 322
+#define PROTEGIDO 323
+#define PTOS 324
+#define PUBLICO 325
+#define REAL 326
+#define REF 327
+#define RESTA_ASIG 328
+#define SALTAR 329
+#define SI 330
+#define SINO 331
+#define SUMA_ASIG 332
+#define TAMANO 333
 #define TABLA 334
 #define TIPOS 335
 #define ULTIMA 336
