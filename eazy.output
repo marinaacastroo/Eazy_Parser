@@ -1,0 +1,260 @@
+Terminals which are not used
+
+   ABSTRACTO
+   AND
+   ASIG
+   AND_ASIG
+   CADA
+   CADENA
+   CARACTER
+   CLASE
+   COMO
+   CONSTANTES
+   CONSTRUCTOR
+   CONTINUAR
+   DE
+   DEFECTO
+   DESTRUCTOR
+   DEVOLVER
+   DIV_ASIG
+   EJECUTA
+   ENCAMBIO
+   ENTERO
+   ENUMERACION
+   EQ
+   EN
+   ES
+   ESCAPE
+   ESPECIFICO
+   ESTRUCTURA
+   ETIQUETA
+   EXCEPCION
+   FD_ASIG
+   FI_ASIG
+   FICHERO
+   FIN
+   FINAL
+   FLECHA_DCHA
+   FLECHA_IZDA
+   FUNCION
+   GENERICO
+   HACER
+   HASH
+   GE
+   IMPORTAR
+   INDIRECCION
+   LANZA
+   LE
+   MIENTRAS
+   MOD
+   MOD_ASIG
+   MULT_ASIG
+   NADA
+   NEQ
+   OR
+   OTRA
+   OR_ASIG
+   PARA
+   POT_ASIG
+   POTENCIA
+   PRINCIPIO
+   PRIVADO
+   PROGRAMA
+   PROTEGIDO
+   PTOS
+   PUBLICO
+   REAL
+   REF
+   RESTA_ASIG
+   SALTAR
+   SI
+   SINO
+   SUMA_ASIG
+   TAMANO
+   TABLA
+   TIPOS
+   ULTIMA
+   UNION
+   VARIABLES
+   XOR_ASIG
+
+
+Grammar
+
+    0 $accept: programa $end
+
+    1 programa: expresion
+
+    2 expresion: CTC_ENTERA
+    3          | CTC_REAL
+    4          | CTC_CARACTER
+    5          | CTC_CADENA
+    6          | IDENTIFICADOR
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+ABSTRACTO (258)
+AND (259)
+ASIG (260)
+AND_ASIG (261)
+CADA (262)
+CADENA (263)
+CARACTER (264)
+CLASE (265)
+COMO (266)
+CONSTANTES (267)
+CONSTRUCTOR (268)
+CONTINUAR (269)
+CTC_CADENA (270) 5
+CTC_CARACTER (271) 4
+CTC_ENTERA (272) 2
+CTC_REAL (273) 3
+DE (274)
+DEFECTO (275)
+DESTRUCTOR (276)
+DEVOLVER (277)
+DIV_ASIG (278)
+EJECUTA (279)
+ENCAMBIO (280)
+ENTERO (281)
+ENUMERACION (282)
+EQ (283)
+EN (284)
+ES (285)
+ESCAPE (286)
+ESPECIFICO (287)
+ESTRUCTURA (288)
+ETIQUETA (289)
+EXCEPCION (290)
+FD_ASIG (291)
+FI_ASIG (292)
+FICHERO (293)
+FIN (294)
+FINAL (295)
+FLECHA_DCHA (296)
+FLECHA_IZDA (297)
+FUNCION (298)
+GENERICO (299)
+HACER (300)
+HASH (301)
+GE (302)
+IDENTIFICADOR (303) 6
+IMPORTAR (304)
+INDIRECCION (305)
+LANZA (306)
+LE (307)
+MIENTRAS (308)
+MOD (309)
+MOD_ASIG (310)
+MULT_ASIG (311)
+NADA (312)
+NEQ (313)
+OR (314)
+OTRA (315)
+OR_ASIG (316)
+PARA (317)
+POT_ASIG (318)
+POTENCIA (319)
+PRINCIPIO (320)
+PRIVADO (321)
+PROGRAMA (322)
+PROTEGIDO (323)
+PTOS (324)
+PUBLICO (325)
+REAL (326)
+REF (327)
+RESTA_ASIG (328)
+SALTAR (329)
+SI (330)
+SINO (331)
+SUMA_ASIG (332)
+TAMANO (333)
+TABLA (334)
+TIPOS (335)
+ULTIMA (336)
+UNION (337)
+VARIABLES (338)
+XOR_ASIG (339)
+
+
+Nonterminals, with rules where they appear
+
+$accept (85)
+    on left: 0
+programa (86)
+    on left: 1, on right: 0
+expresion (87)
+    on left: 2 3 4 5 6, on right: 1
+
+
+state 0
+
+    0 $accept: . programa $end
+
+    CTC_CADENA     shift, and go to state 1
+    CTC_CARACTER   shift, and go to state 2
+    CTC_ENTERA     shift, and go to state 3
+    CTC_REAL       shift, and go to state 4
+    IDENTIFICADOR  shift, and go to state 5
+
+    programa   go to state 6
+    expresion  go to state 7
+
+
+state 1
+
+    5 expresion: CTC_CADENA .
+
+    $default  reduce using rule 5 (expresion)
+
+
+state 2
+
+    4 expresion: CTC_CARACTER .
+
+    $default  reduce using rule 4 (expresion)
+
+
+state 3
+
+    2 expresion: CTC_ENTERA .
+
+    $default  reduce using rule 2 (expresion)
+
+
+state 4
+
+    3 expresion: CTC_REAL .
+
+    $default  reduce using rule 3 (expresion)
+
+
+state 5
+
+    6 expresion: IDENTIFICADOR .
+
+    $default  reduce using rule 6 (expresion)
+
+
+state 6
+
+    0 $accept: programa . $end
+
+    $end  shift, and go to state 8
+
+
+state 7
+
+    1 programa: expresion .
+
+    $default  reduce using rule 1 (programa)
+
+
+state 8
+
+    0 $accept: programa $end .
+
+    $default  accept
