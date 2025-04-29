@@ -120,7 +120,8 @@
      ULTIMA = 336,
      UNION = 337,
      VARIABLES = 338,
-     XOR_ASIG = 339
+     XOR_ASIG = 339,
+     OTRO_TOKEN = 340
    };
 #endif
 /* Tokens.  */
@@ -206,6 +207,7 @@
 #define UNION 337
 #define VARIABLES 338
 #define XOR_ASIG 339
+#define OTRO_TOKEN 340
 
 
 

@@ -185,7 +185,7 @@ IDENTIFICADOR  [A-Za-záéíóúÁÉÍÓÚñÑüÜ_][A-Za-záéíóúÁÉÍÓÚ�
 
 {CADENA}                           { printf("linea %d, cadena: %s\n", yylineno, yytext); return CADENA; }
 
-.                                  { fprintf(stdout, "ERROR en línea %d: carácter inesperado '%s'\n", yylineno, yytext); }
+.                                   { printf("linea %d, token genérico: %s\n", yylineno, yytext); return OTRO_TOKEN; }
 %%
 
 
