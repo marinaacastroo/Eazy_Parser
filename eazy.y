@@ -290,8 +290,8 @@ lista_parametros
       ;
 
 lista_expresion_constante_una_o_mas
-      : lista_expresion_constante_una_o_mas lista_expresion_constante
-      | lista_expresion_constante
+      : lista_expresion_constante_una_o_mas expresion_constante
+      | expresion_constante
       ;
 tipo_salida
       : especificacion_tipo
