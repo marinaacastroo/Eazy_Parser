@@ -1,297 +1,369 @@
+
 %{
-  #include <stdio.h>
-  extern FILE *yyin;
-  extern int yylex();
+    #include <stdio.h>
+    extern FILE *yyin;
+    extern int yylex();
+    int yyerror (char *s);
 
-  #define YYDEBUG 1
-
-  int yyerror(char *);
-
+    #define YYDEBUG 1        
 %}
 
-%token ABSTRACTO AND ASIG AND_ASIG CADA CADENA CARACTER CLASE COMO CONSTANTES CONSTRUCTOR CONTINUAR CTC_CADENA
-%token CTC_CARACTER CTC_ENTERA CTC_REAL DE DEFECTO DESTRUCTOR DEVOLVER DIV_ASIG EJECUTA ENCAMBIO ENTERO
-%token ENUMERACION EQ EN ES ESCAPE ESPECIFICO ESTRUCTURA ETIQUETA EXCEPCION FD_ASIG FI_ASIG FICHERO FIN FINAL
-%token FLECHA_DCHA FLECHA_IZDA FUNCION GENERICO HACER HASH GE IDENTIFICADOR IMPORTAR INDIRECCION LANZA LE MIENTRAS
-%token MOD MOD_ASIG MULT_ASIG NADA NEQ OR OTRA OR_ASIG PARA POT_ASIG POTENCIA PRINCIPIO PRIVADO PROGRAMA PROTEGIDO
-%token PTOS PUBLICO REAL REF RESTA_ASIG SALTAR SI SINO SUMA_ASIG TAMANO TABLA TIPOS ULTIMA UNION VARIABLES XOR_ASIG
+
+%token ABSTRACTO AND ASIG AND_ASIG CADA CADENA CARACTER CLASE COMO CONSTANTES
+%token CONSTRUCTOR CONTINUAR CTC_CADENA CTC_CARACTER CTC_ENTERA CTC_REAL DE
+%token DEFECTO DESTRUCTOR DEVOLVER DIV_ASIG EJECUTA ENCAMBIO ENTERO ENUMERACION
+%token EQ EN ESCAPE ES ESPECIFICO ESTRUCTURA ETIQUETA EXCEPCION FD_ASIG FI_ASIG
+%token FICHERO FIN FINAL FLECHA_DCHA FLECHA_IZDA FUNCION GENERICO HACER HASH GE
+%token IDENTIFICADOR IMPORTAR INDIRECCION LANZA LE MIENTRAS MOD MOD_ASIG
+%token MULT_ASIG NADA NEQ OR OTRA OR_ASIG PARA POT_ASIG POTENCIA PRINCIPIO
+%token PRIVADO PROGRAMA PROTEGIDO PTOS PUBLICO REAL REF RESTA_ASIG SALTAR
+%token SI SINO SUMA_ASIG TAMANO TABLA TIPOS ULTIMA UNION VARIABLES XOR_ASIG
 
 %%
 
-programa:
-    cabecera_programa bloque_programa
-;
+/**********************************************************************/
+/* 1.  PROGRAMA                                                       */
+/**********************************************************************/
 
-cabecera_programa:
-    PROGRAMA nombre '.' lista_librerias
-;
+programa
+        : cabecera_programa bloque_programa
+        ;
 
-lista_librerias:
-      /* vacío */
-    | lista_librerias libreria
-;
+/*------------------ 1.1 Cabecera ------------------------------------*/
+
+cabecera_programa
+        : PROGRAMA IDENTIFICADOR '.' lista_librerias
+        ;
+
+lista_librerias
+        :                      
+        | lista_librerias libreria
+        ;
 
 libreria
-    : IMPORTAR lista_nombres_punto              
-    | IMPORTAR nombre  COMO IDENTIFICADOR  '.'   
-    ;
+        : IMPORTAR lista_nombres_punto     
+        | IMPORTAR nombre COMO IDENTIFICADOR '.'
+        ;
 
-lista_nombres_punto           
-    : lista_nombres_semi '.'
-    ;
+lista_nombres_punto
+        : lista_nombres_semi '.'
+        ;
 
-lista_nombres_semi            
-    : nombre
-    | lista_nombres_semi ';' nombre
-    ;
+lista_nombres_semi
+        : nombre
+        | lista_nombres_semi ';' nombre
+        ;
+
+nombre  : IDENTIFICADOR
+        | nombre PTOS IDENTIFICADOR        
+        ;
+
+/**********************************************************************/
+/* 2.  BLOQUE PRINCIPAL                                               */
+/**********************************************************************/
+
+bloque_programa
+        : PRINCIPIO secciones FIN
+        ;
 
 
-nombre:
-      IDENTIFICADOR
-    | nombre PTOS IDENTIFICADOR
-;
+secciones
+        : bloque_tipos bloque_constantes bloque_variables bloque_funciones bloque_instrucciones
+        ;
 
-bloque_programa:
-    PRINCIPIO bloque_declaraciones_instrucciones FIN
-;
-
-bloque_declaraciones_instrucciones:
-      bloque_tipos bloque_constantes bloque_variables bloque_funciones bloque_instrucciones
-;
+/*------------------ 2.1 Sección TIPOS -------------------------------*/
+/*  – Aceptamos su presencia (o no) y absorbemos cualquier contenido  */
+/*    hasta la palabra reservada FIN para no interrumpir el parseo    */
 
 bloque_tipos
-    :                 
-    | TIPOS error FIN     
-    | TIPOS error FIN '.' 
-    ;
+        :                           /* ε */
+        | TIPOS contenido_tipos FIN
+        ;
 
+contenido_tipos
+        : 
+          contenido_tipos_pieza
+          |                       /* ε */
+        ;
 
-bloque_constantes:
-      /* vacío */
-    | CONSTANTES lista_nombres
-;
+contenido_tipos_pieza
+        : IDENTIFICADOR
+        | error { yyerrok; }     
+        ;
 
-bloque_variables:
-      /* vacío */
-    | VARIABLES lista_nombres
-;
+/*------------------ 2.2 Sección CONSTANTES --------------------------*/
 
-lista_nombres:
-      nombre
-    | lista_nombres nombre
-;
+bloque_constantes
+        :                           /* ε */
+        | CONSTANTES contenido_constantes FIN
+        ;
 
-bloque_funciones:
-      /* vacío */
-    | bloque_funciones declaracion_funcion
-;
+contenido_constantes
+        : contenido_constantes pieza_const
+        |                           /* ε */
+        ;
 
-declaracion_funcion:
-    especificacion_funcion bloque_instrucciones
-;
+pieza_const
+        : IDENTIFICADOR
+        | error { yyerrok; }
+        ;
 
-especificacion_funcion:
-    FUNCION IDENTIFICADOR '(' lista_argumentos ')'
-;
+/*------------------ 2.3 Sección VARIABLES ---------------------------*/
 
-lista_argumentos:
-      /* vacío */
-    | lista_argumentos_nonempty
-;
+bloque_variables
+        :                           /* ε */
+        | VARIABLES contenido_variables FIN
+        ;
 
-lista_argumentos_nonempty:
-      IDENTIFICADOR
-    | lista_argumentos_nonempty ',' IDENTIFICADOR
-;
+contenido_variables
+        : contenido_variables pieza_var
+        |                           /* ε */
+        ;
 
-bloque_instrucciones:
-    PRINCIPIO lista_instrucciones FIN
-;
+pieza_var
+        : IDENTIFICADOR
+        | error { yyerrok; }
+        ;
 
-lista_instrucciones:
-      instruccion
-    | lista_instrucciones instruccion
-;
+/*------------------ 2.4 Funciones de nivel superior -----------------*/
 
-instruccion:
-      asignacion
-    | instruccion_condicional
-    | instruccion_bucle
-    | instruccion_de_salto
-    | instruccion_constructor
-    | instruccion_destructor
-    | instruccion_expresion
-;
+bloque_funciones
+        :                           /* ε */
+        | bloque_funciones declaracion_funcion
+        ;
 
-asignacion:
-    expresion_indexada ASIG expresion
-;
+declaracion_funcion
+        : firma_funcion cuerpo_funcion
+        ;
 
-instruccion_condicional:
-    SI expresion bloque_instrucciones SINO bloque_instrucciones
-;
+firma_funcion
+        : FUNCION IDENTIFICADOR '(' lista_argumentos ')'    /* → nada */
+        ;
 
+lista_argumentos
+        :                       /* ε */
+        | lista_argumentos_nonempty
+        ;
 
-instruccion_bucle:
-    MIENTRAS expresion bloque_instrucciones
-;
+lista_argumentos_nonempty
+        : IDENTIFICADOR
+        | lista_argumentos_nonempty ',' IDENTIFICADOR
+        ;
 
-instruccion_de_salto:
-      CONTINUAR
-    | SALTAR
-    | DEVOLVER expresion
-;
+/*------------------ 2.4.1 Cuerpo de una función ---------------------*/
 
-instruccion_constructor:
-    CONSTRUCTOR expresion bloque_instrucciones
-;
+cuerpo_funcion
+        : PRINCIPIO bloque_instrucciones FIN
+        ;
 
-instruccion_destructor:
-    DESTRUCTOR expresion bloque_instrucciones
-;
+/*--------------------------------------------------------------------*/
+/* 3.  INSTRUCCIONES (sección PRINCIPIO…FIN del programa o función)   */
+/*--------------------------------------------------------------------*/
 
-instruccion_expresion:
-    expresion
-;
+bloque_instrucciones
+        : PRINCIPIO lista_instrucciones FIN
+        ;
 
-expresion_constante:
-      CTC_ENTERA
-    | CTC_REAL
-    | CTC_CADENA
-    | CTC_CARACTER
-;
+lista_instrucciones
+        : instruccion
+        | lista_instrucciones instruccion
+        ;
 
-expresion_basica:
-      nombre
-    | '(' expresion ')'
-    | '^' expresion_basica
-    | REF expresion_basica
-;
+instruccion
+        : asignacion
+        | instruccion_condicional
+        | instruccion_bucle
+        | instruccion_de_salto
+        | instruccion_constructor
+        | instruccion_destructor
+        | instruccion_expresion
+        | ';'                           
+        | error ';'  { yyerrok; }        
+        ;
 
-indice:
-      '[' expresion ']'
-    | '{' expresion '}'
-;
+/*--------------------------------------------------------------------*/
+/*      3.1  Asignaciones y expresiones                               */
+/*--------------------------------------------------------------------*/
 
-expresion_indexada:
-      expresion_basica
-    | expresion_indexada '?' expresion_basica
-    | expresion_indexada '^' '?' expresion_basica
-    | expresion_indexada indice
-    | expresion_indexada '^' '?' indice
-;
+asignacion
+        : expresion_indexada ASIG expresion
+        ;
 
-expresion_funcional:
-    IDENTIFICADOR '(' lista_expresiones ')'
-;
+/*------------------ 3.2  Condicionales ------------------------------*/
 
-lista_expresiones:
-      expresion
-    | lista_expresiones ';' expresion
-;
+instruccion_condicional
+        : SI expresion bloque_instrucciones SINO bloque_instrucciones
+        ;
 
-primario:
-      expresion_constante
-    | expresion_indexada
-    | expresion_funcional
-;
+/*------------------ 3.3  Bucles -------------------------------------*/
 
-expresion_unaria:
-      primario
-    | '-' primario
-    | '!' primario
-    | '~' primario
-    | TAMANO primario
-;
+instruccion_bucle
+        : MIENTRAS expresion bloque_instrucciones
+        ;
 
-expresion_potencia:
-      expresion_unaria
-    | expresion_unaria POTENCIA expresion_potencia
-;
+/*------------------ 3.4  Saltos / retorno ---------------------------*/
 
-expresion_mult:
-      expresion_mult '*' expresion_potencia
-    | expresion_mult '/' expresion_potencia
-    | expresion_mult MOD expresion_potencia
-    | expresion_potencia
-;
+instruccion_de_salto
+        : CONTINUAR
+        | SALTAR
+        | DEVOLVER expresion
+        ;
 
-expresion_add:
-      expresion_add '+' expresion_mult
-    | expresion_add '-' expresion_mult
-    | expresion_mult
-;
+/*------------------ 3.5  Constr./Destr. (place-holders) -------------*/
 
-expresion_desplazamiento:
-      expresion_desplazamiento FLECHA_IZDA expresion_add
-    | expresion_desplazamiento FLECHA_DCHA expresion_add
-    | expresion_add
-;
+instruccion_constructor
+        : CONSTRUCTOR expresion bloque_instrucciones
+        ;
 
-expresion_and_binario:
-      expresion_and_binario '&' expresion_desplazamiento
-    | expresion_desplazamiento
-;
+instruccion_destructor
+        : DESTRUCTOR expresion bloque_instrucciones
+        ;
 
-expresion_xor_binario:
-      expresion_xor_binario '@' expresion_and_binario
-    | expresion_and_binario
-;
+/*------------------ 3.6  Una expresión como instrucción ------------*/
 
-expresion_or_binario:
-      expresion_or_binario '|' expresion_xor_binario
-    | expresion_xor_binario
-;
+instruccion_expresion
+        : expresion
+        ;
 
-expresion_relacional:
-      expresion_or_binario '<' expresion_or_binario
-    | expresion_or_binario '>' expresion_or_binario
-    | expresion_or_binario LE expresion_or_binario
-    | expresion_or_binario GE expresion_or_binario
-    | expresion_or_binario EQ expresion_or_binario
-    | expresion_or_binario NEQ expresion_or_binario
-    | expresion_or_binario
-;
+/*--------------------------------------------------------------------*/
+/* 4.  EXPRESIONES  (idénticas a las que ya tenías)                   */
+/*--------------------------------------------------------------------*/
 
-expresion_and:
-      expresion_and AND expresion_relacional
-    | expresion_relacional
-;
+expresion_constante
+        : CTC_ENTERA | CTC_REAL | CTC_CADENA | CTC_CARACTER
+        ;
 
-expresion_or:
-      expresion_or OR expresion_and
-    | expresion_and
-;
+expresion_basica
+        : nombre
+        | '(' expresion ')'
+        | '^' expresion_basica
+        | REF expresion_basica
+        ;
 
-expresion_logica:
-    expresion_or
-;
+indice  : '[' expresion ']' | '{' expresion '}' ;
 
-expresion:
-      expresion_logica
-    | expresion_logica SI expresion SINO expresion
-    | expresion_logica PARA CADA IDENTIFICADOR EN expresion
-;
+expresion_indexada
+        : expresion_basica
+        | expresion_indexada '?'  expresion_basica
+        | expresion_indexada '^' '?' expresion_basica
+        | expresion_indexada indice
+        | expresion_indexada '^' '?' indice
+        ;
+
+expresion_funcional
+        : IDENTIFICADOR '(' lista_expresiones ')'
+        ;
+
+lista_expresiones
+        : expresion
+        | lista_expresiones ';' expresion
+        ;
+
+primario
+        : expresion_constante
+        | expresion_indexada
+        | expresion_funcional
+        ;
+
+expresion_unaria
+        : primario
+        | '-' primario
+        | '!' primario
+        | '~' primario
+        | TAMANO primario
+        ;
+
+expresion_potencia
+        : expresion_unaria
+        | expresion_unaria POTENCIA expresion_potencia
+        ;
+
+expresion_mult
+        : expresion_mult '*'  expresion_potencia
+        | expresion_mult '/'  expresion_potencia
+        | expresion_mult MOD  expresion_potencia
+        | expresion_potencia
+        ;
+
+expresion_add
+        : expresion_add '+' expresion_mult
+        | expresion_add '-' expresion_mult
+        | expresion_mult
+        ;
+
+expresion_desplazamiento
+        : expresion_desplazamiento FLECHA_IZDA expresion_add
+        | expresion_desplazamiento FLECHA_DCHA expresion_add
+        | expresion_add
+        ;
+
+expresion_and_binario
+        : expresion_and_binario '&' expresion_desplazamiento
+        | expresion_desplazamiento
+        ;
+
+expresion_xor_binario
+        : expresion_xor_binario '@' expresion_and_binario
+        | expresion_and_binario
+        ;
+
+expresion_or_binario
+        : expresion_or_binario '|' expresion_xor_binario
+        | expresion_xor_binario
+        ;
+
+expresion_relacional
+        : expresion_or_binario '<'  expresion_or_binario
+        | expresion_or_binario '>'  expresion_or_binario
+        | expresion_or_binario LE   expresion_or_binario
+        | expresion_or_binario GE   expresion_or_binario
+        | expresion_or_binario EQ   expresion_or_binario
+        | expresion_or_binario NEQ  expresion_or_binario
+        | expresion_or_binario
+        ;
+
+expresion_and
+        : expresion_and AND expresion_relacional
+        | expresion_relacional
+        ;
+
+expresion_or
+        : expresion_or OR expresion_and
+        | expresion_and
+        ;
+
+expresion_logica : expresion_or ;
+
+expresion
+        : expresion_logica
+        | expresion_logica SI expresion SINO expresion
+        | expresion_logica PARA CADA IDENTIFICADOR EN expresion
+        ;
+
+/**********************************************************************/
+/* 5.  Código C de apoyo                                              */
+/**********************************************************************/
 
 %%
 
 int yyerror(char *s) {
   fflush(stdout);
-  printf("*****************, %s\n", s);
-  return 0;
-}
+  printf("*****************, %s\n",s);
+  }
 
 int yywrap() {
-  return 1;
-}
+  return(1);
+  }
 
 int main(int argc, char *argv[]) {
+
   yydebug = 0;
 
   if (argc < 2) {
     printf("Uso: ./eazy NombreArchivo\n");
-  } else {
-    yyin = fopen(argv[1], "r");
+    }
+  else {
+    yyin = fopen(argv[1],"r");
     yyparse();
+    }
   }
-}

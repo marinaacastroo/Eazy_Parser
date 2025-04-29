@@ -66,8 +66,8 @@
      ENUMERACION = 282,
      EQ = 283,
      EN = 284,
-     ES = 285,
-     ESCAPE = 286,
+     ESCAPE = 285,
+     ES = 286,
      ESPECIFICO = 287,
      ESTRUCTURA = 288,
      ETIQUETA = 289,
@@ -120,8 +120,7 @@
      ULTIMA = 336,
      UNION = 337,
      VARIABLES = 338,
-     XOR_ASIG = 339,
-     OTRO_TOKEN = 340
+     XOR_ASIG = 339
    };
 #endif
 /* Tokens.  */
@@ -152,8 +151,8 @@
 #define ENUMERACION 282
 #define EQ 283
 #define EN 284
-#define ES 285
-#define ESCAPE 286
+#define ESCAPE 285
+#define ES 286
 #define ESPECIFICO 287
 #define ESTRUCTURA 288
 #define ETIQUETA 289
@@ -207,7 +206,6 @@
 #define UNION 337
 #define VARIABLES 338
 #define XOR_ASIG 339
-#define OTRO_TOKEN 340
 
 
 

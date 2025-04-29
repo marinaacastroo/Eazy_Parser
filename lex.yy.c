@@ -1782,11 +1782,11 @@ YY_RULE_SETUP
 case 123:
 YY_RULE_SETUP
 #line 188 "eazy.l"
-{ printf("linea %d, token genérico: %s\n", yylineno, yytext); return OTRO_TOKEN; }
+{ fprintf(stdout, "ERROR en línea %d: carácter inesperado '%s'\n", yylineno, yytext); }
 	YY_BREAK
 case 124:
 YY_RULE_SETUP
-#line 189 "eazy.l"
+#line 190 "eazy.l"
 ECHO;
 	YY_BREAK
 #line 1792 "lex.yy.c"
@@ -2808,7 +2808,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 189 "eazy.l"
+#line 190 "eazy.l"
 
 
 
