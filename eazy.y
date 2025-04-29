@@ -258,6 +258,11 @@ lista_declaracion_variables
 lista_expresion
       : lista_expresion expresion
       ;
+lista_expresion_cero_o_mas
+      : lista_expresion_cero_o_mas expresion
+      | expresion
+      |
+      ;
 
 /*--------------------------------------------------------------------*/
 /*  FUNCIONES    */
@@ -420,6 +425,51 @@ instruccion_vacia
 /*  EXPRESIONES    */
 /*--------------------------------------------------------------------*/
 
+expresion_constante 
+      : CTC_ENTERA
+      | CTC_REAL
+      | CTC_CARACTER
+      | CTC_CADENA
+      ;
+
+expresion_indexada 
+      : expresion_basica
+      | expresion_indexada '?' expresion_basica
+      | expresion_indexada INDIRECCION expresion_basica
+      | expresion_indexada INDIRECCION indice
+      | expresion_indexada indice     
+      ;
+
+expresion_basica
+      : nombre
+      | '(' expresion ')'
+      | '^' expresion_basica
+      | REF expresion_basica
+      ;
+
+indice
+      : '[' expresion ']'
+      | '{' expresion '}'
+      ;
+
+expresion_funcional
+      : IDENTIFICADOR '(' lista_expresion_cero_o_mas ')'
+
+
+
+
+
+
+
+
+
+
+
+
+expresion
+      : expresion_logica SI expresion SINO expresion
+      | expresion_logica
+      | expresion_logica PARA CADA IDENTIFICADOR EN expresion
 
 %%
 
