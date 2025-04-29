@@ -6,6 +6,7 @@
   #define YYDEBUG 1
 
   int yyerror(char *);
+
 %}
 
 %token ABSTRACTO AND ASIG AND_ASIG CADA CADENA CARACTER CLASE COMO CONSTANTES CONSTRUCTOR CONTINUAR CTC_CADENA
@@ -30,10 +31,20 @@ lista_librerias:
     | lista_librerias libreria
 ;
 
-libreria:
-    IMPORTAR nombre
-  | IMPORTAR nombre COMO IDENTIFICADOR
-;
+libreria
+    : IMPORTAR lista_nombres_punto              
+    | IMPORTAR nombre  COMO IDENTIFICADOR  '.'   
+    ;
+
+lista_nombres_punto           
+    : lista_nombres_semi '.'
+    ;
+
+lista_nombres_semi            
+    : nombre
+    | lista_nombres_semi ';' nombre
+    ;
+
 
 nombre:
       IDENTIFICADOR
@@ -48,10 +59,10 @@ bloque_declaraciones_instrucciones:
       bloque_tipos bloque_constantes bloque_variables bloque_funciones bloque_instrucciones
 ;
 
-bloque_tipos:
-      /* vacío */
-    | TIPOS lista_nombres
-;
+bloque_tipos
+    :              
+    | TIPOS error FIN   
+    ;
 
 bloque_constantes:
       /* vacío */
