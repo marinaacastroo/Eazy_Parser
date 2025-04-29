@@ -1,4 +1,3 @@
-
 %{
     #include <stdio.h>
     extern FILE *yyin;
@@ -7,7 +6,6 @@
 
     #define YYDEBUG 1        
 %}
-
 
 %token ABSTRACTO AND ASIG AND_ASIG CADA CADENA CARACTER CLASE COMO CONSTANTES
 %token CONSTRUCTOR CONTINUAR CTC_CADENA CTC_CARACTER CTC_ENTERA CTC_REAL DE
@@ -36,26 +34,24 @@ cabecera_programa
         ;
 
 lista_librerias
-        :                      
+        : 
         | lista_librerias libreria
         ;
 
 libreria
-        : IMPORTAR lista_nombres_punto     
+        : IMPORTAR nombre_lista '.' 
         | IMPORTAR nombre COMO IDENTIFICADOR '.'
         ;
 
-lista_nombres_punto
-        : lista_nombres_semi '.'
-        ;
-
-lista_nombres_semi
+nombre_lista
         : nombre
-        | lista_nombres_semi ';' nombre
+        | nombre_lista '.' nombre
+        | nombre_lista PTOS nombre
         ;
 
-nombre  : IDENTIFICADOR
-        | nombre PTOS IDENTIFICADOR        
+nombre
+        : IDENTIFICADOR
+        | nombre PTOS IDENTIFICADOR
         ;
 
 /**********************************************************************/
@@ -72,8 +68,6 @@ secciones
         ;
 
 /*------------------ 2.1 Sección TIPOS -------------------------------*/
-/*  – Aceptamos su presencia (o no) y absorbemos cualquier contenido  */
-/*    hasta la palabra reservada FIN para no interrumpir el parseo    */
 
 bloque_tipos
         :                           /* ε */
@@ -340,29 +334,32 @@ expresion
         | expresion_logica PARA CADA IDENTIFICADOR EN expresion
         ;
 
-/**********************************************************************/
-/* 5.  Código C de apoyo                                              */
-/**********************************************************************/
 
 %%
 
 int yyerror(char *s) {
   fflush(stdout);
-  printf("*****************, %s\n",s); }
+  printf("Error sintáctico: %s\n", s);
+  return 0;
+}
 
 int yywrap() {
-  return(1);
-  }
+  return 1;
+}
 
 int main(int argc, char *argv[]) {
-
   yydebug = 0;
 
   if (argc < 2) {
     printf("Uso: ./eazy NombreArchivo\n");
+  } else {
+    yyin = fopen(argv[1], "r");
+    if (!yyin) {
+      perror(argv[1]);
+      return 1;
     }
-  else {
-    yyin = fopen(argv[1],"r");
     yyparse();
-    }
   }
+
+  return 0;
+}

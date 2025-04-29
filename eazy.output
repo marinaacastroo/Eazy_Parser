@@ -45,6 +45,9 @@ Terminals which are not used
    XOR_ASIG
 
 
+State 28 conflicts: 1 shift/reduce
+State 48 conflicts: 1 shift/reduce
+State 49 conflicts: 1 shift/reduce
 State 62 conflicts: 1 shift/reduce
 State 86 conflicts: 1 shift/reduce
 State 92 conflicts: 1 shift/reduce
@@ -65,13 +68,12 @@ Grammar
     3 lista_librerias: /* empty */
     4                | lista_librerias libreria
 
-    5 libreria: IMPORTAR lista_nombres_punto
+    5 libreria: IMPORTAR nombre_lista '.'
     6         | IMPORTAR nombre COMO IDENTIFICADOR '.'
 
-    7 lista_nombres_punto: lista_nombres_semi '.'
-
-    8 lista_nombres_semi: nombre
-    9                   | lista_nombres_semi ';' nombre
+    7 nombre_lista: nombre
+    8             | nombre_lista '.' nombre
+    9             | nombre_lista PTOS nombre
 
    10 nombre: IDENTIFICADOR
    11       | nombre PTOS IDENTIFICADOR
@@ -244,9 +246,9 @@ $end (0) 0
 '+' (43) 94
 ',' (44) 39
 '-' (45) 84 95
-'.' (46) 2 6 7
+'.' (46) 2 5 6 8
 '/' (47) 91
-';' (59) 9 51 52 79
+';' (59) 51 52 79
 '<' (60) 106
 '>' (62) 107
 '?' (63) 73 74 76
@@ -325,7 +327,7 @@ PRINCIPIO (320) 12 40 41
 PRIVADO (321)
 PROGRAMA (322) 2
 PROTEGIDO (323)
-PTOS (324) 11
+PTOS (324) 9 11
 PUBLICO (325)
 REAL (326)
 REF (327) 69
@@ -355,105 +357,103 @@ lista_librerias (110)
     on left: 3 4, on right: 2 4
 libreria (111)
     on left: 5 6, on right: 4
-lista_nombres_punto (112)
-    on left: 7, on right: 5
-lista_nombres_semi (113)
-    on left: 8 9, on right: 7 9
-nombre (114)
-    on left: 10 11, on right: 6 8 9 11 66
-bloque_programa (115)
+nombre_lista (112)
+    on left: 7 8 9, on right: 5 8 9
+nombre (113)
+    on left: 10 11, on right: 6 7 8 9 11 66
+bloque_programa (114)
     on left: 12, on right: 1
-secciones (116)
+secciones (115)
     on left: 13, on right: 12
-bloque_tipos (117)
+bloque_tipos (116)
     on left: 14 15, on right: 13
-contenido_tipos (118)
+contenido_tipos (117)
     on left: 16 17, on right: 15
-contenido_tipos_pieza (119)
+contenido_tipos_pieza (118)
     on left: 18 19, on right: 16
-bloque_constantes (120)
+bloque_constantes (119)
     on left: 20 21, on right: 13
-contenido_constantes (121)
+contenido_constantes (120)
     on left: 22 23, on right: 21 22
-pieza_const (122)
+pieza_const (121)
     on left: 24 25, on right: 22
-bloque_variables (123)
+bloque_variables (122)
     on left: 26 27, on right: 13
-contenido_variables (124)
+contenido_variables (123)
     on left: 28 29, on right: 27 28
-pieza_var (125)
+pieza_var (124)
     on left: 30 31, on right: 28
-bloque_funciones (126)
+bloque_funciones (125)
     on left: 32 33, on right: 13 33
-declaracion_funcion (127)
+declaracion_funcion (126)
     on left: 34, on right: 33
-firma_funcion (128)
+firma_funcion (127)
     on left: 35, on right: 34
-lista_argumentos (129)
+lista_argumentos (128)
     on left: 36 37, on right: 35
-lista_argumentos_nonempty (130)
+lista_argumentos_nonempty (129)
     on left: 38 39, on right: 37 39
-cuerpo_funcion (131)
+cuerpo_funcion (130)
     on left: 40, on right: 34
-bloque_instrucciones (132)
+bloque_instrucciones (131)
     on left: 41, on right: 13 40 54 55 59 60
-lista_instrucciones (133)
+lista_instrucciones (132)
     on left: 42 43, on right: 41 43
-instruccion (134)
+instruccion (133)
     on left: 44 45 46 47 48 49 50 51 52, on right: 42 43
-asignacion (135)
+asignacion (134)
     on left: 53, on right: 44
-instruccion_condicional (136)
+instruccion_condicional (135)
     on left: 54, on right: 45
-instruccion_bucle (137)
+instruccion_bucle (136)
     on left: 55, on right: 46
-instruccion_de_salto (138)
+instruccion_de_salto (137)
     on left: 56 57 58, on right: 47
-instruccion_constructor (139)
+instruccion_constructor (138)
     on left: 59, on right: 48
-instruccion_destructor (140)
+instruccion_destructor (139)
     on left: 60, on right: 49
-instruccion_expresion (141)
+instruccion_expresion (140)
     on left: 61, on right: 50
-expresion_constante (142)
+expresion_constante (141)
     on left: 62 63 64 65, on right: 80
-expresion_basica (143)
+expresion_basica (142)
     on left: 66 67 68 69, on right: 68 69 72 73 74
-indice (144)
+indice (143)
     on left: 70 71, on right: 75 76
-expresion_indexada (145)
+expresion_indexada (144)
     on left: 72 73 74 75 76, on right: 53 73 74 75 76 81
-expresion_funcional (146)
+expresion_funcional (145)
     on left: 77, on right: 82
-lista_expresiones (147)
+lista_expresiones (146)
     on left: 78 79, on right: 77 79
-primario (148)
+primario (147)
     on left: 80 81 82, on right: 83 84 85 86 87
-expresion_unaria (149)
+expresion_unaria (148)
     on left: 83 84 85 86 87, on right: 88 89
-expresion_potencia (150)
+expresion_potencia (149)
     on left: 88 89, on right: 89 90 91 92 93
-expresion_mult (151)
+expresion_mult (150)
     on left: 90 91 92 93, on right: 90 91 92 94 95 96
-expresion_add (152)
+expresion_add (151)
     on left: 94 95 96, on right: 94 95 97 98 99
-expresion_desplazamiento (153)
+expresion_desplazamiento (152)
     on left: 97 98 99, on right: 97 98 100 101
-expresion_and_binario (154)
+expresion_and_binario (153)
     on left: 100 101, on right: 100 102 103
-expresion_xor_binario (155)
+expresion_xor_binario (154)
     on left: 102 103, on right: 102 104 105
-expresion_or_binario (156)
+expresion_or_binario (155)
     on left: 104 105, on right: 104 106 107 108 109 110 111 112
-expresion_relacional (157)
+expresion_relacional (156)
     on left: 106 107 108 109 110 111 112, on right: 113 114
-expresion_and (158)
+expresion_and (157)
     on left: 113 114, on right: 113 115 116
-expresion_or (159)
+expresion_or (158)
     on left: 115 116, on right: 115 117
-expresion_logica (160)
+expresion_logica (159)
     on left: 117, on right: 118 119 120
-expresion (161)
+expresion (160)
     on left: 118 119 120, on right: 53 54 55 58 59 60 61 67 70 71 78
     79 119 120
 
@@ -633,14 +633,13 @@ state 19
 
 state 20
 
-    5 libreria: IMPORTAR . lista_nombres_punto
+    5 libreria: IMPORTAR . nombre_lista '.'
     6         | IMPORTAR . nombre COMO IDENTIFICADOR '.'
 
     IDENTIFICADOR  shift, and go to state 26
 
-    lista_nombres_punto  go to state 27
-    lista_nombres_semi   go to state 28
-    nombre               go to state 29
+    nombre_lista  go to state 27
+    nombre        go to state 28
 
 
 state 21
@@ -662,11 +661,11 @@ state 23
    21 bloque_constantes: CONSTANTES contenido_constantes . FIN
    22 contenido_constantes: contenido_constantes . pieza_const
 
-    error          shift, and go to state 30
-    FIN            shift, and go to state 31
-    IDENTIFICADOR  shift, and go to state 32
+    error          shift, and go to state 29
+    FIN            shift, and go to state 30
+    IDENTIFICADOR  shift, and go to state 31
 
-    pieza_const  go to state 33
+    pieza_const  go to state 32
 
 
 state 24
@@ -675,7 +674,7 @@ state 24
 
     $default  reduce using rule 29 (contenido_variables)
 
-    contenido_variables  go to state 34
+    contenido_variables  go to state 33
 
 
 state 25
@@ -684,7 +683,7 @@ state 25
 
     $default  reduce using rule 32 (bloque_funciones)
 
-    bloque_funciones  go to state 35
+    bloque_funciones  go to state 34
 
 
 state 26
@@ -696,151 +695,151 @@ state 26
 
 state 27
 
-    5 libreria: IMPORTAR lista_nombres_punto .
+    5 libreria: IMPORTAR nombre_lista . '.'
+    8 nombre_lista: nombre_lista . '.' nombre
+    9             | nombre_lista . PTOS nombre
 
-    $default  reduce using rule 5 (libreria)
+    PTOS  shift, and go to state 35
+    '.'   shift, and go to state 36
 
 
 state 28
 
-    7 lista_nombres_punto: lista_nombres_semi . '.'
-    9 lista_nombres_semi: lista_nombres_semi . ';' nombre
+    6 libreria: IMPORTAR nombre . COMO IDENTIFICADOR '.'
+    7 nombre_lista: nombre .
+   11 nombre: nombre . PTOS IDENTIFICADOR
 
-    '.'  shift, and go to state 36
-    ';'  shift, and go to state 37
+    COMO  shift, and go to state 37
+    PTOS  shift, and go to state 38
+
+    PTOS      [reduce using rule 7 (nombre_lista)]
+    $default  reduce using rule 7 (nombre_lista)
 
 
 state 29
-
-    6 libreria: IMPORTAR nombre . COMO IDENTIFICADOR '.'
-    8 lista_nombres_semi: nombre .
-   11 nombre: nombre . PTOS IDENTIFICADOR
-
-    COMO  shift, and go to state 38
-    PTOS  shift, and go to state 39
-
-    $default  reduce using rule 8 (lista_nombres_semi)
-
-
-state 30
 
    25 pieza_const: error .
 
     $default  reduce using rule 25 (pieza_const)
 
 
-state 31
+state 30
 
    21 bloque_constantes: CONSTANTES contenido_constantes FIN .
 
     $default  reduce using rule 21 (bloque_constantes)
 
 
-state 32
+state 31
 
    24 pieza_const: IDENTIFICADOR .
 
     $default  reduce using rule 24 (pieza_const)
 
 
-state 33
+state 32
 
    22 contenido_constantes: contenido_constantes pieza_const .
 
     $default  reduce using rule 22 (contenido_constantes)
 
 
-state 34
+state 33
 
    27 bloque_variables: VARIABLES contenido_variables . FIN
    28 contenido_variables: contenido_variables . pieza_var
 
-    error          shift, and go to state 40
-    FIN            shift, and go to state 41
-    IDENTIFICADOR  shift, and go to state 42
+    error          shift, and go to state 39
+    FIN            shift, and go to state 40
+    IDENTIFICADOR  shift, and go to state 41
 
-    pieza_var  go to state 43
+    pieza_var  go to state 42
 
 
-state 35
+state 34
 
    13 secciones: bloque_tipos bloque_constantes bloque_variables bloque_funciones . bloque_instrucciones
    33 bloque_funciones: bloque_funciones . declaracion_funcion
 
-    FUNCION    shift, and go to state 44
-    PRINCIPIO  shift, and go to state 45
+    FUNCION    shift, and go to state 43
+    PRINCIPIO  shift, and go to state 44
 
-    declaracion_funcion   go to state 46
-    firma_funcion         go to state 47
-    bloque_instrucciones  go to state 48
+    declaracion_funcion   go to state 45
+    firma_funcion         go to state 46
+    bloque_instrucciones  go to state 47
+
+
+state 35
+
+    9 nombre_lista: nombre_lista PTOS . nombre
+
+    IDENTIFICADOR  shift, and go to state 26
+
+    nombre  go to state 48
 
 
 state 36
 
-    7 lista_nombres_punto: lista_nombres_semi '.' .
-
-    $default  reduce using rule 7 (lista_nombres_punto)
-
-
-state 37
-
-    9 lista_nombres_semi: lista_nombres_semi ';' . nombre
+    5 libreria: IMPORTAR nombre_lista '.' .
+    8 nombre_lista: nombre_lista '.' . nombre
 
     IDENTIFICADOR  shift, and go to state 26
+
+    $default  reduce using rule 5 (libreria)
 
     nombre  go to state 49
 
 
-state 38
+state 37
 
     6 libreria: IMPORTAR nombre COMO . IDENTIFICADOR '.'
 
     IDENTIFICADOR  shift, and go to state 50
 
 
-state 39
+state 38
 
    11 nombre: nombre PTOS . IDENTIFICADOR
 
     IDENTIFICADOR  shift, and go to state 51
 
 
-state 40
+state 39
 
    31 pieza_var: error .
 
     $default  reduce using rule 31 (pieza_var)
 
 
-state 41
+state 40
 
    27 bloque_variables: VARIABLES contenido_variables FIN .
 
     $default  reduce using rule 27 (bloque_variables)
 
 
-state 42
+state 41
 
    30 pieza_var: IDENTIFICADOR .
 
     $default  reduce using rule 30 (pieza_var)
 
 
-state 43
+state 42
 
    28 contenido_variables: contenido_variables pieza_var .
 
     $default  reduce using rule 28 (contenido_variables)
 
 
-state 44
+state 43
 
    35 firma_funcion: FUNCION . IDENTIFICADOR '(' lista_argumentos ')'
 
     IDENTIFICADOR  shift, and go to state 52
 
 
-state 45
+state 44
 
    41 bloque_instrucciones: PRINCIPIO . lista_instrucciones FIN
 
@@ -859,8 +858,8 @@ state 45
     SALTAR         shift, and go to state 65
     SI             shift, and go to state 66
     TAMANO         shift, and go to state 67
-    ';'            shift, and go to state 68
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
+    ';'            shift, and go to state 69
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -896,14 +895,14 @@ state 45
     expresion                 go to state 101
 
 
-state 46
+state 45
 
    33 bloque_funciones: bloque_funciones declaracion_funcion .
 
     $default  reduce using rule 33 (bloque_funciones)
 
 
-state 47
+state 46
 
    34 declaracion_funcion: firma_funcion . cuerpo_funcion
 
@@ -912,21 +911,33 @@ state 47
     cuerpo_funcion  go to state 103
 
 
-state 48
+state 47
 
    13 secciones: bloque_tipos bloque_constantes bloque_variables bloque_funciones bloque_instrucciones .
 
     $default  reduce using rule 13 (secciones)
 
 
-state 49
+state 48
 
-    9 lista_nombres_semi: lista_nombres_semi ';' nombre .
+    9 nombre_lista: nombre_lista PTOS nombre .
    11 nombre: nombre . PTOS IDENTIFICADOR
 
-    PTOS  shift, and go to state 39
+    PTOS  shift, and go to state 38
 
-    $default  reduce using rule 9 (lista_nombres_semi)
+    PTOS      [reduce using rule 9 (nombre_lista)]
+    $default  reduce using rule 9 (nombre_lista)
+
+
+state 49
+
+    8 nombre_lista: nombre_lista '.' nombre .
+   11 nombre: nombre . PTOS IDENTIFICADOR
+
+    PTOS  shift, and go to state 38
+
+    PTOS      [reduce using rule 8 (nombre_lista)]
+    $default  reduce using rule 8 (nombre_lista)
 
 
 state 50
@@ -968,7 +979,7 @@ state 54
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -1041,7 +1052,7 @@ state 60
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -1079,7 +1090,7 @@ state 61
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -1128,7 +1139,7 @@ state 63
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -1161,7 +1172,7 @@ state 64
 
     IDENTIFICADOR  shift, and go to state 26
     REF            shift, and go to state 64
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
 
     nombre            go to state 74
@@ -1186,7 +1197,7 @@ state 66
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -1223,7 +1234,7 @@ state 67
     CTC_REAL       shift, and go to state 59
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
 
     nombre               go to state 74
@@ -1236,13 +1247,6 @@ state 67
 
 state 68
 
-   51 instruccion: ';' .
-
-    $default  reduce using rule 51 (instruccion)
-
-
-state 69
-
    67 expresion_basica: '(' . expresion ')'
 
     CTC_CADENA     shift, and go to state 56
@@ -1252,7 +1256,7 @@ state 69
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -1279,13 +1283,20 @@ state 69
     expresion                 go to state 116
 
 
+state 69
+
+   51 instruccion: ';' .
+
+    $default  reduce using rule 51 (instruccion)
+
+
 state 70
 
    68 expresion_basica: '^' . expresion_basica
 
     IDENTIFICADOR  shift, and go to state 26
     REF            shift, and go to state 64
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
 
     nombre            go to state 74
@@ -1302,7 +1313,7 @@ state 71
     CTC_REAL       shift, and go to state 59
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
 
     nombre               go to state 74
@@ -1323,7 +1334,7 @@ state 72
     CTC_REAL       shift, and go to state 59
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
 
     nombre               go to state 74
@@ -1344,7 +1355,7 @@ state 73
     CTC_REAL       shift, and go to state 59
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
 
     nombre               go to state 74
@@ -1360,7 +1371,7 @@ state 74
    11 nombre: nombre . PTOS IDENTIFICADOR
    66 expresion_basica: nombre .
 
-    PTOS  shift, and go to state 39
+    PTOS  shift, and go to state 38
 
     $default  reduce using rule 66 (expresion_basica)
 
@@ -1386,8 +1397,8 @@ state 75
     SALTAR         shift, and go to state 65
     SI             shift, and go to state 66
     TAMANO         shift, and go to state 67
-    ';'            shift, and go to state 68
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
+    ';'            shift, and go to state 69
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -1676,7 +1687,7 @@ state 102
 
    40 cuerpo_funcion: PRINCIPIO . bloque_instrucciones FIN
 
-    PRINCIPIO  shift, and go to state 45
+    PRINCIPIO  shift, and go to state 44
 
     bloque_instrucciones  go to state 150
 
@@ -1737,7 +1748,7 @@ state 108
 
    59 instruccion_constructor: CONSTRUCTOR expresion . bloque_instrucciones
 
-    PRINCIPIO  shift, and go to state 45
+    PRINCIPIO  shift, and go to state 44
 
     bloque_instrucciones  go to state 154
 
@@ -1746,7 +1757,7 @@ state 109
 
    60 instruccion_destructor: DESTRUCTOR expresion . bloque_instrucciones
 
-    PRINCIPIO  shift, and go to state 45
+    PRINCIPIO  shift, and go to state 44
 
     bloque_instrucciones  go to state 155
 
@@ -1769,7 +1780,7 @@ state 111
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -1801,7 +1812,7 @@ state 112
 
    55 instruccion_bucle: MIENTRAS expresion . bloque_instrucciones
 
-    PRINCIPIO  shift, and go to state 45
+    PRINCIPIO  shift, and go to state 44
 
     bloque_instrucciones  go to state 158
 
@@ -1817,7 +1828,7 @@ state 114
 
    54 instruccion_condicional: SI expresion . bloque_instrucciones SINO bloque_instrucciones
 
-    PRINCIPIO  shift, and go to state 45
+    PRINCIPIO  shift, and go to state 44
 
     bloque_instrucciones  go to state 159
 
@@ -1889,7 +1900,7 @@ state 123
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -1935,7 +1946,7 @@ state 125
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -1973,7 +1984,7 @@ state 126
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2006,7 +2017,7 @@ state 127
 
     IDENTIFICADOR  shift, and go to state 26
     REF            shift, and go to state 64
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
 
     nombre            go to state 74
@@ -2031,7 +2042,7 @@ state 129
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2058,7 +2069,7 @@ state 130
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2085,7 +2096,7 @@ state 131
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2112,7 +2123,7 @@ state 132
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2139,7 +2150,7 @@ state 133
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2167,7 +2178,7 @@ state 134
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2195,7 +2206,7 @@ state 135
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2224,7 +2235,7 @@ state 136
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2253,7 +2264,7 @@ state 137
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2283,7 +2294,7 @@ state 138
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2314,7 +2325,7 @@ state 139
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2347,7 +2358,7 @@ state 140
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2380,7 +2391,7 @@ state 141
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2413,7 +2424,7 @@ state 142
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2446,7 +2457,7 @@ state 143
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2478,7 +2489,7 @@ state 144
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2511,7 +2522,7 @@ state 145
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2544,7 +2555,7 @@ state 146
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2578,7 +2589,7 @@ state 147
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2620,7 +2631,7 @@ state 149
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -2697,8 +2708,8 @@ state 156
    77 expresion_funcional: IDENTIFICADOR '(' lista_expresiones . ')'
    79 lista_expresiones: lista_expresiones . ';' expresion
 
-    ';'  shift, and go to state 190
-    ')'  shift, and go to state 191
+    ')'  shift, and go to state 190
+    ';'  shift, and go to state 191
 
 
 state 157
@@ -2743,7 +2754,7 @@ state 162
 
     IDENTIFICADOR  shift, and go to state 26
     REF            shift, and go to state 64
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '['            shift, and go to state 125
     '{'            shift, and go to state 126
@@ -3002,6 +3013,13 @@ state 189
 
 state 190
 
+   77 expresion_funcional: IDENTIFICADOR '(' lista_expresiones ')' .
+
+    $default  reduce using rule 77 (expresion_funcional)
+
+
+state 191
+
    79 lista_expresiones: lista_expresiones ';' . expresion
 
     CTC_CADENA     shift, and go to state 56
@@ -3011,7 +3029,7 @@ state 190
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -3038,18 +3056,11 @@ state 190
     expresion                 go to state 200
 
 
-state 191
-
-   77 expresion_funcional: IDENTIFICADOR '(' lista_expresiones ')' .
-
-    $default  reduce using rule 77 (expresion_funcional)
-
-
 state 192
 
    54 instruccion_condicional: SI expresion bloque_instrucciones SINO . bloque_instrucciones
 
-    PRINCIPIO  shift, and go to state 45
+    PRINCIPIO  shift, and go to state 44
 
     bloque_instrucciones  go to state 201
 
@@ -3100,7 +3111,7 @@ state 198
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
@@ -3159,7 +3170,7 @@ state 202
     IDENTIFICADOR  shift, and go to state 62
     REF            shift, and go to state 64
     TAMANO         shift, and go to state 67
-    '('            shift, and go to state 69
+    '('            shift, and go to state 68
     '^'            shift, and go to state 70
     '-'            shift, and go to state 71
     '!'            shift, and go to state 72
