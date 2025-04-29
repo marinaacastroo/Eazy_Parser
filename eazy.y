@@ -20,45 +20,52 @@
 %%
 
 /**********************************************************************/
-/* 1.  PROGRAMA                                                       */
+/*   PROGRAMA   */
 /**********************************************************************/
 
 programa
         : cabecera_programa bloque_programa
         ;
 
-/*------------------ 1.1 Cabecera ------------------------------------*/
 
 cabecera_programa
-        : PROGRAMA IDENTIFICADOR '.' lista_librerias
-        ;
+      : PROGRAMA IDENTIFICADOR '.' lista_librerias
+      ;
 
 lista_librerias
-        : 
-        | lista_librerias libreria
-        ;
+      : 
+      | lista_librerias libreria
+      ;
 
 libreria
-        : IMPORTAR nombre_lista '.'
-        | IMPORTAR nombre COMO IDENTIFICADOR '.'
-        ;
+      : IMPORTAR nombre_lista '.'
+      | IMPORTAR nombre COMO IDENTIFICADOR '.'
+      ;
 
 
 nombre_lista
-    : nombre 
-    | nombre_lista '.' 
-    | nombre_lista PTOS nombre 
-    ;
+      : nombre 
+      | nombre_lista '.' 
+      | nombre_lista PTOS nombre 
+      ;
 
 
 
 nombre
-        : IDENTIFICADOR
-        | nombre PTOS IDENTIFICADOR        
-        ;
+      : IDENTIFICADOR
+      | nombre PTOS IDENTIFICADOR        
+      ;
+
+bloque_programa
+      : declaraciones_tipos
+      | declaraciones_constantes
+      | declaraciones_variables
+      | declaracion_funcion
+      bloque_instrucciones 
+      ;
 
 /**********************************************************************/
-/* 2.  BLOQUE PRINCIPAL                                               */
+/*  TIPOS  */
 /**********************************************************************/
 
 bloque_programa
