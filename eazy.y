@@ -143,11 +143,11 @@ lista_linea_campo
       ;
 
 linea_campo
-      : lista_identificador ES especificacion_tipo
+      : lista_identificador_uno_o_mas ES especificacion_tipo
       ; 
 
-lista_identificador
-      : lista_identificador IDENTIFICADOR 
+lista_identificador_uno_o_mas
+      : lista_identificador_uno_o_mas IDENTIFICADOR 
       ;
 
 lista_nombre_una_o_mas
@@ -211,6 +211,29 @@ campo_constante
       : IDENTIFICADOR ASIG constante
       ;
 
+
+/*--------------------------------------------------------------------*/
+/*  VARIABLES  */
+/*--------------------------------------------------------------------*/
+
+declaraciones_variables
+      : VARIABLES lista_declaracion_variables FIN
+      ;
+
+lista_declaracion_variables
+      : visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion '.'
+      | visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo  '.'
+      | lista_declaracion_variables visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion '.'
+      | lista_declaracion_variables visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo  '.'
+      ;
+
+lista_expresion
+      : lista_expresion expresion
+      ;
+
+/*--------------------------------------------------------------------*/
+/*  FUNCIONES    */
+/*--------------------------------------------------------------------*/
 
 
 
@@ -399,7 +422,7 @@ expresion_funcional
 
 lista_expresiones
         : expresion
-        | lista_expresiones ';' expresion
+        | lista_expresiones expresion
         ;
 
 primario
