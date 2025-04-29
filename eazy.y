@@ -43,11 +43,11 @@ libreria
         | IMPORTAR nombre COMO IDENTIFICADOR '.'
         ;
 
+
 nombre_lista
-    : nombre '.'
-    | nombre_lista '.' nombre
-    | nombre_lista PTOS nombre '.'
-    | nombre_lista PTOS nombre PTOS nombre '.' 
+    : nombre 
+    | nombre_lista '.' 
+    | nombre_lista PTOS nombre 
     ;
 
 
