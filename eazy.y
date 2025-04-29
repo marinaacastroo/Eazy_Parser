@@ -78,19 +78,23 @@ lista_declaraciones_tipo
       ;
 
 declaracion_tipo
-      : visibilidad IDENTIFICADOR ES lista_ref tipo_basico '.'
-      | IDENTIFICADOR ES lista_ref tipo_basico '.'
-      | visibilidad IDENTIFICADOR ES lista_ref tipo_estructurado 
+      : visibilidad_opt IDENTIFICADOR ES lista_ref tipo_basico '.'
+      | visibilidad_opt IDENTIFICADOR ES lista_ref tipo_estructurado 
       ;
+
+
+visibilidad_opt
+      : 
+      | PUBLICO
+      | PROTEGIDO
+      | PRIVADO
+      ;
+
 lista_ref
       : 
       | lista_ref REF
       ;
-visibilidad
-      : PUBLICO
-      | PROTEGIDO
-      | PRIVADO
-      ;
+
 tipo_basico
       : nombre
       | tipo_escalar
@@ -104,9 +108,11 @@ tipo_escalar
       | FICHERO
       | EXCEPCION
       ;
+
 tipo_tabla
       : TABLA DE especificacion_tipo
       | TABLA HASH DE especificacion_tipo
+      ;
 
 especificacion_tipo
       : lista_ref tipo_basico
@@ -114,16 +120,19 @@ especificacion_tipo
       ;
 
 tipo_estructurado
-      : ENUMERACION DE tipo_escalar lista_elemento_numerico FIN
-      | ESTRUCTURA lista_linea_campo FIN
-      | UNION lista_linea_campo FIN
-      | CLASE ULTIMA '(' lista_nombre_una_o_mas ')' componentes FIN
-      | CLASE ULTIMA componentes FIN
-      | CLASE '(' lista_nombre_una_o_mas ')' componentes FIN
-      | CLASE componentes FIN
+    : ENUMERACION 'de' tipo_escalar lista_elemento_num 'fin'
+    | ESTRUCTURA lista_linea_campo 'fin'
+    | UNION lista_linea_campo 'fin'
+    | CLASE ultima_opt '(' lista_nombre_una_o_mas ')' componentes 'fin'
+    | CLASE ultima_opt componentes 'fin'
+    ;
+
+ultima_opt
+      : 
+      | ULTIMA
       ;
-lista_elemento_numerico
-      : lista_elemento_numerico elemento_numerico 
+lista_elemento_num
+      : elemento_numerico lista_elemento_num
       ;
 elemento_numerico
       : IDENTIFICADOR ASIG expresion
@@ -143,6 +152,29 @@ lista_identificador
 
 lista_nombre_una_o_mas
       : lista_nombre_una_o_mas nombre
+      ;
+
+componentes
+      :
+      | declaraciones_tipos
+      | declaraciones_constantes
+      | declaraciones_variables
+      | declaracion_metodo
+      ;
+
+declaracion_metodo
+      : visibilidad_opt modificador_opt firma_funcion cuerpo_funcion
+      | declaracion_metodo visibilidad_opt modificador_opt firma_funcion cuerpo_funcion
+      ; 
+
+modificador_opt
+      : 
+      | CONSTRUCTOR
+      | DESTRUCTOR
+      | GENERICO
+      | ABSTRACTO
+      | ESPECIFICO
+      | FINAL
       ;
 
 
