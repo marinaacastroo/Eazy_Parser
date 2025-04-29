@@ -219,7 +219,8 @@ elemento_hash
       : CTC_CADENA ASIG constante
 
 constante_estructurada
-      | '(' lista_campo_constante_una_o_mas ')'
+      : '(' lista_campo_constante_una_o_mas ')'
+      ;
 
 lista_campo_constante_una_o_mas
       : lista_campo_constante_una_o_mas campo_constante
