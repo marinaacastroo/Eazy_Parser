@@ -387,7 +387,7 @@ instruccion_devolver
       ;
 
 instruccion_lanzamiento_excepcion
-      : LANZA excepcion IDENTIFICADOR '.'
+      : LANZA EXCEPCION IDENTIFICADOR '.'
       ;
 
 instruccion_captura_excepcion
@@ -411,8 +411,14 @@ clausula_defecto
       : DEFECTO bloque_instrucciones
       ;
 
-
+instruccion_vacia
+      : 
+      ;
       
+
+/*--------------------------------------------------------------------*/
+/*  EXPRESIONES    */
+/*--------------------------------------------------------------------*/
 
 
 %%
