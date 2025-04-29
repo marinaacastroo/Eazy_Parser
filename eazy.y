@@ -39,19 +39,22 @@ lista_librerias
         ;
 
 libreria
-        : IMPORTAR nombre_lista '.' 
+        : IMPORTAR nombre_lista '.'
         | IMPORTAR nombre COMO IDENTIFICADOR '.'
         ;
 
 nombre_lista
-        : nombre
-        | nombre_lista '.' nombre
-        | nombre_lista PTOS nombre
-        ;
+    : nombre '.'
+    | nombre_lista '.' nombre
+    | nombre_lista PTOS nombre '.'
+    | nombre_lista PTOS nombre PTOS nombre '.' 
+    ;
+
+
 
 nombre
         : IDENTIFICADOR
-        | nombre PTOS IDENTIFICADOR
+        | nombre PTOS IDENTIFICADOR        
         ;
 
 /**********************************************************************/
@@ -61,7 +64,6 @@ nombre
 bloque_programa
         : PRINCIPIO secciones FIN
         ;
-
 
 secciones
         : bloque_tipos bloque_constantes bloque_variables bloque_funciones bloque_instrucciones
@@ -131,7 +133,7 @@ declaracion_funcion
         ;
 
 firma_funcion
-        : FUNCION IDENTIFICADOR '(' lista_argumentos ')'    /* → nada */
+        : FUNCION IDENTIFICADOR '(' lista_argumentos ')'
         ;
 
 lista_argumentos
@@ -333,7 +335,6 @@ expresion
         | expresion_logica SI expresion SINO expresion
         | expresion_logica PARA CADA IDENTIFICADOR EN expresion
         ;
-
 
 %%
 

@@ -45,16 +45,15 @@ Terminals which are not used
    XOR_ASIG
 
 
-State 28 conflicts: 1 shift/reduce
-State 48 conflicts: 1 shift/reduce
-State 49 conflicts: 1 shift/reduce
-State 62 conflicts: 1 shift/reduce
-State 86 conflicts: 1 shift/reduce
-State 92 conflicts: 1 shift/reduce
-State 100 conflicts: 1 shift/reduce
-State 107 conflicts: 1 shift/reduce
-State 172 conflicts: 1 shift/reduce
-State 173 conflicts: 1 shift/reduce
+State 50 conflicts: 1 shift/reduce
+State 63 conflicts: 1 shift/reduce
+State 87 conflicts: 1 shift/reduce
+State 93 conflicts: 1 shift/reduce
+State 101 conflicts: 1 shift/reduce
+State 110 conflicts: 1 shift/reduce
+State 154 conflicts: 2 reduce/reduce
+State 177 conflicts: 1 shift/reduce
+State 178 conflicts: 1 shift/reduce
 
 
 Grammar
@@ -71,223 +70,224 @@ Grammar
     5 libreria: IMPORTAR nombre_lista '.'
     6         | IMPORTAR nombre COMO IDENTIFICADOR '.'
 
-    7 nombre_lista: nombre
+    7 nombre_lista: nombre '.'
     8             | nombre_lista '.' nombre
-    9             | nombre_lista PTOS nombre
+    9             | nombre_lista PTOS nombre '.'
+   10             | nombre_lista PTOS nombre PTOS nombre '.'
 
-   10 nombre: IDENTIFICADOR
-   11       | nombre PTOS IDENTIFICADOR
+   11 nombre: IDENTIFICADOR
+   12       | nombre PTOS IDENTIFICADOR
 
-   12 bloque_programa: PRINCIPIO secciones FIN
+   13 bloque_programa: PRINCIPIO secciones FIN
 
-   13 secciones: bloque_tipos bloque_constantes bloque_variables bloque_funciones bloque_instrucciones
+   14 secciones: bloque_tipos bloque_constantes bloque_variables bloque_funciones bloque_instrucciones
 
-   14 bloque_tipos: /* empty */
-   15             | TIPOS contenido_tipos FIN
+   15 bloque_tipos: /* empty */
+   16             | TIPOS contenido_tipos FIN
 
-   16 contenido_tipos: contenido_tipos_pieza
-   17                | /* empty */
+   17 contenido_tipos: contenido_tipos_pieza
+   18                | /* empty */
 
-   18 contenido_tipos_pieza: IDENTIFICADOR
-   19                      | error
+   19 contenido_tipos_pieza: IDENTIFICADOR
+   20                      | error
 
-   20 bloque_constantes: /* empty */
-   21                  | CONSTANTES contenido_constantes FIN
+   21 bloque_constantes: /* empty */
+   22                  | CONSTANTES contenido_constantes FIN
 
-   22 contenido_constantes: contenido_constantes pieza_const
-   23                     | /* empty */
+   23 contenido_constantes: contenido_constantes pieza_const
+   24                     | /* empty */
 
-   24 pieza_const: IDENTIFICADOR
-   25            | error
+   25 pieza_const: IDENTIFICADOR
+   26            | error
 
-   26 bloque_variables: /* empty */
-   27                 | VARIABLES contenido_variables FIN
+   27 bloque_variables: /* empty */
+   28                 | VARIABLES contenido_variables FIN
 
-   28 contenido_variables: contenido_variables pieza_var
-   29                    | /* empty */
+   29 contenido_variables: contenido_variables pieza_var
+   30                    | /* empty */
 
-   30 pieza_var: IDENTIFICADOR
-   31          | error
+   31 pieza_var: IDENTIFICADOR
+   32          | error
 
-   32 bloque_funciones: /* empty */
-   33                 | bloque_funciones declaracion_funcion
+   33 bloque_funciones: /* empty */
+   34                 | bloque_funciones declaracion_funcion
 
-   34 declaracion_funcion: firma_funcion cuerpo_funcion
+   35 declaracion_funcion: firma_funcion cuerpo_funcion
 
-   35 firma_funcion: FUNCION IDENTIFICADOR '(' lista_argumentos ')'
+   36 firma_funcion: FUNCION IDENTIFICADOR '(' lista_argumentos ')'
 
-   36 lista_argumentos: /* empty */
-   37                 | lista_argumentos_nonempty
+   37 lista_argumentos: /* empty */
+   38                 | lista_argumentos_nonempty
 
-   38 lista_argumentos_nonempty: IDENTIFICADOR
-   39                          | lista_argumentos_nonempty ',' IDENTIFICADOR
+   39 lista_argumentos_nonempty: IDENTIFICADOR
+   40                          | lista_argumentos_nonempty ',' IDENTIFICADOR
 
-   40 cuerpo_funcion: PRINCIPIO bloque_instrucciones FIN
+   41 cuerpo_funcion: PRINCIPIO bloque_instrucciones FIN
 
-   41 bloque_instrucciones: PRINCIPIO lista_instrucciones FIN
+   42 bloque_instrucciones: PRINCIPIO lista_instrucciones FIN
 
-   42 lista_instrucciones: instruccion
-   43                    | lista_instrucciones instruccion
+   43 lista_instrucciones: instruccion
+   44                    | lista_instrucciones instruccion
 
-   44 instruccion: asignacion
-   45            | instruccion_condicional
-   46            | instruccion_bucle
-   47            | instruccion_de_salto
-   48            | instruccion_constructor
-   49            | instruccion_destructor
-   50            | instruccion_expresion
-   51            | ';'
-   52            | error ';'
+   45 instruccion: asignacion
+   46            | instruccion_condicional
+   47            | instruccion_bucle
+   48            | instruccion_de_salto
+   49            | instruccion_constructor
+   50            | instruccion_destructor
+   51            | instruccion_expresion
+   52            | ';'
+   53            | error ';'
 
-   53 asignacion: expresion_indexada ASIG expresion
+   54 asignacion: expresion_indexada ASIG expresion
 
-   54 instruccion_condicional: SI expresion bloque_instrucciones SINO bloque_instrucciones
+   55 instruccion_condicional: SI expresion bloque_instrucciones SINO bloque_instrucciones
 
-   55 instruccion_bucle: MIENTRAS expresion bloque_instrucciones
+   56 instruccion_bucle: MIENTRAS expresion bloque_instrucciones
 
-   56 instruccion_de_salto: CONTINUAR
-   57                     | SALTAR
-   58                     | DEVOLVER expresion
+   57 instruccion_de_salto: CONTINUAR
+   58                     | SALTAR
+   59                     | DEVOLVER expresion
 
-   59 instruccion_constructor: CONSTRUCTOR expresion bloque_instrucciones
+   60 instruccion_constructor: CONSTRUCTOR expresion bloque_instrucciones
 
-   60 instruccion_destructor: DESTRUCTOR expresion bloque_instrucciones
+   61 instruccion_destructor: DESTRUCTOR expresion bloque_instrucciones
 
-   61 instruccion_expresion: expresion
+   62 instruccion_expresion: expresion
 
-   62 expresion_constante: CTC_ENTERA
-   63                    | CTC_REAL
-   64                    | CTC_CADENA
-   65                    | CTC_CARACTER
+   63 expresion_constante: CTC_ENTERA
+   64                    | CTC_REAL
+   65                    | CTC_CADENA
+   66                    | CTC_CARACTER
 
-   66 expresion_basica: nombre
-   67                 | '(' expresion ')'
-   68                 | '^' expresion_basica
-   69                 | REF expresion_basica
+   67 expresion_basica: nombre
+   68                 | '(' expresion ')'
+   69                 | '^' expresion_basica
+   70                 | REF expresion_basica
 
-   70 indice: '[' expresion ']'
-   71       | '{' expresion '}'
+   71 indice: '[' expresion ']'
+   72       | '{' expresion '}'
 
-   72 expresion_indexada: expresion_basica
-   73                   | expresion_indexada '?' expresion_basica
-   74                   | expresion_indexada '^' '?' expresion_basica
-   75                   | expresion_indexada indice
-   76                   | expresion_indexada '^' '?' indice
+   73 expresion_indexada: expresion_basica
+   74                   | expresion_indexada '?' expresion_basica
+   75                   | expresion_indexada '^' '?' expresion_basica
+   76                   | expresion_indexada indice
+   77                   | expresion_indexada '^' '?' indice
 
-   77 expresion_funcional: IDENTIFICADOR '(' lista_expresiones ')'
+   78 expresion_funcional: IDENTIFICADOR '(' lista_expresiones ')'
 
-   78 lista_expresiones: expresion
-   79                  | lista_expresiones ';' expresion
+   79 lista_expresiones: expresion
+   80                  | lista_expresiones ';' expresion
 
-   80 primario: expresion_constante
-   81         | expresion_indexada
-   82         | expresion_funcional
+   81 primario: expresion_constante
+   82         | expresion_indexada
+   83         | expresion_funcional
 
-   83 expresion_unaria: primario
-   84                 | '-' primario
-   85                 | '!' primario
-   86                 | '~' primario
-   87                 | TAMANO primario
+   84 expresion_unaria: primario
+   85                 | '-' primario
+   86                 | '!' primario
+   87                 | '~' primario
+   88                 | TAMANO primario
 
-   88 expresion_potencia: expresion_unaria
-   89                   | expresion_unaria POTENCIA expresion_potencia
+   89 expresion_potencia: expresion_unaria
+   90                   | expresion_unaria POTENCIA expresion_potencia
 
-   90 expresion_mult: expresion_mult '*' expresion_potencia
-   91               | expresion_mult '/' expresion_potencia
-   92               | expresion_mult MOD expresion_potencia
-   93               | expresion_potencia
+   91 expresion_mult: expresion_mult '*' expresion_potencia
+   92               | expresion_mult '/' expresion_potencia
+   93               | expresion_mult MOD expresion_potencia
+   94               | expresion_potencia
 
-   94 expresion_add: expresion_add '+' expresion_mult
-   95              | expresion_add '-' expresion_mult
-   96              | expresion_mult
+   95 expresion_add: expresion_add '+' expresion_mult
+   96              | expresion_add '-' expresion_mult
+   97              | expresion_mult
 
-   97 expresion_desplazamiento: expresion_desplazamiento FLECHA_IZDA expresion_add
-   98                         | expresion_desplazamiento FLECHA_DCHA expresion_add
-   99                         | expresion_add
+   98 expresion_desplazamiento: expresion_desplazamiento FLECHA_IZDA expresion_add
+   99                         | expresion_desplazamiento FLECHA_DCHA expresion_add
+  100                         | expresion_add
 
-  100 expresion_and_binario: expresion_and_binario '&' expresion_desplazamiento
-  101                      | expresion_desplazamiento
+  101 expresion_and_binario: expresion_and_binario '&' expresion_desplazamiento
+  102                      | expresion_desplazamiento
 
-  102 expresion_xor_binario: expresion_xor_binario '@' expresion_and_binario
-  103                      | expresion_and_binario
+  103 expresion_xor_binario: expresion_xor_binario '@' expresion_and_binario
+  104                      | expresion_and_binario
 
-  104 expresion_or_binario: expresion_or_binario '|' expresion_xor_binario
-  105                     | expresion_xor_binario
+  105 expresion_or_binario: expresion_or_binario '|' expresion_xor_binario
+  106                     | expresion_xor_binario
 
-  106 expresion_relacional: expresion_or_binario '<' expresion_or_binario
-  107                     | expresion_or_binario '>' expresion_or_binario
-  108                     | expresion_or_binario LE expresion_or_binario
-  109                     | expresion_or_binario GE expresion_or_binario
-  110                     | expresion_or_binario EQ expresion_or_binario
-  111                     | expresion_or_binario NEQ expresion_or_binario
-  112                     | expresion_or_binario
+  107 expresion_relacional: expresion_or_binario '<' expresion_or_binario
+  108                     | expresion_or_binario '>' expresion_or_binario
+  109                     | expresion_or_binario LE expresion_or_binario
+  110                     | expresion_or_binario GE expresion_or_binario
+  111                     | expresion_or_binario EQ expresion_or_binario
+  112                     | expresion_or_binario NEQ expresion_or_binario
+  113                     | expresion_or_binario
 
-  113 expresion_and: expresion_and AND expresion_relacional
-  114              | expresion_relacional
+  114 expresion_and: expresion_and AND expresion_relacional
+  115              | expresion_relacional
 
-  115 expresion_or: expresion_or OR expresion_and
-  116             | expresion_and
+  116 expresion_or: expresion_or OR expresion_and
+  117             | expresion_and
 
-  117 expresion_logica: expresion_or
+  118 expresion_logica: expresion_or
 
-  118 expresion: expresion_logica
-  119          | expresion_logica SI expresion SINO expresion
-  120          | expresion_logica PARA CADA IDENTIFICADOR EN expresion
+  119 expresion: expresion_logica
+  120          | expresion_logica SI expresion SINO expresion
+  121          | expresion_logica PARA CADA IDENTIFICADOR EN expresion
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
-'!' (33) 85
-'&' (38) 100
-'(' (40) 35 67 77
-')' (41) 35 67 77
-'*' (42) 90
-'+' (43) 94
-',' (44) 39
-'-' (45) 84 95
-'.' (46) 2 5 6 8
-'/' (47) 91
-';' (59) 51 52 79
-'<' (60) 106
-'>' (62) 107
-'?' (63) 73 74 76
-'@' (64) 102
-'[' (91) 70
-']' (93) 70
-'^' (94) 68 74 76
-'{' (123) 71
-'|' (124) 104
-'}' (125) 71
-'~' (126) 86
-error (256) 19 25 31 52
+'!' (33) 86
+'&' (38) 101
+'(' (40) 36 68 78
+')' (41) 36 68 78
+'*' (42) 91
+'+' (43) 95
+',' (44) 40
+'-' (45) 85 96
+'.' (46) 2 5 6 7 8 9 10
+'/' (47) 92
+';' (59) 52 53 80
+'<' (60) 107
+'>' (62) 108
+'?' (63) 74 75 77
+'@' (64) 103
+'[' (91) 71
+']' (93) 71
+'^' (94) 69 75 77
+'{' (123) 72
+'|' (124) 105
+'}' (125) 72
+'~' (126) 87
+error (256) 20 26 32 53
 ABSTRACTO (258)
-AND (259) 113
-ASIG (260) 53
+AND (259) 114
+ASIG (260) 54
 AND_ASIG (261)
-CADA (262) 120
+CADA (262) 121
 CADENA (263)
 CARACTER (264)
 CLASE (265)
 COMO (266) 6
-CONSTANTES (267) 21
-CONSTRUCTOR (268) 59
-CONTINUAR (269) 56
-CTC_CADENA (270) 64
-CTC_CARACTER (271) 65
-CTC_ENTERA (272) 62
-CTC_REAL (273) 63
+CONSTANTES (267) 22
+CONSTRUCTOR (268) 60
+CONTINUAR (269) 57
+CTC_CADENA (270) 65
+CTC_CARACTER (271) 66
+CTC_ENTERA (272) 63
+CTC_REAL (273) 64
 DE (274)
 DEFECTO (275)
-DESTRUCTOR (276) 60
-DEVOLVER (277) 58
+DESTRUCTOR (276) 61
+DEVOLVER (277) 59
 DIV_ASIG (278)
 EJECUTA (279)
 ENCAMBIO (280)
 ENTERO (281)
 ENUMERACION (282)
-EQ (283) 110
-EN (284) 120
+EQ (283) 111
+EN (284) 121
 ESCAPE (285)
 ES (286)
 ESPECIFICO (287)
@@ -297,51 +297,51 @@ EXCEPCION (290)
 FD_ASIG (291)
 FI_ASIG (292)
 FICHERO (293)
-FIN (294) 12 15 21 27 40 41
+FIN (294) 13 16 22 28 41 42
 FINAL (295)
-FLECHA_DCHA (296) 98
-FLECHA_IZDA (297) 97
-FUNCION (298) 35
+FLECHA_DCHA (296) 99
+FLECHA_IZDA (297) 98
+FUNCION (298) 36
 GENERICO (299)
 HACER (300)
 HASH (301)
-GE (302) 109
-IDENTIFICADOR (303) 2 6 10 11 18 24 30 35 38 39 77 120
+GE (302) 110
+IDENTIFICADOR (303) 2 6 11 12 19 25 31 36 39 40 78 121
 IMPORTAR (304) 5 6
 INDIRECCION (305)
 LANZA (306)
-LE (307) 108
-MIENTRAS (308) 55
-MOD (309) 92
+LE (307) 109
+MIENTRAS (308) 56
+MOD (309) 93
 MOD_ASIG (310)
 MULT_ASIG (311)
 NADA (312)
-NEQ (313) 111
-OR (314) 115
+NEQ (313) 112
+OR (314) 116
 OTRA (315)
 OR_ASIG (316)
-PARA (317) 120
+PARA (317) 121
 POT_ASIG (318)
-POTENCIA (319) 89
-PRINCIPIO (320) 12 40 41
+POTENCIA (319) 90
+PRINCIPIO (320) 13 41 42
 PRIVADO (321)
 PROGRAMA (322) 2
 PROTEGIDO (323)
-PTOS (324) 9 11
+PTOS (324) 9 10 12
 PUBLICO (325)
 REAL (326)
-REF (327) 69
+REF (327) 70
 RESTA_ASIG (328)
-SALTAR (329) 57
-SI (330) 54 119
-SINO (331) 54 119
+SALTAR (329) 58
+SI (330) 55 120
+SINO (331) 55 120
 SUMA_ASIG (332)
-TAMANO (333) 87
+TAMANO (333) 88
 TABLA (334)
-TIPOS (335) 15
+TIPOS (335) 16
 ULTIMA (336)
 UNION (337)
-VARIABLES (338) 27
+VARIABLES (338) 28
 XOR_ASIG (339)
 
 
@@ -358,104 +358,104 @@ lista_librerias (110)
 libreria (111)
     on left: 5 6, on right: 4
 nombre_lista (112)
-    on left: 7 8 9, on right: 5 8 9
+    on left: 7 8 9 10, on right: 5 8 9 10
 nombre (113)
-    on left: 10 11, on right: 6 7 8 9 11 66
+    on left: 11 12, on right: 6 7 8 9 10 12 67
 bloque_programa (114)
-    on left: 12, on right: 1
+    on left: 13, on right: 1
 secciones (115)
-    on left: 13, on right: 12
+    on left: 14, on right: 13
 bloque_tipos (116)
-    on left: 14 15, on right: 13
+    on left: 15 16, on right: 14
 contenido_tipos (117)
-    on left: 16 17, on right: 15
+    on left: 17 18, on right: 16
 contenido_tipos_pieza (118)
-    on left: 18 19, on right: 16
+    on left: 19 20, on right: 17
 bloque_constantes (119)
-    on left: 20 21, on right: 13
+    on left: 21 22, on right: 14
 contenido_constantes (120)
-    on left: 22 23, on right: 21 22
+    on left: 23 24, on right: 22 23
 pieza_const (121)
-    on left: 24 25, on right: 22
+    on left: 25 26, on right: 23
 bloque_variables (122)
-    on left: 26 27, on right: 13
+    on left: 27 28, on right: 14
 contenido_variables (123)
-    on left: 28 29, on right: 27 28
+    on left: 29 30, on right: 28 29
 pieza_var (124)
-    on left: 30 31, on right: 28
+    on left: 31 32, on right: 29
 bloque_funciones (125)
-    on left: 32 33, on right: 13 33
+    on left: 33 34, on right: 14 34
 declaracion_funcion (126)
-    on left: 34, on right: 33
-firma_funcion (127)
     on left: 35, on right: 34
+firma_funcion (127)
+    on left: 36, on right: 35
 lista_argumentos (128)
-    on left: 36 37, on right: 35
+    on left: 37 38, on right: 36
 lista_argumentos_nonempty (129)
-    on left: 38 39, on right: 37 39
+    on left: 39 40, on right: 38 40
 cuerpo_funcion (130)
-    on left: 40, on right: 34
+    on left: 41, on right: 35
 bloque_instrucciones (131)
-    on left: 41, on right: 13 40 54 55 59 60
+    on left: 42, on right: 14 41 55 56 60 61
 lista_instrucciones (132)
-    on left: 42 43, on right: 41 43
+    on left: 43 44, on right: 42 44
 instruccion (133)
-    on left: 44 45 46 47 48 49 50 51 52, on right: 42 43
+    on left: 45 46 47 48 49 50 51 52 53, on right: 43 44
 asignacion (134)
-    on left: 53, on right: 44
-instruccion_condicional (135)
     on left: 54, on right: 45
-instruccion_bucle (136)
+instruccion_condicional (135)
     on left: 55, on right: 46
+instruccion_bucle (136)
+    on left: 56, on right: 47
 instruccion_de_salto (137)
-    on left: 56 57 58, on right: 47
+    on left: 57 58 59, on right: 48
 instruccion_constructor (138)
-    on left: 59, on right: 48
-instruccion_destructor (139)
     on left: 60, on right: 49
-instruccion_expresion (140)
+instruccion_destructor (139)
     on left: 61, on right: 50
+instruccion_expresion (140)
+    on left: 62, on right: 51
 expresion_constante (141)
-    on left: 62 63 64 65, on right: 80
+    on left: 63 64 65 66, on right: 81
 expresion_basica (142)
-    on left: 66 67 68 69, on right: 68 69 72 73 74
+    on left: 67 68 69 70, on right: 69 70 73 74 75
 indice (143)
-    on left: 70 71, on right: 75 76
+    on left: 71 72, on right: 76 77
 expresion_indexada (144)
-    on left: 72 73 74 75 76, on right: 53 73 74 75 76 81
+    on left: 73 74 75 76 77, on right: 54 74 75 76 77 82
 expresion_funcional (145)
-    on left: 77, on right: 82
+    on left: 78, on right: 83
 lista_expresiones (146)
-    on left: 78 79, on right: 77 79
+    on left: 79 80, on right: 78 80
 primario (147)
-    on left: 80 81 82, on right: 83 84 85 86 87
+    on left: 81 82 83, on right: 84 85 86 87 88
 expresion_unaria (148)
-    on left: 83 84 85 86 87, on right: 88 89
+    on left: 84 85 86 87 88, on right: 89 90
 expresion_potencia (149)
-    on left: 88 89, on right: 89 90 91 92 93
+    on left: 89 90, on right: 90 91 92 93 94
 expresion_mult (150)
-    on left: 90 91 92 93, on right: 90 91 92 94 95 96
+    on left: 91 92 93 94, on right: 91 92 93 95 96 97
 expresion_add (151)
-    on left: 94 95 96, on right: 94 95 97 98 99
+    on left: 95 96 97, on right: 95 96 98 99 100
 expresion_desplazamiento (152)
-    on left: 97 98 99, on right: 97 98 100 101
+    on left: 98 99 100, on right: 98 99 101 102
 expresion_and_binario (153)
-    on left: 100 101, on right: 100 102 103
+    on left: 101 102, on right: 101 103 104
 expresion_xor_binario (154)
-    on left: 102 103, on right: 102 104 105
+    on left: 103 104, on right: 103 105 106
 expresion_or_binario (155)
-    on left: 104 105, on right: 104 106 107 108 109 110 111 112
+    on left: 105 106, on right: 105 107 108 109 110 111 112 113
 expresion_relacional (156)
-    on left: 106 107 108 109 110 111 112, on right: 113 114
+    on left: 107 108 109 110 111 112 113, on right: 114 115
 expresion_and (157)
-    on left: 113 114, on right: 113 115 116
+    on left: 114 115, on right: 114 116 117
 expresion_or (158)
-    on left: 115 116, on right: 115 117
+    on left: 116 117, on right: 116 118
 expresion_logica (159)
-    on left: 117, on right: 118 119 120
+    on left: 118, on right: 119 120 121
 expresion (160)
-    on left: 118 119 120, on right: 53 54 55 58 59 60 61 67 70 71 78
-    79 119 120
+    on left: 119 120 121, on right: 54 55 56 59 60 61 62 68 71 72 79
+    80 120 121
 
 
 state 0
@@ -507,11 +507,11 @@ state 5
 
 state 6
 
-   12 bloque_programa: PRINCIPIO . secciones FIN
+   13 bloque_programa: PRINCIPIO . secciones FIN
 
     TIPOS  shift, and go to state 9
 
-    $default  reduce using rule 14 (bloque_tipos)
+    $default  reduce using rule 15 (bloque_tipos)
 
     secciones     go to state 10
     bloque_tipos  go to state 11
@@ -535,12 +535,12 @@ state 8
 
 state 9
 
-   15 bloque_tipos: TIPOS . contenido_tipos FIN
+   16 bloque_tipos: TIPOS . contenido_tipos FIN
 
     error          shift, and go to state 13
     IDENTIFICADOR  shift, and go to state 14
 
-    FIN  reduce using rule 17 (contenido_tipos)
+    FIN  reduce using rule 18 (contenido_tipos)
 
     contenido_tipos        go to state 15
     contenido_tipos_pieza  go to state 16
@@ -548,18 +548,18 @@ state 9
 
 state 10
 
-   12 bloque_programa: PRINCIPIO secciones . FIN
+   13 bloque_programa: PRINCIPIO secciones . FIN
 
     FIN  shift, and go to state 17
 
 
 state 11
 
-   13 secciones: bloque_tipos . bloque_constantes bloque_variables bloque_funciones bloque_instrucciones
+   14 secciones: bloque_tipos . bloque_constantes bloque_variables bloque_funciones bloque_instrucciones
 
     CONSTANTES  shift, and go to state 18
 
-    $default  reduce using rule 20 (bloque_constantes)
+    $default  reduce using rule 21 (bloque_constantes)
 
     bloque_constantes  go to state 19
 
@@ -578,55 +578,55 @@ state 12
 
 state 13
 
-   19 contenido_tipos_pieza: error .
+   20 contenido_tipos_pieza: error .
 
-    $default  reduce using rule 19 (contenido_tipos_pieza)
+    $default  reduce using rule 20 (contenido_tipos_pieza)
 
 
 state 14
 
-   18 contenido_tipos_pieza: IDENTIFICADOR .
+   19 contenido_tipos_pieza: IDENTIFICADOR .
 
-    $default  reduce using rule 18 (contenido_tipos_pieza)
+    $default  reduce using rule 19 (contenido_tipos_pieza)
 
 
 state 15
 
-   15 bloque_tipos: TIPOS contenido_tipos . FIN
+   16 bloque_tipos: TIPOS contenido_tipos . FIN
 
     FIN  shift, and go to state 22
 
 
 state 16
 
-   16 contenido_tipos: contenido_tipos_pieza .
+   17 contenido_tipos: contenido_tipos_pieza .
 
-    $default  reduce using rule 16 (contenido_tipos)
+    $default  reduce using rule 17 (contenido_tipos)
 
 
 state 17
 
-   12 bloque_programa: PRINCIPIO secciones FIN .
+   13 bloque_programa: PRINCIPIO secciones FIN .
 
-    $default  reduce using rule 12 (bloque_programa)
+    $default  reduce using rule 13 (bloque_programa)
 
 
 state 18
 
-   21 bloque_constantes: CONSTANTES . contenido_constantes FIN
+   22 bloque_constantes: CONSTANTES . contenido_constantes FIN
 
-    $default  reduce using rule 23 (contenido_constantes)
+    $default  reduce using rule 24 (contenido_constantes)
 
     contenido_constantes  go to state 23
 
 
 state 19
 
-   13 secciones: bloque_tipos bloque_constantes . bloque_variables bloque_funciones bloque_instrucciones
+   14 secciones: bloque_tipos bloque_constantes . bloque_variables bloque_funciones bloque_instrucciones
 
     VARIABLES  shift, and go to state 24
 
-    $default  reduce using rule 26 (bloque_variables)
+    $default  reduce using rule 27 (bloque_variables)
 
     bloque_variables  go to state 25
 
@@ -651,15 +651,15 @@ state 21
 
 state 22
 
-   15 bloque_tipos: TIPOS contenido_tipos FIN .
+   16 bloque_tipos: TIPOS contenido_tipos FIN .
 
-    $default  reduce using rule 15 (bloque_tipos)
+    $default  reduce using rule 16 (bloque_tipos)
 
 
 state 23
 
-   21 bloque_constantes: CONSTANTES contenido_constantes . FIN
-   22 contenido_constantes: contenido_constantes . pieza_const
+   22 bloque_constantes: CONSTANTES contenido_constantes . FIN
+   23 contenido_constantes: contenido_constantes . pieza_const
 
     error          shift, and go to state 29
     FIN            shift, and go to state 30
@@ -670,34 +670,35 @@ state 23
 
 state 24
 
-   27 bloque_variables: VARIABLES . contenido_variables FIN
+   28 bloque_variables: VARIABLES . contenido_variables FIN
 
-    $default  reduce using rule 29 (contenido_variables)
+    $default  reduce using rule 30 (contenido_variables)
 
     contenido_variables  go to state 33
 
 
 state 25
 
-   13 secciones: bloque_tipos bloque_constantes bloque_variables . bloque_funciones bloque_instrucciones
+   14 secciones: bloque_tipos bloque_constantes bloque_variables . bloque_funciones bloque_instrucciones
 
-    $default  reduce using rule 32 (bloque_funciones)
+    $default  reduce using rule 33 (bloque_funciones)
 
     bloque_funciones  go to state 34
 
 
 state 26
 
-   10 nombre: IDENTIFICADOR .
+   11 nombre: IDENTIFICADOR .
 
-    $default  reduce using rule 10 (nombre)
+    $default  reduce using rule 11 (nombre)
 
 
 state 27
 
     5 libreria: IMPORTAR nombre_lista . '.'
     8 nombre_lista: nombre_lista . '.' nombre
-    9             | nombre_lista . PTOS nombre
+    9             | nombre_lista . PTOS nombre '.'
+   10             | nombre_lista . PTOS nombre PTOS nombre '.'
 
     PTOS  shift, and go to state 35
     '.'   shift, and go to state 36
@@ -706,76 +707,75 @@ state 27
 state 28
 
     6 libreria: IMPORTAR nombre . COMO IDENTIFICADOR '.'
-    7 nombre_lista: nombre .
-   11 nombre: nombre . PTOS IDENTIFICADOR
+    7 nombre_lista: nombre . '.'
+   12 nombre: nombre . PTOS IDENTIFICADOR
 
     COMO  shift, and go to state 37
     PTOS  shift, and go to state 38
-
-    PTOS      [reduce using rule 7 (nombre_lista)]
-    $default  reduce using rule 7 (nombre_lista)
+    '.'   shift, and go to state 39
 
 
 state 29
 
-   25 pieza_const: error .
+   26 pieza_const: error .
 
-    $default  reduce using rule 25 (pieza_const)
+    $default  reduce using rule 26 (pieza_const)
 
 
 state 30
 
-   21 bloque_constantes: CONSTANTES contenido_constantes FIN .
+   22 bloque_constantes: CONSTANTES contenido_constantes FIN .
 
-    $default  reduce using rule 21 (bloque_constantes)
+    $default  reduce using rule 22 (bloque_constantes)
 
 
 state 31
 
-   24 pieza_const: IDENTIFICADOR .
+   25 pieza_const: IDENTIFICADOR .
 
-    $default  reduce using rule 24 (pieza_const)
+    $default  reduce using rule 25 (pieza_const)
 
 
 state 32
 
-   22 contenido_constantes: contenido_constantes pieza_const .
+   23 contenido_constantes: contenido_constantes pieza_const .
 
-    $default  reduce using rule 22 (contenido_constantes)
+    $default  reduce using rule 23 (contenido_constantes)
 
 
 state 33
 
-   27 bloque_variables: VARIABLES contenido_variables . FIN
-   28 contenido_variables: contenido_variables . pieza_var
+   28 bloque_variables: VARIABLES contenido_variables . FIN
+   29 contenido_variables: contenido_variables . pieza_var
 
-    error          shift, and go to state 39
-    FIN            shift, and go to state 40
-    IDENTIFICADOR  shift, and go to state 41
+    error          shift, and go to state 40
+    FIN            shift, and go to state 41
+    IDENTIFICADOR  shift, and go to state 42
 
-    pieza_var  go to state 42
+    pieza_var  go to state 43
 
 
 state 34
 
-   13 secciones: bloque_tipos bloque_constantes bloque_variables bloque_funciones . bloque_instrucciones
-   33 bloque_funciones: bloque_funciones . declaracion_funcion
+   14 secciones: bloque_tipos bloque_constantes bloque_variables bloque_funciones . bloque_instrucciones
+   34 bloque_funciones: bloque_funciones . declaracion_funcion
 
-    FUNCION    shift, and go to state 43
-    PRINCIPIO  shift, and go to state 44
+    FUNCION    shift, and go to state 44
+    PRINCIPIO  shift, and go to state 45
 
-    declaracion_funcion   go to state 45
-    firma_funcion         go to state 46
-    bloque_instrucciones  go to state 47
+    declaracion_funcion   go to state 46
+    firma_funcion         go to state 47
+    bloque_instrucciones  go to state 48
 
 
 state 35
 
-    9 nombre_lista: nombre_lista PTOS . nombre
+    9 nombre_lista: nombre_lista PTOS . nombre '.'
+   10             | nombre_lista PTOS . nombre PTOS nombre '.'
 
     IDENTIFICADOR  shift, and go to state 26
 
-    nombre  go to state 48
+    nombre  go to state 49
 
 
 state 36
@@ -787,152 +787,158 @@ state 36
 
     $default  reduce using rule 5 (libreria)
 
-    nombre  go to state 49
+    nombre  go to state 50
 
 
 state 37
 
     6 libreria: IMPORTAR nombre COMO . IDENTIFICADOR '.'
 
-    IDENTIFICADOR  shift, and go to state 50
+    IDENTIFICADOR  shift, and go to state 51
 
 
 state 38
 
-   11 nombre: nombre PTOS . IDENTIFICADOR
-
-    IDENTIFICADOR  shift, and go to state 51
-
-
-state 39
-
-   31 pieza_var: error .
-
-    $default  reduce using rule 31 (pieza_var)
-
-
-state 40
-
-   27 bloque_variables: VARIABLES contenido_variables FIN .
-
-    $default  reduce using rule 27 (bloque_variables)
-
-
-state 41
-
-   30 pieza_var: IDENTIFICADOR .
-
-    $default  reduce using rule 30 (pieza_var)
-
-
-state 42
-
-   28 contenido_variables: contenido_variables pieza_var .
-
-    $default  reduce using rule 28 (contenido_variables)
-
-
-state 43
-
-   35 firma_funcion: FUNCION . IDENTIFICADOR '(' lista_argumentos ')'
+   12 nombre: nombre PTOS . IDENTIFICADOR
 
     IDENTIFICADOR  shift, and go to state 52
 
 
+state 39
+
+    7 nombre_lista: nombre '.' .
+
+    $default  reduce using rule 7 (nombre_lista)
+
+
+state 40
+
+   32 pieza_var: error .
+
+    $default  reduce using rule 32 (pieza_var)
+
+
+state 41
+
+   28 bloque_variables: VARIABLES contenido_variables FIN .
+
+    $default  reduce using rule 28 (bloque_variables)
+
+
+state 42
+
+   31 pieza_var: IDENTIFICADOR .
+
+    $default  reduce using rule 31 (pieza_var)
+
+
+state 43
+
+   29 contenido_variables: contenido_variables pieza_var .
+
+    $default  reduce using rule 29 (contenido_variables)
+
+
 state 44
 
-   41 bloque_instrucciones: PRINCIPIO . lista_instrucciones FIN
+   36 firma_funcion: FUNCION . IDENTIFICADOR '(' lista_argumentos ')'
 
-    error          shift, and go to state 53
-    CONSTRUCTOR    shift, and go to state 54
-    CONTINUAR      shift, and go to state 55
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    DESTRUCTOR     shift, and go to state 60
-    DEVOLVER       shift, and go to state 61
-    IDENTIFICADOR  shift, and go to state 62
-    MIENTRAS       shift, and go to state 63
-    REF            shift, and go to state 64
-    SALTAR         shift, and go to state 65
-    SI             shift, and go to state 66
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    ';'            shift, and go to state 69
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
-
-    nombre                    go to state 74
-    lista_instrucciones       go to state 75
-    instruccion               go to state 76
-    asignacion                go to state 77
-    instruccion_condicional   go to state 78
-    instruccion_bucle         go to state 79
-    instruccion_de_salto      go to state 80
-    instruccion_constructor   go to state 81
-    instruccion_destructor    go to state 82
-    instruccion_expresion     go to state 83
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 86
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 98
-    expresion_or              go to state 99
-    expresion_logica          go to state 100
-    expresion                 go to state 101
+    IDENTIFICADOR  shift, and go to state 53
 
 
 state 45
 
-   33 bloque_funciones: bloque_funciones declaracion_funcion .
+   42 bloque_instrucciones: PRINCIPIO . lista_instrucciones FIN
 
-    $default  reduce using rule 33 (bloque_funciones)
+    error          shift, and go to state 54
+    CONSTRUCTOR    shift, and go to state 55
+    CONTINUAR      shift, and go to state 56
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    DESTRUCTOR     shift, and go to state 61
+    DEVOLVER       shift, and go to state 62
+    IDENTIFICADOR  shift, and go to state 63
+    MIENTRAS       shift, and go to state 64
+    REF            shift, and go to state 65
+    SALTAR         shift, and go to state 66
+    SI             shift, and go to state 67
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    ';'            shift, and go to state 70
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
+
+    nombre                    go to state 75
+    lista_instrucciones       go to state 76
+    instruccion               go to state 77
+    asignacion                go to state 78
+    instruccion_condicional   go to state 79
+    instruccion_bucle         go to state 80
+    instruccion_de_salto      go to state 81
+    instruccion_constructor   go to state 82
+    instruccion_destructor    go to state 83
+    instruccion_expresion     go to state 84
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 87
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 99
+    expresion_or              go to state 100
+    expresion_logica          go to state 101
+    expresion                 go to state 102
 
 
 state 46
 
-   34 declaracion_funcion: firma_funcion . cuerpo_funcion
+   34 bloque_funciones: bloque_funciones declaracion_funcion .
 
-    PRINCIPIO  shift, and go to state 102
-
-    cuerpo_funcion  go to state 103
+    $default  reduce using rule 34 (bloque_funciones)
 
 
 state 47
 
-   13 secciones: bloque_tipos bloque_constantes bloque_variables bloque_funciones bloque_instrucciones .
+   35 declaracion_funcion: firma_funcion . cuerpo_funcion
 
-    $default  reduce using rule 13 (secciones)
+    PRINCIPIO  shift, and go to state 103
+
+    cuerpo_funcion  go to state 104
 
 
 state 48
 
-    9 nombre_lista: nombre_lista PTOS nombre .
-   11 nombre: nombre . PTOS IDENTIFICADOR
+   14 secciones: bloque_tipos bloque_constantes bloque_variables bloque_funciones bloque_instrucciones .
 
-    PTOS  shift, and go to state 38
-
-    PTOS      [reduce using rule 9 (nombre_lista)]
-    $default  reduce using rule 9 (nombre_lista)
+    $default  reduce using rule 14 (secciones)
 
 
 state 49
 
+    9 nombre_lista: nombre_lista PTOS nombre . '.'
+   10             | nombre_lista PTOS nombre . PTOS nombre '.'
+   12 nombre: nombre . PTOS IDENTIFICADOR
+
+    PTOS  shift, and go to state 105
+    '.'   shift, and go to state 106
+
+
+state 50
+
     8 nombre_lista: nombre_lista '.' nombre .
-   11 nombre: nombre . PTOS IDENTIFICADOR
+   12 nombre: nombre . PTOS IDENTIFICADOR
 
     PTOS  shift, and go to state 38
 
@@ -940,2272 +946,2317 @@ state 49
     $default  reduce using rule 8 (nombre_lista)
 
 
-state 50
+state 51
 
     6 libreria: IMPORTAR nombre COMO IDENTIFICADOR . '.'
 
-    '.'  shift, and go to state 104
-
-
-state 51
-
-   11 nombre: nombre PTOS IDENTIFICADOR .
-
-    $default  reduce using rule 11 (nombre)
+    '.'  shift, and go to state 107
 
 
 state 52
 
-   35 firma_funcion: FUNCION IDENTIFICADOR . '(' lista_argumentos ')'
+   12 nombre: nombre PTOS IDENTIFICADOR .
 
-    '('  shift, and go to state 105
+    $default  reduce using rule 12 (nombre)
 
 
 state 53
 
-   52 instruccion: error . ';'
+   36 firma_funcion: FUNCION IDENTIFICADOR . '(' lista_argumentos ')'
 
-    ';'  shift, and go to state 106
+    '('  shift, and go to state 108
 
 
 state 54
 
-   59 instruccion_constructor: CONSTRUCTOR . expresion bloque_instrucciones
+   53 instruccion: error . ';'
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
-
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 98
-    expresion_or              go to state 99
-    expresion_logica          go to state 100
-    expresion                 go to state 108
+    ';'  shift, and go to state 109
 
 
 state 55
 
-   56 instruccion_de_salto: CONTINUAR .
+   60 instruccion_constructor: CONSTRUCTOR . expresion bloque_instrucciones
 
-    $default  reduce using rule 56 (instruccion_de_salto)
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
+
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 99
+    expresion_or              go to state 100
+    expresion_logica          go to state 101
+    expresion                 go to state 111
 
 
 state 56
 
-   64 expresion_constante: CTC_CADENA .
+   57 instruccion_de_salto: CONTINUAR .
 
-    $default  reduce using rule 64 (expresion_constante)
+    $default  reduce using rule 57 (instruccion_de_salto)
 
 
 state 57
 
-   65 expresion_constante: CTC_CARACTER .
+   65 expresion_constante: CTC_CADENA .
 
     $default  reduce using rule 65 (expresion_constante)
 
 
 state 58
 
-   62 expresion_constante: CTC_ENTERA .
+   66 expresion_constante: CTC_CARACTER .
 
-    $default  reduce using rule 62 (expresion_constante)
+    $default  reduce using rule 66 (expresion_constante)
 
 
 state 59
 
-   63 expresion_constante: CTC_REAL .
+   63 expresion_constante: CTC_ENTERA .
 
     $default  reduce using rule 63 (expresion_constante)
 
 
 state 60
 
-   60 instruccion_destructor: DESTRUCTOR . expresion bloque_instrucciones
+   64 expresion_constante: CTC_REAL .
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
-
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 98
-    expresion_or              go to state 99
-    expresion_logica          go to state 100
-    expresion                 go to state 109
+    $default  reduce using rule 64 (expresion_constante)
 
 
 state 61
 
-   58 instruccion_de_salto: DEVOLVER . expresion
+   61 instruccion_destructor: DESTRUCTOR . expresion bloque_instrucciones
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 98
-    expresion_or              go to state 99
-    expresion_logica          go to state 100
-    expresion                 go to state 110
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 99
+    expresion_or              go to state 100
+    expresion_logica          go to state 101
+    expresion                 go to state 112
 
 
 state 62
 
-   10 nombre: IDENTIFICADOR .
-   77 expresion_funcional: IDENTIFICADOR . '(' lista_expresiones ')'
+   59 instruccion_de_salto: DEVOLVER . expresion
 
-    '('  shift, and go to state 111
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    '('       [reduce using rule 10 (nombre)]
-    $default  reduce using rule 10 (nombre)
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 99
+    expresion_or              go to state 100
+    expresion_logica          go to state 101
+    expresion                 go to state 113
 
 
 state 63
 
-   55 instruccion_bucle: MIENTRAS . expresion bloque_instrucciones
+   11 nombre: IDENTIFICADOR .
+   78 expresion_funcional: IDENTIFICADOR . '(' lista_expresiones ')'
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    '('  shift, and go to state 114
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 98
-    expresion_or              go to state 99
-    expresion_logica          go to state 100
-    expresion                 go to state 112
+    '('       [reduce using rule 11 (nombre)]
+    $default  reduce using rule 11 (nombre)
 
 
 state 64
 
-   69 expresion_basica: REF . expresion_basica
+   56 instruccion_bucle: MIENTRAS . expresion bloque_instrucciones
 
-    IDENTIFICADOR  shift, and go to state 26
-    REF            shift, and go to state 64
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre            go to state 74
-    expresion_basica  go to state 113
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 99
+    expresion_or              go to state 100
+    expresion_logica          go to state 101
+    expresion                 go to state 115
 
 
 state 65
 
-   57 instruccion_de_salto: SALTAR .
+   70 expresion_basica: REF . expresion_basica
 
-    $default  reduce using rule 57 (instruccion_de_salto)
+    IDENTIFICADOR  shift, and go to state 26
+    REF            shift, and go to state 65
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+
+    nombre            go to state 75
+    expresion_basica  go to state 116
 
 
 state 66
 
-   54 instruccion_condicional: SI . expresion bloque_instrucciones SINO bloque_instrucciones
+   58 instruccion_de_salto: SALTAR .
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
-
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 98
-    expresion_or              go to state 99
-    expresion_logica          go to state 100
-    expresion                 go to state 114
+    $default  reduce using rule 58 (instruccion_de_salto)
 
 
 state 67
 
-   87 expresion_unaria: TAMANO . primario
+   55 instruccion_condicional: SI . expresion bloque_instrucciones SINO bloque_instrucciones
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre               go to state 74
-    expresion_constante  go to state 84
-    expresion_basica     go to state 85
-    expresion_indexada   go to state 107
-    expresion_funcional  go to state 87
-    primario             go to state 115
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 99
+    expresion_or              go to state 100
+    expresion_logica          go to state 101
+    expresion                 go to state 117
 
 
 state 68
 
-   67 expresion_basica: '(' . expresion ')'
+   88 expresion_unaria: TAMANO . primario
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 98
-    expresion_or              go to state 99
-    expresion_logica          go to state 100
-    expresion                 go to state 116
+    nombre               go to state 75
+    expresion_constante  go to state 85
+    expresion_basica     go to state 86
+    expresion_indexada   go to state 110
+    expresion_funcional  go to state 88
+    primario             go to state 118
 
 
 state 69
 
-   51 instruccion: ';' .
+   68 expresion_basica: '(' . expresion ')'
 
-    $default  reduce using rule 51 (instruccion)
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
+
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 99
+    expresion_or              go to state 100
+    expresion_logica          go to state 101
+    expresion                 go to state 119
 
 
 state 70
 
-   68 expresion_basica: '^' . expresion_basica
+   52 instruccion: ';' .
 
-    IDENTIFICADOR  shift, and go to state 26
-    REF            shift, and go to state 64
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-
-    nombre            go to state 74
-    expresion_basica  go to state 117
+    $default  reduce using rule 52 (instruccion)
 
 
 state 71
 
-   84 expresion_unaria: '-' . primario
+   69 expresion_basica: '^' . expresion_basica
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
+    IDENTIFICADOR  shift, and go to state 26
+    REF            shift, and go to state 65
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
 
-    nombre               go to state 74
-    expresion_constante  go to state 84
-    expresion_basica     go to state 85
-    expresion_indexada   go to state 107
-    expresion_funcional  go to state 87
-    primario             go to state 118
+    nombre            go to state 75
+    expresion_basica  go to state 120
 
 
 state 72
 
-   85 expresion_unaria: '!' . primario
+   85 expresion_unaria: '-' . primario
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
 
-    nombre               go to state 74
-    expresion_constante  go to state 84
-    expresion_basica     go to state 85
-    expresion_indexada   go to state 107
-    expresion_funcional  go to state 87
-    primario             go to state 119
+    nombre               go to state 75
+    expresion_constante  go to state 85
+    expresion_basica     go to state 86
+    expresion_indexada   go to state 110
+    expresion_funcional  go to state 88
+    primario             go to state 121
 
 
 state 73
 
-   86 expresion_unaria: '~' . primario
+   86 expresion_unaria: '!' . primario
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
 
-    nombre               go to state 74
-    expresion_constante  go to state 84
-    expresion_basica     go to state 85
-    expresion_indexada   go to state 107
-    expresion_funcional  go to state 87
-    primario             go to state 120
+    nombre               go to state 75
+    expresion_constante  go to state 85
+    expresion_basica     go to state 86
+    expresion_indexada   go to state 110
+    expresion_funcional  go to state 88
+    primario             go to state 122
 
 
 state 74
 
-   11 nombre: nombre . PTOS IDENTIFICADOR
-   66 expresion_basica: nombre .
+   87 expresion_unaria: '~' . primario
 
-    PTOS  shift, and go to state 38
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
 
-    $default  reduce using rule 66 (expresion_basica)
+    nombre               go to state 75
+    expresion_constante  go to state 85
+    expresion_basica     go to state 86
+    expresion_indexada   go to state 110
+    expresion_funcional  go to state 88
+    primario             go to state 123
 
 
 state 75
 
-   41 bloque_instrucciones: PRINCIPIO lista_instrucciones . FIN
-   43 lista_instrucciones: lista_instrucciones . instruccion
+   12 nombre: nombre . PTOS IDENTIFICADOR
+   67 expresion_basica: nombre .
 
-    error          shift, and go to state 53
-    CONSTRUCTOR    shift, and go to state 54
-    CONTINUAR      shift, and go to state 55
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    DESTRUCTOR     shift, and go to state 60
-    DEVOLVER       shift, and go to state 61
-    FIN            shift, and go to state 121
-    IDENTIFICADOR  shift, and go to state 62
-    MIENTRAS       shift, and go to state 63
-    REF            shift, and go to state 64
-    SALTAR         shift, and go to state 65
-    SI             shift, and go to state 66
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    ';'            shift, and go to state 69
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    PTOS  shift, and go to state 38
 
-    nombre                    go to state 74
-    instruccion               go to state 122
-    asignacion                go to state 77
-    instruccion_condicional   go to state 78
-    instruccion_bucle         go to state 79
-    instruccion_de_salto      go to state 80
-    instruccion_constructor   go to state 81
-    instruccion_destructor    go to state 82
-    instruccion_expresion     go to state 83
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 86
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 98
-    expresion_or              go to state 99
-    expresion_logica          go to state 100
-    expresion                 go to state 101
+    $default  reduce using rule 67 (expresion_basica)
 
 
 state 76
 
-   42 lista_instrucciones: instruccion .
+   42 bloque_instrucciones: PRINCIPIO lista_instrucciones . FIN
+   44 lista_instrucciones: lista_instrucciones . instruccion
 
-    $default  reduce using rule 42 (lista_instrucciones)
+    error          shift, and go to state 54
+    CONSTRUCTOR    shift, and go to state 55
+    CONTINUAR      shift, and go to state 56
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    DESTRUCTOR     shift, and go to state 61
+    DEVOLVER       shift, and go to state 62
+    FIN            shift, and go to state 124
+    IDENTIFICADOR  shift, and go to state 63
+    MIENTRAS       shift, and go to state 64
+    REF            shift, and go to state 65
+    SALTAR         shift, and go to state 66
+    SI             shift, and go to state 67
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    ';'            shift, and go to state 70
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
+
+    nombre                    go to state 75
+    instruccion               go to state 125
+    asignacion                go to state 78
+    instruccion_condicional   go to state 79
+    instruccion_bucle         go to state 80
+    instruccion_de_salto      go to state 81
+    instruccion_constructor   go to state 82
+    instruccion_destructor    go to state 83
+    instruccion_expresion     go to state 84
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 87
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 99
+    expresion_or              go to state 100
+    expresion_logica          go to state 101
+    expresion                 go to state 102
 
 
 state 77
 
-   44 instruccion: asignacion .
+   43 lista_instrucciones: instruccion .
 
-    $default  reduce using rule 44 (instruccion)
+    $default  reduce using rule 43 (lista_instrucciones)
 
 
 state 78
 
-   45 instruccion: instruccion_condicional .
+   45 instruccion: asignacion .
 
     $default  reduce using rule 45 (instruccion)
 
 
 state 79
 
-   46 instruccion: instruccion_bucle .
+   46 instruccion: instruccion_condicional .
 
     $default  reduce using rule 46 (instruccion)
 
 
 state 80
 
-   47 instruccion: instruccion_de_salto .
+   47 instruccion: instruccion_bucle .
 
     $default  reduce using rule 47 (instruccion)
 
 
 state 81
 
-   48 instruccion: instruccion_constructor .
+   48 instruccion: instruccion_de_salto .
 
     $default  reduce using rule 48 (instruccion)
 
 
 state 82
 
-   49 instruccion: instruccion_destructor .
+   49 instruccion: instruccion_constructor .
 
     $default  reduce using rule 49 (instruccion)
 
 
 state 83
 
-   50 instruccion: instruccion_expresion .
+   50 instruccion: instruccion_destructor .
 
     $default  reduce using rule 50 (instruccion)
 
 
 state 84
 
-   80 primario: expresion_constante .
+   51 instruccion: instruccion_expresion .
 
-    $default  reduce using rule 80 (primario)
+    $default  reduce using rule 51 (instruccion)
 
 
 state 85
 
-   72 expresion_indexada: expresion_basica .
+   81 primario: expresion_constante .
 
-    $default  reduce using rule 72 (expresion_indexada)
+    $default  reduce using rule 81 (primario)
 
 
 state 86
 
-   53 asignacion: expresion_indexada . ASIG expresion
-   73 expresion_indexada: expresion_indexada . '?' expresion_basica
-   74                   | expresion_indexada . '^' '?' expresion_basica
-   75                   | expresion_indexada . indice
-   76                   | expresion_indexada . '^' '?' indice
-   81 primario: expresion_indexada .
+   73 expresion_indexada: expresion_basica .
 
-    ASIG  shift, and go to state 123
-    '^'   shift, and go to state 124
-    '['   shift, and go to state 125
-    '{'   shift, and go to state 126
-    '?'   shift, and go to state 127
-
-    '^'       [reduce using rule 81 (primario)]
-    $default  reduce using rule 81 (primario)
-
-    indice  go to state 128
+    $default  reduce using rule 73 (expresion_indexada)
 
 
 state 87
 
-   82 primario: expresion_funcional .
+   54 asignacion: expresion_indexada . ASIG expresion
+   74 expresion_indexada: expresion_indexada . '?' expresion_basica
+   75                   | expresion_indexada . '^' '?' expresion_basica
+   76                   | expresion_indexada . indice
+   77                   | expresion_indexada . '^' '?' indice
+   82 primario: expresion_indexada .
 
+    ASIG  shift, and go to state 126
+    '^'   shift, and go to state 127
+    '['   shift, and go to state 128
+    '{'   shift, and go to state 129
+    '?'   shift, and go to state 130
+
+    '^'       [reduce using rule 82 (primario)]
     $default  reduce using rule 82 (primario)
+
+    indice  go to state 131
 
 
 state 88
 
-   83 expresion_unaria: primario .
+   83 primario: expresion_funcional .
 
-    $default  reduce using rule 83 (expresion_unaria)
+    $default  reduce using rule 83 (primario)
 
 
 state 89
 
-   88 expresion_potencia: expresion_unaria .
-   89                   | expresion_unaria . POTENCIA expresion_potencia
+   84 expresion_unaria: primario .
 
-    POTENCIA  shift, and go to state 129
-
-    $default  reduce using rule 88 (expresion_potencia)
+    $default  reduce using rule 84 (expresion_unaria)
 
 
 state 90
 
-   93 expresion_mult: expresion_potencia .
+   89 expresion_potencia: expresion_unaria .
+   90                   | expresion_unaria . POTENCIA expresion_potencia
 
-    $default  reduce using rule 93 (expresion_mult)
+    POTENCIA  shift, and go to state 132
+
+    $default  reduce using rule 89 (expresion_potencia)
 
 
 state 91
 
-   90 expresion_mult: expresion_mult . '*' expresion_potencia
-   91               | expresion_mult . '/' expresion_potencia
-   92               | expresion_mult . MOD expresion_potencia
-   96 expresion_add: expresion_mult .
+   94 expresion_mult: expresion_potencia .
 
-    MOD  shift, and go to state 130
-    '*'  shift, and go to state 131
-    '/'  shift, and go to state 132
-
-    $default  reduce using rule 96 (expresion_add)
+    $default  reduce using rule 94 (expresion_mult)
 
 
 state 92
 
-   94 expresion_add: expresion_add . '+' expresion_mult
-   95              | expresion_add . '-' expresion_mult
-   99 expresion_desplazamiento: expresion_add .
+   91 expresion_mult: expresion_mult . '*' expresion_potencia
+   92               | expresion_mult . '/' expresion_potencia
+   93               | expresion_mult . MOD expresion_potencia
+   97 expresion_add: expresion_mult .
 
-    '-'  shift, and go to state 133
-    '+'  shift, and go to state 134
+    MOD  shift, and go to state 133
+    '*'  shift, and go to state 134
+    '/'  shift, and go to state 135
 
-    '-'       [reduce using rule 99 (expresion_desplazamiento)]
-    $default  reduce using rule 99 (expresion_desplazamiento)
+    $default  reduce using rule 97 (expresion_add)
 
 
 state 93
 
-   97 expresion_desplazamiento: expresion_desplazamiento . FLECHA_IZDA expresion_add
-   98                         | expresion_desplazamiento . FLECHA_DCHA expresion_add
-  101 expresion_and_binario: expresion_desplazamiento .
+   95 expresion_add: expresion_add . '+' expresion_mult
+   96              | expresion_add . '-' expresion_mult
+  100 expresion_desplazamiento: expresion_add .
 
-    FLECHA_DCHA  shift, and go to state 135
-    FLECHA_IZDA  shift, and go to state 136
+    '-'  shift, and go to state 136
+    '+'  shift, and go to state 137
 
-    $default  reduce using rule 101 (expresion_and_binario)
+    '-'       [reduce using rule 100 (expresion_desplazamiento)]
+    $default  reduce using rule 100 (expresion_desplazamiento)
 
 
 state 94
 
-  100 expresion_and_binario: expresion_and_binario . '&' expresion_desplazamiento
-  103 expresion_xor_binario: expresion_and_binario .
+   98 expresion_desplazamiento: expresion_desplazamiento . FLECHA_IZDA expresion_add
+   99                         | expresion_desplazamiento . FLECHA_DCHA expresion_add
+  102 expresion_and_binario: expresion_desplazamiento .
 
-    '&'  shift, and go to state 137
+    FLECHA_DCHA  shift, and go to state 138
+    FLECHA_IZDA  shift, and go to state 139
 
-    $default  reduce using rule 103 (expresion_xor_binario)
+    $default  reduce using rule 102 (expresion_and_binario)
 
 
 state 95
 
-  102 expresion_xor_binario: expresion_xor_binario . '@' expresion_and_binario
-  105 expresion_or_binario: expresion_xor_binario .
+  101 expresion_and_binario: expresion_and_binario . '&' expresion_desplazamiento
+  104 expresion_xor_binario: expresion_and_binario .
 
-    '@'  shift, and go to state 138
+    '&'  shift, and go to state 140
 
-    $default  reduce using rule 105 (expresion_or_binario)
+    $default  reduce using rule 104 (expresion_xor_binario)
 
 
 state 96
 
-  104 expresion_or_binario: expresion_or_binario . '|' expresion_xor_binario
-  106 expresion_relacional: expresion_or_binario . '<' expresion_or_binario
-  107                     | expresion_or_binario . '>' expresion_or_binario
-  108                     | expresion_or_binario . LE expresion_or_binario
-  109                     | expresion_or_binario . GE expresion_or_binario
-  110                     | expresion_or_binario . EQ expresion_or_binario
-  111                     | expresion_or_binario . NEQ expresion_or_binario
-  112                     | expresion_or_binario .
+  103 expresion_xor_binario: expresion_xor_binario . '@' expresion_and_binario
+  106 expresion_or_binario: expresion_xor_binario .
 
-    EQ   shift, and go to state 139
-    GE   shift, and go to state 140
-    LE   shift, and go to state 141
-    NEQ  shift, and go to state 142
-    '|'  shift, and go to state 143
-    '<'  shift, and go to state 144
-    '>'  shift, and go to state 145
+    '@'  shift, and go to state 141
 
-    $default  reduce using rule 112 (expresion_relacional)
+    $default  reduce using rule 106 (expresion_or_binario)
 
 
 state 97
 
-  114 expresion_and: expresion_relacional .
+  105 expresion_or_binario: expresion_or_binario . '|' expresion_xor_binario
+  107 expresion_relacional: expresion_or_binario . '<' expresion_or_binario
+  108                     | expresion_or_binario . '>' expresion_or_binario
+  109                     | expresion_or_binario . LE expresion_or_binario
+  110                     | expresion_or_binario . GE expresion_or_binario
+  111                     | expresion_or_binario . EQ expresion_or_binario
+  112                     | expresion_or_binario . NEQ expresion_or_binario
+  113                     | expresion_or_binario .
 
-    $default  reduce using rule 114 (expresion_and)
+    EQ   shift, and go to state 142
+    GE   shift, and go to state 143
+    LE   shift, and go to state 144
+    NEQ  shift, and go to state 145
+    '|'  shift, and go to state 146
+    '<'  shift, and go to state 147
+    '>'  shift, and go to state 148
+
+    $default  reduce using rule 113 (expresion_relacional)
 
 
 state 98
 
-  113 expresion_and: expresion_and . AND expresion_relacional
-  116 expresion_or: expresion_and .
+  115 expresion_and: expresion_relacional .
 
-    AND  shift, and go to state 146
-
-    $default  reduce using rule 116 (expresion_or)
+    $default  reduce using rule 115 (expresion_and)
 
 
 state 99
 
-  115 expresion_or: expresion_or . OR expresion_and
-  117 expresion_logica: expresion_or .
+  114 expresion_and: expresion_and . AND expresion_relacional
+  117 expresion_or: expresion_and .
 
-    OR  shift, and go to state 147
+    AND  shift, and go to state 149
 
-    $default  reduce using rule 117 (expresion_logica)
+    $default  reduce using rule 117 (expresion_or)
 
 
 state 100
 
-  118 expresion: expresion_logica .
-  119          | expresion_logica . SI expresion SINO expresion
-  120          | expresion_logica . PARA CADA IDENTIFICADOR EN expresion
+  116 expresion_or: expresion_or . OR expresion_and
+  118 expresion_logica: expresion_or .
 
-    PARA  shift, and go to state 148
-    SI    shift, and go to state 149
+    OR  shift, and go to state 150
 
-    SI        [reduce using rule 118 (expresion)]
-    $default  reduce using rule 118 (expresion)
+    $default  reduce using rule 118 (expresion_logica)
 
 
 state 101
 
-   61 instruccion_expresion: expresion .
+  119 expresion: expresion_logica .
+  120          | expresion_logica . SI expresion SINO expresion
+  121          | expresion_logica . PARA CADA IDENTIFICADOR EN expresion
 
-    $default  reduce using rule 61 (instruccion_expresion)
+    PARA  shift, and go to state 151
+    SI    shift, and go to state 152
+
+    SI        [reduce using rule 119 (expresion)]
+    $default  reduce using rule 119 (expresion)
 
 
 state 102
 
-   40 cuerpo_funcion: PRINCIPIO . bloque_instrucciones FIN
+   62 instruccion_expresion: expresion .
 
-    PRINCIPIO  shift, and go to state 44
-
-    bloque_instrucciones  go to state 150
+    $default  reduce using rule 62 (instruccion_expresion)
 
 
 state 103
 
-   34 declaracion_funcion: firma_funcion cuerpo_funcion .
+   41 cuerpo_funcion: PRINCIPIO . bloque_instrucciones FIN
 
-    $default  reduce using rule 34 (declaracion_funcion)
+    PRINCIPIO  shift, and go to state 45
+
+    bloque_instrucciones  go to state 153
 
 
 state 104
+
+   35 declaracion_funcion: firma_funcion cuerpo_funcion .
+
+    $default  reduce using rule 35 (declaracion_funcion)
+
+
+state 105
+
+   10 nombre_lista: nombre_lista PTOS nombre PTOS . nombre '.'
+   12 nombre: nombre PTOS . IDENTIFICADOR
+
+    IDENTIFICADOR  shift, and go to state 154
+
+    nombre  go to state 155
+
+
+state 106
+
+    9 nombre_lista: nombre_lista PTOS nombre '.' .
+
+    $default  reduce using rule 9 (nombre_lista)
+
+
+state 107
 
     6 libreria: IMPORTAR nombre COMO IDENTIFICADOR '.' .
 
     $default  reduce using rule 6 (libreria)
 
 
-state 105
-
-   35 firma_funcion: FUNCION IDENTIFICADOR '(' . lista_argumentos ')'
-
-    IDENTIFICADOR  shift, and go to state 151
-
-    $default  reduce using rule 36 (lista_argumentos)
-
-    lista_argumentos           go to state 152
-    lista_argumentos_nonempty  go to state 153
-
-
-state 106
-
-   52 instruccion: error ';' .
-
-    $default  reduce using rule 52 (instruccion)
-
-
-state 107
-
-   73 expresion_indexada: expresion_indexada . '?' expresion_basica
-   74                   | expresion_indexada . '^' '?' expresion_basica
-   75                   | expresion_indexada . indice
-   76                   | expresion_indexada . '^' '?' indice
-   81 primario: expresion_indexada .
-
-    '^'  shift, and go to state 124
-    '['  shift, and go to state 125
-    '{'  shift, and go to state 126
-    '?'  shift, and go to state 127
-
-    '^'       [reduce using rule 81 (primario)]
-    $default  reduce using rule 81 (primario)
-
-    indice  go to state 128
-
-
 state 108
 
-   59 instruccion_constructor: CONSTRUCTOR expresion . bloque_instrucciones
+   36 firma_funcion: FUNCION IDENTIFICADOR '(' . lista_argumentos ')'
 
-    PRINCIPIO  shift, and go to state 44
+    IDENTIFICADOR  shift, and go to state 156
 
-    bloque_instrucciones  go to state 154
+    $default  reduce using rule 37 (lista_argumentos)
+
+    lista_argumentos           go to state 157
+    lista_argumentos_nonempty  go to state 158
 
 
 state 109
 
-   60 instruccion_destructor: DESTRUCTOR expresion . bloque_instrucciones
+   53 instruccion: error ';' .
 
-    PRINCIPIO  shift, and go to state 44
-
-    bloque_instrucciones  go to state 155
+    $default  reduce using rule 53 (instruccion)
 
 
 state 110
 
-   58 instruccion_de_salto: DEVOLVER expresion .
+   74 expresion_indexada: expresion_indexada . '?' expresion_basica
+   75                   | expresion_indexada . '^' '?' expresion_basica
+   76                   | expresion_indexada . indice
+   77                   | expresion_indexada . '^' '?' indice
+   82 primario: expresion_indexada .
 
-    $default  reduce using rule 58 (instruccion_de_salto)
+    '^'  shift, and go to state 127
+    '['  shift, and go to state 128
+    '{'  shift, and go to state 129
+    '?'  shift, and go to state 130
+
+    '^'       [reduce using rule 82 (primario)]
+    $default  reduce using rule 82 (primario)
+
+    indice  go to state 131
 
 
 state 111
 
-   77 expresion_funcional: IDENTIFICADOR '(' . lista_expresiones ')'
+   60 instruccion_constructor: CONSTRUCTOR expresion . bloque_instrucciones
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
-
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    lista_expresiones         go to state 156
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 98
-    expresion_or              go to state 99
-    expresion_logica          go to state 100
-    expresion                 go to state 157
-
-
-state 112
-
-   55 instruccion_bucle: MIENTRAS expresion . bloque_instrucciones
-
-    PRINCIPIO  shift, and go to state 44
-
-    bloque_instrucciones  go to state 158
-
-
-state 113
-
-   69 expresion_basica: REF expresion_basica .
-
-    $default  reduce using rule 69 (expresion_basica)
-
-
-state 114
-
-   54 instruccion_condicional: SI expresion . bloque_instrucciones SINO bloque_instrucciones
-
-    PRINCIPIO  shift, and go to state 44
+    PRINCIPIO  shift, and go to state 45
 
     bloque_instrucciones  go to state 159
 
 
+state 112
+
+   61 instruccion_destructor: DESTRUCTOR expresion . bloque_instrucciones
+
+    PRINCIPIO  shift, and go to state 45
+
+    bloque_instrucciones  go to state 160
+
+
+state 113
+
+   59 instruccion_de_salto: DEVOLVER expresion .
+
+    $default  reduce using rule 59 (instruccion_de_salto)
+
+
+state 114
+
+   78 expresion_funcional: IDENTIFICADOR '(' . lista_expresiones ')'
+
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
+
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    lista_expresiones         go to state 161
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 99
+    expresion_or              go to state 100
+    expresion_logica          go to state 101
+    expresion                 go to state 162
+
+
 state 115
 
-   87 expresion_unaria: TAMANO primario .
+   56 instruccion_bucle: MIENTRAS expresion . bloque_instrucciones
 
-    $default  reduce using rule 87 (expresion_unaria)
+    PRINCIPIO  shift, and go to state 45
+
+    bloque_instrucciones  go to state 163
 
 
 state 116
 
-   67 expresion_basica: '(' expresion . ')'
+   70 expresion_basica: REF expresion_basica .
 
-    ')'  shift, and go to state 160
+    $default  reduce using rule 70 (expresion_basica)
 
 
 state 117
 
-   68 expresion_basica: '^' expresion_basica .
+   55 instruccion_condicional: SI expresion . bloque_instrucciones SINO bloque_instrucciones
 
-    $default  reduce using rule 68 (expresion_basica)
+    PRINCIPIO  shift, and go to state 45
+
+    bloque_instrucciones  go to state 164
 
 
 state 118
 
-   84 expresion_unaria: '-' primario .
+   88 expresion_unaria: TAMANO primario .
 
-    $default  reduce using rule 84 (expresion_unaria)
+    $default  reduce using rule 88 (expresion_unaria)
 
 
 state 119
 
-   85 expresion_unaria: '!' primario .
+   68 expresion_basica: '(' expresion . ')'
 
-    $default  reduce using rule 85 (expresion_unaria)
+    ')'  shift, and go to state 165
 
 
 state 120
 
-   86 expresion_unaria: '~' primario .
+   69 expresion_basica: '^' expresion_basica .
 
-    $default  reduce using rule 86 (expresion_unaria)
+    $default  reduce using rule 69 (expresion_basica)
 
 
 state 121
 
-   41 bloque_instrucciones: PRINCIPIO lista_instrucciones FIN .
+   85 expresion_unaria: '-' primario .
 
-    $default  reduce using rule 41 (bloque_instrucciones)
+    $default  reduce using rule 85 (expresion_unaria)
 
 
 state 122
 
-   43 lista_instrucciones: lista_instrucciones instruccion .
+   86 expresion_unaria: '!' primario .
 
-    $default  reduce using rule 43 (lista_instrucciones)
+    $default  reduce using rule 86 (expresion_unaria)
 
 
 state 123
 
-   53 asignacion: expresion_indexada ASIG . expresion
+   87 expresion_unaria: '~' primario .
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
-
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 98
-    expresion_or              go to state 99
-    expresion_logica          go to state 100
-    expresion                 go to state 161
+    $default  reduce using rule 87 (expresion_unaria)
 
 
 state 124
 
-   74 expresion_indexada: expresion_indexada '^' . '?' expresion_basica
-   76                   | expresion_indexada '^' . '?' indice
+   42 bloque_instrucciones: PRINCIPIO lista_instrucciones FIN .
 
-    '?'  shift, and go to state 162
+    $default  reduce using rule 42 (bloque_instrucciones)
 
 
 state 125
 
-   70 indice: '[' . expresion ']'
+   44 lista_instrucciones: lista_instrucciones instruccion .
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
-
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 98
-    expresion_or              go to state 99
-    expresion_logica          go to state 100
-    expresion                 go to state 163
+    $default  reduce using rule 44 (lista_instrucciones)
 
 
 state 126
 
-   71 indice: '{' . expresion '}'
+   54 asignacion: expresion_indexada ASIG . expresion
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 98
-    expresion_or              go to state 99
-    expresion_logica          go to state 100
-    expresion                 go to state 164
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 99
+    expresion_or              go to state 100
+    expresion_logica          go to state 101
+    expresion                 go to state 166
 
 
 state 127
 
-   73 expresion_indexada: expresion_indexada '?' . expresion_basica
+   75 expresion_indexada: expresion_indexada '^' . '?' expresion_basica
+   77                   | expresion_indexada '^' . '?' indice
 
-    IDENTIFICADOR  shift, and go to state 26
-    REF            shift, and go to state 64
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-
-    nombre            go to state 74
-    expresion_basica  go to state 165
+    '?'  shift, and go to state 167
 
 
 state 128
 
-   75 expresion_indexada: expresion_indexada indice .
+   71 indice: '[' . expresion ']'
 
-    $default  reduce using rule 75 (expresion_indexada)
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
+
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 99
+    expresion_or              go to state 100
+    expresion_logica          go to state 101
+    expresion                 go to state 168
 
 
 state 129
 
-   89 expresion_potencia: expresion_unaria POTENCIA . expresion_potencia
+   72 indice: '{' . expresion '}'
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre               go to state 74
-    expresion_constante  go to state 84
-    expresion_basica     go to state 85
-    expresion_indexada   go to state 107
-    expresion_funcional  go to state 87
-    primario             go to state 88
-    expresion_unaria     go to state 89
-    expresion_potencia   go to state 166
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 99
+    expresion_or              go to state 100
+    expresion_logica          go to state 101
+    expresion                 go to state 169
 
 
 state 130
 
-   92 expresion_mult: expresion_mult MOD . expresion_potencia
+   74 expresion_indexada: expresion_indexada '?' . expresion_basica
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    IDENTIFICADOR  shift, and go to state 26
+    REF            shift, and go to state 65
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
 
-    nombre               go to state 74
-    expresion_constante  go to state 84
-    expresion_basica     go to state 85
-    expresion_indexada   go to state 107
-    expresion_funcional  go to state 87
-    primario             go to state 88
-    expresion_unaria     go to state 89
-    expresion_potencia   go to state 167
+    nombre            go to state 75
+    expresion_basica  go to state 170
 
 
 state 131
 
-   90 expresion_mult: expresion_mult '*' . expresion_potencia
+   76 expresion_indexada: expresion_indexada indice .
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
-
-    nombre               go to state 74
-    expresion_constante  go to state 84
-    expresion_basica     go to state 85
-    expresion_indexada   go to state 107
-    expresion_funcional  go to state 87
-    primario             go to state 88
-    expresion_unaria     go to state 89
-    expresion_potencia   go to state 168
+    $default  reduce using rule 76 (expresion_indexada)
 
 
 state 132
 
-   91 expresion_mult: expresion_mult '/' . expresion_potencia
+   90 expresion_potencia: expresion_unaria POTENCIA . expresion_potencia
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre               go to state 74
-    expresion_constante  go to state 84
-    expresion_basica     go to state 85
-    expresion_indexada   go to state 107
-    expresion_funcional  go to state 87
-    primario             go to state 88
-    expresion_unaria     go to state 89
-    expresion_potencia   go to state 169
+    nombre               go to state 75
+    expresion_constante  go to state 85
+    expresion_basica     go to state 86
+    expresion_indexada   go to state 110
+    expresion_funcional  go to state 88
+    primario             go to state 89
+    expresion_unaria     go to state 90
+    expresion_potencia   go to state 171
 
 
 state 133
 
-   95 expresion_add: expresion_add '-' . expresion_mult
+   93 expresion_mult: expresion_mult MOD . expresion_potencia
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre               go to state 74
-    expresion_constante  go to state 84
-    expresion_basica     go to state 85
-    expresion_indexada   go to state 107
-    expresion_funcional  go to state 87
-    primario             go to state 88
-    expresion_unaria     go to state 89
-    expresion_potencia   go to state 90
-    expresion_mult       go to state 170
+    nombre               go to state 75
+    expresion_constante  go to state 85
+    expresion_basica     go to state 86
+    expresion_indexada   go to state 110
+    expresion_funcional  go to state 88
+    primario             go to state 89
+    expresion_unaria     go to state 90
+    expresion_potencia   go to state 172
 
 
 state 134
 
-   94 expresion_add: expresion_add '+' . expresion_mult
+   91 expresion_mult: expresion_mult '*' . expresion_potencia
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre               go to state 74
-    expresion_constante  go to state 84
-    expresion_basica     go to state 85
-    expresion_indexada   go to state 107
-    expresion_funcional  go to state 87
-    primario             go to state 88
-    expresion_unaria     go to state 89
-    expresion_potencia   go to state 90
-    expresion_mult       go to state 171
+    nombre               go to state 75
+    expresion_constante  go to state 85
+    expresion_basica     go to state 86
+    expresion_indexada   go to state 110
+    expresion_funcional  go to state 88
+    primario             go to state 89
+    expresion_unaria     go to state 90
+    expresion_potencia   go to state 173
 
 
 state 135
 
-   98 expresion_desplazamiento: expresion_desplazamiento FLECHA_DCHA . expresion_add
+   92 expresion_mult: expresion_mult '/' . expresion_potencia
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre               go to state 74
-    expresion_constante  go to state 84
-    expresion_basica     go to state 85
-    expresion_indexada   go to state 107
-    expresion_funcional  go to state 87
-    primario             go to state 88
-    expresion_unaria     go to state 89
-    expresion_potencia   go to state 90
-    expresion_mult       go to state 91
-    expresion_add        go to state 172
+    nombre               go to state 75
+    expresion_constante  go to state 85
+    expresion_basica     go to state 86
+    expresion_indexada   go to state 110
+    expresion_funcional  go to state 88
+    primario             go to state 89
+    expresion_unaria     go to state 90
+    expresion_potencia   go to state 174
 
 
 state 136
 
-   97 expresion_desplazamiento: expresion_desplazamiento FLECHA_IZDA . expresion_add
+   96 expresion_add: expresion_add '-' . expresion_mult
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre               go to state 74
-    expresion_constante  go to state 84
-    expresion_basica     go to state 85
-    expresion_indexada   go to state 107
-    expresion_funcional  go to state 87
-    primario             go to state 88
-    expresion_unaria     go to state 89
-    expresion_potencia   go to state 90
-    expresion_mult       go to state 91
-    expresion_add        go to state 173
+    nombre               go to state 75
+    expresion_constante  go to state 85
+    expresion_basica     go to state 86
+    expresion_indexada   go to state 110
+    expresion_funcional  go to state 88
+    primario             go to state 89
+    expresion_unaria     go to state 90
+    expresion_potencia   go to state 91
+    expresion_mult       go to state 175
 
 
 state 137
 
-  100 expresion_and_binario: expresion_and_binario '&' . expresion_desplazamiento
+   95 expresion_add: expresion_add '+' . expresion_mult
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 174
+    nombre               go to state 75
+    expresion_constante  go to state 85
+    expresion_basica     go to state 86
+    expresion_indexada   go to state 110
+    expresion_funcional  go to state 88
+    primario             go to state 89
+    expresion_unaria     go to state 90
+    expresion_potencia   go to state 91
+    expresion_mult       go to state 176
 
 
 state 138
 
-  102 expresion_xor_binario: expresion_xor_binario '@' . expresion_and_binario
+   99 expresion_desplazamiento: expresion_desplazamiento FLECHA_DCHA . expresion_add
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 175
+    nombre               go to state 75
+    expresion_constante  go to state 85
+    expresion_basica     go to state 86
+    expresion_indexada   go to state 110
+    expresion_funcional  go to state 88
+    primario             go to state 89
+    expresion_unaria     go to state 90
+    expresion_potencia   go to state 91
+    expresion_mult       go to state 92
+    expresion_add        go to state 177
 
 
 state 139
 
-  110 expresion_relacional: expresion_or_binario EQ . expresion_or_binario
+   98 expresion_desplazamiento: expresion_desplazamiento FLECHA_IZDA . expresion_add
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 176
+    nombre               go to state 75
+    expresion_constante  go to state 85
+    expresion_basica     go to state 86
+    expresion_indexada   go to state 110
+    expresion_funcional  go to state 88
+    primario             go to state 89
+    expresion_unaria     go to state 90
+    expresion_potencia   go to state 91
+    expresion_mult       go to state 92
+    expresion_add        go to state 178
 
 
 state 140
 
-  109 expresion_relacional: expresion_or_binario GE . expresion_or_binario
+  101 expresion_and_binario: expresion_and_binario '&' . expresion_desplazamiento
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 177
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 179
 
 
 state 141
 
-  108 expresion_relacional: expresion_or_binario LE . expresion_or_binario
+  103 expresion_xor_binario: expresion_xor_binario '@' . expresion_and_binario
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 178
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 180
 
 
 state 142
 
-  111 expresion_relacional: expresion_or_binario NEQ . expresion_or_binario
+  111 expresion_relacional: expresion_or_binario EQ . expresion_or_binario
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 179
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 181
 
 
 state 143
 
-  104 expresion_or_binario: expresion_or_binario '|' . expresion_xor_binario
+  110 expresion_relacional: expresion_or_binario GE . expresion_or_binario
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 180
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 182
 
 
 state 144
 
-  106 expresion_relacional: expresion_or_binario '<' . expresion_or_binario
+  109 expresion_relacional: expresion_or_binario LE . expresion_or_binario
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 181
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 183
 
 
 state 145
 
-  107 expresion_relacional: expresion_or_binario '>' . expresion_or_binario
+  112 expresion_relacional: expresion_or_binario NEQ . expresion_or_binario
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 182
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 184
 
 
 state 146
 
-  113 expresion_and: expresion_and AND . expresion_relacional
+  105 expresion_or_binario: expresion_or_binario '|' . expresion_xor_binario
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 183
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 185
 
 
 state 147
 
-  115 expresion_or: expresion_or OR . expresion_and
+  107 expresion_relacional: expresion_or_binario '<' . expresion_or_binario
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 184
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 186
 
 
 state 148
 
-  120 expresion: expresion_logica PARA . CADA IDENTIFICADOR EN expresion
+  108 expresion_relacional: expresion_or_binario '>' . expresion_or_binario
 
-    CADA  shift, and go to state 185
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
+
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 187
 
 
 state 149
 
-  119 expresion: expresion_logica SI . expresion SINO expresion
+  114 expresion_and: expresion_and AND . expresion_relacional
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 98
-    expresion_or              go to state 99
-    expresion_logica          go to state 100
-    expresion                 go to state 186
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 188
 
 
 state 150
 
-   40 cuerpo_funcion: PRINCIPIO bloque_instrucciones . FIN
+  116 expresion_or: expresion_or OR . expresion_and
 
-    FIN  shift, and go to state 187
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
+
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 189
 
 
 state 151
 
-   38 lista_argumentos_nonempty: IDENTIFICADOR .
+  121 expresion: expresion_logica PARA . CADA IDENTIFICADOR EN expresion
 
-    $default  reduce using rule 38 (lista_argumentos_nonempty)
+    CADA  shift, and go to state 190
 
 
 state 152
 
-   35 firma_funcion: FUNCION IDENTIFICADOR '(' lista_argumentos . ')'
+  120 expresion: expresion_logica SI . expresion SINO expresion
 
-    ')'  shift, and go to state 188
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
+
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 99
+    expresion_or              go to state 100
+    expresion_logica          go to state 101
+    expresion                 go to state 191
 
 
 state 153
 
-   37 lista_argumentos: lista_argumentos_nonempty .
-   39 lista_argumentos_nonempty: lista_argumentos_nonempty . ',' IDENTIFICADOR
+   41 cuerpo_funcion: PRINCIPIO bloque_instrucciones . FIN
 
-    ','  shift, and go to state 189
-
-    $default  reduce using rule 37 (lista_argumentos)
+    FIN  shift, and go to state 192
 
 
 state 154
 
-   59 instruccion_constructor: CONSTRUCTOR expresion bloque_instrucciones .
+   11 nombre: IDENTIFICADOR .
+   12       | nombre PTOS IDENTIFICADOR .
 
-    $default  reduce using rule 59 (instruccion_constructor)
+    PTOS      reduce using rule 11 (nombre)
+    PTOS      [reduce using rule 12 (nombre)]
+    '.'       reduce using rule 11 (nombre)
+    '.'       [reduce using rule 12 (nombre)]
+    $default  reduce using rule 11 (nombre)
 
 
 state 155
 
-   60 instruccion_destructor: DESTRUCTOR expresion bloque_instrucciones .
+   10 nombre_lista: nombre_lista PTOS nombre PTOS nombre . '.'
+   12 nombre: nombre . PTOS IDENTIFICADOR
 
-    $default  reduce using rule 60 (instruccion_destructor)
+    PTOS  shift, and go to state 38
+    '.'   shift, and go to state 193
 
 
 state 156
 
-   77 expresion_funcional: IDENTIFICADOR '(' lista_expresiones . ')'
-   79 lista_expresiones: lista_expresiones . ';' expresion
+   39 lista_argumentos_nonempty: IDENTIFICADOR .
 
-    ')'  shift, and go to state 190
-    ';'  shift, and go to state 191
+    $default  reduce using rule 39 (lista_argumentos_nonempty)
 
 
 state 157
 
-   78 lista_expresiones: expresion .
+   36 firma_funcion: FUNCION IDENTIFICADOR '(' lista_argumentos . ')'
 
-    $default  reduce using rule 78 (lista_expresiones)
+    ')'  shift, and go to state 194
 
 
 state 158
 
-   55 instruccion_bucle: MIENTRAS expresion bloque_instrucciones .
+   38 lista_argumentos: lista_argumentos_nonempty .
+   40 lista_argumentos_nonempty: lista_argumentos_nonempty . ',' IDENTIFICADOR
 
-    $default  reduce using rule 55 (instruccion_bucle)
+    ','  shift, and go to state 195
+
+    $default  reduce using rule 38 (lista_argumentos)
 
 
 state 159
 
-   54 instruccion_condicional: SI expresion bloque_instrucciones . SINO bloque_instrucciones
+   60 instruccion_constructor: CONSTRUCTOR expresion bloque_instrucciones .
 
-    SINO  shift, and go to state 192
+    $default  reduce using rule 60 (instruccion_constructor)
 
 
 state 160
 
-   67 expresion_basica: '(' expresion ')' .
+   61 instruccion_destructor: DESTRUCTOR expresion bloque_instrucciones .
 
-    $default  reduce using rule 67 (expresion_basica)
+    $default  reduce using rule 61 (instruccion_destructor)
 
 
 state 161
 
-   53 asignacion: expresion_indexada ASIG expresion .
+   78 expresion_funcional: IDENTIFICADOR '(' lista_expresiones . ')'
+   80 lista_expresiones: lista_expresiones . ';' expresion
 
-    $default  reduce using rule 53 (asignacion)
+    ')'  shift, and go to state 196
+    ';'  shift, and go to state 197
 
 
 state 162
 
-   74 expresion_indexada: expresion_indexada '^' '?' . expresion_basica
-   76                   | expresion_indexada '^' '?' . indice
+   79 lista_expresiones: expresion .
 
-    IDENTIFICADOR  shift, and go to state 26
-    REF            shift, and go to state 64
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '['            shift, and go to state 125
-    '{'            shift, and go to state 126
-
-    nombre            go to state 74
-    expresion_basica  go to state 193
-    indice            go to state 194
+    $default  reduce using rule 79 (lista_expresiones)
 
 
 state 163
 
-   70 indice: '[' expresion . ']'
+   56 instruccion_bucle: MIENTRAS expresion bloque_instrucciones .
 
-    ']'  shift, and go to state 195
+    $default  reduce using rule 56 (instruccion_bucle)
 
 
 state 164
 
-   71 indice: '{' expresion . '}'
+   55 instruccion_condicional: SI expresion bloque_instrucciones . SINO bloque_instrucciones
 
-    '}'  shift, and go to state 196
+    SINO  shift, and go to state 198
 
 
 state 165
 
-   73 expresion_indexada: expresion_indexada '?' expresion_basica .
+   68 expresion_basica: '(' expresion ')' .
 
-    $default  reduce using rule 73 (expresion_indexada)
+    $default  reduce using rule 68 (expresion_basica)
 
 
 state 166
 
-   89 expresion_potencia: expresion_unaria POTENCIA expresion_potencia .
+   54 asignacion: expresion_indexada ASIG expresion .
 
-    $default  reduce using rule 89 (expresion_potencia)
+    $default  reduce using rule 54 (asignacion)
 
 
 state 167
 
-   92 expresion_mult: expresion_mult MOD expresion_potencia .
+   75 expresion_indexada: expresion_indexada '^' '?' . expresion_basica
+   77                   | expresion_indexada '^' '?' . indice
 
-    $default  reduce using rule 92 (expresion_mult)
+    IDENTIFICADOR  shift, and go to state 26
+    REF            shift, and go to state 65
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '['            shift, and go to state 128
+    '{'            shift, and go to state 129
+
+    nombre            go to state 75
+    expresion_basica  go to state 199
+    indice            go to state 200
 
 
 state 168
 
-   90 expresion_mult: expresion_mult '*' expresion_potencia .
+   71 indice: '[' expresion . ']'
 
-    $default  reduce using rule 90 (expresion_mult)
+    ']'  shift, and go to state 201
 
 
 state 169
 
-   91 expresion_mult: expresion_mult '/' expresion_potencia .
+   72 indice: '{' expresion . '}'
 
-    $default  reduce using rule 91 (expresion_mult)
+    '}'  shift, and go to state 202
 
 
 state 170
 
-   90 expresion_mult: expresion_mult . '*' expresion_potencia
-   91               | expresion_mult . '/' expresion_potencia
-   92               | expresion_mult . MOD expresion_potencia
-   95 expresion_add: expresion_add '-' expresion_mult .
+   74 expresion_indexada: expresion_indexada '?' expresion_basica .
 
-    MOD  shift, and go to state 130
-    '*'  shift, and go to state 131
-    '/'  shift, and go to state 132
-
-    $default  reduce using rule 95 (expresion_add)
+    $default  reduce using rule 74 (expresion_indexada)
 
 
 state 171
 
-   90 expresion_mult: expresion_mult . '*' expresion_potencia
-   91               | expresion_mult . '/' expresion_potencia
-   92               | expresion_mult . MOD expresion_potencia
-   94 expresion_add: expresion_add '+' expresion_mult .
+   90 expresion_potencia: expresion_unaria POTENCIA expresion_potencia .
 
-    MOD  shift, and go to state 130
-    '*'  shift, and go to state 131
-    '/'  shift, and go to state 132
-
-    $default  reduce using rule 94 (expresion_add)
+    $default  reduce using rule 90 (expresion_potencia)
 
 
 state 172
 
-   94 expresion_add: expresion_add . '+' expresion_mult
-   95              | expresion_add . '-' expresion_mult
-   98 expresion_desplazamiento: expresion_desplazamiento FLECHA_DCHA expresion_add .
+   93 expresion_mult: expresion_mult MOD expresion_potencia .
 
-    '-'  shift, and go to state 133
-    '+'  shift, and go to state 134
+    $default  reduce using rule 93 (expresion_mult)
+
+
+state 173
+
+   91 expresion_mult: expresion_mult '*' expresion_potencia .
+
+    $default  reduce using rule 91 (expresion_mult)
+
+
+state 174
+
+   92 expresion_mult: expresion_mult '/' expresion_potencia .
+
+    $default  reduce using rule 92 (expresion_mult)
+
+
+state 175
+
+   91 expresion_mult: expresion_mult . '*' expresion_potencia
+   92               | expresion_mult . '/' expresion_potencia
+   93               | expresion_mult . MOD expresion_potencia
+   96 expresion_add: expresion_add '-' expresion_mult .
+
+    MOD  shift, and go to state 133
+    '*'  shift, and go to state 134
+    '/'  shift, and go to state 135
+
+    $default  reduce using rule 96 (expresion_add)
+
+
+state 176
+
+   91 expresion_mult: expresion_mult . '*' expresion_potencia
+   92               | expresion_mult . '/' expresion_potencia
+   93               | expresion_mult . MOD expresion_potencia
+   95 expresion_add: expresion_add '+' expresion_mult .
+
+    MOD  shift, and go to state 133
+    '*'  shift, and go to state 134
+    '/'  shift, and go to state 135
+
+    $default  reduce using rule 95 (expresion_add)
+
+
+state 177
+
+   95 expresion_add: expresion_add . '+' expresion_mult
+   96              | expresion_add . '-' expresion_mult
+   99 expresion_desplazamiento: expresion_desplazamiento FLECHA_DCHA expresion_add .
+
+    '-'  shift, and go to state 136
+    '+'  shift, and go to state 137
+
+    '-'       [reduce using rule 99 (expresion_desplazamiento)]
+    $default  reduce using rule 99 (expresion_desplazamiento)
+
+
+state 178
+
+   95 expresion_add: expresion_add . '+' expresion_mult
+   96              | expresion_add . '-' expresion_mult
+   98 expresion_desplazamiento: expresion_desplazamiento FLECHA_IZDA expresion_add .
+
+    '-'  shift, and go to state 136
+    '+'  shift, and go to state 137
 
     '-'       [reduce using rule 98 (expresion_desplazamiento)]
     $default  reduce using rule 98 (expresion_desplazamiento)
 
 
-state 173
-
-   94 expresion_add: expresion_add . '+' expresion_mult
-   95              | expresion_add . '-' expresion_mult
-   97 expresion_desplazamiento: expresion_desplazamiento FLECHA_IZDA expresion_add .
-
-    '-'  shift, and go to state 133
-    '+'  shift, and go to state 134
-
-    '-'       [reduce using rule 97 (expresion_desplazamiento)]
-    $default  reduce using rule 97 (expresion_desplazamiento)
-
-
-state 174
-
-   97 expresion_desplazamiento: expresion_desplazamiento . FLECHA_IZDA expresion_add
-   98                         | expresion_desplazamiento . FLECHA_DCHA expresion_add
-  100 expresion_and_binario: expresion_and_binario '&' expresion_desplazamiento .
-
-    FLECHA_DCHA  shift, and go to state 135
-    FLECHA_IZDA  shift, and go to state 136
-
-    $default  reduce using rule 100 (expresion_and_binario)
-
-
-state 175
-
-  100 expresion_and_binario: expresion_and_binario . '&' expresion_desplazamiento
-  102 expresion_xor_binario: expresion_xor_binario '@' expresion_and_binario .
-
-    '&'  shift, and go to state 137
-
-    $default  reduce using rule 102 (expresion_xor_binario)
-
-
-state 176
-
-  104 expresion_or_binario: expresion_or_binario . '|' expresion_xor_binario
-  110 expresion_relacional: expresion_or_binario EQ expresion_or_binario .
-
-    '|'  shift, and go to state 143
-
-    $default  reduce using rule 110 (expresion_relacional)
-
-
-state 177
-
-  104 expresion_or_binario: expresion_or_binario . '|' expresion_xor_binario
-  109 expresion_relacional: expresion_or_binario GE expresion_or_binario .
-
-    '|'  shift, and go to state 143
-
-    $default  reduce using rule 109 (expresion_relacional)
-
-
-state 178
-
-  104 expresion_or_binario: expresion_or_binario . '|' expresion_xor_binario
-  108 expresion_relacional: expresion_or_binario LE expresion_or_binario .
-
-    '|'  shift, and go to state 143
-
-    $default  reduce using rule 108 (expresion_relacional)
-
-
 state 179
 
-  104 expresion_or_binario: expresion_or_binario . '|' expresion_xor_binario
-  111 expresion_relacional: expresion_or_binario NEQ expresion_or_binario .
+   98 expresion_desplazamiento: expresion_desplazamiento . FLECHA_IZDA expresion_add
+   99                         | expresion_desplazamiento . FLECHA_DCHA expresion_add
+  101 expresion_and_binario: expresion_and_binario '&' expresion_desplazamiento .
 
-    '|'  shift, and go to state 143
+    FLECHA_DCHA  shift, and go to state 138
+    FLECHA_IZDA  shift, and go to state 139
 
-    $default  reduce using rule 111 (expresion_relacional)
+    $default  reduce using rule 101 (expresion_and_binario)
 
 
 state 180
 
-  102 expresion_xor_binario: expresion_xor_binario . '@' expresion_and_binario
-  104 expresion_or_binario: expresion_or_binario '|' expresion_xor_binario .
+  101 expresion_and_binario: expresion_and_binario . '&' expresion_desplazamiento
+  103 expresion_xor_binario: expresion_xor_binario '@' expresion_and_binario .
 
-    '@'  shift, and go to state 138
+    '&'  shift, and go to state 140
 
-    $default  reduce using rule 104 (expresion_or_binario)
+    $default  reduce using rule 103 (expresion_xor_binario)
 
 
 state 181
 
-  104 expresion_or_binario: expresion_or_binario . '|' expresion_xor_binario
-  106 expresion_relacional: expresion_or_binario '<' expresion_or_binario .
+  105 expresion_or_binario: expresion_or_binario . '|' expresion_xor_binario
+  111 expresion_relacional: expresion_or_binario EQ expresion_or_binario .
 
-    '|'  shift, and go to state 143
+    '|'  shift, and go to state 146
 
-    $default  reduce using rule 106 (expresion_relacional)
+    $default  reduce using rule 111 (expresion_relacional)
 
 
 state 182
 
-  104 expresion_or_binario: expresion_or_binario . '|' expresion_xor_binario
-  107 expresion_relacional: expresion_or_binario '>' expresion_or_binario .
+  105 expresion_or_binario: expresion_or_binario . '|' expresion_xor_binario
+  110 expresion_relacional: expresion_or_binario GE expresion_or_binario .
 
-    '|'  shift, and go to state 143
+    '|'  shift, and go to state 146
 
-    $default  reduce using rule 107 (expresion_relacional)
+    $default  reduce using rule 110 (expresion_relacional)
 
 
 state 183
 
-  113 expresion_and: expresion_and AND expresion_relacional .
+  105 expresion_or_binario: expresion_or_binario . '|' expresion_xor_binario
+  109 expresion_relacional: expresion_or_binario LE expresion_or_binario .
 
-    $default  reduce using rule 113 (expresion_and)
+    '|'  shift, and go to state 146
+
+    $default  reduce using rule 109 (expresion_relacional)
 
 
 state 184
 
-  113 expresion_and: expresion_and . AND expresion_relacional
-  115 expresion_or: expresion_or OR expresion_and .
+  105 expresion_or_binario: expresion_or_binario . '|' expresion_xor_binario
+  112 expresion_relacional: expresion_or_binario NEQ expresion_or_binario .
 
-    AND  shift, and go to state 146
+    '|'  shift, and go to state 146
 
-    $default  reduce using rule 115 (expresion_or)
+    $default  reduce using rule 112 (expresion_relacional)
 
 
 state 185
 
-  120 expresion: expresion_logica PARA CADA . IDENTIFICADOR EN expresion
+  103 expresion_xor_binario: expresion_xor_binario . '@' expresion_and_binario
+  105 expresion_or_binario: expresion_or_binario '|' expresion_xor_binario .
 
-    IDENTIFICADOR  shift, and go to state 197
+    '@'  shift, and go to state 141
+
+    $default  reduce using rule 105 (expresion_or_binario)
 
 
 state 186
 
-  119 expresion: expresion_logica SI expresion . SINO expresion
+  105 expresion_or_binario: expresion_or_binario . '|' expresion_xor_binario
+  107 expresion_relacional: expresion_or_binario '<' expresion_or_binario .
 
-    SINO  shift, and go to state 198
+    '|'  shift, and go to state 146
+
+    $default  reduce using rule 107 (expresion_relacional)
 
 
 state 187
 
-   40 cuerpo_funcion: PRINCIPIO bloque_instrucciones FIN .
+  105 expresion_or_binario: expresion_or_binario . '|' expresion_xor_binario
+  108 expresion_relacional: expresion_or_binario '>' expresion_or_binario .
 
-    $default  reduce using rule 40 (cuerpo_funcion)
+    '|'  shift, and go to state 146
+
+    $default  reduce using rule 108 (expresion_relacional)
 
 
 state 188
 
-   35 firma_funcion: FUNCION IDENTIFICADOR '(' lista_argumentos ')' .
+  114 expresion_and: expresion_and AND expresion_relacional .
 
-    $default  reduce using rule 35 (firma_funcion)
+    $default  reduce using rule 114 (expresion_and)
 
 
 state 189
 
-   39 lista_argumentos_nonempty: lista_argumentos_nonempty ',' . IDENTIFICADOR
+  114 expresion_and: expresion_and . AND expresion_relacional
+  116 expresion_or: expresion_or OR expresion_and .
 
-    IDENTIFICADOR  shift, and go to state 199
+    AND  shift, and go to state 149
+
+    $default  reduce using rule 116 (expresion_or)
 
 
 state 190
 
-   77 expresion_funcional: IDENTIFICADOR '(' lista_expresiones ')' .
+  121 expresion: expresion_logica PARA CADA . IDENTIFICADOR EN expresion
 
-    $default  reduce using rule 77 (expresion_funcional)
+    IDENTIFICADOR  shift, and go to state 203
 
 
 state 191
 
-   79 lista_expresiones: lista_expresiones ';' . expresion
+  120 expresion: expresion_logica SI expresion . SINO expresion
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
-
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 98
-    expresion_or              go to state 99
-    expresion_logica          go to state 100
-    expresion                 go to state 200
+    SINO  shift, and go to state 204
 
 
 state 192
 
-   54 instruccion_condicional: SI expresion bloque_instrucciones SINO . bloque_instrucciones
+   41 cuerpo_funcion: PRINCIPIO bloque_instrucciones FIN .
 
-    PRINCIPIO  shift, and go to state 44
-
-    bloque_instrucciones  go to state 201
+    $default  reduce using rule 41 (cuerpo_funcion)
 
 
 state 193
 
-   74 expresion_indexada: expresion_indexada '^' '?' expresion_basica .
+   10 nombre_lista: nombre_lista PTOS nombre PTOS nombre '.' .
 
-    $default  reduce using rule 74 (expresion_indexada)
+    $default  reduce using rule 10 (nombre_lista)
 
 
 state 194
 
-   76 expresion_indexada: expresion_indexada '^' '?' indice .
+   36 firma_funcion: FUNCION IDENTIFICADOR '(' lista_argumentos ')' .
 
-    $default  reduce using rule 76 (expresion_indexada)
+    $default  reduce using rule 36 (firma_funcion)
 
 
 state 195
 
-   70 indice: '[' expresion ']' .
+   40 lista_argumentos_nonempty: lista_argumentos_nonempty ',' . IDENTIFICADOR
 
-    $default  reduce using rule 70 (indice)
+    IDENTIFICADOR  shift, and go to state 205
 
 
 state 196
 
-   71 indice: '{' expresion '}' .
+   78 expresion_funcional: IDENTIFICADOR '(' lista_expresiones ')' .
 
-    $default  reduce using rule 71 (indice)
+    $default  reduce using rule 78 (expresion_funcional)
 
 
 state 197
 
-  120 expresion: expresion_logica PARA CADA IDENTIFICADOR . EN expresion
+   80 lista_expresiones: lista_expresiones ';' . expresion
 
-    EN  shift, and go to state 202
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
+
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 99
+    expresion_or              go to state 100
+    expresion_logica          go to state 101
+    expresion                 go to state 206
 
 
 state 198
 
-  119 expresion: expresion_logica SI expresion SINO . expresion
+   55 instruccion_condicional: SI expresion bloque_instrucciones SINO . bloque_instrucciones
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
+    PRINCIPIO  shift, and go to state 45
 
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 98
-    expresion_or              go to state 99
-    expresion_logica          go to state 100
-    expresion                 go to state 203
+    bloque_instrucciones  go to state 207
 
 
 state 199
 
-   39 lista_argumentos_nonempty: lista_argumentos_nonempty ',' IDENTIFICADOR .
+   75 expresion_indexada: expresion_indexada '^' '?' expresion_basica .
 
-    $default  reduce using rule 39 (lista_argumentos_nonempty)
+    $default  reduce using rule 75 (expresion_indexada)
 
 
 state 200
 
-   79 lista_expresiones: lista_expresiones ';' expresion .
+   77 expresion_indexada: expresion_indexada '^' '?' indice .
 
-    $default  reduce using rule 79 (lista_expresiones)
+    $default  reduce using rule 77 (expresion_indexada)
 
 
 state 201
 
-   54 instruccion_condicional: SI expresion bloque_instrucciones SINO bloque_instrucciones .
+   71 indice: '[' expresion ']' .
 
-    $default  reduce using rule 54 (instruccion_condicional)
+    $default  reduce using rule 71 (indice)
 
 
 state 202
 
-  120 expresion: expresion_logica PARA CADA IDENTIFICADOR EN . expresion
+   72 indice: '{' expresion '}' .
 
-    CTC_CADENA     shift, and go to state 56
-    CTC_CARACTER   shift, and go to state 57
-    CTC_ENTERA     shift, and go to state 58
-    CTC_REAL       shift, and go to state 59
-    IDENTIFICADOR  shift, and go to state 62
-    REF            shift, and go to state 64
-    TAMANO         shift, and go to state 67
-    '('            shift, and go to state 68
-    '^'            shift, and go to state 70
-    '-'            shift, and go to state 71
-    '!'            shift, and go to state 72
-    '~'            shift, and go to state 73
-
-    nombre                    go to state 74
-    expresion_constante       go to state 84
-    expresion_basica          go to state 85
-    expresion_indexada        go to state 107
-    expresion_funcional       go to state 87
-    primario                  go to state 88
-    expresion_unaria          go to state 89
-    expresion_potencia        go to state 90
-    expresion_mult            go to state 91
-    expresion_add             go to state 92
-    expresion_desplazamiento  go to state 93
-    expresion_and_binario     go to state 94
-    expresion_xor_binario     go to state 95
-    expresion_or_binario      go to state 96
-    expresion_relacional      go to state 97
-    expresion_and             go to state 98
-    expresion_or              go to state 99
-    expresion_logica          go to state 100
-    expresion                 go to state 204
+    $default  reduce using rule 72 (indice)
 
 
 state 203
 
-  119 expresion: expresion_logica SI expresion SINO expresion .
+  121 expresion: expresion_logica PARA CADA IDENTIFICADOR . EN expresion
 
-    $default  reduce using rule 119 (expresion)
+    EN  shift, and go to state 208
 
 
 state 204
 
-  120 expresion: expresion_logica PARA CADA IDENTIFICADOR EN expresion .
+  120 expresion: expresion_logica SI expresion SINO . expresion
+
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
+
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 99
+    expresion_or              go to state 100
+    expresion_logica          go to state 101
+    expresion                 go to state 209
+
+
+state 205
+
+   40 lista_argumentos_nonempty: lista_argumentos_nonempty ',' IDENTIFICADOR .
+
+    $default  reduce using rule 40 (lista_argumentos_nonempty)
+
+
+state 206
+
+   80 lista_expresiones: lista_expresiones ';' expresion .
+
+    $default  reduce using rule 80 (lista_expresiones)
+
+
+state 207
+
+   55 instruccion_condicional: SI expresion bloque_instrucciones SINO bloque_instrucciones .
+
+    $default  reduce using rule 55 (instruccion_condicional)
+
+
+state 208
+
+  121 expresion: expresion_logica PARA CADA IDENTIFICADOR EN . expresion
+
+    CTC_CADENA     shift, and go to state 57
+    CTC_CARACTER   shift, and go to state 58
+    CTC_ENTERA     shift, and go to state 59
+    CTC_REAL       shift, and go to state 60
+    IDENTIFICADOR  shift, and go to state 63
+    REF            shift, and go to state 65
+    TAMANO         shift, and go to state 68
+    '('            shift, and go to state 69
+    '^'            shift, and go to state 71
+    '-'            shift, and go to state 72
+    '!'            shift, and go to state 73
+    '~'            shift, and go to state 74
+
+    nombre                    go to state 75
+    expresion_constante       go to state 85
+    expresion_basica          go to state 86
+    expresion_indexada        go to state 110
+    expresion_funcional       go to state 88
+    primario                  go to state 89
+    expresion_unaria          go to state 90
+    expresion_potencia        go to state 91
+    expresion_mult            go to state 92
+    expresion_add             go to state 93
+    expresion_desplazamiento  go to state 94
+    expresion_and_binario     go to state 95
+    expresion_xor_binario     go to state 96
+    expresion_or_binario      go to state 97
+    expresion_relacional      go to state 98
+    expresion_and             go to state 99
+    expresion_or              go to state 100
+    expresion_logica          go to state 101
+    expresion                 go to state 210
+
+
+state 209
+
+  120 expresion: expresion_logica SI expresion SINO expresion .
 
     $default  reduce using rule 120 (expresion)
+
+
+state 210
+
+  121 expresion: expresion_logica PARA CADA IDENTIFICADOR EN expresion .
+
+    $default  reduce using rule 121 (expresion)
