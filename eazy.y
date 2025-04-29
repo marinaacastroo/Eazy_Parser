@@ -177,9 +177,39 @@ modificador_opt
       | FINAL
       ;
 
+/*--------------------------------------------------------------------*/
+/*  CONSTANTES  */
+/*--------------------------------------------------------------------*/
 
+declaraciones_constantes
+      : CONSTANTES lista_declaraciones_constantes FIN
+      ;
+lista_declaraciones_constantes
+      : visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.'
+      | lista_declaraciones_constantes visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.'
+      ;
 
+constante
+      : CTC_ENTERA
+      | CTC_REAL
+      | CTC_CARACTER
+      | CTC_CADENA
+      | constante_tabla
+      | constante_estructurada
+      ;
 
+constante_tabla
+      : '(' lista_campo_constante ')'
+      ;
+
+lista_campo_constante
+      : lista_campo_constante campo_constante
+      | campo_constante
+      ;
+
+campo_constante
+      : IDENTIFICADOR ASIG constante
+      ;
 
 
 
