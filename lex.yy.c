@@ -1782,7 +1782,7 @@ YY_RULE_SETUP
 case 123:
 YY_RULE_SETUP
 #line 188 "eazy.l"
-{ fprintf(stdout, "ERROR en línea %d: carácter inesperado '%s'\n", yylineno, yytext); }
+{ printf("linea %d, token genérico: %s\n", yylineno, yytext); return OTRO_TOKEN; }
 	YY_BREAK
 case 124:
 YY_RULE_SETUP

@@ -2,8 +2,11 @@
   #include <stdio.h>
   extern FILE *yyin;
   extern int yylex();
+
   #define YYDEBUG 1
+
   int yyerror(char *);
+
 %}
 
 %token ABSTRACTO AND ASIG AND_ASIG CADA CADENA CARACTER CLASE COMO CONSTANTES CONSTRUCTOR CONTINUAR CTC_CADENA
@@ -12,7 +15,6 @@
 %token FLECHA_DCHA FLECHA_IZDA FUNCION GENERICO HACER HASH GE IDENTIFICADOR IMPORTAR INDIRECCION LANZA LE MIENTRAS
 %token MOD MOD_ASIG MULT_ASIG NADA NEQ OR OTRA OR_ASIG PARA POT_ASIG POTENCIA PRINCIPIO PRIVADO PROGRAMA PROTEGIDO
 %token PTOS PUBLICO REAL REF RESTA_ASIG SALTAR SI SINO SUMA_ASIG TAMANO TABLA TIPOS ULTIMA UNION VARIABLES XOR_ASIG
-%token OTRO_TOKEN
 
 %%
 
@@ -29,19 +31,20 @@ lista_librerias:
     | lista_librerias libreria
 ;
 
-libreria:
-    IMPORTAR lista_nombres_punto
-  | IMPORTAR nombre COMO IDENTIFICADOR '.'
-;
+libreria
+    : IMPORTAR lista_nombres_punto              
+    | IMPORTAR nombre  COMO IDENTIFICADOR  '.'   
+    ;
 
-lista_nombres_punto:
-      lista_nombres_semi '.'
-;
+lista_nombres_punto           
+    : lista_nombres_semi '.'
+    ;
 
-lista_nombres_semi:
-      nombre
+lista_nombres_semi            
+    : nombre
     | lista_nombres_semi ';' nombre
-;
+    ;
+
 
 nombre:
       IDENTIFICADOR
@@ -56,25 +59,12 @@ bloque_declaraciones_instrucciones:
       bloque_tipos bloque_constantes bloque_variables bloque_funciones bloque_instrucciones
 ;
 
-/* --------------  BLOQUE TIPOS corregido -------------- */
-bloque_tipos:
-      /* vacío */
-    | TIPOS lista_tokens_tipo FIN
-    | TIPOS lista_tokens_tipo FIN '.'
-;
+bloque_tipos
+    :                 
+    | TIPOS error FIN     
+    | TIPOS error FIN '.' 
+    ;
 
-lista_tokens_tipo:
-      /* vacío */
-    | lista_tokens_tipo token_tipo
-;
-
-token_tipo:
-      IDENTIFICADOR | ENTERO | REAL | CADENA | CARACTER
-    | PUBLICO | PRIVADO | PROTEGIDO | REF
-    | TABLA | HASH | ENUMERACION | ESTRUCTURA | UNION | CLASE
-    | OTRO_TOKEN
-;
-/* ----------------------------------------------------- */
 
 bloque_constantes:
       /* vacío */
@@ -140,6 +130,7 @@ asignacion:
 instruccion_condicional:
     SI expresion bloque_instrucciones SINO bloque_instrucciones
 ;
+
 
 instruccion_bucle:
     MIENTRAS expresion bloque_instrucciones
@@ -290,10 +281,13 @@ int yyerror(char *s) {
   return 0;
 }
 
-int yywrap() { return 1; }
+int yywrap() {
+  return 1;
+}
 
 int main(int argc, char *argv[]) {
   yydebug = 0;
+
   if (argc < 2) {
     printf("Uso: ./eazy NombreArchivo\n");
   } else {
