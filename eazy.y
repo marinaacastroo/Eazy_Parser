@@ -60,7 +60,7 @@ bloque_programa
       : declaraciones_tipos_opt
       | declaraciones_constantes_opt
       | declaraciones_variables_opt
-      | lista_declaracion_funcion
+      | lista_declaracion_funcion_cero_o_mas
       | bloque_instrucciones 
       ;
 
@@ -262,9 +262,10 @@ lista_expresion
 /*  FUNCIONES    */
 /*--------------------------------------------------------------------*/
 
-lista_declaracion_funcion
-      : declaracion_funcion lista_declaracion_funcion
+lista_declaracion_funcion_cero_o_mas
+      : declaracion_funcion lista_declaracion_funcion_cero_o_mas
       | declaracion_funcion
+      |
       ;
 declaracion_funcion
       : visibilidad_opt firma_funcion cuerpo_funcion
@@ -290,7 +291,7 @@ tipo_salida
 cuerpo_funcion
       : declaraciones_constantes_opt
       | declaraciones_variables_opt
-      | lista_declaracion_funcion
+      | lista_declaracion_funcion_cero_o_mas
       | bloque_instrucciones
       ;
 
