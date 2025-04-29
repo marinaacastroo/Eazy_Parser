@@ -278,12 +278,16 @@ firma_funcion
       ;
 
 lista_parametros
-      : lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_constante
+      : lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_constante_una_o_mas
       | lista_identificador_uno_o_mas ES especificacion_tipo 
-      | lista_parametros lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_constante
+      | lista_parametros lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_constante_una_o_mas
       | lista_parametros lista_identificador_uno_o_mas ES especificacion_tipo 
       ;
 
+lista_expresion_constante_una_o_mas
+      : lista_expresion_constante_una_o_mas lista_expresion_constante
+      | lista_expresion_constante
+      ;
 tipo_salida
       : especificacion_tipo
       | NADA
@@ -355,29 +359,56 @@ lista_otro_caso
       |
       ;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-ME EQUIVO UEEEEEEEEEE
+instruccion_bucle
+      : MIENTRAS '(' expresion ')' bloque_instrucciones
       | HACER bloque_instrucciones MIENTRAS '(' expresion ')' '.'
-      | PARA '(' lista_asignacion ':' expresion ':' lista_asignacion ')' bloque_instrucciones
+      | PARA '(' lista_asignacion_una_o_mas ':' expresion ':' lista_asignacion_una_o_mas ')' bloque_instrucciones
       | PARA CADA IDENTIFICADOR EN '(' expresion ')' bloque_instrucciones
       ;
-lista_asignacion
-      : lista_asignacion asignacion
+
+lista_asignacion_una_o_mas
+      : lista_asignacion_una_o_mas asignacion
       | asignacion
+      ;
+
+instruccion_salto
+      : SALTAR IDENTIFICADOR '.' 
+      | CONTINUAR '.'
+      | ESCAPE '.'
+      ;
+
+instruccion_destino_salto
+      : ETIQUETA IDENTIFICADOR '.'
+      ;
+
+instruccion_devolver
+      : DEVOLVER expresion '.'
+      | DEVOLVER '.' 
+      ;
+
+instruccion_lanzamiento_excepcion
+      : LANZA excepcion IDENTIFICADOR '.'
+      ;
+
+instruccion_captura_excepcion
+      : lista_clausula_excepcion_especifica_cero_o_mas clausula_excepcion_general
+      ;
+
+lista_clausula_excepcion_especifica_cero_o_mas
+      : 
+      | lista_clausula_excepcion_especifica_cero_o_mas clausula_excepcion_especifica
+      ;
+
+clausula_excepcion_especifica
+      : EXCEPCION nombre bloque_instrucciones
+      ;
+
+clausula_excepcion_general
+      : OTRA EXCEPCION bloque_instrucciones
+      ;
+
+clausula_defecto
+      : DEFECTO bloque_instrucciones
       ;
 
 
