@@ -57,10 +57,10 @@ nombre
       ;
 
 bloque_programa
-      : declaraciones_tipos
-      | declaraciones_constantes
-      | declaraciones_variables
-      | declaracion_funcion
+      : declaraciones_tipos_opt
+      | declaraciones_constantes_opt
+      | declaraciones_variables_opt
+      | lista_declaracion_funcion
       | bloque_instrucciones 
       ;
 
@@ -68,6 +68,10 @@ bloque_programa
 /*  TIPOS  */
 /**********************************************************************/
 
+declaraciones_tipos_opt
+      : 
+      | declaraciones_tipos
+      ;
 declaraciones_tipos
       : TIPOS lista_declaraciones_tipo FIN 
       ;
@@ -157,8 +161,8 @@ lista_nombre_una_o_mas
 componentes
       :
       | declaraciones_tipos
-      | declaraciones_constantes
-      | declaraciones_variables
+      | declaraciones_constantes_opt
+      | declaraciones_variables_opt
       | declaracion_metodo
       ;
 
@@ -180,7 +184,10 @@ modificador_opt
 /*--------------------------------------------------------------------*/
 /*  CONSTANTES  */
 /*--------------------------------------------------------------------*/
-
+declaraciones_constantes_opt
+      : 
+      | declaraciones_constantes
+      ;
 declaraciones_constantes
       : CONSTANTES lista_declaraciones_constantes FIN
       ;
@@ -215,7 +222,10 @@ campo_constante
 /*--------------------------------------------------------------------*/
 /*  VARIABLES  */
 /*--------------------------------------------------------------------*/
-
+declaraciones_variables_opt
+      : 
+      | declaraciones_variables
+      ;
 declaraciones_variables
       : VARIABLES lista_declaracion_variables FIN
       ;
@@ -235,9 +245,86 @@ lista_expresion
 /*  FUNCIONES    */
 /*--------------------------------------------------------------------*/
 
-declaracion
+lista_declaracion_funcion
+      : declaracion_funcion lista_declaracion_funcion
+      | declaracion_funcion
+      ;
+declaracion_funcion
+      : visibilidad_opt firma_funcion cuerpo_funcion
+      ;
+
+firma_funcion
+      : FUNCION IDENTIFICADOR '(' lista_parametros ')' FLECHA_DCHA tipo_salida
+      | FUNCION IDENTIFICADOR FLECHA_DCHA tipo_salida
+      ;
+
+lista_parametros
+      : lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_constante
+      | lista_identificador_uno_o_mas ES especificacion_tipo 
+      | lista_parametros lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_constante
+      | lista_parametros lista_identificador_uno_o_mas ES especificacion_tipo 
+      ;
+
+tipo_salida
+      : especificacion_tipo
+      | NADA
+      ; 
+
+cuerpo_funcion
+      : declaraciones_constantes_opt
+      | declaraciones_variables_opt
+      | lista_declaracion_funcion
+      | bloque_instrucciones
+      ;
+
+bloque_instrucciones 
+      : PRINCIPIO lista_instrucciones_una_o_mas FIN
+      ;
 
 
+/*--------------------------------------------------------------------*/
+/*  INSTRUCCIONES    */
+/*--------------------------------------------------------------------*/
+
+lista_instrucciones_una_o_mas
+      : lista_instrucciones_una_o_mas instruccion
+      | instruccion
+      ;
+
+instruccion 
+      : instruccion_expresion
+      | instruccion_bifurcacion
+      | instruccion_bucle
+      | instruccion_salto
+      | instruccion_destino_salto
+      | instruccion_devolver
+      | instruccion_lanzamiento_excepcion
+      | instruccion_captura_excepcion
+      | instruccion_vacia
+      ;
+instruccion_expresion
+      : expresion_funcional '.'
+      | asignacion '.'
+      ;
+
+asignacion
+      : expresion_indexada operador_asignacion expresion
+      ; 
+
+operador_asignacion
+      : ASIG
+      | SUMA_ASIG
+      | RESTA_ASIG
+      | MULT_ASIG
+      | DIV_ASIG
+      | MOD_ASIG
+      | POT_ASIG
+      | FI_ASIG
+      | FD_ASIG
+      | AND_ASIG
+      | XOR_ASIG
+      | OR_ASIG 
+      ; 
 
 
 
