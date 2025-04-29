@@ -207,11 +207,28 @@ constante
 
 constante_tabla
       : '(' lista_campo_constante ')'
+      | '(' lista_elemento_hash')'
       ;
 
+lista_elemento_hash
+      : lista_elemento_hash elemento_hash
+      | elemento_hash
+      |
+      ;
+elemento_hash
+      : CTC_CADENA ASIG constante
+
+constante_estructurada
+      | '(' lista_campo_constante_una_o_mas ')'
+
+lista_campo_constante_una_o_mas
+      : lista_campo_constante_una_o_mas campo_constante
+      | campo_constante
+      ;
 lista_campo_constante
       : lista_campo_constante campo_constante
       | campo_constante
+      |
       ;
 
 campo_constante
@@ -325,7 +342,44 @@ operador_asignacion
       | XOR_ASIG
       | OR_ASIG 
       ; 
+instruccion_bifurcacion
+      : SI '(' expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones
+      | SI '(' expresion ')' bloque_instrucciones lista_otro_caso 
+      ;
 
+lista_otro_caso
+      : ENCAMBIO '(' expresion ')' bloque_instrucciones
+      | ENCAMBIO '(' expresion ')' bloque_instrucciones lista_otro_caso
+      |
+      ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ME EQUIVO UEEEEEEEEEE
+      | HACER bloque_instrucciones MIENTRAS '(' expresion ')' '.'
+      | PARA '(' lista_asignacion ':' expresion ':' lista_asignacion ')' bloque_instrucciones
+      | PARA CADA IDENTIFICADOR EN '(' expresion ')' bloque_instrucciones
+      ;
+lista_asignacion
+      : lista_asignacion asignacion
+      | asignacion
+      ;
+
+
+      
 
 
 %%
