@@ -475,21 +475,56 @@ indice
 expresion_funcional
       : IDENTIFICADOR '(' lista_expresion_cero_o_mas ')'
 
-
-
-
-
-
-
-
-
 expresion
       : expresion_logica SI expresion SINO expresion
       | expresion_logica
       | expresion_logica PARA CADA IDENTIFICADOR EN expresion
 
+expresion_unaria_prefijo
+      : '-' expresion      
+      | '~' expresion      
+      | '!' expresion     
+      | 'tamano' expresion 
+      ;
 
+expresion_potencia
+      : expresion POTENCIA expresion
+      ;
 
+expresion_aritmetica
+      : expresion '*' expresion
+      | expresion '/' expresion
+      | expresion MOD expresion
+      ;
+
+expresion_numerica
+      : expresion '+' expresion
+      | expresion '-' expresion
+      ;
+
+expresion_desplazamiento
+      : expresion FLECHA_IZDA expresion
+      | expresion FLECHA_DCHA expresion
+      ;
+
+expresion_logica_binaria
+      : expresion AND expresion
+      | expresion OR expresion
+      | expresion XOR expresion
+      ;
+
+expresion_comparacion
+      : expresion '<' expresion
+      | expresion '>' expresion
+      | expresion LE expresion
+      | expresion GE expresion
+      | expresion EQ expresion
+      | expresion NEQ expresion
+      ;
+
+expresion_logica
+      : expresion AND expresion
+      ;
 %%
 
 int yyerror(char *s) {
