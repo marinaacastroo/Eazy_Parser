@@ -31,6 +31,7 @@
 %left AND OR
 %left '&' '@' '|'
 %left FLECHA_IZDA FLECHA_DCHA
+
 %%
 
 
@@ -524,6 +525,7 @@ expresion_comparacion
 
 expresion_logica
       : expresion AND expresion
+      | expresion OR expresion
       ;
 
 
