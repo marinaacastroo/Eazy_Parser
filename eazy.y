@@ -508,9 +508,9 @@ expresion_desplazamiento
       ;
 
 expresion_logica_binaria
-      : expresion AND expresion
-      | expresion OR expresion
-      | expresion XOR expresion
+      : expresion '&' expresion
+      | expresion '@' expresion
+      | expresion '|' expresion
       ;
 
 expresion_comparacion
@@ -525,6 +525,8 @@ expresion_comparacion
 expresion_logica
       : expresion AND expresion
       ;
+
+
 %%
 
 int yyerror(char *s) {
