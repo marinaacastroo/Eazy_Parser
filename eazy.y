@@ -56,13 +56,11 @@ nombre
       | nombre PTOS IDENTIFICADOR        
       ;
 
+
 bloque_programa
-      : declaraciones_tipos_opt
-      | declaraciones_constantes_opt
-      | declaraciones_variables_opt
-      | lista_declaracion_funcion_cero_o_mas
-      | bloque_instrucciones 
-      ;
+    : declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt lista_declaracion_funcion_cero_o_mas bloque_instrucciones
+    ;
+
 
 /**********************************************************************/
 /*  TIPOS  */
@@ -150,9 +148,11 @@ linea_campo
       : lista_identificador_uno_o_mas ES especificacion_tipo
       ; 
 
+
 lista_identificador_uno_o_mas
-      : lista_identificador_uno_o_mas IDENTIFICADOR 
-      ;
+    : lista_identificador_uno_o_mas IDENTIFICADOR
+    ;
+
 
 lista_nombre_una_o_mas
       : lista_nombre_una_o_mas nombre
@@ -216,7 +216,7 @@ lista_elemento_hash
       |
       ;
 elemento_hash
-      : CTC_CADENA ASIG constante
+      : CTC_CADENA FLECHA_DCHA constante
 
 constante_estructurada
       : '(' lista_campo_constante_una_o_mas ')'
@@ -255,9 +255,13 @@ lista_declaracion_variables
       | lista_declaracion_variables visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo  '.'
       ;
 
+
 lista_expresion
-      : lista_expresion expresion
-      ;
+    : expresion lista_expresion
+    | 
+    ;
+
+
 lista_expresion_cero_o_mas
       : lista_expresion_cero_o_mas expresion
       | expresion
