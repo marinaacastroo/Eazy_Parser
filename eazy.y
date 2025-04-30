@@ -25,13 +25,12 @@
 
 %left '+' '-'
 %left '*' '/' '%'
-%right '**'
+%right POTENCIA
 %left '<' '>' LE GE
 %left EQ NEQ
 %left AND OR
-%right '&&' '||'
 %left '&' '@' '|'
-%left '<-' '->'
+%left FLECHA_IZDA FLECHA_DCHA
 %%
 
 
@@ -475,63 +474,22 @@ indice
 
 expresion_funcional
       : IDENTIFICADOR '(' lista_expresion_cero_o_mas ')'
-      ;
+
+
+
+
+
+
+
+
 
 expresion
       : expresion_logica SI expresion SINO expresion
       | expresion_logica
       | expresion_logica PARA CADA IDENTIFICADOR EN expresion
-      | expresion_asignacion
-      | expresion_comparacion
-      | expresion_logica_binaria
-      | expresion_bit_a_bit
-      | expresion_desplazamiento
-      | expresion_tamano
-      | expresion_potencia
-      ;
 
-expresion_logica
-      : expresion_logica SI expresion SINO expresion
-      | expresion_logica
-      | expresion_logica PARA CADA IDENTIFICADOR EN expresion
-      ;
 
-expresion_asignacion
-      : expresion_indexada operador_asignacion expresion
-      ;
 
-expresion_comparacion
-      : expresion EQ expresion
-      | expresion NEQ expresion
-      | expresion '<' expresion
-      | expresion '>' expresion
-      | expresion LE expresion
-      | expresion GE expresion
-      ;
-
-expresion_logica_binaria
-      : expresion AND expresion
-      | expresion OR expresion
-      ;
-
-expresion_bit_a_bit
-      : expresion '&' expresion
-      | expresion '@' expresion
-      | expresion '|' expresion
-      ;
-
-expresion_desplazamiento
-      : expresion FLECHA_IZDA expresion
-      | expresion FLECHA_DCHA expresion
-      ;
-
-expresion_tamano
-      : 'tamano' expresion
-      ;
-
-expresion_potencia
-      : expresion POTENCIA expresion
-      ;
 %%
 
 int yyerror(char *s) {
