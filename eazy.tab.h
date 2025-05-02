@@ -66,8 +66,8 @@
      ENUMERACION = 282,
      EQ = 283,
      EN = 284,
-     ESCAPE = 285,
-     ES = 286,
+     ES = 285,
+     ESCAPE = 286,
      ESPECIFICO = 287,
      ESTRUCTURA = 288,
      ETIQUETA = 289,
@@ -151,8 +151,8 @@
 #define ENUMERACION 282
 #define EQ 283
 #define EN 284
-#define ESCAPE 285
-#define ES 286
+#define ES 285
+#define ESCAPE 286
 #define ESPECIFICO 287
 #define ESTRUCTURA 288
 #define ETIQUETA 289

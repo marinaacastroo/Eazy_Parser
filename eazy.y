@@ -471,6 +471,14 @@ expresion
       : expresion_logica SI expresion SINO expresion
       | expresion_logica
       | expresion_logica PARA CADA IDENTIFICADOR EN expresion
+      | expresion_unaria_prefijo
+      | expresion_potencia
+      | expresion_aritmetica
+      | expresion_numerica
+      | expresion_desplazamiento
+      | expresion_logica_binaria
+      | expresion_comparacion
+      | expresion_logica
       | error                 { printf("  ERROR: expresion -> error\n");yyerrok; }
       ;
 
