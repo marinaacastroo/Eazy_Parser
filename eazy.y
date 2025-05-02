@@ -50,19 +50,16 @@ libreria
       ;
 
 
+
 nombre_lista
-      : nombre                                  { printf("  nombre_lista -> nombre\n"); }
-      | nombre_lista '.'                        { printf("  nombre_lista -> nombre_lista .\n"); }
-      | nombre_lista PTOS nombre                { printf("  nombre_lista -> nombre_lista PTOS nombre\n"); }
+      : nombre                                        { printf("  lista_nombres -> nombre\n"); }
+      | nombre_lista ';' nombre                     { printf("  lista_nombres -> lista_nombres ; nombre\n"); }
       ;
-
-
 
 nombre
       : IDENTIFICADOR                     { printf("  nombre -> IDENTIFICADOR\n"); }
       | nombre PTOS IDENTIFICADOR         { printf("  nombre -> nombre PTOS IDENTIFICADOR\n"); }    
       ;
-
 
 bloque_programa
     : declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt lista_declaracion_funcion_cero_o_mas bloque_instrucciones            { printf("  bloque_programa -> declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt lista_declaracion_funcion_cero_o_mas bloque_instrucciones\n"); }
