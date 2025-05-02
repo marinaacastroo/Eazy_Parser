@@ -659,29 +659,29 @@ static const yytype_int16 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    34,    34,    35,    40,    41,    44,    46,    50,    51,
-      52,    58,    59,    63,    64,    68,    76,    78,    79,    82,
-      86,    87,    91,    92,    96,    98,    99,   100,   103,   105,
-     109,   110,   111,   114,   115,   116,   117,   118,   119,   123,
-     124,   128,   129,   133,   134,   135,   136,   137,   140,   142,
-     145,   146,   149,   153,   154,   158,   163,   164,   169,   173,
-     174,   177,   180,   182,   183,   184,   185,   186,   187,   193,
-     195,   198,   201,   202,   206,   210,   211,   212,   213,   214,
-     215,   219,   220,   224,   225,   228,   232,   236,   237,   240,
-     241,   245,   252,   254,   257,   261,   262,   266,   267,   272,
-     273,   281,   282,   285,   286,   290,   291,   295,   296,   300,
-     301,   304,   305,   309,   313,   322,   323,   327,   328,   329,
-     330,   331,   332,   333,   334,   335,   336,   339,   340,   344,
-     348,   349,   350,   351,   352,   353,   354,   355,   356,   357,
-     358,   359,   362,   363,   367,   368,   371,   375,   376,   377,
-     378,   382,   383,   387,   388,   389,   393,   397,   398,   402,
-     406,   410,   411,   412,   416,   418,   420,   423,   427,   431,
-     434,   444,   445,   446,   447,   451,   452,   453,   454,   455,
-     459,   460,   461,   462,   466,   467,   471,   474,   475,   476,
-     477,   478,   479,   480,   481,   482,   483,   484,   488,   489,
-     490,   491,   495,   499,   500,   501,   505,   506,   510,   511,
-     515,   516,   517,   521,   522,   523,   524,   525,   526,   530,
-     531
+       0,    35,    35,    36,    41,    42,    45,    47,    51,    52,
+      53,    59,    60,    64,    65,    69,    77,    79,    80,    83,
+      87,    88,    92,    93,    97,    99,   100,   101,   104,   106,
+     110,   111,   112,   115,   116,   117,   118,   119,   120,   124,
+     125,   129,   130,   134,   135,   136,   137,   138,   141,   143,
+     146,   147,   150,   154,   155,   159,   164,   165,   170,   174,
+     175,   178,   181,   183,   184,   185,   186,   187,   188,   194,
+     196,   199,   202,   203,   207,   211,   212,   213,   214,   215,
+     216,   220,   221,   225,   226,   229,   233,   237,   238,   241,
+     242,   246,   253,   255,   258,   262,   263,   267,   268,   273,
+     274,   282,   283,   286,   287,   291,   292,   296,   297,   301,
+     302,   305,   306,   310,   314,   323,   324,   328,   329,   330,
+     331,   332,   333,   334,   335,   336,   337,   340,   341,   345,
+     349,   350,   351,   352,   353,   354,   355,   356,   357,   358,
+     359,   360,   363,   364,   368,   369,   372,   376,   377,   378,
+     379,   383,   384,   388,   389,   390,   394,   398,   399,   403,
+     407,   411,   412,   413,   417,   419,   421,   424,   428,   432,
+     435,   445,   446,   447,   448,   452,   453,   454,   455,   456,
+     460,   461,   462,   463,   467,   468,   472,   475,   476,   477,
+     478,   479,   480,   481,   482,   483,   484,   485,   489,   490,
+     491,   492,   496,   500,   501,   502,   506,   507,   511,   512,
+     516,   517,   518,   522,   523,   524,   525,   526,   527,   531,
+     532
 };
 #endif
 
@@ -916,7 +916,7 @@ static const yytype_int16 yypact[] =
       15,  1019,   203,    70,  -289,  -289,    25,   321,  -289,  -289,
     -289,  -289,  -289,  -289,  -289,   337,    70,    45,   175,   639,
     -289,    70,   452,  -289,  -289,   326,  -289,   276,   415,  -289,
-     102,   831,  -289,    25,    70,   831,  -289,  -289,   288,   692,
+     102,   831,  -289,    25,    70,   139,  -289,  -289,   288,   692,
      190,     1,   363,   282,  -289,  -289,  -289,  -289,  -289,  -289,
     -289,   164,  -289,  -289,   831,  -289,   175,   161,   281,   175,
     -289,   295,  -289,    62,  -289,   175,    70,  -289,  -289,  -289,
@@ -2034,87 +2034,87 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 34 "eazy.y"
+#line 35 "eazy.y"
     { printf("  ÉXITO: programa -> cabecera_programa bloque_programa\n"); ;}
     break;
 
   case 3:
-#line 35 "eazy.y"
+#line 36 "eazy.y"
     { printf("  ERROR: programa -> error\n");yyerrok; ;}
     break;
 
   case 4:
-#line 40 "eazy.y"
+#line 41 "eazy.y"
     { printf("  cabecera_programa -> PROGRAMA IDENTIFICADOR . lista_librerias\n"); ;}
     break;
 
   case 5:
-#line 41 "eazy.y"
+#line 42 "eazy.y"
     { printf("  ERROR: cabecera_programa -> error\n");yyerrok; ;}
     break;
 
   case 7:
-#line 46 "eazy.y"
+#line 47 "eazy.y"
     { printf("  lista_librerias -> lista_librerias libreria\n"); ;}
     break;
 
   case 8:
-#line 50 "eazy.y"
+#line 51 "eazy.y"
     { printf("  libreria -> IMPORTAR nombre_lista .\n"); ;}
     break;
 
   case 9:
-#line 51 "eazy.y"
+#line 52 "eazy.y"
     { printf("  libreria -> IMPORTAR nombre COMO IDENTIFICADOR .\n"); ;}
     break;
 
   case 10:
-#line 52 "eazy.y"
+#line 53 "eazy.y"
     { printf("  ERROR: libreria -> error\n");yyerrok; ;}
     break;
 
   case 11:
-#line 58 "eazy.y"
+#line 59 "eazy.y"
     { printf("  lista_nombres -> nombre\n"); ;}
     break;
 
   case 12:
-#line 59 "eazy.y"
+#line 60 "eazy.y"
     { printf("  lista_nombres -> lista_nombres ; nombre\n"); ;}
     break;
 
   case 13:
-#line 63 "eazy.y"
+#line 64 "eazy.y"
     { printf("  nombre -> IDENTIFICADOR\n"); ;}
     break;
 
   case 14:
-#line 64 "eazy.y"
+#line 65 "eazy.y"
     { printf("  nombre -> nombre PTOS IDENTIFICADOR\n"); ;}
     break;
 
   case 15:
-#line 68 "eazy.y"
+#line 69 "eazy.y"
     { printf("  bloque_programa -> declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt lista_declaracion_funcion_cero_o_mas bloque_instrucciones\n"); ;}
     break;
 
   case 18:
-#line 79 "eazy.y"
+#line 80 "eazy.y"
     { printf("  ERROR: declaraciones_tipos_opt -> error\n");yyerrok; ;}
     break;
 
   case 104:
-#line 286 "eazy.y"
+#line 287 "eazy.y"
     { printf("  ERROR: declaracion_funcion -> error\n");yyerrok; ;}
     break;
 
   case 126:
-#line 336 "eazy.y"
+#line 337 "eazy.y"
     { printf("  ERROR: instruccion -> error\n");yyerrok; ;}
     break;
 
   case 197:
-#line 484 "eazy.y"
+#line 485 "eazy.y"
     { printf("  ERROR: expresion -> error\n");yyerrok; ;}
     break;
 
@@ -2334,7 +2334,7 @@ yyreturn:
 }
 
 
-#line 535 "eazy.y"
+#line 536 "eazy.y"
 
 
 int yyerror(char *s) {

@@ -21,6 +21,7 @@
 %left '<' '>' LE GE EQ NEQ
 %left '&' '@' '|'
 %left AND OR
+%right SI SINO
 
 %%
 

@@ -39,7 +39,7 @@ State 293 conflicts: 2 shift/reduce
 State 294 conflicts: 2 shift/reduce
 State 295 conflicts: 2 shift/reduce
 State 306 conflicts: 1 shift/reduce
-State 355 conflicts: 19 shift/reduce
+State 355 conflicts: 2 shift/reduce
 State 374 conflicts: 19 shift/reduce
 
 
@@ -5757,45 +5757,11 @@ state 355
   218 expresion_logica: expresion . AND expresion
   219                 | expresion . OR expresion
 
-    AND          shift, and go to state 213
-    EQ           shift, and go to state 214
     FLECHA_DCHA  shift, and go to state 215
     FLECHA_IZDA  shift, and go to state 216
-    GE           shift, and go to state 217
-    LE           shift, and go to state 218
-    MOD          shift, and go to state 219
-    NEQ          shift, and go to state 220
-    OR           shift, and go to state 221
-    POTENCIA     shift, and go to state 222
-    '+'          shift, and go to state 223
-    '-'          shift, and go to state 224
-    '*'          shift, and go to state 225
-    '/'          shift, and go to state 226
-    '<'          shift, and go to state 227
-    '>'          shift, and go to state 228
-    '&'          shift, and go to state 229
-    '@'          shift, and go to state 230
-    '|'          shift, and go to state 231
 
-    AND          [reduce using rule 186 (expresion)]
-    EQ           [reduce using rule 186 (expresion)]
     FLECHA_DCHA  [reduce using rule 186 (expresion)]
     FLECHA_IZDA  [reduce using rule 186 (expresion)]
-    GE           [reduce using rule 186 (expresion)]
-    LE           [reduce using rule 186 (expresion)]
-    MOD          [reduce using rule 186 (expresion)]
-    NEQ          [reduce using rule 186 (expresion)]
-    OR           [reduce using rule 186 (expresion)]
-    POTENCIA     [reduce using rule 186 (expresion)]
-    '+'          [reduce using rule 186 (expresion)]
-    '-'          [reduce using rule 186 (expresion)]
-    '*'          [reduce using rule 186 (expresion)]
-    '/'          [reduce using rule 186 (expresion)]
-    '<'          [reduce using rule 186 (expresion)]
-    '>'          [reduce using rule 186 (expresion)]
-    '&'          [reduce using rule 186 (expresion)]
-    '@'          [reduce using rule 186 (expresion)]
-    '|'          [reduce using rule 186 (expresion)]
     $default     reduce using rule 186 (expresion)
 
 
