@@ -62,7 +62,7 @@ nombre
       ;
 
 bloque_programa
-    : declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt lista_declaracion_funcion_cero_o_mas bloque_instrucciones            { printf("  bloque_programa -> declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt lista_declaracion_funcion_cero_o_mas bloque_instrucciones\n"); }
+    : declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt lista_declaracion_funcion bloque_instrucciones            { printf("  bloque_programa -> declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt lista_declaracion_funcion_cero_o_mas bloque_instrucciones\n"); }
     ;
 
 
@@ -251,30 +251,31 @@ declaraciones_variables_opt
       | declaraciones_variables
       ;
 declaraciones_variables
-      : VARIABLES lista_declaracion_variables FIN
+      : VARIABLES declaracion_variables_lista FIN
       ;
 
-lista_declaracion_variables
-      : visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_cero_o_mas '.'
-      | visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo  '.'
-      | lista_declaracion_variables visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_cero_o_mas '.'
-      | lista_declaracion_variables visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo  '.'
+declaracion_variables_lista
+      : declaracion_variables_lista declaracion_variables
+      | declaracion_variables
+      ;
+
+declaracion_variables
+      : visibilidad_opt identificador_lista ES especificacion_tipo ASIG expresion_lista '.'
+      | visibilidad_opt identificador_lista ES especificacion_tipo  '.'
       ;
 
 
-lista_expresion_cero_o_mas
-      : lista_expresion_cero_o_mas expresion
+expresion_lista
+      : expresion_lista expresion
       | expresion
-      |
       ;
 
 /*--------------------------------------------------------------------*/
 /*  FUNCIONES    */
 /*--------------------------------------------------------------------*/
 
-lista_declaracion_funcion_cero_o_mas
-      : declaracion_funcion lista_declaracion_funcion_cero_o_mas
-      | declaracion_funcion
+lista_declaracion_funcion
+      : lista_declaracion_funcion declaracion_funcion
       |
       ;
 declaracion_funcion
@@ -283,19 +284,17 @@ declaracion_funcion
       ;
 
 firma_funcion
-      : FUNCION IDENTIFICADOR '(' lista_parametros ')' FLECHA_DCHA tipo_salida
+      : FUNCION IDENTIFICADOR '(' parametros_lista ')' FLECHA_DCHA tipo_salida
       | FUNCION IDENTIFICADOR FLECHA_DCHA tipo_salida
       ;
 
-lista_parametros
-      : lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_constante_una_o_mas
-      | lista_identificador_uno_o_mas ES especificacion_tipo 
-      | lista_parametros lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_constante_una_o_mas
-      | lista_parametros lista_identificador_uno_o_mas ES especificacion_tipo 
+parametros_lista
+      : identificador_lista ES especificacion_tipo ASIG expresion_constante_lista 
+      | identificador_lista ES especificacion_tipo
       ;
 
-lista_expresion_constante_una_o_mas
-      : lista_expresion_constante_una_o_mas expresion_constante
+expresion_constante_lista
+      : expresion_constante_lista expresion_constante
       | expresion_constante
       ;
 tipo_salida
@@ -304,14 +303,11 @@ tipo_salida
       ; 
 
 cuerpo_funcion
-      : declaraciones_constantes_opt
-      | declaraciones_variables_opt
-      | lista_declaracion_funcion_cero_o_mas
-      | bloque_instrucciones
+      : declaraciones_constantes_opt declaraciones_variables_opt lista_declaracion_funcion bloque_instrucciones
       ;
 
 bloque_instrucciones 
-      : PRINCIPIO lista_instrucciones_una_o_mas FIN
+      : PRINCIPIO instruccion_lista FIN
       ;
 
 
@@ -319,8 +315,8 @@ bloque_instrucciones
 /*  INSTRUCCIONES    */
 /*--------------------------------------------------------------------*/
 
-lista_instrucciones_una_o_mas
-      : lista_instrucciones_una_o_mas instruccion
+instruccion_lista
+      : instruccion_lista instruccion
       | instruccion
       ;
 
@@ -365,20 +361,22 @@ instruccion_bifurcacion
       ;
 
 lista_otro_caso
+      : lista_otro_caso otro_caso
+      | 
+      ;
+otro_caso
       : ENCAMBIO '(' expresion ')' bloque_instrucciones
-      | ENCAMBIO '(' expresion ')' bloque_instrucciones lista_otro_caso
-      |
       ;
 
 instruccion_bucle
       : MIENTRAS '(' expresion ')' bloque_instrucciones
       | HACER bloque_instrucciones MIENTRAS '(' expresion ')' '.'
-      | PARA '(' lista_asignacion_una_o_mas ':' expresion ':' lista_asignacion_una_o_mas ')' bloque_instrucciones
+      | PARA '(' asignacion_lista ':' expresion ':' asignacion_lista ')' bloque_instrucciones
       | PARA CADA IDENTIFICADOR EN '(' expresion ')' bloque_instrucciones
       ;
 
-lista_asignacion_una_o_mas
-      : lista_asignacion_una_o_mas asignacion
+asignacion_lista
+      : asignacion_lista asignacion
       | asignacion
       ;
 
@@ -402,14 +400,22 @@ instruccion_lanzamiento_excepcion
       ;
 
 instruccion_captura_excepcion
-      : lista_clausula_excepcion_especifica_cero_o_mas clausula_excepcion_general
+      : EJECUTA bloque_instrucciones clausulas
       ;
 
-lista_clausula_excepcion_especifica_cero_o_mas
+clausulas 
+      : clausulas_excepcion clausula_defecto
+      | clausulas_excepcion
+      | clausula_defecto
+      ; 
+
+clausulas_excepcion
+      : lista_clausula_excepcion_especifica clausula_excepcion_general
+      ;
+lista_clausula_excepcion_especifica
       : 
-      | lista_clausula_excepcion_especifica_cero_o_mas clausula_excepcion_especifica
+      | lista_clausula_excepcion_especifica clausula_excepcion_especifica
       ;
-
 clausula_excepcion_especifica
       : EXCEPCION nombre bloque_instrucciones
       ;
