@@ -29,41 +29,42 @@
 /**********************************************************************/
 
 programa
-      : cabecera_programa bloque_programa           
+      : cabecera_programa bloque_programa                  { printf("  ÉXITO: programa -> cabecera_programa bloque_programa\n"); }           
       ;
 
 
 cabecera_programa
-      : PROGRAMA IDENTIFICADOR '.' lista_librerias
+      : PROGRAMA IDENTIFICADOR '.' lista_librerias         { printf("  cabecera_programa -> PROGRAMA IDENTIFICADOR . lista_librerias\n"); }
+      ;       
       ;
 
 lista_librerias
       : 
-      | lista_librerias libreria
+      | lista_librerias libreria                              { printf("  lista_librerias -> lista_librerias libreria\n"); }
       ;
 
 libreria
-      : IMPORTAR nombre_lista '.'
-      | IMPORTAR nombre COMO IDENTIFICADOR '.'
+      : IMPORTAR nombre_lista '.'               { printf("  libreria -> IMPORTAR nombre_lista .\n"); }
+      | IMPORTAR nombre COMO IDENTIFICADOR '.'  { printf("  libreria -> IMPORTAR nombre COMO IDENTIFICADOR .\n"); }
       ;
 
 
 nombre_lista
-      : nombre 
-      | nombre_lista '.' 
-      | nombre_lista PTOS nombre 
+      : nombre                                  { printf("  nombre_lista -> nombre\n"); }
+      | nombre_lista '.'                        { printf("  nombre_lista -> nombre_lista .\n"); }
+      | nombre_lista PTOS nombre                { printf("  nombre_lista -> nombre_lista PTOS nombre\n"); }
       ;
 
 
 
 nombre
-      : IDENTIFICADOR
-      | nombre PTOS IDENTIFICADOR        
+      : IDENTIFICADOR                     { printf("  nombre -> IDENTIFICADOR\n"); }
+      | nombre PTOS IDENTIFICADOR         { printf("  nombre -> nombre PTOS IDENTIFICADOR\n"); }    
       ;
 
 
 bloque_programa
-    : declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt lista_declaracion_funcion_cero_o_mas bloque_instrucciones
+    : declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt lista_declaracion_funcion_cero_o_mas bloque_instrucciones            { printf("  bloque_programa -> declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt lista_declaracion_funcion_cero_o_mas bloque_instrucciones\n"); }
     ;
 
 
