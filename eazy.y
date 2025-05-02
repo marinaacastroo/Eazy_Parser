@@ -17,7 +17,10 @@
 %left '+' '-'
 %left '*' '/'
 %left MOD
-%right POTENCIA 
+%right POTENCIA
+%left '<' '>' LE GE EQ NEQ
+%left '&' '@' '|'
+%left AND OR
 
 %%
 
