@@ -15,17 +15,18 @@
 %token PTOS PUBLICO REAL REF RESTA_ASIG SALTAR SI SINO SUMA_ASIG TAMANO TABLA TIPOS ULTIMA UNION VARIABLES XOR_ASIG
 
 %right '~' '!' 'tamano'  
-%right POTENCIA              
-%left '*' '/' MOD           
-%left '+' '-'                
+%right POTENCIA          
+%left '*' '/' MOD        
+%left '+' '-'             
 %left FLECHA_IZDA FLECHA_DCHA 
-%left '&'                    
-%left '@'                    
-%left '|'                    
-%left '<' '>' LE GE          
-%left EQ NEQ                 
-%left AND                   
-%left OR                    
+%left '&'               
+%left '@'               
+%left '|'                
+%left '<' '>' LE GE      
+%left EQ NEQ         
+%left AND              
+%left OR                 
+%right SI SINO           
 %%
 
 
@@ -444,48 +445,28 @@ instruccion_vacia
 /*  EXPRESIONES    */
 /*--------------------------------------------------------------------*/
 
-expresion_constante 
-      : CTC_ENTERA
-      | CTC_REAL
-      | CTC_CARACTER
-      | CTC_CADENA
-      ;
-
-expresion_indexada 
-      : expresion_basica
-      | expresion_indexada '?' expresion_basica
-      | expresion_indexada INDIRECCION expresion_basica
-      | expresion_indexada INDIRECCION indice
-      | expresion_indexada indice     
-      ;
-
-expresion_basica
-      : nombre
-      | '(' expresion ')'
-      | '^' expresion_basica
-      | REF expresion_basica
-      ;
-
 indice
       : '[' expresion ']'
       | '{' expresion '}'
       ;
 
-expresion_funcional
-      : IDENTIFICADOR '(' expresion_lista ')'
 
 expresion
       : expresion_condicional
-      | expresion_logica
       | expresion_para_cada
-      | expresion_unaria_prefijo
-      | expresion_potencia
+      | expresion_logica
+      | expresion_comparacion
       | expresion_aritmetica
-      | expresion_numerica
       | expresion_desplazamiento
       | expresion_logica_binaria
-      | expresion_comparacion
-      | error                 { printf("  ERROR: expresion -> error\n");yyerrok; }
+      | expresion_potencia
+      | expresion_numerica
+      | expresion_unaria
+      | expresion_funcional
+      | expresion_indexada
+      | expresion_basica
+      | expresion_constante
+      | error                 { printf("  ERROR: expresion -> error\n"); yyerrok; }
       ;
 
 expresion_condicional
@@ -496,37 +477,9 @@ expresion_para_cada
       : expresion_logica PARA CADA IDENTIFICADOR EN expresion
       ;
 
-expresion_unaria_prefijo
-      : '-' expresion      
-      | '~' expresion      
-      | '!' expresion     
-      | 'tamano' expresion 
-      ;
-
-expresion_potencia
-      : expresion POTENCIA expresion
-      ;
-
-expresion_aritmetica
-      : expresion '*' expresion
-      | expresion '/' expresion
-      | expresion MOD expresion
-      ;
-
-expresion_numerica
-      : expresion '+' expresion
-      | expresion '-' expresion
-      ;
-
-expresion_desplazamiento
-      : expresion FLECHA_IZDA expresion
-      | expresion FLECHA_DCHA expresion
-      ;
-
-expresion_logica_binaria
-      : expresion '&' expresion
-      | expresion '@' expresion
-      | expresion '|' expresion
+expresion_logica
+      : expresion AND expresion
+      | expresion OR expresion
       ;
 
 expresion_comparacion
@@ -538,9 +491,66 @@ expresion_comparacion
       | expresion NEQ expresion
       ;
 
-expresion_logica
-      : expresion AND expresion
-      | expresion OR expresion
+expresion_aritmetica
+      : expresion '*' expresion
+      | expresion '/' expresion
+      | expresion MOD expresion
+      ;
+
+
+expresion_desplazamiento
+      : expresion FLECHA_IZDA expresion
+      | expresion FLECHA_DCHA expresion
+      ;
+
+expresion_logica_binaria
+      : expresion '&' expresion
+      | expresion '@' expresion
+      | expresion '|' expresion
+      ;
+ 
+expresion_potencia
+      : expresion POTENCIA expresion
+      ;
+
+expresion_numerica
+      : expresion '+' expresion
+      | expresion '-' expresion
+      ;
+
+
+expresion_unaria
+      : '-' expresion      
+      | '~' expresion      
+      | '!' expresion     
+      | 'tamano' expresion 
+      ;
+
+expresion_funcional
+      : IDENTIFICADOR '(' expresion_lista ')'
+      ;
+
+
+expresion_indexada 
+      : expresion_basica
+      | expresion_indexada '?' expresion_basica
+      | expresion_indexada INDIRECCION expresion_basica
+      | expresion_indexada INDIRECCION indice
+      | expresion_indexada indice     
+      ;
+
+
+expresion_basica
+      : nombre
+      | '(' expresion ')'
+      | '^' expresion_basica
+      | REF expresion_basica
+      ;
+expresion_constante 
+      : CTC_ENTERA
+      | CTC_REAL
+      | CTC_CARACTER
+      | CTC_CADENA
       ;
 
 
