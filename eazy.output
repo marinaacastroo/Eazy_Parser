@@ -71,18 +71,6 @@ Terminals which are not used
    UNION
    VARIABLES
    XOR_ASIG
-   '!'
-   '-'
-   '~'
-   '+'
-   '*'
-   '/'
-   '%'
-   '<'
-   '>'
-   '&'
-   '@'
-   '|'
    'de'
    ':'
    '?'
@@ -91,7 +79,18 @@ Terminals which are not used
    ']'
    '{'
    '}'
+   '-'
+   '~'
+   '!'
    'tamano'
+   '*'
+   '/'
+   '+'
+   '&'
+   '@'
+   '|'
+   '<'
+   '>'
 
 
 Useless rules
@@ -430,7 +429,6 @@ Terminals, with rules where they appear
 
 $end (0) 0
 '!' (33)
-'%' (37)
 '&' (38)
 '(' (40) 67 68 73 116
 ')' (41) 67 68 73 116
@@ -541,115 +539,115 @@ XOR_ASIG (339)
 
 Nonterminals, with rules where they appear
 
-$accept (110)
+$accept (109)
     on left: 0
-programa (111)
+programa (110)
     on left: 1, on right: 0
-cabecera_programa (112)
+cabecera_programa (111)
     on left: 2, on right: 1
-lista_librerias (113)
+lista_librerias (112)
     on left: 3 4, on right: 2 4
-libreria (114)
+libreria (113)
     on left: 5 6, on right: 4
-nombre_lista (115)
+nombre_lista (114)
     on left: 7 8 9, on right: 5 8 9
-nombre (116)
+nombre (115)
     on left: 10 11, on right: 6 7 9 11 26 113
-bloque_programa (117)
+bloque_programa (116)
     on left: 12, on right: 1
-declaraciones_tipos_opt (118)
+declaraciones_tipos_opt (117)
     on left: 13 14, on right: 12
-declaraciones_tipos (119)
+declaraciones_tipos (118)
     on left: 15, on right: 14 43
-lista_declaraciones_tipo (120)
+lista_declaraciones_tipo (119)
     on left: 16 17, on right: 15 16
-declaracion_tipo (121)
+declaracion_tipo (120)
     on left: 18 19, on right: 16
-visibilidad_opt (122)
+visibilidad_opt (121)
     on left: 20 21 22 23, on right: 18 19 47 48 59 60 85
-lista_ref (123)
+lista_ref (122)
     on left: 24 25, on right: 18 19 25 37 38
-tipo_basico (124)
+tipo_basico (123)
     on left: 26 27 28, on right: 18 37 59 60
-tipo_escalar (125)
+tipo_escalar (124)
     on left: 29 30 31 32 33 34, on right: 27
-tipo_tabla (126)
+tipo_tabla (125)
     on left: 35 36, on right: 28
-especificacion_tipo (127)
+especificacion_tipo (126)
     on left: 37 38, on right: 35 36 87
-tipo_estructurado (128)
+tipo_estructurado (127)
     on left: 39, on right: 19 38
-ultima_opt (129)
+ultima_opt (128)
     on left: 40 41, on right: 39
-componentes (130)
+componentes (129)
     on left: 42 43 44 45 46, on right: 39
-declaracion_metodo (131)
+declaracion_metodo (130)
     on left: 47 48, on right: 46 48
-modificador_opt (132)
+modificador_opt (131)
     on left: 49 50 51 52 53 54 55, on right: 47 48
-declaraciones_constantes_opt (133)
+declaraciones_constantes_opt (132)
     on left: 56 57, on right: 12 44 89
-declaraciones_constantes (134)
+declaraciones_constantes (133)
     on left: 58, on right: 57
-lista_declaraciones_constantes (135)
+lista_declaraciones_constantes (134)
     on left: 59 60, on right: 58 60
-constante (136)
+constante (135)
     on left: 61 62 63 64 65 66, on right: 59 60 72 79
-constante_tabla (137)
+constante_tabla (136)
     on left: 67 68, on right: 65
-lista_elemento_hash (138)
+lista_elemento_hash (137)
     on left: 69 70 71, on right: 68 69
-elemento_hash (139)
+elemento_hash (138)
     on left: 72, on right: 69 70
-constante_estructurada (140)
+constante_estructurada (139)
     on left: 73, on right: 66
-lista_campo_constante_una_o_mas (141)
+lista_campo_constante_una_o_mas (140)
     on left: 74 75, on right: 73 74
-lista_campo_constante (142)
+lista_campo_constante (141)
     on left: 76 77 78, on right: 67 76
-campo_constante (143)
+campo_constante (142)
     on left: 79, on right: 74 75 76 77
-declaraciones_variables_opt (144)
+declaraciones_variables_opt (143)
     on left: 80, on right: 12 45 90
-lista_expresion_cero_o_mas (145)
+lista_expresion_cero_o_mas (144)
     on left: 81, on right: 116
-lista_declaracion_funcion_cero_o_mas (146)
+lista_declaracion_funcion_cero_o_mas (145)
     on left: 82 83 84, on right: 12 82 91
-declaracion_funcion (147)
+declaracion_funcion (146)
     on left: 85, on right: 82 83
-firma_funcion (148)
+firma_funcion (147)
     on left: 86, on right: 47 48 85
-tipo_salida (149)
+tipo_salida (148)
     on left: 87 88, on right: 86
-cuerpo_funcion (150)
+cuerpo_funcion (149)
     on left: 89 90 91 92, on right: 47 48 85
-bloque_instrucciones (151)
+bloque_instrucciones (150)
     on left: 93, on right: 12 92 113 114
-lista_instrucciones_una_o_mas (152)
+lista_instrucciones_una_o_mas (151)
     on left: 94 95, on right: 93 94
-instruccion (153)
+instruccion (152)
     on left: 96 97 98 99 100 101 102, on right: 94 95
-instruccion_expresion (154)
+instruccion_expresion (153)
     on left: 103, on right: 96
-instruccion_salto (155)
+instruccion_salto (154)
     on left: 104 105 106, on right: 97
-instruccion_destino_salto (156)
+instruccion_destino_salto (155)
     on left: 107, on right: 98
-instruccion_devolver (157)
+instruccion_devolver (156)
     on left: 108, on right: 99
-instruccion_lanzamiento_excepcion (158)
+instruccion_lanzamiento_excepcion (157)
     on left: 109, on right: 100
-instruccion_captura_excepcion (159)
+instruccion_captura_excepcion (158)
     on left: 110, on right: 101
-lista_clausula_excepcion_especifica_cero_o_mas (160)
+lista_clausula_excepcion_especifica_cero_o_mas (159)
     on left: 111 112, on right: 110 112
-clausula_excepcion_especifica (161)
+clausula_excepcion_especifica (160)
     on left: 113, on right: 112
-clausula_excepcion_general (162)
+clausula_excepcion_general (161)
     on left: 114, on right: 110
-instruccion_vacia (163)
+instruccion_vacia (162)
     on left: 115, on right: 102
-expresion_funcional (164)
+expresion_funcional (163)
     on left: 116, on right: 103
 
 

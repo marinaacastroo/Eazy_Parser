@@ -530,7 +530,7 @@ int yywrap() {
 }
 
 int main(int argc, char *argv[]) {
-  yydebug = 0;
+  yydebug = 1;
 
   if (argc < 2) {
     printf("Uso: ./eazy NombreArchivo\n");
