@@ -14,15 +14,18 @@
 %token MOD MOD_ASIG MULT_ASIG NADA NEQ OR OTRA OR_ASIG PARA POT_ASIG POTENCIA PRINCIPIO PRIVADO PROGRAMA PROTEGIDO
 %token PTOS PUBLICO REAL REF RESTA_ASIG SALTAR SI SINO SUMA_ASIG TAMANO TABLA TIPOS ULTIMA UNION VARIABLES XOR_ASIG
 
-%left '+' '-'
-%left '*' '/'
-%left MOD
-%right POTENCIA
-%left '<' '>' LE GE EQ NEQ
-%left '&' '@' '|'
-%left AND OR
-%right SI SINO
-
+%right '~' '!' 'tamano'  
+%right POTENCIA              
+%left '*' '/' MOD           
+%left '+' '-'                
+%left FLECHA_IZDA FLECHA_DCHA 
+%left '&'                    
+%left '@'                    
+%left '|'                    
+%left '<' '>' LE GE          
+%left EQ NEQ                 
+%left AND                   
+%left OR                    
 %%
 
 
