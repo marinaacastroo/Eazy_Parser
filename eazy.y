@@ -29,7 +29,7 @@
 /**********************************************************************/
 
 programa
-      : cabecera_programa bloque_programa
+      : cabecera_programa bloque_programa           
       ;
 
 
