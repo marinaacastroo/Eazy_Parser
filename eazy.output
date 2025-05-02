@@ -7,14 +7,12 @@ Rules never reduced
 
    89 lista_campo_constante: /* empty */
 
-  196 expresion: expresion_logica
-
 
 State 4 conflicts: 1 shift/reduce
 State 22 conflicts: 1 shift/reduce
 State 53 conflicts: 16 shift/reduce
 State 98 conflicts: 17 shift/reduce
-State 146 conflicts: 2 shift/reduce, 36 reduce/reduce
+State 146 conflicts: 2 shift/reduce
 State 201 conflicts: 1 shift/reduce, 1 reduce/reduce
 State 209 conflicts: 2 shift/reduce
 State 210 conflicts: 19 shift/reduce
@@ -324,72 +322,71 @@ Grammar
   193          | expresion_desplazamiento
   194          | expresion_logica_binaria
   195          | expresion_comparacion
-  196          | expresion_logica
-  197          | error
+  196          | error
 
-  198 expresion_unaria_prefijo: '-' expresion
-  199                         | '~' expresion
-  200                         | '!' expresion
-  201                         | 'tamano' expresion
+  197 expresion_unaria_prefijo: '-' expresion
+  198                         | '~' expresion
+  199                         | '!' expresion
+  200                         | 'tamano' expresion
 
-  202 expresion_potencia: expresion POTENCIA expresion
+  201 expresion_potencia: expresion POTENCIA expresion
 
-  203 expresion_aritmetica: expresion '*' expresion
-  204                     | expresion '/' expresion
-  205                     | expresion MOD expresion
+  202 expresion_aritmetica: expresion '*' expresion
+  203                     | expresion '/' expresion
+  204                     | expresion MOD expresion
 
-  206 expresion_numerica: expresion '+' expresion
-  207                   | expresion '-' expresion
+  205 expresion_numerica: expresion '+' expresion
+  206                   | expresion '-' expresion
 
-  208 expresion_desplazamiento: expresion FLECHA_IZDA expresion
-  209                         | expresion FLECHA_DCHA expresion
+  207 expresion_desplazamiento: expresion FLECHA_IZDA expresion
+  208                         | expresion FLECHA_DCHA expresion
 
-  210 expresion_logica_binaria: expresion '&' expresion
-  211                         | expresion '@' expresion
-  212                         | expresion '|' expresion
+  209 expresion_logica_binaria: expresion '&' expresion
+  210                         | expresion '@' expresion
+  211                         | expresion '|' expresion
 
-  213 expresion_comparacion: expresion '<' expresion
-  214                      | expresion '>' expresion
-  215                      | expresion LE expresion
-  216                      | expresion GE expresion
-  217                      | expresion EQ expresion
-  218                      | expresion NEQ expresion
+  212 expresion_comparacion: expresion '<' expresion
+  213                      | expresion '>' expresion
+  214                      | expresion LE expresion
+  215                      | expresion GE expresion
+  216                      | expresion EQ expresion
+  217                      | expresion NEQ expresion
 
-  219 expresion_logica: expresion AND expresion
-  220                 | expresion OR expresion
+  218 expresion_logica: expresion AND expresion
+  219                 | expresion OR expresion
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
-'!' (33) 200
-'&' (38) 210
+'!' (33) 199
+'&' (38) 209
 '(' (40) 45 80 81 85 104 141 142 145 146 147 148 149 180 185
 ')' (41) 45 80 81 85 104 141 142 145 146 147 148 149 180 185
-'*' (42) 203
-'+' (43) 206
-'-' (45) 198 207
+'*' (42) 202
+'+' (43) 205
+'-' (45) 197 206
 '.' (46) 3 7 8 21 73 96 97 126 127 147 152 153 154 155 156 157 158
-'/' (47) 204
+'/' (47) 203
 ':' (58) 148
 ';' (59) 11
-'<' (60) 213
-'>' (62) 214
+'<' (60) 212
+'>' (62) 213
 '?' (63) 175
-'@' (64) 211
+'@' (64) 210
 '[' (91) 183
 ']' (93) 183
 '^' (94) 181
 'de' (100) 42
 'fin' (102) 42 43 44 45 46
-'tamano' (116) 201
+'tamano' (116) 200
 '{' (123) 184
-'|' (124) 212
+'|' (124) 211
 '}' (125) 184
-'~' (126) 199
-error (256) 2 4 9 17 103 125 197
+'~' (126) 198
+error (256) 2 4 9 17 103 125 196
 ABSTRACTO (258) 65
-AND (259) 219
+AND (259) 218
 ASIG (260) 51 73 90 96 106 129
 AND_ASIG (261) 138
 CADA (262) 149 188
@@ -413,7 +410,7 @@ EJECUTA (279) 159
 ENCAMBIO (280) 145
 ENTERO (281) 32
 ENUMERACION (282) 42
-EQ (283) 217
+EQ (283) 216
 EN (284) 149 188
 ES (285) 21 22 54 73 96 97 106 107
 ESCAPE (286) 154
@@ -426,31 +423,31 @@ FI_ASIG (292) 136
 FICHERO (293) 36
 FIN (294) 18 70 93 113
 FINAL (295) 67
-FLECHA_DCHA (296) 84 104 105 209
-FLECHA_IZDA (297) 208
+FLECHA_DCHA (296) 84 104 105 208
+FLECHA_IZDA (297) 207
 FUNCION (298) 104 105
 GENERICO (299) 64
 HACER (300) 147
 HASH (301) 39
-GE (302) 216
+GE (302) 215
 IDENTIFICADOR (303) 3 8 12 13 21 22 51 55 56 73 90 104 105 149 152
     155 158 185 188
 IMPORTAR (304) 7 8
 INDIRECCION (305) 176 177
 LANZA (306) 158
-LE (307) 215
+LE (307) 214
 MIENTRAS (308) 146 147
-MOD (309) 205
+MOD (309) 204
 MOD_ASIG (310) 134
 MULT_ASIG (311) 132
 NADA (312) 111
-NEQ (313) 218
-OR (314) 220
+NEQ (313) 217
+OR (314) 219
 OTRA (315) 167
 OR_ASIG (316) 140
 PARA (317) 148 149 188
 POT_ASIG (318) 135
-POTENCIA (319) 202
+POTENCIA (319) 201
 PRINCIPIO (320) 113
 PRIVADO (321) 26
 PROGRAMA (322) 3
@@ -641,26 +638,26 @@ indice (189)
 expresion_funcional (190)
     on left: 185, on right: 126
 expresion (191)
-    on left: 186 187 188 189 190 191 192 193 194 195 196 197,
+    on left: 186 187 188 189 190 191 192 193 194 195 196,
     on right: 51 98 99 128 141 142 145 146 147 148 149 156 180 183
-    184 186 188 198 199 200 201 202 203 204 205 206 207 208 209 210
-    211 212 213 214 215 216 217 218 219 220
+    184 186 188 197 198 199 200 201 202 203 204 205 206 207 208 209
+    210 211 212 213 214 215 216 217 218 219
 expresion_unaria_prefijo (192)
-    on left: 198 199 200 201, on right: 189
+    on left: 197 198 199 200, on right: 189
 expresion_potencia (193)
-    on left: 202, on right: 190
+    on left: 201, on right: 190
 expresion_aritmetica (194)
-    on left: 203 204 205, on right: 191
+    on left: 202 203 204, on right: 191
 expresion_numerica (195)
-    on left: 206 207, on right: 192
+    on left: 205 206, on right: 192
 expresion_desplazamiento (196)
-    on left: 208 209, on right: 193
+    on left: 207 208, on right: 193
 expresion_logica_binaria (197)
-    on left: 210 211 212, on right: 194
+    on left: 209 210 211, on right: 194
 expresion_comparacion (198)
-    on left: 213 214 215 216 217 218, on right: 195
+    on left: 212 213 214 215 216 217, on right: 195
 expresion_logica (199)
-    on left: 219 220, on right: 186 187 188 196
+    on left: 218 219, on right: 186 187 188
 
 
 state 0
@@ -2040,14 +2037,14 @@ state 131
 
 state 132
 
-  197 expresion: error .
+  196 expresion: error .
 
-    $default  reduce using rule 197 (expresion)
+    $default  reduce using rule 196 (expresion)
 
 
 state 133
 
-  198 expresion_unaria_prefijo: '-' . expresion
+  197 expresion_unaria_prefijo: '-' . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -2075,7 +2072,7 @@ state 134
 
 state 135
 
-  199 expresion_unaria_prefijo: '~' . expresion
+  198 expresion_unaria_prefijo: '~' . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -2096,7 +2093,7 @@ state 135
 
 state 136
 
-  200 expresion_unaria_prefijo: '!' . expresion
+  199 expresion_unaria_prefijo: '!' . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -2117,7 +2114,7 @@ state 136
 
 state 137
 
-  201 expresion_unaria_prefijo: 'tamano' . expresion
+  200 expresion_unaria_prefijo: 'tamano' . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -2139,25 +2136,25 @@ state 137
 state 138
 
   156 instruccion_devolver: DEVOLVER expresion . '.'
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -2235,84 +2232,13 @@ state 146
   186 expresion: expresion_logica . SI expresion SINO expresion
   187          | expresion_logica .
   188          | expresion_logica . PARA CADA IDENTIFICADOR EN expresion
-  196          | expresion_logica .
 
     PARA  shift, and go to state 233
     SI    shift, and go to state 234
 
-    error          reduce using rule 187 (expresion)
-    error          [reduce using rule 196 (expresion)]
-    AND            reduce using rule 187 (expresion)
-    AND            [reduce using rule 196 (expresion)]
-    EQ             reduce using rule 187 (expresion)
-    EQ             [reduce using rule 196 (expresion)]
-    FLECHA_DCHA    reduce using rule 187 (expresion)
-    FLECHA_DCHA    [reduce using rule 196 (expresion)]
-    FLECHA_IZDA    reduce using rule 187 (expresion)
-    FLECHA_IZDA    [reduce using rule 196 (expresion)]
-    GE             reduce using rule 187 (expresion)
-    GE             [reduce using rule 196 (expresion)]
-    IDENTIFICADOR  reduce using rule 187 (expresion)
-    IDENTIFICADOR  [reduce using rule 196 (expresion)]
-    LE             reduce using rule 187 (expresion)
-    LE             [reduce using rule 196 (expresion)]
-    MOD            reduce using rule 187 (expresion)
-    MOD            [reduce using rule 196 (expresion)]
-    NEQ            reduce using rule 187 (expresion)
-    NEQ            [reduce using rule 196 (expresion)]
-    OR             reduce using rule 187 (expresion)
-    OR             [reduce using rule 196 (expresion)]
-    PARA           [reduce using rule 187 (expresion)]
-    PARA           [reduce using rule 196 (expresion)]
-    POTENCIA       reduce using rule 187 (expresion)
-    POTENCIA       [reduce using rule 196 (expresion)]
-    REF            reduce using rule 187 (expresion)
-    REF            [reduce using rule 196 (expresion)]
-    SI             [reduce using rule 187 (expresion)]
-    SI             [reduce using rule 196 (expresion)]
-    SINO           reduce using rule 187 (expresion)
-    SINO           [reduce using rule 196 (expresion)]
-    '+'            reduce using rule 187 (expresion)
-    '+'            [reduce using rule 196 (expresion)]
-    '-'            reduce using rule 187 (expresion)
-    '-'            [reduce using rule 196 (expresion)]
-    '*'            reduce using rule 187 (expresion)
-    '*'            [reduce using rule 196 (expresion)]
-    '/'            reduce using rule 187 (expresion)
-    '/'            [reduce using rule 196 (expresion)]
-    '<'            reduce using rule 187 (expresion)
-    '<'            [reduce using rule 196 (expresion)]
-    '>'            reduce using rule 187 (expresion)
-    '>'            [reduce using rule 196 (expresion)]
-    '&'            reduce using rule 187 (expresion)
-    '&'            [reduce using rule 196 (expresion)]
-    '@'            reduce using rule 187 (expresion)
-    '@'            [reduce using rule 196 (expresion)]
-    '|'            reduce using rule 187 (expresion)
-    '|'            [reduce using rule 196 (expresion)]
-    '.'            reduce using rule 187 (expresion)
-    '.'            [reduce using rule 196 (expresion)]
-    'fin'          reduce using rule 187 (expresion)
-    'fin'          [reduce using rule 196 (expresion)]
-    '('            reduce using rule 187 (expresion)
-    '('            [reduce using rule 196 (expresion)]
-    ')'            reduce using rule 187 (expresion)
-    ')'            [reduce using rule 196 (expresion)]
-    ':'            reduce using rule 187 (expresion)
-    ':'            [reduce using rule 196 (expresion)]
-    '^'            reduce using rule 187 (expresion)
-    '^'            [reduce using rule 196 (expresion)]
-    ']'            reduce using rule 187 (expresion)
-    ']'            [reduce using rule 196 (expresion)]
-    '}'            reduce using rule 187 (expresion)
-    '}'            [reduce using rule 196 (expresion)]
-    '~'            reduce using rule 187 (expresion)
-    '~'            [reduce using rule 196 (expresion)]
-    '!'            reduce using rule 187 (expresion)
-    '!'            [reduce using rule 196 (expresion)]
-    'tamano'       reduce using rule 187 (expresion)
-    'tamano'       [reduce using rule 196 (expresion)]
-    $default       reduce using rule 187 (expresion)
+    PARA      [reduce using rule 187 (expresion)]
+    SI        [reduce using rule 187 (expresion)]
+    $default  reduce using rule 187 (expresion)
 
 
 state 147
@@ -2462,25 +2388,25 @@ state 158
 state 159
 
   180 expresion_basica: '(' expresion . ')'
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -2958,26 +2884,26 @@ state 208
 
 state 209
 
-  198 expresion_unaria_prefijo: '-' expresion .
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  197 expresion_unaria_prefijo: '-' expresion .
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -2997,33 +2923,98 @@ state 209
     '@'          shift, and go to state 230
     '|'          shift, and go to state 231
 
-    FLECHA_DCHA  [reduce using rule 198 (expresion_unaria_prefijo)]
-    FLECHA_IZDA  [reduce using rule 198 (expresion_unaria_prefijo)]
-    $default     reduce using rule 198 (expresion_unaria_prefijo)
+    FLECHA_DCHA  [reduce using rule 197 (expresion_unaria_prefijo)]
+    FLECHA_IZDA  [reduce using rule 197 (expresion_unaria_prefijo)]
+    $default     reduce using rule 197 (expresion_unaria_prefijo)
 
 
 state 210
 
-  199 expresion_unaria_prefijo: '~' expresion .
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  198 expresion_unaria_prefijo: '~' expresion .
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
+
+    AND          shift, and go to state 213
+    EQ           shift, and go to state 214
+    FLECHA_DCHA  shift, and go to state 215
+    FLECHA_IZDA  shift, and go to state 216
+    GE           shift, and go to state 217
+    LE           shift, and go to state 218
+    MOD          shift, and go to state 219
+    NEQ          shift, and go to state 220
+    OR           shift, and go to state 221
+    POTENCIA     shift, and go to state 222
+    '+'          shift, and go to state 223
+    '-'          shift, and go to state 224
+    '*'          shift, and go to state 225
+    '/'          shift, and go to state 226
+    '<'          shift, and go to state 227
+    '>'          shift, and go to state 228
+    '&'          shift, and go to state 229
+    '@'          shift, and go to state 230
+    '|'          shift, and go to state 231
+
+    AND          [reduce using rule 198 (expresion_unaria_prefijo)]
+    EQ           [reduce using rule 198 (expresion_unaria_prefijo)]
+    FLECHA_DCHA  [reduce using rule 198 (expresion_unaria_prefijo)]
+    FLECHA_IZDA  [reduce using rule 198 (expresion_unaria_prefijo)]
+    GE           [reduce using rule 198 (expresion_unaria_prefijo)]
+    LE           [reduce using rule 198 (expresion_unaria_prefijo)]
+    MOD          [reduce using rule 198 (expresion_unaria_prefijo)]
+    NEQ          [reduce using rule 198 (expresion_unaria_prefijo)]
+    OR           [reduce using rule 198 (expresion_unaria_prefijo)]
+    POTENCIA     [reduce using rule 198 (expresion_unaria_prefijo)]
+    '+'          [reduce using rule 198 (expresion_unaria_prefijo)]
+    '-'          [reduce using rule 198 (expresion_unaria_prefijo)]
+    '*'          [reduce using rule 198 (expresion_unaria_prefijo)]
+    '/'          [reduce using rule 198 (expresion_unaria_prefijo)]
+    '<'          [reduce using rule 198 (expresion_unaria_prefijo)]
+    '>'          [reduce using rule 198 (expresion_unaria_prefijo)]
+    '&'          [reduce using rule 198 (expresion_unaria_prefijo)]
+    '@'          [reduce using rule 198 (expresion_unaria_prefijo)]
+    '|'          [reduce using rule 198 (expresion_unaria_prefijo)]
+    $default     reduce using rule 198 (expresion_unaria_prefijo)
+
+
+state 211
+
+  199 expresion_unaria_prefijo: '!' expresion .
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -3067,28 +3058,28 @@ state 210
     $default     reduce using rule 199 (expresion_unaria_prefijo)
 
 
-state 211
+state 212
 
-  200 expresion_unaria_prefijo: '!' expresion .
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  200 expresion_unaria_prefijo: 'tamano' expresion .
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -3132,74 +3123,9 @@ state 211
     $default     reduce using rule 200 (expresion_unaria_prefijo)
 
 
-state 212
-
-  201 expresion_unaria_prefijo: 'tamano' expresion .
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
-
-    AND          shift, and go to state 213
-    EQ           shift, and go to state 214
-    FLECHA_DCHA  shift, and go to state 215
-    FLECHA_IZDA  shift, and go to state 216
-    GE           shift, and go to state 217
-    LE           shift, and go to state 218
-    MOD          shift, and go to state 219
-    NEQ          shift, and go to state 220
-    OR           shift, and go to state 221
-    POTENCIA     shift, and go to state 222
-    '+'          shift, and go to state 223
-    '-'          shift, and go to state 224
-    '*'          shift, and go to state 225
-    '/'          shift, and go to state 226
-    '<'          shift, and go to state 227
-    '>'          shift, and go to state 228
-    '&'          shift, and go to state 229
-    '@'          shift, and go to state 230
-    '|'          shift, and go to state 231
-
-    AND          [reduce using rule 201 (expresion_unaria_prefijo)]
-    EQ           [reduce using rule 201 (expresion_unaria_prefijo)]
-    FLECHA_DCHA  [reduce using rule 201 (expresion_unaria_prefijo)]
-    FLECHA_IZDA  [reduce using rule 201 (expresion_unaria_prefijo)]
-    GE           [reduce using rule 201 (expresion_unaria_prefijo)]
-    LE           [reduce using rule 201 (expresion_unaria_prefijo)]
-    MOD          [reduce using rule 201 (expresion_unaria_prefijo)]
-    NEQ          [reduce using rule 201 (expresion_unaria_prefijo)]
-    OR           [reduce using rule 201 (expresion_unaria_prefijo)]
-    POTENCIA     [reduce using rule 201 (expresion_unaria_prefijo)]
-    '+'          [reduce using rule 201 (expresion_unaria_prefijo)]
-    '-'          [reduce using rule 201 (expresion_unaria_prefijo)]
-    '*'          [reduce using rule 201 (expresion_unaria_prefijo)]
-    '/'          [reduce using rule 201 (expresion_unaria_prefijo)]
-    '<'          [reduce using rule 201 (expresion_unaria_prefijo)]
-    '>'          [reduce using rule 201 (expresion_unaria_prefijo)]
-    '&'          [reduce using rule 201 (expresion_unaria_prefijo)]
-    '@'          [reduce using rule 201 (expresion_unaria_prefijo)]
-    '|'          [reduce using rule 201 (expresion_unaria_prefijo)]
-    $default     reduce using rule 201 (expresion_unaria_prefijo)
-
-
 state 213
 
-  219 expresion_logica: expresion AND . expresion
+  218 expresion_logica: expresion AND . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3220,7 +3146,7 @@ state 213
 
 state 214
 
-  217 expresion_comparacion: expresion EQ . expresion
+  216 expresion_comparacion: expresion EQ . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3241,7 +3167,7 @@ state 214
 
 state 215
 
-  209 expresion_desplazamiento: expresion FLECHA_DCHA . expresion
+  208 expresion_desplazamiento: expresion FLECHA_DCHA . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3262,7 +3188,7 @@ state 215
 
 state 216
 
-  208 expresion_desplazamiento: expresion FLECHA_IZDA . expresion
+  207 expresion_desplazamiento: expresion FLECHA_IZDA . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3283,7 +3209,7 @@ state 216
 
 state 217
 
-  216 expresion_comparacion: expresion GE . expresion
+  215 expresion_comparacion: expresion GE . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3304,7 +3230,7 @@ state 217
 
 state 218
 
-  215 expresion_comparacion: expresion LE . expresion
+  214 expresion_comparacion: expresion LE . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3325,7 +3251,7 @@ state 218
 
 state 219
 
-  205 expresion_aritmetica: expresion MOD . expresion
+  204 expresion_aritmetica: expresion MOD . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3346,7 +3272,7 @@ state 219
 
 state 220
 
-  218 expresion_comparacion: expresion NEQ . expresion
+  217 expresion_comparacion: expresion NEQ . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3367,7 +3293,7 @@ state 220
 
 state 221
 
-  220 expresion_logica: expresion OR . expresion
+  219 expresion_logica: expresion OR . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3388,7 +3314,7 @@ state 221
 
 state 222
 
-  202 expresion_potencia: expresion POTENCIA . expresion
+  201 expresion_potencia: expresion POTENCIA . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3409,7 +3335,7 @@ state 222
 
 state 223
 
-  206 expresion_numerica: expresion '+' . expresion
+  205 expresion_numerica: expresion '+' . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3430,7 +3356,7 @@ state 223
 
 state 224
 
-  207 expresion_numerica: expresion '-' . expresion
+  206 expresion_numerica: expresion '-' . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3451,7 +3377,7 @@ state 224
 
 state 225
 
-  203 expresion_aritmetica: expresion '*' . expresion
+  202 expresion_aritmetica: expresion '*' . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3472,7 +3398,7 @@ state 225
 
 state 226
 
-  204 expresion_aritmetica: expresion '/' . expresion
+  203 expresion_aritmetica: expresion '/' . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3493,7 +3419,7 @@ state 226
 
 state 227
 
-  213 expresion_comparacion: expresion '<' . expresion
+  212 expresion_comparacion: expresion '<' . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3514,7 +3440,7 @@ state 227
 
 state 228
 
-  214 expresion_comparacion: expresion '>' . expresion
+  213 expresion_comparacion: expresion '>' . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3535,7 +3461,7 @@ state 228
 
 state 229
 
-  210 expresion_logica_binaria: expresion '&' . expresion
+  209 expresion_logica_binaria: expresion '&' . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3556,7 +3482,7 @@ state 229
 
 state 230
 
-  211 expresion_logica_binaria: expresion '@' . expresion
+  210 expresion_logica_binaria: expresion '@' . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3577,7 +3503,7 @@ state 230
 
 state 231
 
-  212 expresion_logica_binaria: expresion '|' . expresion
+  211 expresion_logica_binaria: expresion '|' . expresion
 
     error     shift, and go to state 132
     '-'       shift, and go to state 133
@@ -3718,25 +3644,25 @@ state 242
 state 243
 
    99 expresion_lista: expresion .
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -3772,25 +3698,25 @@ state 244
 state 245
 
   146 instruccion_bucle: MIENTRAS '(' expresion . ')' bloque_instrucciones
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -3856,25 +3782,25 @@ state 250
 
   141 instruccion_bifurcacion: SI '(' expresion . ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones
   142                        | SI '(' expresion . ')' bloque_instrucciones lista_otro_caso
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -3929,25 +3855,25 @@ state 254
 state 255
 
   183 indice: '[' expresion . ']'
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -3974,25 +3900,25 @@ state 255
 state 256
 
   184 indice: '{' expresion . '}'
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -4019,25 +3945,25 @@ state 256
 state 257
 
   128 asignacion: expresion_indexada operador_asignacion expresion .
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -4252,57 +4178,57 @@ state 276
 
 state 277
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  219                 | expresion AND expresion .
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  218                 | expresion AND expresion .
+  219                 | expresion . OR expresion
 
     FLECHA_DCHA  shift, and go to state 215
     FLECHA_IZDA  shift, and go to state 216
 
-    FLECHA_DCHA  [reduce using rule 219 (expresion_logica)]
-    FLECHA_IZDA  [reduce using rule 219 (expresion_logica)]
-    $default     reduce using rule 219 (expresion_logica)
+    FLECHA_DCHA  [reduce using rule 218 (expresion_logica)]
+    FLECHA_IZDA  [reduce using rule 218 (expresion_logica)]
+    $default     reduce using rule 218 (expresion_logica)
 
 
 state 278
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  217                      | expresion EQ expresion .
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  216                      | expresion EQ expresion .
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     FLECHA_DCHA  shift, and go to state 215
@@ -4312,98 +4238,33 @@ state 278
     '@'          shift, and go to state 230
     '|'          shift, and go to state 231
 
-    FLECHA_DCHA  [reduce using rule 217 (expresion_comparacion)]
-    FLECHA_IZDA  [reduce using rule 217 (expresion_comparacion)]
-    $default     reduce using rule 217 (expresion_comparacion)
+    FLECHA_DCHA  [reduce using rule 216 (expresion_comparacion)]
+    FLECHA_IZDA  [reduce using rule 216 (expresion_comparacion)]
+    $default     reduce using rule 216 (expresion_comparacion)
 
 
 state 279
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  209                         | expresion FLECHA_DCHA expresion .
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
-
-    AND          shift, and go to state 213
-    EQ           shift, and go to state 214
-    FLECHA_DCHA  shift, and go to state 215
-    FLECHA_IZDA  shift, and go to state 216
-    GE           shift, and go to state 217
-    LE           shift, and go to state 218
-    MOD          shift, and go to state 219
-    NEQ          shift, and go to state 220
-    OR           shift, and go to state 221
-    POTENCIA     shift, and go to state 222
-    '+'          shift, and go to state 223
-    '-'          shift, and go to state 224
-    '*'          shift, and go to state 225
-    '/'          shift, and go to state 226
-    '<'          shift, and go to state 227
-    '>'          shift, and go to state 228
-    '&'          shift, and go to state 229
-    '@'          shift, and go to state 230
-    '|'          shift, and go to state 231
-
-    AND          [reduce using rule 209 (expresion_desplazamiento)]
-    EQ           [reduce using rule 209 (expresion_desplazamiento)]
-    FLECHA_DCHA  [reduce using rule 209 (expresion_desplazamiento)]
-    FLECHA_IZDA  [reduce using rule 209 (expresion_desplazamiento)]
-    GE           [reduce using rule 209 (expresion_desplazamiento)]
-    LE           [reduce using rule 209 (expresion_desplazamiento)]
-    MOD          [reduce using rule 209 (expresion_desplazamiento)]
-    NEQ          [reduce using rule 209 (expresion_desplazamiento)]
-    OR           [reduce using rule 209 (expresion_desplazamiento)]
-    POTENCIA     [reduce using rule 209 (expresion_desplazamiento)]
-    '+'          [reduce using rule 209 (expresion_desplazamiento)]
-    '-'          [reduce using rule 209 (expresion_desplazamiento)]
-    '*'          [reduce using rule 209 (expresion_desplazamiento)]
-    '/'          [reduce using rule 209 (expresion_desplazamiento)]
-    '<'          [reduce using rule 209 (expresion_desplazamiento)]
-    '>'          [reduce using rule 209 (expresion_desplazamiento)]
-    '&'          [reduce using rule 209 (expresion_desplazamiento)]
-    '@'          [reduce using rule 209 (expresion_desplazamiento)]
-    '|'          [reduce using rule 209 (expresion_desplazamiento)]
-    $default     reduce using rule 209 (expresion_desplazamiento)
-
-
-state 280
-
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  208                         | expresion FLECHA_IZDA expresion .
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  208                         | expresion FLECHA_DCHA expresion .
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -4447,64 +4308,93 @@ state 280
     $default     reduce using rule 208 (expresion_desplazamiento)
 
 
-state 281
+state 280
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  216                      | expresion GE expresion .
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  207                         | expresion FLECHA_IZDA expresion .
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
+    EQ           shift, and go to state 214
     FLECHA_DCHA  shift, and go to state 215
     FLECHA_IZDA  shift, and go to state 216
+    GE           shift, and go to state 217
+    LE           shift, and go to state 218
+    MOD          shift, and go to state 219
+    NEQ          shift, and go to state 220
     OR           shift, and go to state 221
+    POTENCIA     shift, and go to state 222
+    '+'          shift, and go to state 223
+    '-'          shift, and go to state 224
+    '*'          shift, and go to state 225
+    '/'          shift, and go to state 226
+    '<'          shift, and go to state 227
+    '>'          shift, and go to state 228
     '&'          shift, and go to state 229
     '@'          shift, and go to state 230
     '|'          shift, and go to state 231
 
-    FLECHA_DCHA  [reduce using rule 216 (expresion_comparacion)]
-    FLECHA_IZDA  [reduce using rule 216 (expresion_comparacion)]
-    $default     reduce using rule 216 (expresion_comparacion)
+    AND          [reduce using rule 207 (expresion_desplazamiento)]
+    EQ           [reduce using rule 207 (expresion_desplazamiento)]
+    FLECHA_DCHA  [reduce using rule 207 (expresion_desplazamiento)]
+    FLECHA_IZDA  [reduce using rule 207 (expresion_desplazamiento)]
+    GE           [reduce using rule 207 (expresion_desplazamiento)]
+    LE           [reduce using rule 207 (expresion_desplazamiento)]
+    MOD          [reduce using rule 207 (expresion_desplazamiento)]
+    NEQ          [reduce using rule 207 (expresion_desplazamiento)]
+    OR           [reduce using rule 207 (expresion_desplazamiento)]
+    POTENCIA     [reduce using rule 207 (expresion_desplazamiento)]
+    '+'          [reduce using rule 207 (expresion_desplazamiento)]
+    '-'          [reduce using rule 207 (expresion_desplazamiento)]
+    '*'          [reduce using rule 207 (expresion_desplazamiento)]
+    '/'          [reduce using rule 207 (expresion_desplazamiento)]
+    '<'          [reduce using rule 207 (expresion_desplazamiento)]
+    '>'          [reduce using rule 207 (expresion_desplazamiento)]
+    '&'          [reduce using rule 207 (expresion_desplazamiento)]
+    '@'          [reduce using rule 207 (expresion_desplazamiento)]
+    '|'          [reduce using rule 207 (expresion_desplazamiento)]
+    $default     reduce using rule 207 (expresion_desplazamiento)
 
 
-state 282
+state 281
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  215                      | expresion LE expresion .
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  215                      | expresion GE expresion .
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     FLECHA_DCHA  shift, and go to state 215
@@ -4519,28 +4409,64 @@ state 282
     $default     reduce using rule 215 (expresion_comparacion)
 
 
+state 282
+
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  214                      | expresion LE expresion .
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
+
+    AND          shift, and go to state 213
+    FLECHA_DCHA  shift, and go to state 215
+    FLECHA_IZDA  shift, and go to state 216
+    OR           shift, and go to state 221
+    '&'          shift, and go to state 229
+    '@'          shift, and go to state 230
+    '|'          shift, and go to state 231
+
+    FLECHA_DCHA  [reduce using rule 214 (expresion_comparacion)]
+    FLECHA_IZDA  [reduce using rule 214 (expresion_comparacion)]
+    $default     reduce using rule 214 (expresion_comparacion)
+
+
 state 283
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  205                     | expresion MOD expresion .
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  204                     | expresion MOD expresion .
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -4557,33 +4483,33 @@ state 283
     '@'          shift, and go to state 230
     '|'          shift, and go to state 231
 
-    FLECHA_DCHA  [reduce using rule 205 (expresion_aritmetica)]
-    FLECHA_IZDA  [reduce using rule 205 (expresion_aritmetica)]
-    $default     reduce using rule 205 (expresion_aritmetica)
+    FLECHA_DCHA  [reduce using rule 204 (expresion_aritmetica)]
+    FLECHA_IZDA  [reduce using rule 204 (expresion_aritmetica)]
+    $default     reduce using rule 204 (expresion_aritmetica)
 
 
 state 284
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  218                      | expresion NEQ expresion .
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  217                      | expresion NEQ expresion .
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     FLECHA_DCHA  shift, and go to state 215
@@ -4593,64 +4519,64 @@ state 284
     '@'          shift, and go to state 230
     '|'          shift, and go to state 231
 
-    FLECHA_DCHA  [reduce using rule 218 (expresion_comparacion)]
-    FLECHA_IZDA  [reduce using rule 218 (expresion_comparacion)]
-    $default     reduce using rule 218 (expresion_comparacion)
+    FLECHA_DCHA  [reduce using rule 217 (expresion_comparacion)]
+    FLECHA_IZDA  [reduce using rule 217 (expresion_comparacion)]
+    $default     reduce using rule 217 (expresion_comparacion)
 
 
 state 285
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
-  220                 | expresion OR expresion .
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
+  219                 | expresion OR expresion .
 
     FLECHA_DCHA  shift, and go to state 215
     FLECHA_IZDA  shift, and go to state 216
 
-    FLECHA_DCHA  [reduce using rule 220 (expresion_logica)]
-    FLECHA_IZDA  [reduce using rule 220 (expresion_logica)]
-    $default     reduce using rule 220 (expresion_logica)
+    FLECHA_DCHA  [reduce using rule 219 (expresion_logica)]
+    FLECHA_IZDA  [reduce using rule 219 (expresion_logica)]
+    $default     reduce using rule 219 (expresion_logica)
 
 
 state 286
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  202                   | expresion POTENCIA expresion .
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  201                   | expresion POTENCIA expresion .
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -4667,33 +4593,79 @@ state 286
     '@'          shift, and go to state 230
     '|'          shift, and go to state 231
 
-    FLECHA_DCHA  [reduce using rule 202 (expresion_potencia)]
-    FLECHA_IZDA  [reduce using rule 202 (expresion_potencia)]
-    $default     reduce using rule 202 (expresion_potencia)
+    FLECHA_DCHA  [reduce using rule 201 (expresion_potencia)]
+    FLECHA_IZDA  [reduce using rule 201 (expresion_potencia)]
+    $default     reduce using rule 201 (expresion_potencia)
 
 
 state 287
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  206                   | expresion '+' expresion .
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  205                   | expresion '+' expresion .
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
+
+    AND          shift, and go to state 213
+    EQ           shift, and go to state 214
+    FLECHA_DCHA  shift, and go to state 215
+    FLECHA_IZDA  shift, and go to state 216
+    GE           shift, and go to state 217
+    LE           shift, and go to state 218
+    MOD          shift, and go to state 219
+    NEQ          shift, and go to state 220
+    OR           shift, and go to state 221
+    POTENCIA     shift, and go to state 222
+    '*'          shift, and go to state 225
+    '/'          shift, and go to state 226
+    '<'          shift, and go to state 227
+    '>'          shift, and go to state 228
+    '&'          shift, and go to state 229
+    '@'          shift, and go to state 230
+    '|'          shift, and go to state 231
+
+    FLECHA_DCHA  [reduce using rule 205 (expresion_numerica)]
+    FLECHA_IZDA  [reduce using rule 205 (expresion_numerica)]
+    $default     reduce using rule 205 (expresion_numerica)
+
+
+state 288
+
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  206                   | expresion '-' expresion .
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -4718,28 +4690,28 @@ state 287
     $default     reduce using rule 206 (expresion_numerica)
 
 
-state 288
+state 289
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  207                   | expresion '-' expresion .
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  202                     | expresion '*' expresion .
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -4751,41 +4723,39 @@ state 288
     NEQ          shift, and go to state 220
     OR           shift, and go to state 221
     POTENCIA     shift, and go to state 222
-    '*'          shift, and go to state 225
-    '/'          shift, and go to state 226
     '<'          shift, and go to state 227
     '>'          shift, and go to state 228
     '&'          shift, and go to state 229
     '@'          shift, and go to state 230
     '|'          shift, and go to state 231
 
-    FLECHA_DCHA  [reduce using rule 207 (expresion_numerica)]
-    FLECHA_IZDA  [reduce using rule 207 (expresion_numerica)]
-    $default     reduce using rule 207 (expresion_numerica)
+    FLECHA_DCHA  [reduce using rule 202 (expresion_aritmetica)]
+    FLECHA_IZDA  [reduce using rule 202 (expresion_aritmetica)]
+    $default     reduce using rule 202 (expresion_aritmetica)
 
 
-state 289
+state 290
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  203                     | expresion '*' expresion .
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  203                     | expresion '/' expresion .
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -4808,72 +4778,64 @@ state 289
     $default     reduce using rule 203 (expresion_aritmetica)
 
 
-state 290
+state 291
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  204                     | expresion '/' expresion .
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  212                      | expresion '<' expresion .
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
-    EQ           shift, and go to state 214
     FLECHA_DCHA  shift, and go to state 215
     FLECHA_IZDA  shift, and go to state 216
-    GE           shift, and go to state 217
-    LE           shift, and go to state 218
-    MOD          shift, and go to state 219
-    NEQ          shift, and go to state 220
     OR           shift, and go to state 221
-    POTENCIA     shift, and go to state 222
-    '<'          shift, and go to state 227
-    '>'          shift, and go to state 228
     '&'          shift, and go to state 229
     '@'          shift, and go to state 230
     '|'          shift, and go to state 231
 
-    FLECHA_DCHA  [reduce using rule 204 (expresion_aritmetica)]
-    FLECHA_IZDA  [reduce using rule 204 (expresion_aritmetica)]
-    $default     reduce using rule 204 (expresion_aritmetica)
+    FLECHA_DCHA  [reduce using rule 212 (expresion_comparacion)]
+    FLECHA_IZDA  [reduce using rule 212 (expresion_comparacion)]
+    $default     reduce using rule 212 (expresion_comparacion)
 
 
-state 291
+state 292
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  213                      | expresion '<' expresion .
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  213                      | expresion '>' expresion .
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     FLECHA_DCHA  shift, and go to state 215
@@ -4888,64 +4850,61 @@ state 291
     $default     reduce using rule 213 (expresion_comparacion)
 
 
-state 292
+state 293
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  214                      | expresion '>' expresion .
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  209                         | expresion '&' expresion .
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     FLECHA_DCHA  shift, and go to state 215
     FLECHA_IZDA  shift, and go to state 216
     OR           shift, and go to state 221
-    '&'          shift, and go to state 229
-    '@'          shift, and go to state 230
-    '|'          shift, and go to state 231
 
-    FLECHA_DCHA  [reduce using rule 214 (expresion_comparacion)]
-    FLECHA_IZDA  [reduce using rule 214 (expresion_comparacion)]
-    $default     reduce using rule 214 (expresion_comparacion)
+    FLECHA_DCHA  [reduce using rule 209 (expresion_logica_binaria)]
+    FLECHA_IZDA  [reduce using rule 209 (expresion_logica_binaria)]
+    $default     reduce using rule 209 (expresion_logica_binaria)
 
 
-state 293
+state 294
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  210                         | expresion '&' expresion .
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  210                         | expresion '@' expresion .
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     FLECHA_DCHA  shift, and go to state 215
@@ -4957,28 +4916,28 @@ state 293
     $default     reduce using rule 210 (expresion_logica_binaria)
 
 
-state 294
+state 295
 
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  211                         | expresion '@' expresion .
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  211                         | expresion '|' expresion .
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     FLECHA_DCHA  shift, and go to state 215
@@ -4988,39 +4947,6 @@ state 294
     FLECHA_DCHA  [reduce using rule 211 (expresion_logica_binaria)]
     FLECHA_IZDA  [reduce using rule 211 (expresion_logica_binaria)]
     $default     reduce using rule 211 (expresion_logica_binaria)
-
-
-state 295
-
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  212                         | expresion '|' expresion .
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
-
-    AND          shift, and go to state 213
-    FLECHA_DCHA  shift, and go to state 215
-    FLECHA_IZDA  shift, and go to state 216
-    OR           shift, and go to state 221
-
-    FLECHA_DCHA  [reduce using rule 212 (expresion_logica_binaria)]
-    FLECHA_IZDA  [reduce using rule 212 (expresion_logica_binaria)]
-    $default     reduce using rule 212 (expresion_logica_binaria)
 
 
 state 296
@@ -5033,25 +4959,25 @@ state 296
 state 297
 
   186 expresion: expresion_logica SI expresion . SINO expresion
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -5150,25 +5076,25 @@ state 305
 state 306
 
    98 expresion_lista: expresion_lista expresion .
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -5522,25 +5448,25 @@ state 338
 state 339
 
   147 instruccion_bucle: HACER bloque_instrucciones MIENTRAS '(' expresion . ')' '.'
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -5595,25 +5521,25 @@ state 341
 state 342
 
   148 instruccion_bucle: PARA '(' asignacion_lista ':' expresion . ':' asignacion_lista ')' bloque_instrucciones
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -5722,25 +5648,25 @@ state 350
 state 351
 
    51 elemento_enum: IDENTIFICADOR ASIG expresion .
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -5811,25 +5737,25 @@ state 354
 state 355
 
   186 expresion: expresion_logica SI expresion SINO expresion .
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -5897,25 +5823,25 @@ state 358
 state 359
 
   149 instruccion_bucle: PARA CADA IDENTIFICADOR EN '(' expresion . ')' bloque_instrucciones
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -6067,25 +5993,25 @@ state 373
 state 374
 
   188 expresion: expresion_logica PARA CADA IDENTIFICADOR EN expresion .
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214
@@ -6329,25 +6255,25 @@ state 395
 state 396
 
   145 otro_caso: ENCAMBIO '(' expresion . ')' bloque_instrucciones
-  202 expresion_potencia: expresion . POTENCIA expresion
-  203 expresion_aritmetica: expresion . '*' expresion
-  204                     | expresion . '/' expresion
-  205                     | expresion . MOD expresion
-  206 expresion_numerica: expresion . '+' expresion
-  207                   | expresion . '-' expresion
-  208 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
-  209                         | expresion . FLECHA_DCHA expresion
-  210 expresion_logica_binaria: expresion . '&' expresion
-  211                         | expresion . '@' expresion
-  212                         | expresion . '|' expresion
-  213 expresion_comparacion: expresion . '<' expresion
-  214                      | expresion . '>' expresion
-  215                      | expresion . LE expresion
-  216                      | expresion . GE expresion
-  217                      | expresion . EQ expresion
-  218                      | expresion . NEQ expresion
-  219 expresion_logica: expresion . AND expresion
-  220                 | expresion . OR expresion
+  201 expresion_potencia: expresion . POTENCIA expresion
+  202 expresion_aritmetica: expresion . '*' expresion
+  203                     | expresion . '/' expresion
+  204                     | expresion . MOD expresion
+  205 expresion_numerica: expresion . '+' expresion
+  206                   | expresion . '-' expresion
+  207 expresion_desplazamiento: expresion . FLECHA_IZDA expresion
+  208                         | expresion . FLECHA_DCHA expresion
+  209 expresion_logica_binaria: expresion . '&' expresion
+  210                         | expresion . '@' expresion
+  211                         | expresion . '|' expresion
+  212 expresion_comparacion: expresion . '<' expresion
+  213                      | expresion . '>' expresion
+  214                      | expresion . LE expresion
+  215                      | expresion . GE expresion
+  216                      | expresion . EQ expresion
+  217                      | expresion . NEQ expresion
+  218 expresion_logica: expresion . AND expresion
+  219                 | expresion . OR expresion
 
     AND          shift, and go to state 213
     EQ           shift, and go to state 214

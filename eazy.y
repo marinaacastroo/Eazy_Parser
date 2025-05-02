@@ -481,7 +481,6 @@ expresion
       | expresion_desplazamiento
       | expresion_logica_binaria
       | expresion_comparacion
-      | expresion_logica
       | error                 { printf("  ERROR: expresion -> error\n");yyerrok; }
       ;
 
