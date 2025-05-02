@@ -465,7 +465,7 @@ indice
       ;
 
 expresion_funcional
-      : IDENTIFICADOR '(' lista_expresion_cero_o_mas ')'
+      : IDENTIFICADOR '(' expresion_lista ')'
 
 expresion
       : expresion_logica SI expresion SINO expresion
