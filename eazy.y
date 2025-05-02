@@ -157,6 +157,7 @@ elemento_numerico
 
 lista_linea_campo
       : lista_linea_campo linea_campo
+      | linea_campo
       ;
 
 linea_campo

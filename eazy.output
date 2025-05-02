@@ -1,7 +1,5 @@
 Useless nonterminals
 
-   lista_elemento_num
-   elemento_numerico
    lista_linea_campo
    linea_campo
    lista_identificador_uno_o_mas
@@ -25,7 +23,6 @@ Terminals which are not used
 
    DEFECTO
    EJECUTA
-   ENUMERACION
    EQ
    ESTRUCTURA
    FLECHA_IZDA
@@ -41,7 +38,6 @@ Terminals which are not used
    '-'
    '*'
    '/'
-   'de'
    '~'
    '!'
    'tamano'
@@ -54,82 +50,77 @@ Terminals which are not used
 
 Useless rules
 
-  170 tipo_estructurado: ENUMERACION 'de' tipo_escalar lista_elemento_num 'fin'
-  171                  | ESTRUCTURA lista_linea_campo 'fin'
-  172                  | UNION lista_linea_campo 'fin'
-  173                  | CLASE ultima_opt '(' lista_nombre_una_o_mas ')' componentes 'fin'
+  174 tipo_estructurado: ESTRUCTURA lista_linea_campo 'fin'
+  175                  | UNION lista_linea_campo 'fin'
+  176                  | CLASE ultima_opt '(' lista_nombre_una_o_mas ')' componentes 'fin'
 
-  174 lista_elemento_num: elemento_numerico lista_elemento_num
+  177 lista_linea_campo: lista_linea_campo linea_campo
 
-  175 elemento_numerico: IDENTIFICADOR ASIG expresion
+  178 linea_campo: lista_identificador_uno_o_mas ES especificacion_tipo
 
-  176 lista_linea_campo: lista_linea_campo linea_campo
+  179 lista_identificador_uno_o_mas: lista_identificador_uno_o_mas IDENTIFICADOR
 
-  177 linea_campo: lista_identificador_uno_o_mas ES especificacion_tipo
+  180 lista_nombre_una_o_mas: lista_nombre_una_o_mas nombre
 
-  178 lista_identificador_uno_o_mas: lista_identificador_uno_o_mas IDENTIFICADOR
+  181 declaraciones_variables_opt: declaraciones_variables
 
-  179 lista_nombre_una_o_mas: lista_nombre_una_o_mas nombre
+  182 declaraciones_variables: VARIABLES lista_declaracion_variables FIN
 
-  180 declaraciones_variables_opt: declaraciones_variables
+  183 lista_declaracion_variables: visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_cero_o_mas '.'
+  184                            | visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo '.'
+  185                            | lista_declaracion_variables visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_cero_o_mas '.'
+  186                            | lista_declaracion_variables visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo '.'
 
-  181 declaraciones_variables: VARIABLES lista_declaracion_variables FIN
+  187 firma_funcion: FUNCION IDENTIFICADOR '(' lista_parametros ')' FLECHA_DCHA tipo_salida
 
-  182 lista_declaracion_variables: visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_cero_o_mas '.'
-  183                            | visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo '.'
-  184                            | lista_declaracion_variables visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_cero_o_mas '.'
-  185                            | lista_declaracion_variables visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo '.'
+  188 lista_parametros: lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_constante_una_o_mas
+  189                 | lista_identificador_uno_o_mas ES especificacion_tipo
+  190                 | lista_parametros lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_constante_una_o_mas
+  191                 | lista_parametros lista_identificador_uno_o_mas ES especificacion_tipo
 
-  186 firma_funcion: FUNCION IDENTIFICADOR '(' lista_parametros ')' FLECHA_DCHA tipo_salida
+  192 lista_expresion_constante_una_o_mas: lista_expresion_constante_una_o_mas expresion_constante
+  193                                    | expresion_constante
 
-  187 lista_parametros: lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_constante_una_o_mas
-  188                 | lista_identificador_uno_o_mas ES especificacion_tipo
-  189                 | lista_parametros lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_constante_una_o_mas
-  190                 | lista_parametros lista_identificador_uno_o_mas ES especificacion_tipo
+  194 clausula_defecto: DEFECTO bloque_instrucciones
 
-  191 lista_expresion_constante_una_o_mas: lista_expresion_constante_una_o_mas expresion_constante
-  192                                    | expresion_constante
+  195 expresion_constante: CTC_ENTERA
+  196                    | CTC_REAL
+  197                    | CTC_CARACTER
+  198                    | CTC_CADENA
 
-  193 clausula_defecto: DEFECTO bloque_instrucciones
+  199 expresion_unaria_prefijo: '-' expresion
+  200                         | '~' expresion
+  201                         | '!' expresion
+  202                         | 'tamano' expresion
 
-  194 expresion_constante: CTC_ENTERA
-  195                    | CTC_REAL
-  196                    | CTC_CARACTER
-  197                    | CTC_CADENA
+  203 expresion_potencia: expresion POTENCIA expresion
 
-  198 expresion_unaria_prefijo: '-' expresion
-  199                         | '~' expresion
-  200                         | '!' expresion
-  201                         | 'tamano' expresion
+  204 expresion_aritmetica: expresion '*' expresion
+  205                     | expresion '/' expresion
+  206                     | expresion MOD expresion
 
-  202 expresion_potencia: expresion POTENCIA expresion
+  207 expresion_numerica: expresion '+' expresion
+  208                   | expresion '-' expresion
 
-  203 expresion_aritmetica: expresion '*' expresion
-  204                     | expresion '/' expresion
-  205                     | expresion MOD expresion
+  209 expresion_desplazamiento: expresion FLECHA_IZDA expresion
+  210                         | expresion FLECHA_DCHA expresion
 
-  206 expresion_numerica: expresion '+' expresion
-  207                   | expresion '-' expresion
+  211 expresion_logica_binaria: expresion '&' expresion
+  212                         | expresion '@' expresion
+  213                         | expresion '|' expresion
 
-  208 expresion_desplazamiento: expresion FLECHA_IZDA expresion
-  209                         | expresion FLECHA_DCHA expresion
-
-  210 expresion_logica_binaria: expresion '&' expresion
-  211                         | expresion '@' expresion
-  212                         | expresion '|' expresion
-
-  213 expresion_comparacion: expresion '<' expresion
-  214                      | expresion '>' expresion
-  215                      | expresion LE expresion
-  216                      | expresion GE expresion
-  217                      | expresion EQ expresion
-  218                      | expresion NEQ expresion
+  214 expresion_comparacion: expresion '<' expresion
+  215                      | expresion '>' expresion
+  216                      | expresion LE expresion
+  217                      | expresion GE expresion
+  218                      | expresion EQ expresion
+  219                      | expresion NEQ expresion
 
 
 Rules never reduced
 
-   81 lista_campo_constante: campo_constante
-   82                      | /* empty */
+   85 lista_campo_constante: campo_constante
+   86                      | /* empty */
 
 
 State 4 conflicts: 1 shift/reduce
@@ -138,20 +129,20 @@ State 39 conflicts: 4 shift/reduce, 13 reduce/reduce
 State 42 conflicts: 1 shift/reduce
 State 47 conflicts: 5 shift/reduce, 13 reduce/reduce
 State 48 conflicts: 15 shift/reduce, 2 reduce/reduce
-State 93 conflicts: 16 shift/reduce, 2 reduce/reduce
-State 109 conflicts: 1 shift/reduce
-State 113 conflicts: 1 reduce/reduce
-State 124 conflicts: 2 shift/reduce
-State 128 conflicts: 1 shift/reduce
-State 178 conflicts: 2 shift/reduce, 1 reduce/reduce
-State 229 conflicts: 2 reduce/reduce
-State 232 conflicts: 2 shift/reduce
-State 233 conflicts: 2 shift/reduce
-State 249 conflicts: 3 shift/reduce, 11 reduce/reduce
-State 268 conflicts: 3 shift/reduce, 11 reduce/reduce
-State 272 conflicts: 2 shift/reduce
-State 279 conflicts: 2 shift/reduce
-State 291 conflicts: 19 reduce/reduce
+State 94 conflicts: 16 shift/reduce, 2 reduce/reduce
+State 110 conflicts: 1 shift/reduce
+State 114 conflicts: 1 reduce/reduce
+State 126 conflicts: 2 shift/reduce
+State 130 conflicts: 1 shift/reduce
+State 181 conflicts: 2 shift/reduce, 1 reduce/reduce
+State 235 conflicts: 2 reduce/reduce
+State 238 conflicts: 2 shift/reduce
+State 239 conflicts: 2 shift/reduce
+State 255 conflicts: 3 shift/reduce, 11 reduce/reduce
+State 277 conflicts: 3 shift/reduce, 11 reduce/reduce
+State 282 conflicts: 2 shift/reduce
+State 289 conflicts: 2 shift/reduce
+State 301 conflicts: 19 reduce/reduce
 
 
 Grammar
@@ -217,180 +208,186 @@ Grammar
    41 especificacion_tipo: lista_ref tipo_basico
    42                    | lista_ref tipo_estructurado
 
-   43 tipo_estructurado: CLASE ultima_opt componentes 'fin'
+   43 tipo_estructurado: ENUMERACION 'de' tipo_escalar lista_elemento_num 'fin'
+   44                  | CLASE ultima_opt componentes 'fin'
 
-   44 ultima_opt: /* empty */
-   45           | ULTIMA
+   45 ultima_opt: /* empty */
+   46           | ULTIMA
 
-   46 componentes: /* empty */
-   47            | declaraciones_tipos
-   48            | declaraciones_constantes_opt
-   49            | declaraciones_variables_opt
-   50            | declaracion_metodo
+   47 lista_elemento_num: elemento_numerico lista_elemento_num
+   48                   | elemento_numerico
 
-   51 declaracion_metodo: visibilidad_opt modificador_opt firma_funcion cuerpo_funcion
-   52                   | declaracion_metodo visibilidad_opt modificador_opt firma_funcion cuerpo_funcion
+   49 elemento_numerico: IDENTIFICADOR ASIG expresion
 
-   53 modificador_opt: /* empty */
-   54                | CONSTRUCTOR
-   55                | DESTRUCTOR
-   56                | GENERICO
-   57                | ABSTRACTO
-   58                | ESPECIFICO
-   59                | FINAL
+   50 componentes: /* empty */
+   51            | declaraciones_tipos
+   52            | declaraciones_constantes_opt
+   53            | declaraciones_variables_opt
+   54            | declaracion_metodo
 
-   60 declaraciones_constantes_opt: /* empty */
-   61                             | declaraciones_constantes
+   55 declaracion_metodo: visibilidad_opt modificador_opt firma_funcion cuerpo_funcion
+   56                   | declaracion_metodo visibilidad_opt modificador_opt firma_funcion cuerpo_funcion
 
-   62 declaraciones_constantes: CONSTANTES lista_declaraciones_constantes FIN
+   57 modificador_opt: /* empty */
+   58                | CONSTRUCTOR
+   59                | DESTRUCTOR
+   60                | GENERICO
+   61                | ABSTRACTO
+   62                | ESPECIFICO
+   63                | FINAL
 
-   63 lista_declaraciones_constantes: visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.'
-   64                               | lista_declaraciones_constantes visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.'
+   64 declaraciones_constantes_opt: /* empty */
+   65                             | declaraciones_constantes
 
-   65 constante: CTC_ENTERA
-   66          | CTC_REAL
-   67          | CTC_CARACTER
-   68          | CTC_CADENA
-   69          | constante_tabla
-   70          | constante_estructurada
+   66 declaraciones_constantes: CONSTANTES lista_declaraciones_constantes FIN
 
-   71 constante_tabla: '(' lista_campo_constante ')'
-   72                | '(' lista_elemento_hash ')'
+   67 lista_declaraciones_constantes: visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.'
+   68                               | lista_declaraciones_constantes visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.'
 
-   73 lista_elemento_hash: lista_elemento_hash elemento_hash
-   74                    | elemento_hash
-   75                    | /* empty */
+   69 constante: CTC_ENTERA
+   70          | CTC_REAL
+   71          | CTC_CARACTER
+   72          | CTC_CADENA
+   73          | constante_tabla
+   74          | constante_estructurada
 
-   76 elemento_hash: CTC_CADENA FLECHA_DCHA constante
+   75 constante_tabla: '(' lista_campo_constante ')'
+   76                | '(' lista_elemento_hash ')'
 
-   77 constante_estructurada: '(' lista_campo_constante_una_o_mas ')'
+   77 lista_elemento_hash: lista_elemento_hash elemento_hash
+   78                    | elemento_hash
+   79                    | /* empty */
 
-   78 lista_campo_constante_una_o_mas: lista_campo_constante_una_o_mas campo_constante
-   79                                | campo_constante
+   80 elemento_hash: CTC_CADENA FLECHA_DCHA constante
 
-   80 lista_campo_constante: lista_campo_constante campo_constante
-   81                      | campo_constante
-   82                      | /* empty */
+   81 constante_estructurada: '(' lista_campo_constante_una_o_mas ')'
 
-   83 campo_constante: IDENTIFICADOR ASIG constante
+   82 lista_campo_constante_una_o_mas: lista_campo_constante_una_o_mas campo_constante
+   83                                | campo_constante
 
-   84 declaraciones_variables_opt: /* empty */
+   84 lista_campo_constante: lista_campo_constante campo_constante
+   85                      | campo_constante
+   86                      | /* empty */
 
-   85 lista_expresion_cero_o_mas: lista_expresion_cero_o_mas expresion
-   86                           | expresion
-   87                           | /* empty */
+   87 campo_constante: IDENTIFICADOR ASIG constante
 
-   88 lista_declaracion_funcion_cero_o_mas: declaracion_funcion lista_declaracion_funcion_cero_o_mas
-   89                                     | declaracion_funcion
-   90                                     | /* empty */
+   88 declaraciones_variables_opt: /* empty */
 
-   91 declaracion_funcion: visibilidad_opt firma_funcion cuerpo_funcion
-   92                    | error
+   89 lista_expresion_cero_o_mas: lista_expresion_cero_o_mas expresion
+   90                           | expresion
+   91                           | /* empty */
 
-   93 firma_funcion: FUNCION IDENTIFICADOR FLECHA_DCHA tipo_salida
+   92 lista_declaracion_funcion_cero_o_mas: declaracion_funcion lista_declaracion_funcion_cero_o_mas
+   93                                     | declaracion_funcion
+   94                                     | /* empty */
 
-   94 tipo_salida: especificacion_tipo
-   95            | NADA
+   95 declaracion_funcion: visibilidad_opt firma_funcion cuerpo_funcion
+   96                    | error
 
-   96 cuerpo_funcion: declaraciones_constantes_opt
-   97               | declaraciones_variables_opt
-   98               | lista_declaracion_funcion_cero_o_mas
-   99               | bloque_instrucciones
+   97 firma_funcion: FUNCION IDENTIFICADOR FLECHA_DCHA tipo_salida
 
-  100 bloque_instrucciones: PRINCIPIO lista_instrucciones_una_o_mas FIN
+   98 tipo_salida: especificacion_tipo
+   99            | NADA
 
-  101 lista_instrucciones_una_o_mas: lista_instrucciones_una_o_mas instruccion
-  102                              | instruccion
+  100 cuerpo_funcion: declaraciones_constantes_opt
+  101               | declaraciones_variables_opt
+  102               | lista_declaracion_funcion_cero_o_mas
+  103               | bloque_instrucciones
 
-  103 instruccion: instruccion_expresion
-  104            | instruccion_bifurcacion
-  105            | instruccion_bucle
-  106            | instruccion_salto
-  107            | instruccion_destino_salto
-  108            | instruccion_devolver
-  109            | instruccion_lanzamiento_excepcion
-  110            | instruccion_captura_excepcion
-  111            | instruccion_vacia
-  112            | error
+  104 bloque_instrucciones: PRINCIPIO lista_instrucciones_una_o_mas FIN
 
-  113 instruccion_expresion: expresion_funcional '.'
-  114                      | asignacion '.'
+  105 lista_instrucciones_una_o_mas: lista_instrucciones_una_o_mas instruccion
+  106                              | instruccion
 
-  115 asignacion: expresion_indexada operador_asignacion expresion
+  107 instruccion: instruccion_expresion
+  108            | instruccion_bifurcacion
+  109            | instruccion_bucle
+  110            | instruccion_salto
+  111            | instruccion_destino_salto
+  112            | instruccion_devolver
+  113            | instruccion_lanzamiento_excepcion
+  114            | instruccion_captura_excepcion
+  115            | instruccion_vacia
+  116            | error
 
-  116 operador_asignacion: ASIG
-  117                    | SUMA_ASIG
-  118                    | RESTA_ASIG
-  119                    | MULT_ASIG
-  120                    | DIV_ASIG
-  121                    | MOD_ASIG
-  122                    | POT_ASIG
-  123                    | FI_ASIG
-  124                    | FD_ASIG
-  125                    | AND_ASIG
-  126                    | XOR_ASIG
-  127                    | OR_ASIG
+  117 instruccion_expresion: expresion_funcional '.'
+  118                      | asignacion '.'
 
-  128 instruccion_bifurcacion: SI '(' expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones
-  129                        | SI '(' expresion ')' bloque_instrucciones lista_otro_caso
+  119 asignacion: expresion_indexada operador_asignacion expresion
 
-  130 lista_otro_caso: ENCAMBIO '(' expresion ')' bloque_instrucciones
-  131                | ENCAMBIO '(' expresion ')' bloque_instrucciones lista_otro_caso
-  132                | /* empty */
+  120 operador_asignacion: ASIG
+  121                    | SUMA_ASIG
+  122                    | RESTA_ASIG
+  123                    | MULT_ASIG
+  124                    | DIV_ASIG
+  125                    | MOD_ASIG
+  126                    | POT_ASIG
+  127                    | FI_ASIG
+  128                    | FD_ASIG
+  129                    | AND_ASIG
+  130                    | XOR_ASIG
+  131                    | OR_ASIG
 
-  133 instruccion_bucle: MIENTRAS '(' expresion ')' bloque_instrucciones
-  134                  | HACER bloque_instrucciones MIENTRAS '(' expresion ')' '.'
-  135                  | PARA '(' lista_asignacion_una_o_mas ':' expresion ':' lista_asignacion_una_o_mas ')' bloque_instrucciones
-  136                  | PARA CADA IDENTIFICADOR EN '(' expresion ')' bloque_instrucciones
+  132 instruccion_bifurcacion: SI '(' expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones
+  133                        | SI '(' expresion ')' bloque_instrucciones lista_otro_caso
 
-  137 lista_asignacion_una_o_mas: lista_asignacion_una_o_mas asignacion
-  138                           | asignacion
+  134 lista_otro_caso: ENCAMBIO '(' expresion ')' bloque_instrucciones
+  135                | ENCAMBIO '(' expresion ')' bloque_instrucciones lista_otro_caso
+  136                | /* empty */
 
-  139 instruccion_salto: SALTAR IDENTIFICADOR '.'
-  140                  | CONTINUAR '.'
-  141                  | ESCAPE '.'
+  137 instruccion_bucle: MIENTRAS '(' expresion ')' bloque_instrucciones
+  138                  | HACER bloque_instrucciones MIENTRAS '(' expresion ')' '.'
+  139                  | PARA '(' lista_asignacion_una_o_mas ':' expresion ':' lista_asignacion_una_o_mas ')' bloque_instrucciones
+  140                  | PARA CADA IDENTIFICADOR EN '(' expresion ')' bloque_instrucciones
 
-  142 instruccion_destino_salto: ETIQUETA IDENTIFICADOR '.'
+  141 lista_asignacion_una_o_mas: lista_asignacion_una_o_mas asignacion
+  142                           | asignacion
 
-  143 instruccion_devolver: DEVOLVER expresion '.'
-  144                     | DEVOLVER '.'
+  143 instruccion_salto: SALTAR IDENTIFICADOR '.'
+  144                  | CONTINUAR '.'
+  145                  | ESCAPE '.'
 
-  145 instruccion_lanzamiento_excepcion: LANZA EXCEPCION IDENTIFICADOR '.'
+  146 instruccion_destino_salto: ETIQUETA IDENTIFICADOR '.'
 
-  146 instruccion_captura_excepcion: lista_clausula_excepcion_especifica_cero_o_mas clausula_excepcion_general
+  147 instruccion_devolver: DEVOLVER expresion '.'
+  148                     | DEVOLVER '.'
 
-  147 lista_clausula_excepcion_especifica_cero_o_mas: /* empty */
-  148                                               | lista_clausula_excepcion_especifica_cero_o_mas clausula_excepcion_especifica
+  149 instruccion_lanzamiento_excepcion: LANZA EXCEPCION IDENTIFICADOR '.'
 
-  149 clausula_excepcion_especifica: EXCEPCION nombre bloque_instrucciones
+  150 instruccion_captura_excepcion: lista_clausula_excepcion_especifica_cero_o_mas clausula_excepcion_general
 
-  150 clausula_excepcion_general: OTRA EXCEPCION bloque_instrucciones
+  151 lista_clausula_excepcion_especifica_cero_o_mas: /* empty */
+  152                                               | lista_clausula_excepcion_especifica_cero_o_mas clausula_excepcion_especifica
 
-  151 instruccion_vacia: /* empty */
+  153 clausula_excepcion_especifica: EXCEPCION nombre bloque_instrucciones
 
-  152 expresion_indexada: expresion_basica
-  153                   | expresion_indexada '?' expresion_basica
-  154                   | expresion_indexada INDIRECCION expresion_basica
-  155                   | expresion_indexada INDIRECCION indice
-  156                   | expresion_indexada indice
+  154 clausula_excepcion_general: OTRA EXCEPCION bloque_instrucciones
 
-  157 expresion_basica: nombre
-  158                 | '(' expresion ')'
-  159                 | '^' expresion_basica
-  160                 | REF expresion_basica
+  155 instruccion_vacia: /* empty */
 
-  161 indice: '[' expresion ']'
-  162       | '{' expresion '}'
+  156 expresion_indexada: expresion_basica
+  157                   | expresion_indexada '?' expresion_basica
+  158                   | expresion_indexada INDIRECCION expresion_basica
+  159                   | expresion_indexada INDIRECCION indice
+  160                   | expresion_indexada indice
 
-  163 expresion_funcional: IDENTIFICADOR '(' lista_expresion_cero_o_mas ')'
+  161 expresion_basica: nombre
+  162                 | '(' expresion ')'
+  163                 | '^' expresion_basica
+  164                 | REF expresion_basica
 
-  164 expresion: expresion_logica SI expresion SINO expresion
-  165          | expresion_logica
-  166          | expresion_logica PARA CADA IDENTIFICADOR EN expresion
-  167          | error
+  165 indice: '[' expresion ']'
+  166       | '{' expresion '}'
 
-  168 expresion_logica: expresion AND expresion
-  169                 | expresion OR expresion
+  167 expresion_funcional: IDENTIFICADOR '(' lista_expresion_cero_o_mas ')'
+
+  168 expresion: expresion_logica SI expresion SINO expresion
+  169          | expresion_logica
+  170          | expresion_logica PARA CADA IDENTIFICADOR EN expresion
+  171          | error
+
+  172 expresion_logica: expresion AND expresion
+  173                 | expresion OR expresion
 
 
 Terminals, with rules where they appear
@@ -398,112 +395,112 @@ Terminals, with rules where they appear
 $end (0) 0
 '!' (33)
 '&' (38)
-'(' (40) 71 72 77 128 129 130 131 133 134 135 136 158 163
-')' (41) 71 72 77 128 129 130 131 133 134 135 136 158 163
+'(' (40) 75 76 81 132 133 134 135 137 138 139 140 162 167
+')' (41) 75 76 81 132 133 134 135 137 138 139 140 162 167
 '*' (42)
 '+' (43)
 '-' (45)
-'.' (46) 3 7 8 11 22 63 64 113 114 134 139 140 141 142 143 144 145
+'.' (46) 3 7 8 11 22 67 68 117 118 138 143 144 145 146 147 148 149
 '/' (47)
-':' (58) 135
+':' (58) 139
 '<' (60)
 '>' (62)
-'?' (63) 153
+'?' (63) 157
 '@' (64)
-'[' (91) 161
-']' (93) 161
-'^' (94) 159
-'de' (100)
-'fin' (102) 43
+'[' (91) 165
+']' (93) 165
+'^' (94) 163
+'de' (100) 43
+'fin' (102) 43 44
 'tamano' (116)
-'{' (123) 162
+'{' (123) 166
 '|' (124)
-'}' (125) 162
+'}' (125) 166
 '~' (126)
-error (256) 2 4 9 18 92 112 167
-ABSTRACTO (258) 57
-AND (259) 168
-ASIG (260) 63 64 83 116
-AND_ASIG (261) 125
-CADA (262) 136 166
+error (256) 2 4 9 18 96 116 171
+ABSTRACTO (258) 61
+AND (259) 172
+ASIG (260) 49 67 68 87 120
+AND_ASIG (261) 129
+CADA (262) 140 170
 CADENA (263) 36
 CARACTER (264) 35
-CLASE (265) 43
+CLASE (265) 44
 COMO (266) 8
-CONSTANTES (267) 62
-CONSTRUCTOR (268) 54
-CONTINUAR (269) 140
-CTC_CADENA (270) 68 76
-CTC_CARACTER (271) 67
-CTC_ENTERA (272) 65
-CTC_REAL (273) 66
+CONSTANTES (267) 66
+CONSTRUCTOR (268) 58
+CONTINUAR (269) 144
+CTC_CADENA (270) 72 80
+CTC_CARACTER (271) 71
+CTC_ENTERA (272) 69
+CTC_REAL (273) 70
 DE (274) 39 40
 DEFECTO (275)
-DESTRUCTOR (276) 55
-DEVOLVER (277) 143 144
-DIV_ASIG (278) 120
+DESTRUCTOR (276) 59
+DEVOLVER (277) 147 148
+DIV_ASIG (278) 124
 EJECUTA (279)
-ENCAMBIO (280) 130 131
+ENCAMBIO (280) 134 135
 ENTERO (281) 33
-ENUMERACION (282)
+ENUMERACION (282) 43
 EQ (283)
-EN (284) 136 166
-ESCAPE (285) 141
-ES (286) 22 23 63 64
-ESPECIFICO (287) 58
+EN (284) 140 170
+ESCAPE (285) 145
+ES (286) 22 23 67 68
+ESPECIFICO (287) 62
 ESTRUCTURA (288)
-ETIQUETA (289) 142
-EXCEPCION (290) 38 145 149 150
-FD_ASIG (291) 124
-FI_ASIG (292) 123
+ETIQUETA (289) 146
+EXCEPCION (290) 38 149 153 154
+FD_ASIG (291) 128
+FI_ASIG (292) 127
 FICHERO (293) 37
-FIN (294) 19 62 100
-FINAL (295) 59
-FLECHA_DCHA (296) 76 93
+FIN (294) 19 66 104
+FINAL (295) 63
+FLECHA_DCHA (296) 80 97
 FLECHA_IZDA (297)
-FUNCION (298) 93
-GENERICO (299) 56
-HACER (300) 134
+FUNCION (298) 97
+GENERICO (299) 60
+HACER (300) 138
 HASH (301) 40
 GE (302)
-IDENTIFICADOR (303) 3 8 13 14 22 23 63 64 83 93 136 139 142 145 163
-    166
+IDENTIFICADOR (303) 3 8 13 14 22 23 49 67 68 87 97 140 143 146 149
+    167 170
 IMPORTAR (304) 7 8
-INDIRECCION (305) 154 155
-LANZA (306) 145
+INDIRECCION (305) 158 159
+LANZA (306) 149
 LE (307)
-MIENTRAS (308) 133 134
+MIENTRAS (308) 137 138
 MOD (309)
-MOD_ASIG (310) 121
-MULT_ASIG (311) 119
-NADA (312) 95
+MOD_ASIG (310) 125
+MULT_ASIG (311) 123
+NADA (312) 99
 NEQ (313)
-OR (314) 169
-OTRA (315) 150
-OR_ASIG (316) 127
-PARA (317) 135 136 166
-POT_ASIG (318) 122
+OR (314) 173
+OTRA (315) 154
+OR_ASIG (316) 131
+PARA (317) 139 140 170
+POT_ASIG (318) 126
 POTENCIA (319)
-PRINCIPIO (320) 100
+PRINCIPIO (320) 104
 PRIVADO (321) 27
 PROGRAMA (322) 3
 PROTEGIDO (323) 26
 PTOS (324) 12 14
 PUBLICO (325) 25
 REAL (326) 34
-REF (327) 29 160
-RESTA_ASIG (328) 118
-SALTAR (329) 139
-SI (330) 128 129 164
-SINO (331) 128 164
-SUMA_ASIG (332) 117
+REF (327) 29 164
+RESTA_ASIG (328) 122
+SALTAR (329) 143
+SI (330) 132 133 168
+SINO (331) 132 168
+SUMA_ASIG (332) 121
 TAMANO (333)
 TABLA (334) 39 40
 TIPOS (335) 19
-ULTIMA (336) 45
+ULTIMA (336) 46
 UNION (337)
 VARIABLES (338)
-XOR_ASIG (339) 126
+XOR_ASIG (339) 130
 
 
 Nonterminals, with rules where they appear
@@ -521,129 +518,133 @@ libreria (113)
 nombre_lista (114)
     on left: 10 11 12, on right: 7 11 12
 nombre (115)
-    on left: 13 14, on right: 8 10 12 14 30 149 157
+    on left: 13 14, on right: 8 10 12 14 30 153 161
 bloque_programa (116)
     on left: 15, on right: 1
 declaraciones_tipos_opt (117)
     on left: 16 17 18, on right: 15
 declaraciones_tipos (118)
-    on left: 19, on right: 17 47
+    on left: 19, on right: 17 51
 lista_declaraciones_tipo (119)
     on left: 20 21, on right: 19 20
 declaracion_tipo (120)
     on left: 22 23, on right: 20
 visibilidad_opt (121)
-    on left: 24 25 26 27, on right: 22 23 51 52 63 64 91
+    on left: 24 25 26 27, on right: 22 23 55 56 67 68 95
 lista_ref (122)
     on left: 28 29, on right: 22 23 29 41 42
 tipo_basico (123)
-    on left: 30 31 32, on right: 22 41 63 64
+    on left: 30 31 32, on right: 22 41 67 68
 tipo_escalar (124)
-    on left: 33 34 35 36 37 38, on right: 31
+    on left: 33 34 35 36 37 38, on right: 31 43
 tipo_tabla (125)
     on left: 39 40, on right: 32
 especificacion_tipo (126)
-    on left: 41 42, on right: 39 40 94
+    on left: 41 42, on right: 39 40 98
 tipo_estructurado (127)
-    on left: 43, on right: 23 42
+    on left: 43 44, on right: 23 42
 ultima_opt (128)
-    on left: 44 45, on right: 43
-componentes (129)
-    on left: 46 47 48 49 50, on right: 43
-declaracion_metodo (130)
-    on left: 51 52, on right: 50 52
-modificador_opt (131)
-    on left: 53 54 55 56 57 58 59, on right: 51 52
-declaraciones_constantes_opt (132)
-    on left: 60 61, on right: 15 48 96
-declaraciones_constantes (133)
-    on left: 62, on right: 61
-lista_declaraciones_constantes (134)
-    on left: 63 64, on right: 62 64
-constante (135)
-    on left: 65 66 67 68 69 70, on right: 63 64 76 83
-constante_tabla (136)
-    on left: 71 72, on right: 69
-lista_elemento_hash (137)
-    on left: 73 74 75, on right: 72 73
-elemento_hash (138)
-    on left: 76, on right: 73 74
-constante_estructurada (139)
-    on left: 77, on right: 70
-lista_campo_constante_una_o_mas (140)
-    on left: 78 79, on right: 77 78
-lista_campo_constante (141)
-    on left: 80 81 82, on right: 71 80
-campo_constante (142)
-    on left: 83, on right: 78 79 80 81
-declaraciones_variables_opt (143)
-    on left: 84, on right: 15 49 97
-lista_expresion_cero_o_mas (144)
-    on left: 85 86 87, on right: 85 163
-lista_declaracion_funcion_cero_o_mas (145)
-    on left: 88 89 90, on right: 15 88 98
-declaracion_funcion (146)
-    on left: 91 92, on right: 88 89
-firma_funcion (147)
-    on left: 93, on right: 51 52 91
-tipo_salida (148)
-    on left: 94 95, on right: 93
-cuerpo_funcion (149)
-    on left: 96 97 98 99, on right: 51 52 91
-bloque_instrucciones (150)
-    on left: 100, on right: 15 99 128 129 130 131 133 134 135 136 149
-    150
-lista_instrucciones_una_o_mas (151)
-    on left: 101 102, on right: 100 101
-instruccion (152)
-    on left: 103 104 105 106 107 108 109 110 111 112,
-    on right: 101 102
-instruccion_expresion (153)
-    on left: 113 114, on right: 103
-asignacion (154)
-    on left: 115, on right: 114 137 138
-operador_asignacion (155)
-    on left: 116 117 118 119 120 121 122 123 124 125 126 127,
-    on right: 115
-instruccion_bifurcacion (156)
-    on left: 128 129, on right: 104
-lista_otro_caso (157)
-    on left: 130 131 132, on right: 128 129 131
-instruccion_bucle (158)
-    on left: 133 134 135 136, on right: 105
-lista_asignacion_una_o_mas (159)
-    on left: 137 138, on right: 135 137
-instruccion_salto (160)
-    on left: 139 140 141, on right: 106
-instruccion_destino_salto (161)
-    on left: 142, on right: 107
-instruccion_devolver (162)
-    on left: 143 144, on right: 108
-instruccion_lanzamiento_excepcion (163)
-    on left: 145, on right: 109
-instruccion_captura_excepcion (164)
-    on left: 146, on right: 110
-lista_clausula_excepcion_especifica_cero_o_mas (165)
-    on left: 147 148, on right: 146 148
-clausula_excepcion_especifica (166)
-    on left: 149, on right: 148
-clausula_excepcion_general (167)
-    on left: 150, on right: 146
-instruccion_vacia (168)
-    on left: 151, on right: 111
-expresion_indexada (169)
-    on left: 152 153 154 155 156, on right: 115 153 154 155 156
-expresion_basica (170)
-    on left: 157 158 159 160, on right: 152 153 154 159 160
-indice (171)
-    on left: 161 162, on right: 155 156
-expresion_funcional (172)
-    on left: 163, on right: 113
-expresion (173)
-    on left: 164 165 166 167, on right: 85 86 115 128 129 130 131 133
-    134 135 136 143 158 161 162 164 166 168 169
-expresion_logica (174)
-    on left: 168 169, on right: 164 165 166
+    on left: 45 46, on right: 44
+lista_elemento_num (129)
+    on left: 47 48, on right: 43 47
+elemento_numerico (130)
+    on left: 49, on right: 47 48
+componentes (131)
+    on left: 50 51 52 53 54, on right: 44
+declaracion_metodo (132)
+    on left: 55 56, on right: 54 56
+modificador_opt (133)
+    on left: 57 58 59 60 61 62 63, on right: 55 56
+declaraciones_constantes_opt (134)
+    on left: 64 65, on right: 15 52 100
+declaraciones_constantes (135)
+    on left: 66, on right: 65
+lista_declaraciones_constantes (136)
+    on left: 67 68, on right: 66 68
+constante (137)
+    on left: 69 70 71 72 73 74, on right: 67 68 80 87
+constante_tabla (138)
+    on left: 75 76, on right: 73
+lista_elemento_hash (139)
+    on left: 77 78 79, on right: 76 77
+elemento_hash (140)
+    on left: 80, on right: 77 78
+constante_estructurada (141)
+    on left: 81, on right: 74
+lista_campo_constante_una_o_mas (142)
+    on left: 82 83, on right: 81 82
+lista_campo_constante (143)
+    on left: 84 85 86, on right: 75 84
+campo_constante (144)
+    on left: 87, on right: 82 83 84 85
+declaraciones_variables_opt (145)
+    on left: 88, on right: 15 53 101
+lista_expresion_cero_o_mas (146)
+    on left: 89 90 91, on right: 89 167
+lista_declaracion_funcion_cero_o_mas (147)
+    on left: 92 93 94, on right: 15 92 102
+declaracion_funcion (148)
+    on left: 95 96, on right: 92 93
+firma_funcion (149)
+    on left: 97, on right: 55 56 95
+tipo_salida (150)
+    on left: 98 99, on right: 97
+cuerpo_funcion (151)
+    on left: 100 101 102 103, on right: 55 56 95
+bloque_instrucciones (152)
+    on left: 104, on right: 15 103 132 133 134 135 137 138 139 140
+    153 154
+lista_instrucciones_una_o_mas (153)
+    on left: 105 106, on right: 104 105
+instruccion (154)
+    on left: 107 108 109 110 111 112 113 114 115 116,
+    on right: 105 106
+instruccion_expresion (155)
+    on left: 117 118, on right: 107
+asignacion (156)
+    on left: 119, on right: 118 141 142
+operador_asignacion (157)
+    on left: 120 121 122 123 124 125 126 127 128 129 130 131,
+    on right: 119
+instruccion_bifurcacion (158)
+    on left: 132 133, on right: 108
+lista_otro_caso (159)
+    on left: 134 135 136, on right: 132 133 135
+instruccion_bucle (160)
+    on left: 137 138 139 140, on right: 109
+lista_asignacion_una_o_mas (161)
+    on left: 141 142, on right: 139 141
+instruccion_salto (162)
+    on left: 143 144 145, on right: 110
+instruccion_destino_salto (163)
+    on left: 146, on right: 111
+instruccion_devolver (164)
+    on left: 147 148, on right: 112
+instruccion_lanzamiento_excepcion (165)
+    on left: 149, on right: 113
+instruccion_captura_excepcion (166)
+    on left: 150, on right: 114
+lista_clausula_excepcion_especifica_cero_o_mas (167)
+    on left: 151 152, on right: 150 152
+clausula_excepcion_especifica (168)
+    on left: 153, on right: 152
+clausula_excepcion_general (169)
+    on left: 154, on right: 150
+instruccion_vacia (170)
+    on left: 155, on right: 115
+expresion_indexada (171)
+    on left: 156 157 158 159 160, on right: 119 157 158 159 160
+expresion_basica (172)
+    on left: 161 162 163 164, on right: 156 157 158 163 164
+indice (173)
+    on left: 165 166, on right: 159 160
+expresion_funcional (174)
+    on left: 167, on right: 117
+expresion (175)
+    on left: 168 169 170 171, on right: 49 89 90 119 132 133 134 135
+    137 138 139 140 147 162 165 166 168 170 172 173
+expresion_logica (176)
+    on left: 172 173, on right: 168 169 170
 
 
 state 0
@@ -750,7 +751,7 @@ state 10
 
     CONSTANTES  shift, and go to state 19
 
-    $default  reduce using rule 60 (declaraciones_constantes_opt)
+    $default  reduce using rule 64 (declaraciones_constantes_opt)
 
     declaraciones_constantes_opt  go to state 20
     declaraciones_constantes      go to state 21
@@ -826,7 +827,7 @@ state 18
 
 state 19
 
-   62 declaraciones_constantes: CONSTANTES . lista_declaraciones_constantes FIN
+   66 declaraciones_constantes: CONSTANTES . lista_declaraciones_constantes FIN
 
     PRIVADO    shift, and go to state 13
     PROTEGIDO  shift, and go to state 14
@@ -842,16 +843,16 @@ state 20
 
    15 bloque_programa: declaraciones_tipos_opt declaraciones_constantes_opt . declaraciones_variables_opt lista_declaracion_funcion_cero_o_mas bloque_instrucciones
 
-    $default  reduce using rule 84 (declaraciones_variables_opt)
+    $default  reduce using rule 88 (declaraciones_variables_opt)
 
     declaraciones_variables_opt  go to state 28
 
 
 state 21
 
-   61 declaraciones_constantes_opt: declaraciones_constantes .
+   65 declaraciones_constantes_opt: declaraciones_constantes .
 
-    $default  reduce using rule 61 (declaraciones_constantes_opt)
+    $default  reduce using rule 65 (declaraciones_constantes_opt)
 
 
 state 22
@@ -898,15 +899,15 @@ state 25
 
 state 26
 
-   63 lista_declaraciones_constantes: visibilidad_opt . IDENTIFICADOR ES tipo_basico ASIG constante '.'
+   67 lista_declaraciones_constantes: visibilidad_opt . IDENTIFICADOR ES tipo_basico ASIG constante '.'
 
     IDENTIFICADOR  shift, and go to state 33
 
 
 state 27
 
-   62 declaraciones_constantes: CONSTANTES lista_declaraciones_constantes . FIN
-   64 lista_declaraciones_constantes: lista_declaraciones_constantes . visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.'
+   66 declaraciones_constantes: CONSTANTES lista_declaraciones_constantes . FIN
+   68 lista_declaraciones_constantes: lista_declaraciones_constantes . visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.'
 
     FIN        shift, and go to state 34
     PRIVADO    shift, and go to state 13
@@ -928,7 +929,7 @@ state 28
     PUBLICO    shift, and go to state 15
 
     FUNCION    reduce using rule 24 (visibilidad_opt)
-    PRINCIPIO  reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)
+    PRINCIPIO  reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)
 
     visibilidad_opt                       go to state 37
     lista_declaracion_funcion_cero_o_mas  go to state 38
@@ -972,35 +973,35 @@ state 32
 
 state 33
 
-   63 lista_declaraciones_constantes: visibilidad_opt IDENTIFICADOR . ES tipo_basico ASIG constante '.'
+   67 lista_declaraciones_constantes: visibilidad_opt IDENTIFICADOR . ES tipo_basico ASIG constante '.'
 
     ES  shift, and go to state 44
 
 
 state 34
 
-   62 declaraciones_constantes: CONSTANTES lista_declaraciones_constantes FIN .
+   66 declaraciones_constantes: CONSTANTES lista_declaraciones_constantes FIN .
 
-    $default  reduce using rule 62 (declaraciones_constantes)
+    $default  reduce using rule 66 (declaraciones_constantes)
 
 
 state 35
 
-   64 lista_declaraciones_constantes: lista_declaraciones_constantes visibilidad_opt . IDENTIFICADOR ES tipo_basico ASIG constante '.'
+   68 lista_declaraciones_constantes: lista_declaraciones_constantes visibilidad_opt . IDENTIFICADOR ES tipo_basico ASIG constante '.'
 
     IDENTIFICADOR  shift, and go to state 45
 
 
 state 36
 
-   92 declaracion_funcion: error .
+   96 declaracion_funcion: error .
 
-    $default  reduce using rule 92 (declaracion_funcion)
+    $default  reduce using rule 96 (declaracion_funcion)
 
 
 state 37
 
-   91 declaracion_funcion: visibilidad_opt . firma_funcion cuerpo_funcion
+   95 declaracion_funcion: visibilidad_opt . firma_funcion cuerpo_funcion
 
     FUNCION  shift, and go to state 46
 
@@ -1018,41 +1019,41 @@ state 38
 
 state 39
 
-   88 lista_declaracion_funcion_cero_o_mas: declaracion_funcion . lista_declaracion_funcion_cero_o_mas
-   89                                     | declaracion_funcion .
+   92 lista_declaracion_funcion_cero_o_mas: declaracion_funcion . lista_declaracion_funcion_cero_o_mas
+   93                                     | declaracion_funcion .
 
     error      shift, and go to state 36
     PRIVADO    shift, and go to state 13
     PROTEGIDO  shift, and go to state 14
     PUBLICO    shift, and go to state 15
 
-    error        [reduce using rule 89 (lista_declaracion_funcion_cero_o_mas)]
-    error        [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    ABSTRACTO    reduce using rule 89 (lista_declaracion_funcion_cero_o_mas)
-    ABSTRACTO    [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    CONSTRUCTOR  reduce using rule 89 (lista_declaracion_funcion_cero_o_mas)
-    CONSTRUCTOR  [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    DESTRUCTOR   reduce using rule 89 (lista_declaracion_funcion_cero_o_mas)
-    DESTRUCTOR   [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    ESPECIFICO   reduce using rule 89 (lista_declaracion_funcion_cero_o_mas)
-    ESPECIFICO   [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    FINAL        reduce using rule 89 (lista_declaracion_funcion_cero_o_mas)
-    FINAL        [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
+    error        [reduce using rule 93 (lista_declaracion_funcion_cero_o_mas)]
+    error        [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    ABSTRACTO    reduce using rule 93 (lista_declaracion_funcion_cero_o_mas)
+    ABSTRACTO    [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    CONSTRUCTOR  reduce using rule 93 (lista_declaracion_funcion_cero_o_mas)
+    CONSTRUCTOR  [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    DESTRUCTOR   reduce using rule 93 (lista_declaracion_funcion_cero_o_mas)
+    DESTRUCTOR   [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    ESPECIFICO   reduce using rule 93 (lista_declaracion_funcion_cero_o_mas)
+    ESPECIFICO   [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    FINAL        reduce using rule 93 (lista_declaracion_funcion_cero_o_mas)
+    FINAL        [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
     FUNCION      reduce using rule 24 (visibilidad_opt)
-    FUNCION      [reduce using rule 89 (lista_declaracion_funcion_cero_o_mas)]
-    FUNCION      [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    GENERICO     reduce using rule 89 (lista_declaracion_funcion_cero_o_mas)
-    GENERICO     [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    PRINCIPIO    reduce using rule 89 (lista_declaracion_funcion_cero_o_mas)
-    PRINCIPIO    [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    PRIVADO      [reduce using rule 89 (lista_declaracion_funcion_cero_o_mas)]
-    PRIVADO      [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    PROTEGIDO    [reduce using rule 89 (lista_declaracion_funcion_cero_o_mas)]
-    PROTEGIDO    [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    PUBLICO      [reduce using rule 89 (lista_declaracion_funcion_cero_o_mas)]
-    PUBLICO      [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    'fin'        reduce using rule 89 (lista_declaracion_funcion_cero_o_mas)
-    'fin'        [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
+    FUNCION      [reduce using rule 93 (lista_declaracion_funcion_cero_o_mas)]
+    FUNCION      [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    GENERICO     reduce using rule 93 (lista_declaracion_funcion_cero_o_mas)
+    GENERICO     [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    PRINCIPIO    reduce using rule 93 (lista_declaracion_funcion_cero_o_mas)
+    PRINCIPIO    [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    PRIVADO      [reduce using rule 93 (lista_declaracion_funcion_cero_o_mas)]
+    PRIVADO      [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    PROTEGIDO    [reduce using rule 93 (lista_declaracion_funcion_cero_o_mas)]
+    PROTEGIDO    [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    PUBLICO      [reduce using rule 93 (lista_declaracion_funcion_cero_o_mas)]
+    PUBLICO      [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    'fin'        reduce using rule 93 (lista_declaracion_funcion_cero_o_mas)
+    'fin'        [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
 
     visibilidad_opt                       go to state 37
     lista_declaracion_funcion_cero_o_mas  go to state 50
@@ -1099,56 +1100,57 @@ state 43
     CARACTER       shift, and go to state 56
     CLASE          shift, and go to state 57
     ENTERO         shift, and go to state 58
-    EXCEPCION      shift, and go to state 59
-    FICHERO        shift, and go to state 60
+    ENUMERACION    shift, and go to state 59
+    EXCEPCION      shift, and go to state 60
+    FICHERO        shift, and go to state 61
     IDENTIFICADOR  shift, and go to state 40
-    REAL           shift, and go to state 61
-    REF            shift, and go to state 62
-    TABLA          shift, and go to state 63
+    REAL           shift, and go to state 62
+    REF            shift, and go to state 63
+    TABLA          shift, and go to state 64
 
-    nombre             go to state 64
-    tipo_basico        go to state 65
-    tipo_escalar       go to state 66
-    tipo_tabla         go to state 67
-    tipo_estructurado  go to state 68
+    nombre             go to state 65
+    tipo_basico        go to state 66
+    tipo_escalar       go to state 67
+    tipo_tabla         go to state 68
+    tipo_estructurado  go to state 69
 
 
 state 44
 
-   63 lista_declaraciones_constantes: visibilidad_opt IDENTIFICADOR ES . tipo_basico ASIG constante '.'
+   67 lista_declaraciones_constantes: visibilidad_opt IDENTIFICADOR ES . tipo_basico ASIG constante '.'
 
     CADENA         shift, and go to state 55
     CARACTER       shift, and go to state 56
     ENTERO         shift, and go to state 58
-    EXCEPCION      shift, and go to state 59
-    FICHERO        shift, and go to state 60
+    EXCEPCION      shift, and go to state 60
+    FICHERO        shift, and go to state 61
     IDENTIFICADOR  shift, and go to state 40
-    REAL           shift, and go to state 61
-    TABLA          shift, and go to state 63
+    REAL           shift, and go to state 62
+    TABLA          shift, and go to state 64
 
-    nombre        go to state 64
-    tipo_basico   go to state 69
-    tipo_escalar  go to state 66
-    tipo_tabla    go to state 67
+    nombre        go to state 65
+    tipo_basico   go to state 70
+    tipo_escalar  go to state 67
+    tipo_tabla    go to state 68
 
 
 state 45
 
-   64 lista_declaraciones_constantes: lista_declaraciones_constantes visibilidad_opt IDENTIFICADOR . ES tipo_basico ASIG constante '.'
+   68 lista_declaraciones_constantes: lista_declaraciones_constantes visibilidad_opt IDENTIFICADOR . ES tipo_basico ASIG constante '.'
 
-    ES  shift, and go to state 70
+    ES  shift, and go to state 71
 
 
 state 46
 
-   93 firma_funcion: FUNCION . IDENTIFICADOR FLECHA_DCHA tipo_salida
+   97 firma_funcion: FUNCION . IDENTIFICADOR FLECHA_DCHA tipo_salida
 
-    IDENTIFICADOR  shift, and go to state 71
+    IDENTIFICADOR  shift, and go to state 72
 
 
 state 47
 
-   91 declaracion_funcion: visibilidad_opt firma_funcion . cuerpo_funcion
+   95 declaracion_funcion: visibilidad_opt firma_funcion . cuerpo_funcion
 
     error       shift, and go to state 36
     CONSTANTES  shift, and go to state 19
@@ -1157,115 +1159,115 @@ state 47
     PROTEGIDO   shift, and go to state 14
     PUBLICO     shift, and go to state 15
 
-    error        [reduce using rule 60 (declaraciones_constantes_opt)]
-    error        [reduce using rule 84 (declaraciones_variables_opt)]
-    error        [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    ABSTRACTO    reduce using rule 60 (declaraciones_constantes_opt)
-    ABSTRACTO    [reduce using rule 84 (declaraciones_variables_opt)]
-    ABSTRACTO    [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    CONSTRUCTOR  reduce using rule 60 (declaraciones_constantes_opt)
-    CONSTRUCTOR  [reduce using rule 84 (declaraciones_variables_opt)]
-    CONSTRUCTOR  [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    DESTRUCTOR   reduce using rule 60 (declaraciones_constantes_opt)
-    DESTRUCTOR   [reduce using rule 84 (declaraciones_variables_opt)]
-    DESTRUCTOR   [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    ESPECIFICO   reduce using rule 60 (declaraciones_constantes_opt)
-    ESPECIFICO   [reduce using rule 84 (declaraciones_variables_opt)]
-    ESPECIFICO   [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    FINAL        reduce using rule 60 (declaraciones_constantes_opt)
-    FINAL        [reduce using rule 84 (declaraciones_variables_opt)]
-    FINAL        [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
+    error        [reduce using rule 64 (declaraciones_constantes_opt)]
+    error        [reduce using rule 88 (declaraciones_variables_opt)]
+    error        [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    ABSTRACTO    reduce using rule 64 (declaraciones_constantes_opt)
+    ABSTRACTO    [reduce using rule 88 (declaraciones_variables_opt)]
+    ABSTRACTO    [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    CONSTRUCTOR  reduce using rule 64 (declaraciones_constantes_opt)
+    CONSTRUCTOR  [reduce using rule 88 (declaraciones_variables_opt)]
+    CONSTRUCTOR  [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    DESTRUCTOR   reduce using rule 64 (declaraciones_constantes_opt)
+    DESTRUCTOR   [reduce using rule 88 (declaraciones_variables_opt)]
+    DESTRUCTOR   [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    ESPECIFICO   reduce using rule 64 (declaraciones_constantes_opt)
+    ESPECIFICO   [reduce using rule 88 (declaraciones_variables_opt)]
+    ESPECIFICO   [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    FINAL        reduce using rule 64 (declaraciones_constantes_opt)
+    FINAL        [reduce using rule 88 (declaraciones_variables_opt)]
+    FINAL        [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
     FUNCION      reduce using rule 24 (visibilidad_opt)
-    FUNCION      [reduce using rule 60 (declaraciones_constantes_opt)]
-    FUNCION      [reduce using rule 84 (declaraciones_variables_opt)]
-    FUNCION      [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    GENERICO     reduce using rule 60 (declaraciones_constantes_opt)
-    GENERICO     [reduce using rule 84 (declaraciones_variables_opt)]
-    GENERICO     [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    PRINCIPIO    [reduce using rule 60 (declaraciones_constantes_opt)]
-    PRINCIPIO    [reduce using rule 84 (declaraciones_variables_opt)]
-    PRINCIPIO    [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    PRIVADO      [reduce using rule 60 (declaraciones_constantes_opt)]
-    PRIVADO      [reduce using rule 84 (declaraciones_variables_opt)]
-    PRIVADO      [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    PROTEGIDO    [reduce using rule 60 (declaraciones_constantes_opt)]
-    PROTEGIDO    [reduce using rule 84 (declaraciones_variables_opt)]
-    PROTEGIDO    [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    PUBLICO      [reduce using rule 60 (declaraciones_constantes_opt)]
-    PUBLICO      [reduce using rule 84 (declaraciones_variables_opt)]
-    PUBLICO      [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    'fin'        reduce using rule 60 (declaraciones_constantes_opt)
-    'fin'        [reduce using rule 84 (declaraciones_variables_opt)]
-    'fin'        [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
+    FUNCION      [reduce using rule 64 (declaraciones_constantes_opt)]
+    FUNCION      [reduce using rule 88 (declaraciones_variables_opt)]
+    FUNCION      [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    GENERICO     reduce using rule 64 (declaraciones_constantes_opt)
+    GENERICO     [reduce using rule 88 (declaraciones_variables_opt)]
+    GENERICO     [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    PRINCIPIO    [reduce using rule 64 (declaraciones_constantes_opt)]
+    PRINCIPIO    [reduce using rule 88 (declaraciones_variables_opt)]
+    PRINCIPIO    [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    PRIVADO      [reduce using rule 64 (declaraciones_constantes_opt)]
+    PRIVADO      [reduce using rule 88 (declaraciones_variables_opt)]
+    PRIVADO      [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    PROTEGIDO    [reduce using rule 64 (declaraciones_constantes_opt)]
+    PROTEGIDO    [reduce using rule 88 (declaraciones_variables_opt)]
+    PROTEGIDO    [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    PUBLICO      [reduce using rule 64 (declaraciones_constantes_opt)]
+    PUBLICO      [reduce using rule 88 (declaraciones_variables_opt)]
+    PUBLICO      [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    'fin'        reduce using rule 64 (declaraciones_constantes_opt)
+    'fin'        [reduce using rule 88 (declaraciones_variables_opt)]
+    'fin'        [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
 
     visibilidad_opt                       go to state 37
-    declaraciones_constantes_opt          go to state 72
+    declaraciones_constantes_opt          go to state 73
     declaraciones_constantes              go to state 21
-    declaraciones_variables_opt           go to state 73
-    lista_declaracion_funcion_cero_o_mas  go to state 74
+    declaraciones_variables_opt           go to state 74
+    lista_declaracion_funcion_cero_o_mas  go to state 75
     declaracion_funcion                   go to state 39
-    cuerpo_funcion                        go to state 75
-    bloque_instrucciones                  go to state 76
+    cuerpo_funcion                        go to state 76
+    bloque_instrucciones                  go to state 77
 
 
 state 48
 
-  100 bloque_instrucciones: PRINCIPIO . lista_instrucciones_una_o_mas FIN
+  104 bloque_instrucciones: PRINCIPIO . lista_instrucciones_una_o_mas FIN
 
-    error          shift, and go to state 77
-    CONTINUAR      shift, and go to state 78
-    DEVOLVER       shift, and go to state 79
-    ESCAPE         shift, and go to state 80
-    ETIQUETA       shift, and go to state 81
-    HACER          shift, and go to state 82
-    IDENTIFICADOR  shift, and go to state 83
-    LANZA          shift, and go to state 84
-    MIENTRAS       shift, and go to state 85
-    PARA           shift, and go to state 86
-    REF            shift, and go to state 87
-    SALTAR         shift, and go to state 88
-    SI             shift, and go to state 89
-    '('            shift, and go to state 90
-    '^'            shift, and go to state 91
+    error          shift, and go to state 78
+    CONTINUAR      shift, and go to state 79
+    DEVOLVER       shift, and go to state 80
+    ESCAPE         shift, and go to state 81
+    ETIQUETA       shift, and go to state 82
+    HACER          shift, and go to state 83
+    IDENTIFICADOR  shift, and go to state 84
+    LANZA          shift, and go to state 85
+    MIENTRAS       shift, and go to state 86
+    PARA           shift, and go to state 87
+    REF            shift, and go to state 88
+    SALTAR         shift, and go to state 89
+    SI             shift, and go to state 90
+    '('            shift, and go to state 91
+    '^'            shift, and go to state 92
 
-    error          [reduce using rule 151 (instruccion_vacia)]
-    CONTINUAR      [reduce using rule 151 (instruccion_vacia)]
-    DEVOLVER       [reduce using rule 151 (instruccion_vacia)]
-    ESCAPE         [reduce using rule 151 (instruccion_vacia)]
-    ETIQUETA       [reduce using rule 151 (instruccion_vacia)]
-    EXCEPCION      reduce using rule 147 (lista_clausula_excepcion_especifica_cero_o_mas)
-    EXCEPCION      [reduce using rule 151 (instruccion_vacia)]
-    FIN            reduce using rule 151 (instruccion_vacia)
-    HACER          [reduce using rule 151 (instruccion_vacia)]
-    IDENTIFICADOR  [reduce using rule 151 (instruccion_vacia)]
-    LANZA          [reduce using rule 151 (instruccion_vacia)]
-    MIENTRAS       [reduce using rule 151 (instruccion_vacia)]
-    OTRA           reduce using rule 147 (lista_clausula_excepcion_especifica_cero_o_mas)
-    OTRA           [reduce using rule 151 (instruccion_vacia)]
-    PARA           [reduce using rule 151 (instruccion_vacia)]
-    REF            [reduce using rule 151 (instruccion_vacia)]
-    SALTAR         [reduce using rule 151 (instruccion_vacia)]
-    SI             [reduce using rule 151 (instruccion_vacia)]
-    '('            [reduce using rule 151 (instruccion_vacia)]
-    '^'            [reduce using rule 151 (instruccion_vacia)]
+    error          [reduce using rule 155 (instruccion_vacia)]
+    CONTINUAR      [reduce using rule 155 (instruccion_vacia)]
+    DEVOLVER       [reduce using rule 155 (instruccion_vacia)]
+    ESCAPE         [reduce using rule 155 (instruccion_vacia)]
+    ETIQUETA       [reduce using rule 155 (instruccion_vacia)]
+    EXCEPCION      reduce using rule 151 (lista_clausula_excepcion_especifica_cero_o_mas)
+    EXCEPCION      [reduce using rule 155 (instruccion_vacia)]
+    FIN            reduce using rule 155 (instruccion_vacia)
+    HACER          [reduce using rule 155 (instruccion_vacia)]
+    IDENTIFICADOR  [reduce using rule 155 (instruccion_vacia)]
+    LANZA          [reduce using rule 155 (instruccion_vacia)]
+    MIENTRAS       [reduce using rule 155 (instruccion_vacia)]
+    OTRA           reduce using rule 151 (lista_clausula_excepcion_especifica_cero_o_mas)
+    OTRA           [reduce using rule 155 (instruccion_vacia)]
+    PARA           [reduce using rule 155 (instruccion_vacia)]
+    REF            [reduce using rule 155 (instruccion_vacia)]
+    SALTAR         [reduce using rule 155 (instruccion_vacia)]
+    SI             [reduce using rule 155 (instruccion_vacia)]
+    '('            [reduce using rule 155 (instruccion_vacia)]
+    '^'            [reduce using rule 155 (instruccion_vacia)]
 
-    nombre                                          go to state 92
-    lista_instrucciones_una_o_mas                   go to state 93
-    instruccion                                     go to state 94
-    instruccion_expresion                           go to state 95
-    asignacion                                      go to state 96
-    instruccion_bifurcacion                         go to state 97
-    instruccion_bucle                               go to state 98
-    instruccion_salto                               go to state 99
-    instruccion_destino_salto                       go to state 100
-    instruccion_devolver                            go to state 101
-    instruccion_lanzamiento_excepcion               go to state 102
-    instruccion_captura_excepcion                   go to state 103
-    lista_clausula_excepcion_especifica_cero_o_mas  go to state 104
-    instruccion_vacia                               go to state 105
-    expresion_indexada                              go to state 106
-    expresion_basica                                go to state 107
-    expresion_funcional                             go to state 108
+    nombre                                          go to state 93
+    lista_instrucciones_una_o_mas                   go to state 94
+    instruccion                                     go to state 95
+    instruccion_expresion                           go to state 96
+    asignacion                                      go to state 97
+    instruccion_bifurcacion                         go to state 98
+    instruccion_bucle                               go to state 99
+    instruccion_salto                               go to state 100
+    instruccion_destino_salto                       go to state 101
+    instruccion_devolver                            go to state 102
+    instruccion_lanzamiento_excepcion               go to state 103
+    instruccion_captura_excepcion                   go to state 104
+    lista_clausula_excepcion_especifica_cero_o_mas  go to state 105
+    instruccion_vacia                               go to state 106
+    expresion_indexada                              go to state 107
+    expresion_basica                                go to state 108
+    expresion_funcional                             go to state 109
 
 
 state 49
@@ -1277,9 +1279,9 @@ state 49
 
 state 50
 
-   88 lista_declaracion_funcion_cero_o_mas: declaracion_funcion lista_declaracion_funcion_cero_o_mas .
+   92 lista_declaracion_funcion_cero_o_mas: declaracion_funcion lista_declaracion_funcion_cero_o_mas .
 
-    $default  reduce using rule 88 (lista_declaracion_funcion_cero_o_mas)
+    $default  reduce using rule 92 (lista_declaracion_funcion_cero_o_mas)
 
 
 state 51
@@ -1288,7 +1290,7 @@ state 51
 
     IDENTIFICADOR  shift, and go to state 40
 
-    nombre  go to state 109
+    nombre  go to state 110
 
 
 state 52
@@ -1305,14 +1307,14 @@ state 53
 
     8 libreria: IMPORTAR nombre COMO . IDENTIFICADOR '.'
 
-    IDENTIFICADOR  shift, and go to state 110
+    IDENTIFICADOR  shift, and go to state 111
 
 
 state 54
 
    14 nombre: nombre PTOS . IDENTIFICADOR
 
-    IDENTIFICADOR  shift, and go to state 111
+    IDENTIFICADOR  shift, and go to state 112
 
 
 state 55
@@ -1331,13 +1333,13 @@ state 56
 
 state 57
 
-   43 tipo_estructurado: CLASE . ultima_opt componentes 'fin'
+   44 tipo_estructurado: CLASE . ultima_opt componentes 'fin'
 
-    ULTIMA  shift, and go to state 112
+    ULTIMA  shift, and go to state 113
 
-    $default  reduce using rule 44 (ultima_opt)
+    $default  reduce using rule 45 (ultima_opt)
 
-    ultima_opt  go to state 113
+    ultima_opt  go to state 114
 
 
 state 58
@@ -1349,42 +1351,49 @@ state 58
 
 state 59
 
+   43 tipo_estructurado: ENUMERACION . 'de' tipo_escalar lista_elemento_num 'fin'
+
+    'de'  shift, and go to state 115
+
+
+state 60
+
    38 tipo_escalar: EXCEPCION .
 
     $default  reduce using rule 38 (tipo_escalar)
 
 
-state 60
+state 61
 
    37 tipo_escalar: FICHERO .
 
     $default  reduce using rule 37 (tipo_escalar)
 
 
-state 61
+state 62
 
    34 tipo_escalar: REAL .
 
     $default  reduce using rule 34 (tipo_escalar)
 
 
-state 62
+state 63
 
    29 lista_ref: lista_ref REF .
 
     $default  reduce using rule 29 (lista_ref)
 
 
-state 63
+state 64
 
    39 tipo_tabla: TABLA . DE especificacion_tipo
    40           | TABLA . HASH DE especificacion_tipo
 
-    DE    shift, and go to state 114
-    HASH  shift, and go to state 115
+    DE    shift, and go to state 116
+    HASH  shift, and go to state 117
 
 
-state 64
+state 65
 
    14 nombre: nombre . PTOS IDENTIFICADOR
    30 tipo_basico: nombre .
@@ -1394,439 +1403,439 @@ state 64
     $default  reduce using rule 30 (tipo_basico)
 
 
-state 65
+state 66
 
    22 declaracion_tipo: visibilidad_opt IDENTIFICADOR ES lista_ref tipo_basico . '.'
 
-    '.'  shift, and go to state 116
+    '.'  shift, and go to state 118
 
 
-state 66
+state 67
 
    31 tipo_basico: tipo_escalar .
 
     $default  reduce using rule 31 (tipo_basico)
 
 
-state 67
+state 68
 
    32 tipo_basico: tipo_tabla .
 
     $default  reduce using rule 32 (tipo_basico)
 
 
-state 68
+state 69
 
    23 declaracion_tipo: visibilidad_opt IDENTIFICADOR ES lista_ref tipo_estructurado .
 
     $default  reduce using rule 23 (declaracion_tipo)
 
 
-state 69
-
-   63 lista_declaraciones_constantes: visibilidad_opt IDENTIFICADOR ES tipo_basico . ASIG constante '.'
-
-    ASIG  shift, and go to state 117
-
-
 state 70
 
-   64 lista_declaraciones_constantes: lista_declaraciones_constantes visibilidad_opt IDENTIFICADOR ES . tipo_basico ASIG constante '.'
+   67 lista_declaraciones_constantes: visibilidad_opt IDENTIFICADOR ES tipo_basico . ASIG constante '.'
 
-    CADENA         shift, and go to state 55
-    CARACTER       shift, and go to state 56
-    ENTERO         shift, and go to state 58
-    EXCEPCION      shift, and go to state 59
-    FICHERO        shift, and go to state 60
-    IDENTIFICADOR  shift, and go to state 40
-    REAL           shift, and go to state 61
-    TABLA          shift, and go to state 63
-
-    nombre        go to state 64
-    tipo_basico   go to state 118
-    tipo_escalar  go to state 66
-    tipo_tabla    go to state 67
+    ASIG  shift, and go to state 119
 
 
 state 71
 
-   93 firma_funcion: FUNCION IDENTIFICADOR . FLECHA_DCHA tipo_salida
+   68 lista_declaraciones_constantes: lista_declaraciones_constantes visibilidad_opt IDENTIFICADOR ES . tipo_basico ASIG constante '.'
 
-    FLECHA_DCHA  shift, and go to state 119
+    CADENA         shift, and go to state 55
+    CARACTER       shift, and go to state 56
+    ENTERO         shift, and go to state 58
+    EXCEPCION      shift, and go to state 60
+    FICHERO        shift, and go to state 61
+    IDENTIFICADOR  shift, and go to state 40
+    REAL           shift, and go to state 62
+    TABLA          shift, and go to state 64
+
+    nombre        go to state 65
+    tipo_basico   go to state 120
+    tipo_escalar  go to state 67
+    tipo_tabla    go to state 68
 
 
 state 72
 
-   96 cuerpo_funcion: declaraciones_constantes_opt .
+   97 firma_funcion: FUNCION IDENTIFICADOR . FLECHA_DCHA tipo_salida
 
-    $default  reduce using rule 96 (cuerpo_funcion)
+    FLECHA_DCHA  shift, and go to state 121
 
 
 state 73
 
-   97 cuerpo_funcion: declaraciones_variables_opt .
+  100 cuerpo_funcion: declaraciones_constantes_opt .
 
-    $default  reduce using rule 97 (cuerpo_funcion)
+    $default  reduce using rule 100 (cuerpo_funcion)
 
 
 state 74
 
-   98 cuerpo_funcion: lista_declaracion_funcion_cero_o_mas .
+  101 cuerpo_funcion: declaraciones_variables_opt .
 
-    $default  reduce using rule 98 (cuerpo_funcion)
+    $default  reduce using rule 101 (cuerpo_funcion)
 
 
 state 75
 
-   91 declaracion_funcion: visibilidad_opt firma_funcion cuerpo_funcion .
+  102 cuerpo_funcion: lista_declaracion_funcion_cero_o_mas .
 
-    $default  reduce using rule 91 (declaracion_funcion)
+    $default  reduce using rule 102 (cuerpo_funcion)
 
 
 state 76
 
-   99 cuerpo_funcion: bloque_instrucciones .
+   95 declaracion_funcion: visibilidad_opt firma_funcion cuerpo_funcion .
 
-    $default  reduce using rule 99 (cuerpo_funcion)
+    $default  reduce using rule 95 (declaracion_funcion)
 
 
 state 77
 
-  112 instruccion: error .
+  103 cuerpo_funcion: bloque_instrucciones .
 
-    $default  reduce using rule 112 (instruccion)
+    $default  reduce using rule 103 (cuerpo_funcion)
 
 
 state 78
 
-  140 instruccion_salto: CONTINUAR . '.'
+  116 instruccion: error .
 
-    '.'  shift, and go to state 120
+    $default  reduce using rule 116 (instruccion)
 
 
 state 79
 
-  143 instruccion_devolver: DEVOLVER . expresion '.'
-  144                     | DEVOLVER . '.'
+  144 instruccion_salto: CONTINUAR . '.'
 
-    error  shift, and go to state 121
-    '.'    shift, and go to state 122
-
-    expresion         go to state 123
-    expresion_logica  go to state 124
+    '.'  shift, and go to state 122
 
 
 state 80
 
-  141 instruccion_salto: ESCAPE . '.'
+  147 instruccion_devolver: DEVOLVER . expresion '.'
+  148                     | DEVOLVER . '.'
 
-    '.'  shift, and go to state 125
+    error  shift, and go to state 123
+    '.'    shift, and go to state 124
+
+    expresion         go to state 125
+    expresion_logica  go to state 126
 
 
 state 81
 
-  142 instruccion_destino_salto: ETIQUETA . IDENTIFICADOR '.'
+  145 instruccion_salto: ESCAPE . '.'
 
-    IDENTIFICADOR  shift, and go to state 126
+    '.'  shift, and go to state 127
 
 
 state 82
 
-  134 instruccion_bucle: HACER . bloque_instrucciones MIENTRAS '(' expresion ')' '.'
+  146 instruccion_destino_salto: ETIQUETA . IDENTIFICADOR '.'
 
-    PRINCIPIO  shift, and go to state 48
-
-    bloque_instrucciones  go to state 127
+    IDENTIFICADOR  shift, and go to state 128
 
 
 state 83
 
-   13 nombre: IDENTIFICADOR .
-  163 expresion_funcional: IDENTIFICADOR . '(' lista_expresion_cero_o_mas ')'
+  138 instruccion_bucle: HACER . bloque_instrucciones MIENTRAS '(' expresion ')' '.'
 
-    '('  shift, and go to state 128
+    PRINCIPIO  shift, and go to state 48
 
-    $default  reduce using rule 13 (nombre)
+    bloque_instrucciones  go to state 129
 
 
 state 84
 
-  145 instruccion_lanzamiento_excepcion: LANZA . EXCEPCION IDENTIFICADOR '.'
+   13 nombre: IDENTIFICADOR .
+  167 expresion_funcional: IDENTIFICADOR . '(' lista_expresion_cero_o_mas ')'
 
-    EXCEPCION  shift, and go to state 129
+    '('  shift, and go to state 130
+
+    $default  reduce using rule 13 (nombre)
 
 
 state 85
 
-  133 instruccion_bucle: MIENTRAS . '(' expresion ')' bloque_instrucciones
+  149 instruccion_lanzamiento_excepcion: LANZA . EXCEPCION IDENTIFICADOR '.'
 
-    '('  shift, and go to state 130
+    EXCEPCION  shift, and go to state 131
 
 
 state 86
 
-  135 instruccion_bucle: PARA . '(' lista_asignacion_una_o_mas ':' expresion ':' lista_asignacion_una_o_mas ')' bloque_instrucciones
-  136                  | PARA . CADA IDENTIFICADOR EN '(' expresion ')' bloque_instrucciones
+  137 instruccion_bucle: MIENTRAS . '(' expresion ')' bloque_instrucciones
 
-    CADA  shift, and go to state 131
-    '('   shift, and go to state 132
+    '('  shift, and go to state 132
 
 
 state 87
 
-  160 expresion_basica: REF . expresion_basica
+  139 instruccion_bucle: PARA . '(' lista_asignacion_una_o_mas ':' expresion ':' lista_asignacion_una_o_mas ')' bloque_instrucciones
+  140                  | PARA . CADA IDENTIFICADOR EN '(' expresion ')' bloque_instrucciones
 
-    IDENTIFICADOR  shift, and go to state 40
-    REF            shift, and go to state 87
-    '('            shift, and go to state 90
-    '^'            shift, and go to state 91
-
-    nombre            go to state 92
-    expresion_basica  go to state 133
+    CADA  shift, and go to state 133
+    '('   shift, and go to state 134
 
 
 state 88
 
-  139 instruccion_salto: SALTAR . IDENTIFICADOR '.'
+  164 expresion_basica: REF . expresion_basica
 
-    IDENTIFICADOR  shift, and go to state 134
+    IDENTIFICADOR  shift, and go to state 40
+    REF            shift, and go to state 88
+    '('            shift, and go to state 91
+    '^'            shift, and go to state 92
+
+    nombre            go to state 93
+    expresion_basica  go to state 135
 
 
 state 89
 
-  128 instruccion_bifurcacion: SI . '(' expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones
-  129                        | SI . '(' expresion ')' bloque_instrucciones lista_otro_caso
+  143 instruccion_salto: SALTAR . IDENTIFICADOR '.'
 
-    '('  shift, and go to state 135
+    IDENTIFICADOR  shift, and go to state 136
 
 
 state 90
 
-  158 expresion_basica: '(' . expresion ')'
+  132 instruccion_bifurcacion: SI . '(' expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones
+  133                        | SI . '(' expresion ')' bloque_instrucciones lista_otro_caso
 
-    error  shift, and go to state 121
-
-    expresion         go to state 136
-    expresion_logica  go to state 124
+    '('  shift, and go to state 137
 
 
 state 91
 
-  159 expresion_basica: '^' . expresion_basica
+  162 expresion_basica: '(' . expresion ')'
 
-    IDENTIFICADOR  shift, and go to state 40
-    REF            shift, and go to state 87
-    '('            shift, and go to state 90
-    '^'            shift, and go to state 91
+    error  shift, and go to state 123
 
-    nombre            go to state 92
-    expresion_basica  go to state 137
+    expresion         go to state 138
+    expresion_logica  go to state 126
 
 
 state 92
 
-   14 nombre: nombre . PTOS IDENTIFICADOR
-  157 expresion_basica: nombre .
+  163 expresion_basica: '^' . expresion_basica
 
-    PTOS  shift, and go to state 54
+    IDENTIFICADOR  shift, and go to state 40
+    REF            shift, and go to state 88
+    '('            shift, and go to state 91
+    '^'            shift, and go to state 92
 
-    $default  reduce using rule 157 (expresion_basica)
+    nombre            go to state 93
+    expresion_basica  go to state 139
 
 
 state 93
 
-  100 bloque_instrucciones: PRINCIPIO lista_instrucciones_una_o_mas . FIN
-  101 lista_instrucciones_una_o_mas: lista_instrucciones_una_o_mas . instruccion
+   14 nombre: nombre . PTOS IDENTIFICADOR
+  161 expresion_basica: nombre .
 
-    error          shift, and go to state 77
-    CONTINUAR      shift, and go to state 78
-    DEVOLVER       shift, and go to state 79
-    ESCAPE         shift, and go to state 80
-    ETIQUETA       shift, and go to state 81
-    FIN            shift, and go to state 138
-    HACER          shift, and go to state 82
-    IDENTIFICADOR  shift, and go to state 83
-    LANZA          shift, and go to state 84
-    MIENTRAS       shift, and go to state 85
-    PARA           shift, and go to state 86
-    REF            shift, and go to state 87
-    SALTAR         shift, and go to state 88
-    SI             shift, and go to state 89
-    '('            shift, and go to state 90
-    '^'            shift, and go to state 91
+    PTOS  shift, and go to state 54
 
-    error          [reduce using rule 151 (instruccion_vacia)]
-    CONTINUAR      [reduce using rule 151 (instruccion_vacia)]
-    DEVOLVER       [reduce using rule 151 (instruccion_vacia)]
-    ESCAPE         [reduce using rule 151 (instruccion_vacia)]
-    ETIQUETA       [reduce using rule 151 (instruccion_vacia)]
-    EXCEPCION      reduce using rule 147 (lista_clausula_excepcion_especifica_cero_o_mas)
-    EXCEPCION      [reduce using rule 151 (instruccion_vacia)]
-    FIN            [reduce using rule 151 (instruccion_vacia)]
-    HACER          [reduce using rule 151 (instruccion_vacia)]
-    IDENTIFICADOR  [reduce using rule 151 (instruccion_vacia)]
-    LANZA          [reduce using rule 151 (instruccion_vacia)]
-    MIENTRAS       [reduce using rule 151 (instruccion_vacia)]
-    OTRA           reduce using rule 147 (lista_clausula_excepcion_especifica_cero_o_mas)
-    OTRA           [reduce using rule 151 (instruccion_vacia)]
-    PARA           [reduce using rule 151 (instruccion_vacia)]
-    REF            [reduce using rule 151 (instruccion_vacia)]
-    SALTAR         [reduce using rule 151 (instruccion_vacia)]
-    SI             [reduce using rule 151 (instruccion_vacia)]
-    '('            [reduce using rule 151 (instruccion_vacia)]
-    '^'            [reduce using rule 151 (instruccion_vacia)]
-
-    nombre                                          go to state 92
-    instruccion                                     go to state 139
-    instruccion_expresion                           go to state 95
-    asignacion                                      go to state 96
-    instruccion_bifurcacion                         go to state 97
-    instruccion_bucle                               go to state 98
-    instruccion_salto                               go to state 99
-    instruccion_destino_salto                       go to state 100
-    instruccion_devolver                            go to state 101
-    instruccion_lanzamiento_excepcion               go to state 102
-    instruccion_captura_excepcion                   go to state 103
-    lista_clausula_excepcion_especifica_cero_o_mas  go to state 104
-    instruccion_vacia                               go to state 105
-    expresion_indexada                              go to state 106
-    expresion_basica                                go to state 107
-    expresion_funcional                             go to state 108
+    $default  reduce using rule 161 (expresion_basica)
 
 
 state 94
 
-  102 lista_instrucciones_una_o_mas: instruccion .
+  104 bloque_instrucciones: PRINCIPIO lista_instrucciones_una_o_mas . FIN
+  105 lista_instrucciones_una_o_mas: lista_instrucciones_una_o_mas . instruccion
 
-    $default  reduce using rule 102 (lista_instrucciones_una_o_mas)
+    error          shift, and go to state 78
+    CONTINUAR      shift, and go to state 79
+    DEVOLVER       shift, and go to state 80
+    ESCAPE         shift, and go to state 81
+    ETIQUETA       shift, and go to state 82
+    FIN            shift, and go to state 140
+    HACER          shift, and go to state 83
+    IDENTIFICADOR  shift, and go to state 84
+    LANZA          shift, and go to state 85
+    MIENTRAS       shift, and go to state 86
+    PARA           shift, and go to state 87
+    REF            shift, and go to state 88
+    SALTAR         shift, and go to state 89
+    SI             shift, and go to state 90
+    '('            shift, and go to state 91
+    '^'            shift, and go to state 92
+
+    error          [reduce using rule 155 (instruccion_vacia)]
+    CONTINUAR      [reduce using rule 155 (instruccion_vacia)]
+    DEVOLVER       [reduce using rule 155 (instruccion_vacia)]
+    ESCAPE         [reduce using rule 155 (instruccion_vacia)]
+    ETIQUETA       [reduce using rule 155 (instruccion_vacia)]
+    EXCEPCION      reduce using rule 151 (lista_clausula_excepcion_especifica_cero_o_mas)
+    EXCEPCION      [reduce using rule 155 (instruccion_vacia)]
+    FIN            [reduce using rule 155 (instruccion_vacia)]
+    HACER          [reduce using rule 155 (instruccion_vacia)]
+    IDENTIFICADOR  [reduce using rule 155 (instruccion_vacia)]
+    LANZA          [reduce using rule 155 (instruccion_vacia)]
+    MIENTRAS       [reduce using rule 155 (instruccion_vacia)]
+    OTRA           reduce using rule 151 (lista_clausula_excepcion_especifica_cero_o_mas)
+    OTRA           [reduce using rule 155 (instruccion_vacia)]
+    PARA           [reduce using rule 155 (instruccion_vacia)]
+    REF            [reduce using rule 155 (instruccion_vacia)]
+    SALTAR         [reduce using rule 155 (instruccion_vacia)]
+    SI             [reduce using rule 155 (instruccion_vacia)]
+    '('            [reduce using rule 155 (instruccion_vacia)]
+    '^'            [reduce using rule 155 (instruccion_vacia)]
+
+    nombre                                          go to state 93
+    instruccion                                     go to state 141
+    instruccion_expresion                           go to state 96
+    asignacion                                      go to state 97
+    instruccion_bifurcacion                         go to state 98
+    instruccion_bucle                               go to state 99
+    instruccion_salto                               go to state 100
+    instruccion_destino_salto                       go to state 101
+    instruccion_devolver                            go to state 102
+    instruccion_lanzamiento_excepcion               go to state 103
+    instruccion_captura_excepcion                   go to state 104
+    lista_clausula_excepcion_especifica_cero_o_mas  go to state 105
+    instruccion_vacia                               go to state 106
+    expresion_indexada                              go to state 107
+    expresion_basica                                go to state 108
+    expresion_funcional                             go to state 109
 
 
 state 95
 
-  103 instruccion: instruccion_expresion .
+  106 lista_instrucciones_una_o_mas: instruccion .
 
-    $default  reduce using rule 103 (instruccion)
+    $default  reduce using rule 106 (lista_instrucciones_una_o_mas)
 
 
 state 96
 
-  114 instruccion_expresion: asignacion . '.'
-
-    '.'  shift, and go to state 140
-
-
-state 97
-
-  104 instruccion: instruccion_bifurcacion .
-
-    $default  reduce using rule 104 (instruccion)
-
-
-state 98
-
-  105 instruccion: instruccion_bucle .
-
-    $default  reduce using rule 105 (instruccion)
-
-
-state 99
-
-  106 instruccion: instruccion_salto .
-
-    $default  reduce using rule 106 (instruccion)
-
-
-state 100
-
-  107 instruccion: instruccion_destino_salto .
+  107 instruccion: instruccion_expresion .
 
     $default  reduce using rule 107 (instruccion)
 
 
-state 101
+state 97
 
-  108 instruccion: instruccion_devolver .
+  118 instruccion_expresion: asignacion . '.'
+
+    '.'  shift, and go to state 142
+
+
+state 98
+
+  108 instruccion: instruccion_bifurcacion .
 
     $default  reduce using rule 108 (instruccion)
 
 
-state 102
+state 99
 
-  109 instruccion: instruccion_lanzamiento_excepcion .
+  109 instruccion: instruccion_bucle .
 
     $default  reduce using rule 109 (instruccion)
 
 
-state 103
+state 100
 
-  110 instruccion: instruccion_captura_excepcion .
+  110 instruccion: instruccion_salto .
 
     $default  reduce using rule 110 (instruccion)
 
 
-state 104
+state 101
 
-  146 instruccion_captura_excepcion: lista_clausula_excepcion_especifica_cero_o_mas . clausula_excepcion_general
-  148 lista_clausula_excepcion_especifica_cero_o_mas: lista_clausula_excepcion_especifica_cero_o_mas . clausula_excepcion_especifica
-
-    EXCEPCION  shift, and go to state 141
-    OTRA       shift, and go to state 142
-
-    clausula_excepcion_especifica  go to state 143
-    clausula_excepcion_general     go to state 144
-
-
-state 105
-
-  111 instruccion: instruccion_vacia .
+  111 instruccion: instruccion_destino_salto .
 
     $default  reduce using rule 111 (instruccion)
 
 
+state 102
+
+  112 instruccion: instruccion_devolver .
+
+    $default  reduce using rule 112 (instruccion)
+
+
+state 103
+
+  113 instruccion: instruccion_lanzamiento_excepcion .
+
+    $default  reduce using rule 113 (instruccion)
+
+
+state 104
+
+  114 instruccion: instruccion_captura_excepcion .
+
+    $default  reduce using rule 114 (instruccion)
+
+
+state 105
+
+  150 instruccion_captura_excepcion: lista_clausula_excepcion_especifica_cero_o_mas . clausula_excepcion_general
+  152 lista_clausula_excepcion_especifica_cero_o_mas: lista_clausula_excepcion_especifica_cero_o_mas . clausula_excepcion_especifica
+
+    EXCEPCION  shift, and go to state 143
+    OTRA       shift, and go to state 144
+
+    clausula_excepcion_especifica  go to state 145
+    clausula_excepcion_general     go to state 146
+
+
 state 106
 
-  115 asignacion: expresion_indexada . operador_asignacion expresion
-  153 expresion_indexada: expresion_indexada . '?' expresion_basica
-  154                   | expresion_indexada . INDIRECCION expresion_basica
-  155                   | expresion_indexada . INDIRECCION indice
-  156                   | expresion_indexada . indice
+  115 instruccion: instruccion_vacia .
 
-    ASIG         shift, and go to state 145
-    AND_ASIG     shift, and go to state 146
-    DIV_ASIG     shift, and go to state 147
-    FD_ASIG      shift, and go to state 148
-    FI_ASIG      shift, and go to state 149
-    INDIRECCION  shift, and go to state 150
-    MOD_ASIG     shift, and go to state 151
-    MULT_ASIG    shift, and go to state 152
-    OR_ASIG      shift, and go to state 153
-    POT_ASIG     shift, and go to state 154
-    RESTA_ASIG   shift, and go to state 155
-    SUMA_ASIG    shift, and go to state 156
-    XOR_ASIG     shift, and go to state 157
-    '?'          shift, and go to state 158
-    '['          shift, and go to state 159
-    '{'          shift, and go to state 160
-
-    operador_asignacion  go to state 161
-    indice               go to state 162
+    $default  reduce using rule 115 (instruccion)
 
 
 state 107
 
-  152 expresion_indexada: expresion_basica .
+  119 asignacion: expresion_indexada . operador_asignacion expresion
+  157 expresion_indexada: expresion_indexada . '?' expresion_basica
+  158                   | expresion_indexada . INDIRECCION expresion_basica
+  159                   | expresion_indexada . INDIRECCION indice
+  160                   | expresion_indexada . indice
 
-    $default  reduce using rule 152 (expresion_indexada)
+    ASIG         shift, and go to state 147
+    AND_ASIG     shift, and go to state 148
+    DIV_ASIG     shift, and go to state 149
+    FD_ASIG      shift, and go to state 150
+    FI_ASIG      shift, and go to state 151
+    INDIRECCION  shift, and go to state 152
+    MOD_ASIG     shift, and go to state 153
+    MULT_ASIG    shift, and go to state 154
+    OR_ASIG      shift, and go to state 155
+    POT_ASIG     shift, and go to state 156
+    RESTA_ASIG   shift, and go to state 157
+    SUMA_ASIG    shift, and go to state 158
+    XOR_ASIG     shift, and go to state 159
+    '?'          shift, and go to state 160
+    '['          shift, and go to state 161
+    '{'          shift, and go to state 162
+
+    operador_asignacion  go to state 163
+    indice               go to state 164
 
 
 state 108
 
-  113 instruccion_expresion: expresion_funcional . '.'
+  156 expresion_indexada: expresion_basica .
 
-    '.'  shift, and go to state 163
+    $default  reduce using rule 156 (expresion_indexada)
 
 
 state 109
+
+  117 instruccion_expresion: expresion_funcional . '.'
+
+    '.'  shift, and go to state 165
+
+
+state 110
 
    12 nombre_lista: nombre_lista PTOS nombre .
    14 nombre: nombre . PTOS IDENTIFICADOR
@@ -1837,30 +1846,30 @@ state 109
     $default  reduce using rule 12 (nombre_lista)
 
 
-state 110
+state 111
 
     8 libreria: IMPORTAR nombre COMO IDENTIFICADOR . '.'
 
-    '.'  shift, and go to state 164
+    '.'  shift, and go to state 166
 
 
-state 111
+state 112
 
    14 nombre: nombre PTOS IDENTIFICADOR .
 
     $default  reduce using rule 14 (nombre)
 
 
-state 112
-
-   45 ultima_opt: ULTIMA .
-
-    $default  reduce using rule 45 (ultima_opt)
-
-
 state 113
 
-   43 tipo_estructurado: CLASE ultima_opt . componentes 'fin'
+   46 ultima_opt: ULTIMA .
+
+    $default  reduce using rule 46 (ultima_opt)
+
+
+state 114
+
+   44 tipo_estructurado: CLASE ultima_opt . componentes 'fin'
 
     CONSTANTES  shift, and go to state 19
     PRIVADO     shift, and go to state 13
@@ -1868,519 +1877,543 @@ state 113
     PUBLICO     shift, and go to state 15
     TIPOS       shift, and go to state 8
 
-    'fin'     reduce using rule 46 (componentes)
-    'fin'     [reduce using rule 60 (declaraciones_constantes_opt)]
-    'fin'     [reduce using rule 84 (declaraciones_variables_opt)]
+    'fin'     reduce using rule 50 (componentes)
+    'fin'     [reduce using rule 64 (declaraciones_constantes_opt)]
+    'fin'     [reduce using rule 88 (declaraciones_variables_opt)]
     $default  reduce using rule 24 (visibilidad_opt)
 
-    declaraciones_tipos           go to state 165
-    visibilidad_opt               go to state 166
-    componentes                   go to state 167
-    declaracion_metodo            go to state 168
-    declaraciones_constantes_opt  go to state 169
+    declaraciones_tipos           go to state 167
+    visibilidad_opt               go to state 168
+    componentes                   go to state 169
+    declaracion_metodo            go to state 170
+    declaraciones_constantes_opt  go to state 171
     declaraciones_constantes      go to state 21
-    declaraciones_variables_opt   go to state 170
+    declaraciones_variables_opt   go to state 172
 
 
-state 114
+state 115
+
+   43 tipo_estructurado: ENUMERACION 'de' . tipo_escalar lista_elemento_num 'fin'
+
+    CADENA     shift, and go to state 55
+    CARACTER   shift, and go to state 56
+    ENTERO     shift, and go to state 58
+    EXCEPCION  shift, and go to state 60
+    FICHERO    shift, and go to state 61
+    REAL       shift, and go to state 62
+
+    tipo_escalar  go to state 173
+
+
+state 116
 
    39 tipo_tabla: TABLA DE . especificacion_tipo
 
     $default  reduce using rule 28 (lista_ref)
 
-    lista_ref            go to state 171
-    especificacion_tipo  go to state 172
+    lista_ref            go to state 174
+    especificacion_tipo  go to state 175
 
 
-state 115
+state 117
 
    40 tipo_tabla: TABLA HASH . DE especificacion_tipo
 
-    DE  shift, and go to state 173
+    DE  shift, and go to state 176
 
 
-state 116
+state 118
 
    22 declaracion_tipo: visibilidad_opt IDENTIFICADOR ES lista_ref tipo_basico '.' .
 
     $default  reduce using rule 22 (declaracion_tipo)
 
 
-state 117
-
-   63 lista_declaraciones_constantes: visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG . constante '.'
-
-    CTC_CADENA    shift, and go to state 174
-    CTC_CARACTER  shift, and go to state 175
-    CTC_ENTERA    shift, and go to state 176
-    CTC_REAL      shift, and go to state 177
-    '('           shift, and go to state 178
-
-    constante               go to state 179
-    constante_tabla         go to state 180
-    constante_estructurada  go to state 181
-
-
-state 118
-
-   64 lista_declaraciones_constantes: lista_declaraciones_constantes visibilidad_opt IDENTIFICADOR ES tipo_basico . ASIG constante '.'
-
-    ASIG  shift, and go to state 182
-
-
 state 119
 
-   93 firma_funcion: FUNCION IDENTIFICADOR FLECHA_DCHA . tipo_salida
+   67 lista_declaraciones_constantes: visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG . constante '.'
 
-    NADA  shift, and go to state 183
+    CTC_CADENA    shift, and go to state 177
+    CTC_CARACTER  shift, and go to state 178
+    CTC_ENTERA    shift, and go to state 179
+    CTC_REAL      shift, and go to state 180
+    '('           shift, and go to state 181
 
-    $default  reduce using rule 28 (lista_ref)
-
-    lista_ref            go to state 171
-    especificacion_tipo  go to state 184
-    tipo_salida          go to state 185
+    constante               go to state 182
+    constante_tabla         go to state 183
+    constante_estructurada  go to state 184
 
 
 state 120
 
-  140 instruccion_salto: CONTINUAR '.' .
+   68 lista_declaraciones_constantes: lista_declaraciones_constantes visibilidad_opt IDENTIFICADOR ES tipo_basico . ASIG constante '.'
 
-    $default  reduce using rule 140 (instruccion_salto)
+    ASIG  shift, and go to state 185
 
 
 state 121
 
-  167 expresion: error .
+   97 firma_funcion: FUNCION IDENTIFICADOR FLECHA_DCHA . tipo_salida
 
-    $default  reduce using rule 167 (expresion)
+    NADA  shift, and go to state 186
+
+    $default  reduce using rule 28 (lista_ref)
+
+    lista_ref            go to state 174
+    especificacion_tipo  go to state 187
+    tipo_salida          go to state 188
 
 
 state 122
 
-  144 instruccion_devolver: DEVOLVER '.' .
+  144 instruccion_salto: CONTINUAR '.' .
 
-    $default  reduce using rule 144 (instruccion_devolver)
+    $default  reduce using rule 144 (instruccion_salto)
 
 
 state 123
 
-  143 instruccion_devolver: DEVOLVER expresion . '.'
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
+  171 expresion: error .
 
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
-    '.'  shift, and go to state 188
+    $default  reduce using rule 171 (expresion)
 
 
 state 124
 
-  164 expresion: expresion_logica . SI expresion SINO expresion
-  165          | expresion_logica .
-  166          | expresion_logica . PARA CADA IDENTIFICADOR EN expresion
+  148 instruccion_devolver: DEVOLVER '.' .
 
-    PARA  shift, and go to state 189
-    SI    shift, and go to state 190
-
-    PARA      [reduce using rule 165 (expresion)]
-    SI        [reduce using rule 165 (expresion)]
-    $default  reduce using rule 165 (expresion)
+    $default  reduce using rule 148 (instruccion_devolver)
 
 
 state 125
 
-  141 instruccion_salto: ESCAPE '.' .
+  147 instruccion_devolver: DEVOLVER expresion . '.'
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
 
-    $default  reduce using rule 141 (instruccion_salto)
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
+    '.'  shift, and go to state 191
 
 
 state 126
 
-  142 instruccion_destino_salto: ETIQUETA IDENTIFICADOR . '.'
+  168 expresion: expresion_logica . SI expresion SINO expresion
+  169          | expresion_logica .
+  170          | expresion_logica . PARA CADA IDENTIFICADOR EN expresion
 
-    '.'  shift, and go to state 191
+    PARA  shift, and go to state 192
+    SI    shift, and go to state 193
+
+    PARA      [reduce using rule 169 (expresion)]
+    SI        [reduce using rule 169 (expresion)]
+    $default  reduce using rule 169 (expresion)
 
 
 state 127
 
-  134 instruccion_bucle: HACER bloque_instrucciones . MIENTRAS '(' expresion ')' '.'
+  145 instruccion_salto: ESCAPE '.' .
 
-    MIENTRAS  shift, and go to state 192
+    $default  reduce using rule 145 (instruccion_salto)
 
 
 state 128
 
-  163 expresion_funcional: IDENTIFICADOR '(' . lista_expresion_cero_o_mas ')'
+  146 instruccion_destino_salto: ETIQUETA IDENTIFICADOR . '.'
 
-    error  shift, and go to state 121
-
-    error  [reduce using rule 87 (lista_expresion_cero_o_mas)]
-    ')'    reduce using rule 87 (lista_expresion_cero_o_mas)
-
-    lista_expresion_cero_o_mas  go to state 193
-    expresion                   go to state 194
-    expresion_logica            go to state 124
+    '.'  shift, and go to state 194
 
 
 state 129
 
-  145 instruccion_lanzamiento_excepcion: LANZA EXCEPCION . IDENTIFICADOR '.'
+  138 instruccion_bucle: HACER bloque_instrucciones . MIENTRAS '(' expresion ')' '.'
 
-    IDENTIFICADOR  shift, and go to state 195
+    MIENTRAS  shift, and go to state 195
 
 
 state 130
 
-  133 instruccion_bucle: MIENTRAS '(' . expresion ')' bloque_instrucciones
+  167 expresion_funcional: IDENTIFICADOR '(' . lista_expresion_cero_o_mas ')'
 
-    error  shift, and go to state 121
+    error  shift, and go to state 123
 
-    expresion         go to state 196
-    expresion_logica  go to state 124
+    error  [reduce using rule 91 (lista_expresion_cero_o_mas)]
+    ')'    reduce using rule 91 (lista_expresion_cero_o_mas)
+
+    lista_expresion_cero_o_mas  go to state 196
+    expresion                   go to state 197
+    expresion_logica            go to state 126
 
 
 state 131
 
-  136 instruccion_bucle: PARA CADA . IDENTIFICADOR EN '(' expresion ')' bloque_instrucciones
+  149 instruccion_lanzamiento_excepcion: LANZA EXCEPCION . IDENTIFICADOR '.'
 
-    IDENTIFICADOR  shift, and go to state 197
+    IDENTIFICADOR  shift, and go to state 198
 
 
 state 132
 
-  135 instruccion_bucle: PARA '(' . lista_asignacion_una_o_mas ':' expresion ':' lista_asignacion_una_o_mas ')' bloque_instrucciones
+  137 instruccion_bucle: MIENTRAS '(' . expresion ')' bloque_instrucciones
 
-    IDENTIFICADOR  shift, and go to state 40
-    REF            shift, and go to state 87
-    '('            shift, and go to state 90
-    '^'            shift, and go to state 91
+    error  shift, and go to state 123
 
-    nombre                      go to state 92
-    asignacion                  go to state 198
-    lista_asignacion_una_o_mas  go to state 199
-    expresion_indexada          go to state 106
-    expresion_basica            go to state 107
+    expresion         go to state 199
+    expresion_logica  go to state 126
 
 
 state 133
 
-  160 expresion_basica: REF expresion_basica .
+  140 instruccion_bucle: PARA CADA . IDENTIFICADOR EN '(' expresion ')' bloque_instrucciones
 
-    $default  reduce using rule 160 (expresion_basica)
+    IDENTIFICADOR  shift, and go to state 200
 
 
 state 134
 
-  139 instruccion_salto: SALTAR IDENTIFICADOR . '.'
+  139 instruccion_bucle: PARA '(' . lista_asignacion_una_o_mas ':' expresion ':' lista_asignacion_una_o_mas ')' bloque_instrucciones
 
-    '.'  shift, and go to state 200
+    IDENTIFICADOR  shift, and go to state 40
+    REF            shift, and go to state 88
+    '('            shift, and go to state 91
+    '^'            shift, and go to state 92
+
+    nombre                      go to state 93
+    asignacion                  go to state 201
+    lista_asignacion_una_o_mas  go to state 202
+    expresion_indexada          go to state 107
+    expresion_basica            go to state 108
 
 
 state 135
 
-  128 instruccion_bifurcacion: SI '(' . expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones
-  129                        | SI '(' . expresion ')' bloque_instrucciones lista_otro_caso
+  164 expresion_basica: REF expresion_basica .
 
-    error  shift, and go to state 121
-
-    expresion         go to state 201
-    expresion_logica  go to state 124
+    $default  reduce using rule 164 (expresion_basica)
 
 
 state 136
 
-  158 expresion_basica: '(' expresion . ')'
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
+  143 instruccion_salto: SALTAR IDENTIFICADOR . '.'
 
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
-    ')'  shift, and go to state 202
+    '.'  shift, and go to state 203
 
 
 state 137
 
-  159 expresion_basica: '^' expresion_basica .
+  132 instruccion_bifurcacion: SI '(' . expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones
+  133                        | SI '(' . expresion ')' bloque_instrucciones lista_otro_caso
 
-    $default  reduce using rule 159 (expresion_basica)
+    error  shift, and go to state 123
+
+    expresion         go to state 204
+    expresion_logica  go to state 126
 
 
 state 138
 
-  100 bloque_instrucciones: PRINCIPIO lista_instrucciones_una_o_mas FIN .
+  162 expresion_basica: '(' expresion . ')'
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
 
-    $default  reduce using rule 100 (bloque_instrucciones)
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
+    ')'  shift, and go to state 205
 
 
 state 139
 
-  101 lista_instrucciones_una_o_mas: lista_instrucciones_una_o_mas instruccion .
+  163 expresion_basica: '^' expresion_basica .
 
-    $default  reduce using rule 101 (lista_instrucciones_una_o_mas)
+    $default  reduce using rule 163 (expresion_basica)
 
 
 state 140
 
-  114 instruccion_expresion: asignacion '.' .
+  104 bloque_instrucciones: PRINCIPIO lista_instrucciones_una_o_mas FIN .
 
-    $default  reduce using rule 114 (instruccion_expresion)
+    $default  reduce using rule 104 (bloque_instrucciones)
 
 
 state 141
 
-  149 clausula_excepcion_especifica: EXCEPCION . nombre bloque_instrucciones
+  105 lista_instrucciones_una_o_mas: lista_instrucciones_una_o_mas instruccion .
 
-    IDENTIFICADOR  shift, and go to state 40
-
-    nombre  go to state 203
+    $default  reduce using rule 105 (lista_instrucciones_una_o_mas)
 
 
 state 142
 
-  150 clausula_excepcion_general: OTRA . EXCEPCION bloque_instrucciones
+  118 instruccion_expresion: asignacion '.' .
 
-    EXCEPCION  shift, and go to state 204
+    $default  reduce using rule 118 (instruccion_expresion)
 
 
 state 143
 
-  148 lista_clausula_excepcion_especifica_cero_o_mas: lista_clausula_excepcion_especifica_cero_o_mas clausula_excepcion_especifica .
+  153 clausula_excepcion_especifica: EXCEPCION . nombre bloque_instrucciones
 
-    $default  reduce using rule 148 (lista_clausula_excepcion_especifica_cero_o_mas)
+    IDENTIFICADOR  shift, and go to state 40
+
+    nombre  go to state 206
 
 
 state 144
 
-  146 instruccion_captura_excepcion: lista_clausula_excepcion_especifica_cero_o_mas clausula_excepcion_general .
+  154 clausula_excepcion_general: OTRA . EXCEPCION bloque_instrucciones
 
-    $default  reduce using rule 146 (instruccion_captura_excepcion)
+    EXCEPCION  shift, and go to state 207
 
 
 state 145
 
-  116 operador_asignacion: ASIG .
+  152 lista_clausula_excepcion_especifica_cero_o_mas: lista_clausula_excepcion_especifica_cero_o_mas clausula_excepcion_especifica .
 
-    $default  reduce using rule 116 (operador_asignacion)
+    $default  reduce using rule 152 (lista_clausula_excepcion_especifica_cero_o_mas)
 
 
 state 146
 
-  125 operador_asignacion: AND_ASIG .
+  150 instruccion_captura_excepcion: lista_clausula_excepcion_especifica_cero_o_mas clausula_excepcion_general .
 
-    $default  reduce using rule 125 (operador_asignacion)
+    $default  reduce using rule 150 (instruccion_captura_excepcion)
 
 
 state 147
 
-  120 operador_asignacion: DIV_ASIG .
+  120 operador_asignacion: ASIG .
 
     $default  reduce using rule 120 (operador_asignacion)
 
 
 state 148
 
-  124 operador_asignacion: FD_ASIG .
+  129 operador_asignacion: AND_ASIG .
 
-    $default  reduce using rule 124 (operador_asignacion)
+    $default  reduce using rule 129 (operador_asignacion)
 
 
 state 149
 
-  123 operador_asignacion: FI_ASIG .
+  124 operador_asignacion: DIV_ASIG .
 
-    $default  reduce using rule 123 (operador_asignacion)
+    $default  reduce using rule 124 (operador_asignacion)
 
 
 state 150
 
-  154 expresion_indexada: expresion_indexada INDIRECCION . expresion_basica
-  155                   | expresion_indexada INDIRECCION . indice
+  128 operador_asignacion: FD_ASIG .
 
-    IDENTIFICADOR  shift, and go to state 40
-    REF            shift, and go to state 87
-    '('            shift, and go to state 90
-    '^'            shift, and go to state 91
-    '['            shift, and go to state 159
-    '{'            shift, and go to state 160
-
-    nombre            go to state 92
-    expresion_basica  go to state 205
-    indice            go to state 206
+    $default  reduce using rule 128 (operador_asignacion)
 
 
 state 151
 
-  121 operador_asignacion: MOD_ASIG .
-
-    $default  reduce using rule 121 (operador_asignacion)
-
-
-state 152
-
-  119 operador_asignacion: MULT_ASIG .
-
-    $default  reduce using rule 119 (operador_asignacion)
-
-
-state 153
-
-  127 operador_asignacion: OR_ASIG .
+  127 operador_asignacion: FI_ASIG .
 
     $default  reduce using rule 127 (operador_asignacion)
 
 
+state 152
+
+  158 expresion_indexada: expresion_indexada INDIRECCION . expresion_basica
+  159                   | expresion_indexada INDIRECCION . indice
+
+    IDENTIFICADOR  shift, and go to state 40
+    REF            shift, and go to state 88
+    '('            shift, and go to state 91
+    '^'            shift, and go to state 92
+    '['            shift, and go to state 161
+    '{'            shift, and go to state 162
+
+    nombre            go to state 93
+    expresion_basica  go to state 208
+    indice            go to state 209
+
+
+state 153
+
+  125 operador_asignacion: MOD_ASIG .
+
+    $default  reduce using rule 125 (operador_asignacion)
+
+
 state 154
 
-  122 operador_asignacion: POT_ASIG .
+  123 operador_asignacion: MULT_ASIG .
 
-    $default  reduce using rule 122 (operador_asignacion)
+    $default  reduce using rule 123 (operador_asignacion)
 
 
 state 155
 
-  118 operador_asignacion: RESTA_ASIG .
+  131 operador_asignacion: OR_ASIG .
 
-    $default  reduce using rule 118 (operador_asignacion)
+    $default  reduce using rule 131 (operador_asignacion)
 
 
 state 156
 
-  117 operador_asignacion: SUMA_ASIG .
-
-    $default  reduce using rule 117 (operador_asignacion)
-
-
-state 157
-
-  126 operador_asignacion: XOR_ASIG .
+  126 operador_asignacion: POT_ASIG .
 
     $default  reduce using rule 126 (operador_asignacion)
 
 
+state 157
+
+  122 operador_asignacion: RESTA_ASIG .
+
+    $default  reduce using rule 122 (operador_asignacion)
+
+
 state 158
 
-  153 expresion_indexada: expresion_indexada '?' . expresion_basica
+  121 operador_asignacion: SUMA_ASIG .
 
-    IDENTIFICADOR  shift, and go to state 40
-    REF            shift, and go to state 87
-    '('            shift, and go to state 90
-    '^'            shift, and go to state 91
-
-    nombre            go to state 92
-    expresion_basica  go to state 207
+    $default  reduce using rule 121 (operador_asignacion)
 
 
 state 159
 
-  161 indice: '[' . expresion ']'
+  130 operador_asignacion: XOR_ASIG .
 
-    error  shift, and go to state 121
-
-    expresion         go to state 208
-    expresion_logica  go to state 124
+    $default  reduce using rule 130 (operador_asignacion)
 
 
 state 160
 
-  162 indice: '{' . expresion '}'
+  157 expresion_indexada: expresion_indexada '?' . expresion_basica
 
-    error  shift, and go to state 121
+    IDENTIFICADOR  shift, and go to state 40
+    REF            shift, and go to state 88
+    '('            shift, and go to state 91
+    '^'            shift, and go to state 92
 
-    expresion         go to state 209
-    expresion_logica  go to state 124
+    nombre            go to state 93
+    expresion_basica  go to state 210
 
 
 state 161
 
-  115 asignacion: expresion_indexada operador_asignacion . expresion
+  165 indice: '[' . expresion ']'
 
-    error  shift, and go to state 121
+    error  shift, and go to state 123
 
-    expresion         go to state 210
-    expresion_logica  go to state 124
+    expresion         go to state 211
+    expresion_logica  go to state 126
 
 
 state 162
 
-  156 expresion_indexada: expresion_indexada indice .
+  166 indice: '{' . expresion '}'
 
-    $default  reduce using rule 156 (expresion_indexada)
+    error  shift, and go to state 123
+
+    expresion         go to state 212
+    expresion_logica  go to state 126
 
 
 state 163
 
-  113 instruccion_expresion: expresion_funcional '.' .
+  119 asignacion: expresion_indexada operador_asignacion . expresion
 
-    $default  reduce using rule 113 (instruccion_expresion)
+    error  shift, and go to state 123
+
+    expresion         go to state 213
+    expresion_logica  go to state 126
 
 
 state 164
+
+  160 expresion_indexada: expresion_indexada indice .
+
+    $default  reduce using rule 160 (expresion_indexada)
+
+
+state 165
+
+  117 instruccion_expresion: expresion_funcional '.' .
+
+    $default  reduce using rule 117 (instruccion_expresion)
+
+
+state 166
 
     8 libreria: IMPORTAR nombre COMO IDENTIFICADOR '.' .
 
     $default  reduce using rule 8 (libreria)
 
 
-state 165
-
-   47 componentes: declaraciones_tipos .
-
-    $default  reduce using rule 47 (componentes)
-
-
-state 166
-
-   51 declaracion_metodo: visibilidad_opt . modificador_opt firma_funcion cuerpo_funcion
-
-    ABSTRACTO    shift, and go to state 211
-    CONSTRUCTOR  shift, and go to state 212
-    DESTRUCTOR   shift, and go to state 213
-    ESPECIFICO   shift, and go to state 214
-    FINAL        shift, and go to state 215
-    GENERICO     shift, and go to state 216
-
-    $default  reduce using rule 53 (modificador_opt)
-
-    modificador_opt  go to state 217
-
-
 state 167
 
-   43 tipo_estructurado: CLASE ultima_opt componentes . 'fin'
+   51 componentes: declaraciones_tipos .
 
-    'fin'  shift, and go to state 218
+    $default  reduce using rule 51 (componentes)
 
 
 state 168
 
-   50 componentes: declaracion_metodo .
-   52 declaracion_metodo: declaracion_metodo . visibilidad_opt modificador_opt firma_funcion cuerpo_funcion
+   55 declaracion_metodo: visibilidad_opt . modificador_opt firma_funcion cuerpo_funcion
+
+    ABSTRACTO    shift, and go to state 214
+    CONSTRUCTOR  shift, and go to state 215
+    DESTRUCTOR   shift, and go to state 216
+    ESPECIFICO   shift, and go to state 217
+    FINAL        shift, and go to state 218
+    GENERICO     shift, and go to state 219
+
+    $default  reduce using rule 57 (modificador_opt)
+
+    modificador_opt  go to state 220
+
+
+state 169
+
+   44 tipo_estructurado: CLASE ultima_opt componentes . 'fin'
+
+    'fin'  shift, and go to state 221
+
+
+state 170
+
+   54 componentes: declaracion_metodo .
+   56 declaracion_metodo: declaracion_metodo . visibilidad_opt modificador_opt firma_funcion cuerpo_funcion
 
     PRIVADO    shift, and go to state 13
     PROTEGIDO  shift, and go to state 14
     PUBLICO    shift, and go to state 15
 
-    'fin'     reduce using rule 50 (componentes)
+    'fin'     reduce using rule 54 (componentes)
     $default  reduce using rule 24 (visibilidad_opt)
 
-    visibilidad_opt  go to state 219
-
-
-state 169
-
-   48 componentes: declaraciones_constantes_opt .
-
-    $default  reduce using rule 48 (componentes)
-
-
-state 170
-
-   49 componentes: declaraciones_variables_opt .
-
-    $default  reduce using rule 49 (componentes)
+    visibilidad_opt  go to state 222
 
 
 state 171
+
+   52 componentes: declaraciones_constantes_opt .
+
+    $default  reduce using rule 52 (componentes)
+
+
+state 172
+
+   53 componentes: declaraciones_variables_opt .
+
+    $default  reduce using rule 53 (componentes)
+
+
+state 173
+
+   43 tipo_estructurado: ENUMERACION 'de' tipo_escalar . lista_elemento_num 'fin'
+
+    IDENTIFICADOR  shift, and go to state 223
+
+    lista_elemento_num  go to state 224
+    elemento_numerico   go to state 225
+
+
+state 174
 
    29 lista_ref: lista_ref . REF
    41 especificacion_tipo: lista_ref . tipo_basico
@@ -2390,926 +2423,735 @@ state 171
     CARACTER       shift, and go to state 56
     CLASE          shift, and go to state 57
     ENTERO         shift, and go to state 58
-    EXCEPCION      shift, and go to state 59
-    FICHERO        shift, and go to state 60
+    ENUMERACION    shift, and go to state 59
+    EXCEPCION      shift, and go to state 60
+    FICHERO        shift, and go to state 61
     IDENTIFICADOR  shift, and go to state 40
-    REAL           shift, and go to state 61
-    REF            shift, and go to state 62
-    TABLA          shift, and go to state 63
+    REAL           shift, and go to state 62
+    REF            shift, and go to state 63
+    TABLA          shift, and go to state 64
 
-    nombre             go to state 64
-    tipo_basico        go to state 220
-    tipo_escalar       go to state 66
-    tipo_tabla         go to state 67
-    tipo_estructurado  go to state 221
+    nombre             go to state 65
+    tipo_basico        go to state 226
+    tipo_escalar       go to state 67
+    tipo_tabla         go to state 68
+    tipo_estructurado  go to state 227
 
 
-state 172
+state 175
 
    39 tipo_tabla: TABLA DE especificacion_tipo .
 
     $default  reduce using rule 39 (tipo_tabla)
 
 
-state 173
+state 176
 
    40 tipo_tabla: TABLA HASH DE . especificacion_tipo
 
     $default  reduce using rule 28 (lista_ref)
 
-    lista_ref            go to state 171
-    especificacion_tipo  go to state 222
-
-
-state 174
-
-   68 constante: CTC_CADENA .
-
-    $default  reduce using rule 68 (constante)
-
-
-state 175
-
-   67 constante: CTC_CARACTER .
-
-    $default  reduce using rule 67 (constante)
-
-
-state 176
-
-   65 constante: CTC_ENTERA .
-
-    $default  reduce using rule 65 (constante)
+    lista_ref            go to state 174
+    especificacion_tipo  go to state 228
 
 
 state 177
 
-   66 constante: CTC_REAL .
+   72 constante: CTC_CADENA .
 
-    $default  reduce using rule 66 (constante)
+    $default  reduce using rule 72 (constante)
 
 
 state 178
 
-   71 constante_tabla: '(' . lista_campo_constante ')'
-   72                | '(' . lista_elemento_hash ')'
-   77 constante_estructurada: '(' . lista_campo_constante_una_o_mas ')'
+   71 constante: CTC_CARACTER .
 
-    CTC_CADENA     shift, and go to state 223
-    IDENTIFICADOR  shift, and go to state 224
-
-    CTC_CADENA     [reduce using rule 75 (lista_elemento_hash)]
-    IDENTIFICADOR  [reduce using rule 82 (lista_campo_constante)]
-    ')'            reduce using rule 75 (lista_elemento_hash)
-    ')'            [reduce using rule 82 (lista_campo_constante)]
-    $default       reduce using rule 75 (lista_elemento_hash)
-
-    lista_elemento_hash              go to state 225
-    elemento_hash                    go to state 226
-    lista_campo_constante_una_o_mas  go to state 227
-    lista_campo_constante            go to state 228
-    campo_constante                  go to state 229
+    $default  reduce using rule 71 (constante)
 
 
 state 179
 
-   63 lista_declaraciones_constantes: visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante . '.'
-
-    '.'  shift, and go to state 230
-
-
-state 180
-
-   69 constante: constante_tabla .
+   69 constante: CTC_ENTERA .
 
     $default  reduce using rule 69 (constante)
 
 
-state 181
+state 180
 
-   70 constante: constante_estructurada .
+   70 constante: CTC_REAL .
 
     $default  reduce using rule 70 (constante)
 
 
+state 181
+
+   75 constante_tabla: '(' . lista_campo_constante ')'
+   76                | '(' . lista_elemento_hash ')'
+   81 constante_estructurada: '(' . lista_campo_constante_una_o_mas ')'
+
+    CTC_CADENA     shift, and go to state 229
+    IDENTIFICADOR  shift, and go to state 230
+
+    CTC_CADENA     [reduce using rule 79 (lista_elemento_hash)]
+    IDENTIFICADOR  [reduce using rule 86 (lista_campo_constante)]
+    ')'            reduce using rule 79 (lista_elemento_hash)
+    ')'            [reduce using rule 86 (lista_campo_constante)]
+    $default       reduce using rule 79 (lista_elemento_hash)
+
+    lista_elemento_hash              go to state 231
+    elemento_hash                    go to state 232
+    lista_campo_constante_una_o_mas  go to state 233
+    lista_campo_constante            go to state 234
+    campo_constante                  go to state 235
+
+
 state 182
 
-   64 lista_declaraciones_constantes: lista_declaraciones_constantes visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG . constante '.'
+   67 lista_declaraciones_constantes: visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante . '.'
 
-    CTC_CADENA    shift, and go to state 174
-    CTC_CARACTER  shift, and go to state 175
-    CTC_ENTERA    shift, and go to state 176
-    CTC_REAL      shift, and go to state 177
-    '('           shift, and go to state 178
-
-    constante               go to state 231
-    constante_tabla         go to state 180
-    constante_estructurada  go to state 181
+    '.'  shift, and go to state 236
 
 
 state 183
 
-   95 tipo_salida: NADA .
+   73 constante: constante_tabla .
 
-    $default  reduce using rule 95 (tipo_salida)
+    $default  reduce using rule 73 (constante)
 
 
 state 184
 
-   94 tipo_salida: especificacion_tipo .
+   74 constante: constante_estructurada .
 
-    $default  reduce using rule 94 (tipo_salida)
+    $default  reduce using rule 74 (constante)
 
 
 state 185
 
-   93 firma_funcion: FUNCION IDENTIFICADOR FLECHA_DCHA tipo_salida .
+   68 lista_declaraciones_constantes: lista_declaraciones_constantes visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG . constante '.'
 
-    $default  reduce using rule 93 (firma_funcion)
+    CTC_CADENA    shift, and go to state 177
+    CTC_CARACTER  shift, and go to state 178
+    CTC_ENTERA    shift, and go to state 179
+    CTC_REAL      shift, and go to state 180
+    '('           shift, and go to state 181
+
+    constante               go to state 237
+    constante_tabla         go to state 183
+    constante_estructurada  go to state 184
 
 
 state 186
 
-  168 expresion_logica: expresion AND . expresion
+   99 tipo_salida: NADA .
 
-    error  shift, and go to state 121
-
-    expresion         go to state 232
-    expresion_logica  go to state 124
+    $default  reduce using rule 99 (tipo_salida)
 
 
 state 187
 
-  169 expresion_logica: expresion OR . expresion
+   98 tipo_salida: especificacion_tipo .
 
-    error  shift, and go to state 121
-
-    expresion         go to state 233
-    expresion_logica  go to state 124
+    $default  reduce using rule 98 (tipo_salida)
 
 
 state 188
 
-  143 instruccion_devolver: DEVOLVER expresion '.' .
+   97 firma_funcion: FUNCION IDENTIFICADOR FLECHA_DCHA tipo_salida .
 
-    $default  reduce using rule 143 (instruccion_devolver)
+    $default  reduce using rule 97 (firma_funcion)
 
 
 state 189
 
-  166 expresion: expresion_logica PARA . CADA IDENTIFICADOR EN expresion
+  172 expresion_logica: expresion AND . expresion
 
-    CADA  shift, and go to state 234
+    error  shift, and go to state 123
+
+    expresion         go to state 238
+    expresion_logica  go to state 126
 
 
 state 190
 
-  164 expresion: expresion_logica SI . expresion SINO expresion
+  173 expresion_logica: expresion OR . expresion
 
-    error  shift, and go to state 121
+    error  shift, and go to state 123
 
-    expresion         go to state 235
-    expresion_logica  go to state 124
+    expresion         go to state 239
+    expresion_logica  go to state 126
 
 
 state 191
 
-  142 instruccion_destino_salto: ETIQUETA IDENTIFICADOR '.' .
+  147 instruccion_devolver: DEVOLVER expresion '.' .
 
-    $default  reduce using rule 142 (instruccion_destino_salto)
+    $default  reduce using rule 147 (instruccion_devolver)
 
 
 state 192
 
-  134 instruccion_bucle: HACER bloque_instrucciones MIENTRAS . '(' expresion ')' '.'
+  170 expresion: expresion_logica PARA . CADA IDENTIFICADOR EN expresion
 
-    '('  shift, and go to state 236
+    CADA  shift, and go to state 240
 
 
 state 193
 
-   85 lista_expresion_cero_o_mas: lista_expresion_cero_o_mas . expresion
-  163 expresion_funcional: IDENTIFICADOR '(' lista_expresion_cero_o_mas . ')'
+  168 expresion: expresion_logica SI . expresion SINO expresion
 
-    error  shift, and go to state 121
-    ')'    shift, and go to state 237
+    error  shift, and go to state 123
 
-    expresion         go to state 238
-    expresion_logica  go to state 124
+    expresion         go to state 241
+    expresion_logica  go to state 126
 
 
 state 194
 
-   86 lista_expresion_cero_o_mas: expresion .
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
+  146 instruccion_destino_salto: ETIQUETA IDENTIFICADOR '.' .
 
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
-
-    $default  reduce using rule 86 (lista_expresion_cero_o_mas)
+    $default  reduce using rule 146 (instruccion_destino_salto)
 
 
 state 195
 
-  145 instruccion_lanzamiento_excepcion: LANZA EXCEPCION IDENTIFICADOR . '.'
+  138 instruccion_bucle: HACER bloque_instrucciones MIENTRAS . '(' expresion ')' '.'
 
-    '.'  shift, and go to state 239
+    '('  shift, and go to state 242
 
 
 state 196
 
-  133 instruccion_bucle: MIENTRAS '(' expresion . ')' bloque_instrucciones
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
+   89 lista_expresion_cero_o_mas: lista_expresion_cero_o_mas . expresion
+  167 expresion_funcional: IDENTIFICADOR '(' lista_expresion_cero_o_mas . ')'
 
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
-    ')'  shift, and go to state 240
+    error  shift, and go to state 123
+    ')'    shift, and go to state 243
+
+    expresion         go to state 244
+    expresion_logica  go to state 126
 
 
 state 197
 
-  136 instruccion_bucle: PARA CADA IDENTIFICADOR . EN '(' expresion ')' bloque_instrucciones
+   90 lista_expresion_cero_o_mas: expresion .
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
 
-    EN  shift, and go to state 241
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
+
+    $default  reduce using rule 90 (lista_expresion_cero_o_mas)
 
 
 state 198
 
-  138 lista_asignacion_una_o_mas: asignacion .
+  149 instruccion_lanzamiento_excepcion: LANZA EXCEPCION IDENTIFICADOR . '.'
 
-    $default  reduce using rule 138 (lista_asignacion_una_o_mas)
+    '.'  shift, and go to state 245
 
 
 state 199
 
-  135 instruccion_bucle: PARA '(' lista_asignacion_una_o_mas . ':' expresion ':' lista_asignacion_una_o_mas ')' bloque_instrucciones
-  137 lista_asignacion_una_o_mas: lista_asignacion_una_o_mas . asignacion
+  137 instruccion_bucle: MIENTRAS '(' expresion . ')' bloque_instrucciones
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
 
-    IDENTIFICADOR  shift, and go to state 40
-    REF            shift, and go to state 87
-    '('            shift, and go to state 90
-    ':'            shift, and go to state 242
-    '^'            shift, and go to state 91
-
-    nombre              go to state 92
-    asignacion          go to state 243
-    expresion_indexada  go to state 106
-    expresion_basica    go to state 107
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
+    ')'  shift, and go to state 246
 
 
 state 200
 
-  139 instruccion_salto: SALTAR IDENTIFICADOR '.' .
+  140 instruccion_bucle: PARA CADA IDENTIFICADOR . EN '(' expresion ')' bloque_instrucciones
 
-    $default  reduce using rule 139 (instruccion_salto)
+    EN  shift, and go to state 247
 
 
 state 201
 
-  128 instruccion_bifurcacion: SI '(' expresion . ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones
-  129                        | SI '(' expresion . ')' bloque_instrucciones lista_otro_caso
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
+  142 lista_asignacion_una_o_mas: asignacion .
 
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
-    ')'  shift, and go to state 244
+    $default  reduce using rule 142 (lista_asignacion_una_o_mas)
 
 
 state 202
 
-  158 expresion_basica: '(' expresion ')' .
+  139 instruccion_bucle: PARA '(' lista_asignacion_una_o_mas . ':' expresion ':' lista_asignacion_una_o_mas ')' bloque_instrucciones
+  141 lista_asignacion_una_o_mas: lista_asignacion_una_o_mas . asignacion
 
-    $default  reduce using rule 158 (expresion_basica)
+    IDENTIFICADOR  shift, and go to state 40
+    REF            shift, and go to state 88
+    '('            shift, and go to state 91
+    ':'            shift, and go to state 248
+    '^'            shift, and go to state 92
+
+    nombre              go to state 93
+    asignacion          go to state 249
+    expresion_indexada  go to state 107
+    expresion_basica    go to state 108
 
 
 state 203
 
-   14 nombre: nombre . PTOS IDENTIFICADOR
-  149 clausula_excepcion_especifica: EXCEPCION nombre . bloque_instrucciones
+  143 instruccion_salto: SALTAR IDENTIFICADOR '.' .
 
-    PRINCIPIO  shift, and go to state 48
-    PTOS       shift, and go to state 54
-
-    bloque_instrucciones  go to state 245
+    $default  reduce using rule 143 (instruccion_salto)
 
 
 state 204
 
-  150 clausula_excepcion_general: OTRA EXCEPCION . bloque_instrucciones
+  132 instruccion_bifurcacion: SI '(' expresion . ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones
+  133                        | SI '(' expresion . ')' bloque_instrucciones lista_otro_caso
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
 
-    PRINCIPIO  shift, and go to state 48
-
-    bloque_instrucciones  go to state 246
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
+    ')'  shift, and go to state 250
 
 
 state 205
 
-  154 expresion_indexada: expresion_indexada INDIRECCION expresion_basica .
+  162 expresion_basica: '(' expresion ')' .
 
-    $default  reduce using rule 154 (expresion_indexada)
+    $default  reduce using rule 162 (expresion_basica)
 
 
 state 206
 
-  155 expresion_indexada: expresion_indexada INDIRECCION indice .
+   14 nombre: nombre . PTOS IDENTIFICADOR
+  153 clausula_excepcion_especifica: EXCEPCION nombre . bloque_instrucciones
 
-    $default  reduce using rule 155 (expresion_indexada)
+    PRINCIPIO  shift, and go to state 48
+    PTOS       shift, and go to state 54
+
+    bloque_instrucciones  go to state 251
 
 
 state 207
 
-  153 expresion_indexada: expresion_indexada '?' expresion_basica .
+  154 clausula_excepcion_general: OTRA EXCEPCION . bloque_instrucciones
 
-    $default  reduce using rule 153 (expresion_indexada)
+    PRINCIPIO  shift, and go to state 48
+
+    bloque_instrucciones  go to state 252
 
 
 state 208
 
-  161 indice: '[' expresion . ']'
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
+  158 expresion_indexada: expresion_indexada INDIRECCION expresion_basica .
 
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
-    ']'  shift, and go to state 247
+    $default  reduce using rule 158 (expresion_indexada)
 
 
 state 209
 
-  162 indice: '{' expresion . '}'
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
+  159 expresion_indexada: expresion_indexada INDIRECCION indice .
 
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
-    '}'  shift, and go to state 248
+    $default  reduce using rule 159 (expresion_indexada)
 
 
 state 210
 
-  115 asignacion: expresion_indexada operador_asignacion expresion .
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
+  157 expresion_indexada: expresion_indexada '?' expresion_basica .
 
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
-
-    $default  reduce using rule 115 (asignacion)
+    $default  reduce using rule 157 (expresion_indexada)
 
 
 state 211
 
-   57 modificador_opt: ABSTRACTO .
+  165 indice: '[' expresion . ']'
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
 
-    $default  reduce using rule 57 (modificador_opt)
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
+    ']'  shift, and go to state 253
 
 
 state 212
 
-   54 modificador_opt: CONSTRUCTOR .
+  166 indice: '{' expresion . '}'
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
 
-    $default  reduce using rule 54 (modificador_opt)
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
+    '}'  shift, and go to state 254
 
 
 state 213
 
-   55 modificador_opt: DESTRUCTOR .
+  119 asignacion: expresion_indexada operador_asignacion expresion .
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
 
-    $default  reduce using rule 55 (modificador_opt)
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
+
+    $default  reduce using rule 119 (asignacion)
 
 
 state 214
 
-   58 modificador_opt: ESPECIFICO .
+   61 modificador_opt: ABSTRACTO .
 
-    $default  reduce using rule 58 (modificador_opt)
+    $default  reduce using rule 61 (modificador_opt)
 
 
 state 215
 
-   59 modificador_opt: FINAL .
+   58 modificador_opt: CONSTRUCTOR .
 
-    $default  reduce using rule 59 (modificador_opt)
+    $default  reduce using rule 58 (modificador_opt)
 
 
 state 216
 
-   56 modificador_opt: GENERICO .
+   59 modificador_opt: DESTRUCTOR .
 
-    $default  reduce using rule 56 (modificador_opt)
+    $default  reduce using rule 59 (modificador_opt)
 
 
 state 217
 
-   51 declaracion_metodo: visibilidad_opt modificador_opt . firma_funcion cuerpo_funcion
+   62 modificador_opt: ESPECIFICO .
 
-    FUNCION  shift, and go to state 46
-
-    firma_funcion  go to state 249
+    $default  reduce using rule 62 (modificador_opt)
 
 
 state 218
 
-   43 tipo_estructurado: CLASE ultima_opt componentes 'fin' .
+   63 modificador_opt: FINAL .
 
-    $default  reduce using rule 43 (tipo_estructurado)
+    $default  reduce using rule 63 (modificador_opt)
 
 
 state 219
 
-   52 declaracion_metodo: declaracion_metodo visibilidad_opt . modificador_opt firma_funcion cuerpo_funcion
+   60 modificador_opt: GENERICO .
 
-    ABSTRACTO    shift, and go to state 211
-    CONSTRUCTOR  shift, and go to state 212
-    DESTRUCTOR   shift, and go to state 213
-    ESPECIFICO   shift, and go to state 214
-    FINAL        shift, and go to state 215
-    GENERICO     shift, and go to state 216
-
-    $default  reduce using rule 53 (modificador_opt)
-
-    modificador_opt  go to state 250
+    $default  reduce using rule 60 (modificador_opt)
 
 
 state 220
+
+   55 declaracion_metodo: visibilidad_opt modificador_opt . firma_funcion cuerpo_funcion
+
+    FUNCION  shift, and go to state 46
+
+    firma_funcion  go to state 255
+
+
+state 221
+
+   44 tipo_estructurado: CLASE ultima_opt componentes 'fin' .
+
+    $default  reduce using rule 44 (tipo_estructurado)
+
+
+state 222
+
+   56 declaracion_metodo: declaracion_metodo visibilidad_opt . modificador_opt firma_funcion cuerpo_funcion
+
+    ABSTRACTO    shift, and go to state 214
+    CONSTRUCTOR  shift, and go to state 215
+    DESTRUCTOR   shift, and go to state 216
+    ESPECIFICO   shift, and go to state 217
+    FINAL        shift, and go to state 218
+    GENERICO     shift, and go to state 219
+
+    $default  reduce using rule 57 (modificador_opt)
+
+    modificador_opt  go to state 256
+
+
+state 223
+
+   49 elemento_numerico: IDENTIFICADOR . ASIG expresion
+
+    ASIG  shift, and go to state 257
+
+
+state 224
+
+   43 tipo_estructurado: ENUMERACION 'de' tipo_escalar lista_elemento_num . 'fin'
+
+    'fin'  shift, and go to state 258
+
+
+state 225
+
+   47 lista_elemento_num: elemento_numerico . lista_elemento_num
+   48                   | elemento_numerico .
+
+    IDENTIFICADOR  shift, and go to state 223
+
+    $default  reduce using rule 48 (lista_elemento_num)
+
+    lista_elemento_num  go to state 259
+    elemento_numerico   go to state 225
+
+
+state 226
 
    41 especificacion_tipo: lista_ref tipo_basico .
 
     $default  reduce using rule 41 (especificacion_tipo)
 
 
-state 221
+state 227
 
    42 especificacion_tipo: lista_ref tipo_estructurado .
 
     $default  reduce using rule 42 (especificacion_tipo)
 
 
-state 222
+state 228
 
    40 tipo_tabla: TABLA HASH DE especificacion_tipo .
 
     $default  reduce using rule 40 (tipo_tabla)
 
 
-state 223
-
-   76 elemento_hash: CTC_CADENA . FLECHA_DCHA constante
-
-    FLECHA_DCHA  shift, and go to state 251
-
-
-state 224
-
-   83 campo_constante: IDENTIFICADOR . ASIG constante
-
-    ASIG  shift, and go to state 252
-
-
-state 225
-
-   72 constante_tabla: '(' lista_elemento_hash . ')'
-   73 lista_elemento_hash: lista_elemento_hash . elemento_hash
-
-    CTC_CADENA  shift, and go to state 223
-    ')'         shift, and go to state 253
-
-    elemento_hash  go to state 254
-
-
-state 226
-
-   74 lista_elemento_hash: elemento_hash .
-
-    $default  reduce using rule 74 (lista_elemento_hash)
-
-
-state 227
-
-   77 constante_estructurada: '(' lista_campo_constante_una_o_mas . ')'
-   78 lista_campo_constante_una_o_mas: lista_campo_constante_una_o_mas . campo_constante
-
-    IDENTIFICADOR  shift, and go to state 224
-    ')'            shift, and go to state 255
-
-    campo_constante  go to state 256
-
-
-state 228
-
-   71 constante_tabla: '(' lista_campo_constante . ')'
-   80 lista_campo_constante: lista_campo_constante . campo_constante
-
-    IDENTIFICADOR  shift, and go to state 224
-    ')'            shift, and go to state 257
-
-    campo_constante  go to state 258
-
-
 state 229
 
-   79 lista_campo_constante_una_o_mas: campo_constante .
-   81 lista_campo_constante: campo_constante .
+   80 elemento_hash: CTC_CADENA . FLECHA_DCHA constante
 
-    IDENTIFICADOR  reduce using rule 79 (lista_campo_constante_una_o_mas)
-    IDENTIFICADOR  [reduce using rule 81 (lista_campo_constante)]
-    ')'            reduce using rule 79 (lista_campo_constante_una_o_mas)
-    ')'            [reduce using rule 81 (lista_campo_constante)]
-    $default       reduce using rule 79 (lista_campo_constante_una_o_mas)
+    FLECHA_DCHA  shift, and go to state 260
 
 
 state 230
 
-   63 lista_declaraciones_constantes: visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.' .
+   87 campo_constante: IDENTIFICADOR . ASIG constante
 
-    $default  reduce using rule 63 (lista_declaraciones_constantes)
+    ASIG  shift, and go to state 261
 
 
 state 231
 
-   64 lista_declaraciones_constantes: lista_declaraciones_constantes visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante . '.'
+   76 constante_tabla: '(' lista_elemento_hash . ')'
+   77 lista_elemento_hash: lista_elemento_hash . elemento_hash
 
-    '.'  shift, and go to state 259
+    CTC_CADENA  shift, and go to state 229
+    ')'         shift, and go to state 262
+
+    elemento_hash  go to state 263
 
 
 state 232
 
-  168 expresion_logica: expresion . AND expresion
-  168                 | expresion AND expresion .
-  169                 | expresion . OR expresion
+   78 lista_elemento_hash: elemento_hash .
 
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
-
-    AND       [reduce using rule 168 (expresion_logica)]
-    OR        [reduce using rule 168 (expresion_logica)]
-    $default  reduce using rule 168 (expresion_logica)
+    $default  reduce using rule 78 (lista_elemento_hash)
 
 
 state 233
 
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
-  169                 | expresion OR expresion .
+   81 constante_estructurada: '(' lista_campo_constante_una_o_mas . ')'
+   82 lista_campo_constante_una_o_mas: lista_campo_constante_una_o_mas . campo_constante
 
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
+    IDENTIFICADOR  shift, and go to state 230
+    ')'            shift, and go to state 264
 
-    AND       [reduce using rule 169 (expresion_logica)]
-    OR        [reduce using rule 169 (expresion_logica)]
-    $default  reduce using rule 169 (expresion_logica)
+    campo_constante  go to state 265
 
 
 state 234
 
-  166 expresion: expresion_logica PARA CADA . IDENTIFICADOR EN expresion
+   75 constante_tabla: '(' lista_campo_constante . ')'
+   84 lista_campo_constante: lista_campo_constante . campo_constante
 
-    IDENTIFICADOR  shift, and go to state 260
+    IDENTIFICADOR  shift, and go to state 230
+    ')'            shift, and go to state 266
+
+    campo_constante  go to state 267
 
 
 state 235
 
-  164 expresion: expresion_logica SI expresion . SINO expresion
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
+   83 lista_campo_constante_una_o_mas: campo_constante .
+   85 lista_campo_constante: campo_constante .
 
-    AND   shift, and go to state 186
-    OR    shift, and go to state 187
-    SINO  shift, and go to state 261
+    IDENTIFICADOR  reduce using rule 83 (lista_campo_constante_una_o_mas)
+    IDENTIFICADOR  [reduce using rule 85 (lista_campo_constante)]
+    ')'            reduce using rule 83 (lista_campo_constante_una_o_mas)
+    ')'            [reduce using rule 85 (lista_campo_constante)]
+    $default       reduce using rule 83 (lista_campo_constante_una_o_mas)
 
 
 state 236
 
-  134 instruccion_bucle: HACER bloque_instrucciones MIENTRAS '(' . expresion ')' '.'
+   67 lista_declaraciones_constantes: visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.' .
 
-    error  shift, and go to state 121
-
-    expresion         go to state 262
-    expresion_logica  go to state 124
+    $default  reduce using rule 67 (lista_declaraciones_constantes)
 
 
 state 237
 
-  163 expresion_funcional: IDENTIFICADOR '(' lista_expresion_cero_o_mas ')' .
+   68 lista_declaraciones_constantes: lista_declaraciones_constantes visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante . '.'
 
-    $default  reduce using rule 163 (expresion_funcional)
+    '.'  shift, and go to state 268
 
 
 state 238
 
-   85 lista_expresion_cero_o_mas: lista_expresion_cero_o_mas expresion .
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
+  172 expresion_logica: expresion . AND expresion
+  172                 | expresion AND expresion .
+  173                 | expresion . OR expresion
 
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
 
-    $default  reduce using rule 85 (lista_expresion_cero_o_mas)
+    AND       [reduce using rule 172 (expresion_logica)]
+    OR        [reduce using rule 172 (expresion_logica)]
+    $default  reduce using rule 172 (expresion_logica)
 
 
 state 239
 
-  145 instruccion_lanzamiento_excepcion: LANZA EXCEPCION IDENTIFICADOR '.' .
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
+  173                 | expresion OR expresion .
 
-    $default  reduce using rule 145 (instruccion_lanzamiento_excepcion)
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
+
+    AND       [reduce using rule 173 (expresion_logica)]
+    OR        [reduce using rule 173 (expresion_logica)]
+    $default  reduce using rule 173 (expresion_logica)
 
 
 state 240
 
-  133 instruccion_bucle: MIENTRAS '(' expresion ')' . bloque_instrucciones
+  170 expresion: expresion_logica PARA CADA . IDENTIFICADOR EN expresion
 
-    PRINCIPIO  shift, and go to state 48
-
-    bloque_instrucciones  go to state 263
+    IDENTIFICADOR  shift, and go to state 269
 
 
 state 241
 
-  136 instruccion_bucle: PARA CADA IDENTIFICADOR EN . '(' expresion ')' bloque_instrucciones
+  168 expresion: expresion_logica SI expresion . SINO expresion
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
 
-    '('  shift, and go to state 264
+    AND   shift, and go to state 189
+    OR    shift, and go to state 190
+    SINO  shift, and go to state 270
 
 
 state 242
 
-  135 instruccion_bucle: PARA '(' lista_asignacion_una_o_mas ':' . expresion ':' lista_asignacion_una_o_mas ')' bloque_instrucciones
+  138 instruccion_bucle: HACER bloque_instrucciones MIENTRAS '(' . expresion ')' '.'
 
-    error  shift, and go to state 121
+    error  shift, and go to state 123
 
-    expresion         go to state 265
-    expresion_logica  go to state 124
+    expresion         go to state 271
+    expresion_logica  go to state 126
 
 
 state 243
 
-  137 lista_asignacion_una_o_mas: lista_asignacion_una_o_mas asignacion .
+  167 expresion_funcional: IDENTIFICADOR '(' lista_expresion_cero_o_mas ')' .
 
-    $default  reduce using rule 137 (lista_asignacion_una_o_mas)
+    $default  reduce using rule 167 (expresion_funcional)
 
 
 state 244
 
-  128 instruccion_bifurcacion: SI '(' expresion ')' . bloque_instrucciones lista_otro_caso SINO bloque_instrucciones
-  129                        | SI '(' expresion ')' . bloque_instrucciones lista_otro_caso
+   89 lista_expresion_cero_o_mas: lista_expresion_cero_o_mas expresion .
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
 
-    PRINCIPIO  shift, and go to state 48
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
 
-    bloque_instrucciones  go to state 266
+    $default  reduce using rule 89 (lista_expresion_cero_o_mas)
 
 
 state 245
 
-  149 clausula_excepcion_especifica: EXCEPCION nombre bloque_instrucciones .
+  149 instruccion_lanzamiento_excepcion: LANZA EXCEPCION IDENTIFICADOR '.' .
 
-    $default  reduce using rule 149 (clausula_excepcion_especifica)
+    $default  reduce using rule 149 (instruccion_lanzamiento_excepcion)
 
 
 state 246
 
-  150 clausula_excepcion_general: OTRA EXCEPCION bloque_instrucciones .
+  137 instruccion_bucle: MIENTRAS '(' expresion ')' . bloque_instrucciones
 
-    $default  reduce using rule 150 (clausula_excepcion_general)
+    PRINCIPIO  shift, and go to state 48
+
+    bloque_instrucciones  go to state 272
 
 
 state 247
 
-  161 indice: '[' expresion ']' .
+  140 instruccion_bucle: PARA CADA IDENTIFICADOR EN . '(' expresion ')' bloque_instrucciones
 
-    $default  reduce using rule 161 (indice)
+    '('  shift, and go to state 273
 
 
 state 248
 
-  162 indice: '{' expresion '}' .
+  139 instruccion_bucle: PARA '(' lista_asignacion_una_o_mas ':' . expresion ':' lista_asignacion_una_o_mas ')' bloque_instrucciones
 
-    $default  reduce using rule 162 (indice)
+    error  shift, and go to state 123
+
+    expresion         go to state 274
+    expresion_logica  go to state 126
 
 
 state 249
 
-   51 declaracion_metodo: visibilidad_opt modificador_opt firma_funcion . cuerpo_funcion
+  141 lista_asignacion_una_o_mas: lista_asignacion_una_o_mas asignacion .
 
-    error       shift, and go to state 36
-    CONSTANTES  shift, and go to state 19
-    PRINCIPIO   shift, and go to state 48
-    PRIVADO     shift, and go to state 13
-    PROTEGIDO   shift, and go to state 14
-    PUBLICO     shift, and go to state 15
-
-    ABSTRACTO    reduce using rule 60 (declaraciones_constantes_opt)
-    ABSTRACTO    [reduce using rule 84 (declaraciones_variables_opt)]
-    ABSTRACTO    [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    CONSTRUCTOR  reduce using rule 60 (declaraciones_constantes_opt)
-    CONSTRUCTOR  [reduce using rule 84 (declaraciones_variables_opt)]
-    CONSTRUCTOR  [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    DESTRUCTOR   reduce using rule 60 (declaraciones_constantes_opt)
-    DESTRUCTOR   [reduce using rule 84 (declaraciones_variables_opt)]
-    DESTRUCTOR   [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    ESPECIFICO   reduce using rule 60 (declaraciones_constantes_opt)
-    ESPECIFICO   [reduce using rule 84 (declaraciones_variables_opt)]
-    ESPECIFICO   [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    FINAL        reduce using rule 60 (declaraciones_constantes_opt)
-    FINAL        [reduce using rule 84 (declaraciones_variables_opt)]
-    FINAL        [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    FUNCION      reduce using rule 24 (visibilidad_opt)
-    FUNCION      [reduce using rule 60 (declaraciones_constantes_opt)]
-    FUNCION      [reduce using rule 84 (declaraciones_variables_opt)]
-    FUNCION      [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    GENERICO     reduce using rule 60 (declaraciones_constantes_opt)
-    GENERICO     [reduce using rule 84 (declaraciones_variables_opt)]
-    GENERICO     [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    PRIVADO      [reduce using rule 60 (declaraciones_constantes_opt)]
-    PRIVADO      [reduce using rule 84 (declaraciones_variables_opt)]
-    PRIVADO      [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    PROTEGIDO    [reduce using rule 60 (declaraciones_constantes_opt)]
-    PROTEGIDO    [reduce using rule 84 (declaraciones_variables_opt)]
-    PROTEGIDO    [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    PUBLICO      [reduce using rule 60 (declaraciones_constantes_opt)]
-    PUBLICO      [reduce using rule 84 (declaraciones_variables_opt)]
-    PUBLICO      [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    'fin'        reduce using rule 60 (declaraciones_constantes_opt)
-    'fin'        [reduce using rule 84 (declaraciones_variables_opt)]
-    'fin'        [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-
-    visibilidad_opt                       go to state 37
-    declaraciones_constantes_opt          go to state 72
-    declaraciones_constantes              go to state 21
-    declaraciones_variables_opt           go to state 73
-    lista_declaracion_funcion_cero_o_mas  go to state 74
-    declaracion_funcion                   go to state 39
-    cuerpo_funcion                        go to state 267
-    bloque_instrucciones                  go to state 76
+    $default  reduce using rule 141 (lista_asignacion_una_o_mas)
 
 
 state 250
 
-   52 declaracion_metodo: declaracion_metodo visibilidad_opt modificador_opt . firma_funcion cuerpo_funcion
+  132 instruccion_bifurcacion: SI '(' expresion ')' . bloque_instrucciones lista_otro_caso SINO bloque_instrucciones
+  133                        | SI '(' expresion ')' . bloque_instrucciones lista_otro_caso
 
-    FUNCION  shift, and go to state 46
+    PRINCIPIO  shift, and go to state 48
 
-    firma_funcion  go to state 268
+    bloque_instrucciones  go to state 275
 
 
 state 251
 
-   76 elemento_hash: CTC_CADENA FLECHA_DCHA . constante
+  153 clausula_excepcion_especifica: EXCEPCION nombre bloque_instrucciones .
 
-    CTC_CADENA    shift, and go to state 174
-    CTC_CARACTER  shift, and go to state 175
-    CTC_ENTERA    shift, and go to state 176
-    CTC_REAL      shift, and go to state 177
-    '('           shift, and go to state 178
-
-    constante               go to state 269
-    constante_tabla         go to state 180
-    constante_estructurada  go to state 181
+    $default  reduce using rule 153 (clausula_excepcion_especifica)
 
 
 state 252
 
-   83 campo_constante: IDENTIFICADOR ASIG . constante
+  154 clausula_excepcion_general: OTRA EXCEPCION bloque_instrucciones .
 
-    CTC_CADENA    shift, and go to state 174
-    CTC_CARACTER  shift, and go to state 175
-    CTC_ENTERA    shift, and go to state 176
-    CTC_REAL      shift, and go to state 177
-    '('           shift, and go to state 178
-
-    constante               go to state 270
-    constante_tabla         go to state 180
-    constante_estructurada  go to state 181
+    $default  reduce using rule 154 (clausula_excepcion_general)
 
 
 state 253
 
-   72 constante_tabla: '(' lista_elemento_hash ')' .
+  165 indice: '[' expresion ']' .
 
-    $default  reduce using rule 72 (constante_tabla)
+    $default  reduce using rule 165 (indice)
 
 
 state 254
 
-   73 lista_elemento_hash: lista_elemento_hash elemento_hash .
+  166 indice: '{' expresion '}' .
 
-    $default  reduce using rule 73 (lista_elemento_hash)
+    $default  reduce using rule 166 (indice)
 
 
 state 255
 
-   77 constante_estructurada: '(' lista_campo_constante_una_o_mas ')' .
-
-    $default  reduce using rule 77 (constante_estructurada)
-
-
-state 256
-
-   78 lista_campo_constante_una_o_mas: lista_campo_constante_una_o_mas campo_constante .
-
-    $default  reduce using rule 78 (lista_campo_constante_una_o_mas)
-
-
-state 257
-
-   71 constante_tabla: '(' lista_campo_constante ')' .
-
-    $default  reduce using rule 71 (constante_tabla)
-
-
-state 258
-
-   80 lista_campo_constante: lista_campo_constante campo_constante .
-
-    $default  reduce using rule 80 (lista_campo_constante)
-
-
-state 259
-
-   64 lista_declaraciones_constantes: lista_declaraciones_constantes visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.' .
-
-    $default  reduce using rule 64 (lista_declaraciones_constantes)
-
-
-state 260
-
-  166 expresion: expresion_logica PARA CADA IDENTIFICADOR . EN expresion
-
-    EN  shift, and go to state 271
-
-
-state 261
-
-  164 expresion: expresion_logica SI expresion SINO . expresion
-
-    error  shift, and go to state 121
-
-    expresion         go to state 272
-    expresion_logica  go to state 124
-
-
-state 262
-
-  134 instruccion_bucle: HACER bloque_instrucciones MIENTRAS '(' expresion . ')' '.'
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
-
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
-    ')'  shift, and go to state 273
-
-
-state 263
-
-  133 instruccion_bucle: MIENTRAS '(' expresion ')' bloque_instrucciones .
-
-    $default  reduce using rule 133 (instruccion_bucle)
-
-
-state 264
-
-  136 instruccion_bucle: PARA CADA IDENTIFICADOR EN '(' . expresion ')' bloque_instrucciones
-
-    error  shift, and go to state 121
-
-    expresion         go to state 274
-    expresion_logica  go to state 124
-
-
-state 265
-
-  135 instruccion_bucle: PARA '(' lista_asignacion_una_o_mas ':' expresion . ':' lista_asignacion_una_o_mas ')' bloque_instrucciones
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
-
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
-    ':'  shift, and go to state 275
-
-
-state 266
-
-  128 instruccion_bifurcacion: SI '(' expresion ')' bloque_instrucciones . lista_otro_caso SINO bloque_instrucciones
-  129                        | SI '(' expresion ')' bloque_instrucciones . lista_otro_caso
-
-    ENCAMBIO  shift, and go to state 276
-
-    $default  reduce using rule 132 (lista_otro_caso)
-
-    lista_otro_caso  go to state 277
-
-
-state 267
-
-   51 declaracion_metodo: visibilidad_opt modificador_opt firma_funcion cuerpo_funcion .
-
-    $default  reduce using rule 51 (declaracion_metodo)
-
-
-state 268
-
-   52 declaracion_metodo: declaracion_metodo visibilidad_opt modificador_opt firma_funcion . cuerpo_funcion
+   55 declaracion_metodo: visibilidad_opt modificador_opt firma_funcion . cuerpo_funcion
 
     error       shift, and go to state 36
     CONSTANTES  shift, and go to state 19
@@ -3318,319 +3160,574 @@ state 268
     PROTEGIDO   shift, and go to state 14
     PUBLICO     shift, and go to state 15
 
-    ABSTRACTO    reduce using rule 60 (declaraciones_constantes_opt)
-    ABSTRACTO    [reduce using rule 84 (declaraciones_variables_opt)]
-    ABSTRACTO    [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    CONSTRUCTOR  reduce using rule 60 (declaraciones_constantes_opt)
-    CONSTRUCTOR  [reduce using rule 84 (declaraciones_variables_opt)]
-    CONSTRUCTOR  [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    DESTRUCTOR   reduce using rule 60 (declaraciones_constantes_opt)
-    DESTRUCTOR   [reduce using rule 84 (declaraciones_variables_opt)]
-    DESTRUCTOR   [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    ESPECIFICO   reduce using rule 60 (declaraciones_constantes_opt)
-    ESPECIFICO   [reduce using rule 84 (declaraciones_variables_opt)]
-    ESPECIFICO   [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    FINAL        reduce using rule 60 (declaraciones_constantes_opt)
-    FINAL        [reduce using rule 84 (declaraciones_variables_opt)]
-    FINAL        [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
+    ABSTRACTO    reduce using rule 64 (declaraciones_constantes_opt)
+    ABSTRACTO    [reduce using rule 88 (declaraciones_variables_opt)]
+    ABSTRACTO    [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    CONSTRUCTOR  reduce using rule 64 (declaraciones_constantes_opt)
+    CONSTRUCTOR  [reduce using rule 88 (declaraciones_variables_opt)]
+    CONSTRUCTOR  [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    DESTRUCTOR   reduce using rule 64 (declaraciones_constantes_opt)
+    DESTRUCTOR   [reduce using rule 88 (declaraciones_variables_opt)]
+    DESTRUCTOR   [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    ESPECIFICO   reduce using rule 64 (declaraciones_constantes_opt)
+    ESPECIFICO   [reduce using rule 88 (declaraciones_variables_opt)]
+    ESPECIFICO   [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    FINAL        reduce using rule 64 (declaraciones_constantes_opt)
+    FINAL        [reduce using rule 88 (declaraciones_variables_opt)]
+    FINAL        [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
     FUNCION      reduce using rule 24 (visibilidad_opt)
-    FUNCION      [reduce using rule 60 (declaraciones_constantes_opt)]
-    FUNCION      [reduce using rule 84 (declaraciones_variables_opt)]
-    FUNCION      [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    GENERICO     reduce using rule 60 (declaraciones_constantes_opt)
-    GENERICO     [reduce using rule 84 (declaraciones_variables_opt)]
-    GENERICO     [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    PRIVADO      [reduce using rule 60 (declaraciones_constantes_opt)]
-    PRIVADO      [reduce using rule 84 (declaraciones_variables_opt)]
-    PRIVADO      [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    PROTEGIDO    [reduce using rule 60 (declaraciones_constantes_opt)]
-    PROTEGIDO    [reduce using rule 84 (declaraciones_variables_opt)]
-    PROTEGIDO    [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    PUBLICO      [reduce using rule 60 (declaraciones_constantes_opt)]
-    PUBLICO      [reduce using rule 84 (declaraciones_variables_opt)]
-    PUBLICO      [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
-    'fin'        reduce using rule 60 (declaraciones_constantes_opt)
-    'fin'        [reduce using rule 84 (declaraciones_variables_opt)]
-    'fin'        [reduce using rule 90 (lista_declaracion_funcion_cero_o_mas)]
+    FUNCION      [reduce using rule 64 (declaraciones_constantes_opt)]
+    FUNCION      [reduce using rule 88 (declaraciones_variables_opt)]
+    FUNCION      [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    GENERICO     reduce using rule 64 (declaraciones_constantes_opt)
+    GENERICO     [reduce using rule 88 (declaraciones_variables_opt)]
+    GENERICO     [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    PRIVADO      [reduce using rule 64 (declaraciones_constantes_opt)]
+    PRIVADO      [reduce using rule 88 (declaraciones_variables_opt)]
+    PRIVADO      [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    PROTEGIDO    [reduce using rule 64 (declaraciones_constantes_opt)]
+    PROTEGIDO    [reduce using rule 88 (declaraciones_variables_opt)]
+    PROTEGIDO    [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    PUBLICO      [reduce using rule 64 (declaraciones_constantes_opt)]
+    PUBLICO      [reduce using rule 88 (declaraciones_variables_opt)]
+    PUBLICO      [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    'fin'        reduce using rule 64 (declaraciones_constantes_opt)
+    'fin'        [reduce using rule 88 (declaraciones_variables_opt)]
+    'fin'        [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
 
     visibilidad_opt                       go to state 37
-    declaraciones_constantes_opt          go to state 72
+    declaraciones_constantes_opt          go to state 73
     declaraciones_constantes              go to state 21
-    declaraciones_variables_opt           go to state 73
-    lista_declaracion_funcion_cero_o_mas  go to state 74
+    declaraciones_variables_opt           go to state 74
+    lista_declaracion_funcion_cero_o_mas  go to state 75
     declaracion_funcion                   go to state 39
-    cuerpo_funcion                        go to state 278
-    bloque_instrucciones                  go to state 76
+    cuerpo_funcion                        go to state 276
+    bloque_instrucciones                  go to state 77
+
+
+state 256
+
+   56 declaracion_metodo: declaracion_metodo visibilidad_opt modificador_opt . firma_funcion cuerpo_funcion
+
+    FUNCION  shift, and go to state 46
+
+    firma_funcion  go to state 277
+
+
+state 257
+
+   49 elemento_numerico: IDENTIFICADOR ASIG . expresion
+
+    error  shift, and go to state 123
+
+    expresion         go to state 278
+    expresion_logica  go to state 126
+
+
+state 258
+
+   43 tipo_estructurado: ENUMERACION 'de' tipo_escalar lista_elemento_num 'fin' .
+
+    $default  reduce using rule 43 (tipo_estructurado)
+
+
+state 259
+
+   47 lista_elemento_num: elemento_numerico lista_elemento_num .
+
+    $default  reduce using rule 47 (lista_elemento_num)
+
+
+state 260
+
+   80 elemento_hash: CTC_CADENA FLECHA_DCHA . constante
+
+    CTC_CADENA    shift, and go to state 177
+    CTC_CARACTER  shift, and go to state 178
+    CTC_ENTERA    shift, and go to state 179
+    CTC_REAL      shift, and go to state 180
+    '('           shift, and go to state 181
+
+    constante               go to state 279
+    constante_tabla         go to state 183
+    constante_estructurada  go to state 184
+
+
+state 261
+
+   87 campo_constante: IDENTIFICADOR ASIG . constante
+
+    CTC_CADENA    shift, and go to state 177
+    CTC_CARACTER  shift, and go to state 178
+    CTC_ENTERA    shift, and go to state 179
+    CTC_REAL      shift, and go to state 180
+    '('           shift, and go to state 181
+
+    constante               go to state 280
+    constante_tabla         go to state 183
+    constante_estructurada  go to state 184
+
+
+state 262
+
+   76 constante_tabla: '(' lista_elemento_hash ')' .
+
+    $default  reduce using rule 76 (constante_tabla)
+
+
+state 263
+
+   77 lista_elemento_hash: lista_elemento_hash elemento_hash .
+
+    $default  reduce using rule 77 (lista_elemento_hash)
+
+
+state 264
+
+   81 constante_estructurada: '(' lista_campo_constante_una_o_mas ')' .
+
+    $default  reduce using rule 81 (constante_estructurada)
+
+
+state 265
+
+   82 lista_campo_constante_una_o_mas: lista_campo_constante_una_o_mas campo_constante .
+
+    $default  reduce using rule 82 (lista_campo_constante_una_o_mas)
+
+
+state 266
+
+   75 constante_tabla: '(' lista_campo_constante ')' .
+
+    $default  reduce using rule 75 (constante_tabla)
+
+
+state 267
+
+   84 lista_campo_constante: lista_campo_constante campo_constante .
+
+    $default  reduce using rule 84 (lista_campo_constante)
+
+
+state 268
+
+   68 lista_declaraciones_constantes: lista_declaraciones_constantes visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.' .
+
+    $default  reduce using rule 68 (lista_declaraciones_constantes)
 
 
 state 269
 
-   76 elemento_hash: CTC_CADENA FLECHA_DCHA constante .
+  170 expresion: expresion_logica PARA CADA IDENTIFICADOR . EN expresion
 
-    $default  reduce using rule 76 (elemento_hash)
+    EN  shift, and go to state 281
 
 
 state 270
 
-   83 campo_constante: IDENTIFICADOR ASIG constante .
+  168 expresion: expresion_logica SI expresion SINO . expresion
 
-    $default  reduce using rule 83 (campo_constante)
+    error  shift, and go to state 123
+
+    expresion         go to state 282
+    expresion_logica  go to state 126
 
 
 state 271
 
-  166 expresion: expresion_logica PARA CADA IDENTIFICADOR EN . expresion
+  138 instruccion_bucle: HACER bloque_instrucciones MIENTRAS '(' expresion . ')' '.'
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
 
-    error  shift, and go to state 121
-
-    expresion         go to state 279
-    expresion_logica  go to state 124
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
+    ')'  shift, and go to state 283
 
 
 state 272
 
-  164 expresion: expresion_logica SI expresion SINO expresion .
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
+  137 instruccion_bucle: MIENTRAS '(' expresion ')' bloque_instrucciones .
 
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
-
-    AND       [reduce using rule 164 (expresion)]
-    OR        [reduce using rule 164 (expresion)]
-    $default  reduce using rule 164 (expresion)
+    $default  reduce using rule 137 (instruccion_bucle)
 
 
 state 273
 
-  134 instruccion_bucle: HACER bloque_instrucciones MIENTRAS '(' expresion ')' . '.'
+  140 instruccion_bucle: PARA CADA IDENTIFICADOR EN '(' . expresion ')' bloque_instrucciones
 
-    '.'  shift, and go to state 280
+    error  shift, and go to state 123
+
+    expresion         go to state 284
+    expresion_logica  go to state 126
 
 
 state 274
 
-  136 instruccion_bucle: PARA CADA IDENTIFICADOR EN '(' expresion . ')' bloque_instrucciones
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
+  139 instruccion_bucle: PARA '(' lista_asignacion_una_o_mas ':' expresion . ':' lista_asignacion_una_o_mas ')' bloque_instrucciones
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
 
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
-    ')'  shift, and go to state 281
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
+    ':'  shift, and go to state 285
 
 
 state 275
 
-  135 instruccion_bucle: PARA '(' lista_asignacion_una_o_mas ':' expresion ':' . lista_asignacion_una_o_mas ')' bloque_instrucciones
+  132 instruccion_bifurcacion: SI '(' expresion ')' bloque_instrucciones . lista_otro_caso SINO bloque_instrucciones
+  133                        | SI '(' expresion ')' bloque_instrucciones . lista_otro_caso
 
-    IDENTIFICADOR  shift, and go to state 40
-    REF            shift, and go to state 87
-    '('            shift, and go to state 90
-    '^'            shift, and go to state 91
+    ENCAMBIO  shift, and go to state 286
 
-    nombre                      go to state 92
-    asignacion                  go to state 198
-    lista_asignacion_una_o_mas  go to state 282
-    expresion_indexada          go to state 106
-    expresion_basica            go to state 107
+    $default  reduce using rule 136 (lista_otro_caso)
+
+    lista_otro_caso  go to state 287
 
 
 state 276
 
-  130 lista_otro_caso: ENCAMBIO . '(' expresion ')' bloque_instrucciones
-  131                | ENCAMBIO . '(' expresion ')' bloque_instrucciones lista_otro_caso
+   55 declaracion_metodo: visibilidad_opt modificador_opt firma_funcion cuerpo_funcion .
 
-    '('  shift, and go to state 283
+    $default  reduce using rule 55 (declaracion_metodo)
 
 
 state 277
 
-  128 instruccion_bifurcacion: SI '(' expresion ')' bloque_instrucciones lista_otro_caso . SINO bloque_instrucciones
-  129                        | SI '(' expresion ')' bloque_instrucciones lista_otro_caso .
+   56 declaracion_metodo: declaracion_metodo visibilidad_opt modificador_opt firma_funcion . cuerpo_funcion
 
-    SINO  shift, and go to state 284
+    error       shift, and go to state 36
+    CONSTANTES  shift, and go to state 19
+    PRINCIPIO   shift, and go to state 48
+    PRIVADO     shift, and go to state 13
+    PROTEGIDO   shift, and go to state 14
+    PUBLICO     shift, and go to state 15
 
-    $default  reduce using rule 129 (instruccion_bifurcacion)
+    ABSTRACTO    reduce using rule 64 (declaraciones_constantes_opt)
+    ABSTRACTO    [reduce using rule 88 (declaraciones_variables_opt)]
+    ABSTRACTO    [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    CONSTRUCTOR  reduce using rule 64 (declaraciones_constantes_opt)
+    CONSTRUCTOR  [reduce using rule 88 (declaraciones_variables_opt)]
+    CONSTRUCTOR  [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    DESTRUCTOR   reduce using rule 64 (declaraciones_constantes_opt)
+    DESTRUCTOR   [reduce using rule 88 (declaraciones_variables_opt)]
+    DESTRUCTOR   [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    ESPECIFICO   reduce using rule 64 (declaraciones_constantes_opt)
+    ESPECIFICO   [reduce using rule 88 (declaraciones_variables_opt)]
+    ESPECIFICO   [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    FINAL        reduce using rule 64 (declaraciones_constantes_opt)
+    FINAL        [reduce using rule 88 (declaraciones_variables_opt)]
+    FINAL        [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    FUNCION      reduce using rule 24 (visibilidad_opt)
+    FUNCION      [reduce using rule 64 (declaraciones_constantes_opt)]
+    FUNCION      [reduce using rule 88 (declaraciones_variables_opt)]
+    FUNCION      [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    GENERICO     reduce using rule 64 (declaraciones_constantes_opt)
+    GENERICO     [reduce using rule 88 (declaraciones_variables_opt)]
+    GENERICO     [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    PRIVADO      [reduce using rule 64 (declaraciones_constantes_opt)]
+    PRIVADO      [reduce using rule 88 (declaraciones_variables_opt)]
+    PRIVADO      [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    PROTEGIDO    [reduce using rule 64 (declaraciones_constantes_opt)]
+    PROTEGIDO    [reduce using rule 88 (declaraciones_variables_opt)]
+    PROTEGIDO    [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    PUBLICO      [reduce using rule 64 (declaraciones_constantes_opt)]
+    PUBLICO      [reduce using rule 88 (declaraciones_variables_opt)]
+    PUBLICO      [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+    'fin'        reduce using rule 64 (declaraciones_constantes_opt)
+    'fin'        [reduce using rule 88 (declaraciones_variables_opt)]
+    'fin'        [reduce using rule 94 (lista_declaracion_funcion_cero_o_mas)]
+
+    visibilidad_opt                       go to state 37
+    declaraciones_constantes_opt          go to state 73
+    declaraciones_constantes              go to state 21
+    declaraciones_variables_opt           go to state 74
+    lista_declaracion_funcion_cero_o_mas  go to state 75
+    declaracion_funcion                   go to state 39
+    cuerpo_funcion                        go to state 288
+    bloque_instrucciones                  go to state 77
 
 
 state 278
 
-   52 declaracion_metodo: declaracion_metodo visibilidad_opt modificador_opt firma_funcion cuerpo_funcion .
+   49 elemento_numerico: IDENTIFICADOR ASIG expresion .
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
 
-    $default  reduce using rule 52 (declaracion_metodo)
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
+
+    $default  reduce using rule 49 (elemento_numerico)
 
 
 state 279
 
-  166 expresion: expresion_logica PARA CADA IDENTIFICADOR EN expresion .
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
+   80 elemento_hash: CTC_CADENA FLECHA_DCHA constante .
 
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
-
-    AND       [reduce using rule 166 (expresion)]
-    OR        [reduce using rule 166 (expresion)]
-    $default  reduce using rule 166 (expresion)
+    $default  reduce using rule 80 (elemento_hash)
 
 
 state 280
 
-  134 instruccion_bucle: HACER bloque_instrucciones MIENTRAS '(' expresion ')' '.' .
+   87 campo_constante: IDENTIFICADOR ASIG constante .
 
-    $default  reduce using rule 134 (instruccion_bucle)
+    $default  reduce using rule 87 (campo_constante)
 
 
 state 281
 
-  136 instruccion_bucle: PARA CADA IDENTIFICADOR EN '(' expresion ')' . bloque_instrucciones
+  170 expresion: expresion_logica PARA CADA IDENTIFICADOR EN . expresion
 
-    PRINCIPIO  shift, and go to state 48
+    error  shift, and go to state 123
 
-    bloque_instrucciones  go to state 285
+    expresion         go to state 289
+    expresion_logica  go to state 126
 
 
 state 282
 
-  135 instruccion_bucle: PARA '(' lista_asignacion_una_o_mas ':' expresion ':' lista_asignacion_una_o_mas . ')' bloque_instrucciones
-  137 lista_asignacion_una_o_mas: lista_asignacion_una_o_mas . asignacion
+  168 expresion: expresion_logica SI expresion SINO expresion .
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
 
-    IDENTIFICADOR  shift, and go to state 40
-    REF            shift, and go to state 87
-    '('            shift, and go to state 90
-    ')'            shift, and go to state 286
-    '^'            shift, and go to state 91
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
 
-    nombre              go to state 92
-    asignacion          go to state 243
-    expresion_indexada  go to state 106
-    expresion_basica    go to state 107
+    AND       [reduce using rule 168 (expresion)]
+    OR        [reduce using rule 168 (expresion)]
+    $default  reduce using rule 168 (expresion)
 
 
 state 283
 
-  130 lista_otro_caso: ENCAMBIO '(' . expresion ')' bloque_instrucciones
-  131                | ENCAMBIO '(' . expresion ')' bloque_instrucciones lista_otro_caso
+  138 instruccion_bucle: HACER bloque_instrucciones MIENTRAS '(' expresion ')' . '.'
 
-    error  shift, and go to state 121
-
-    expresion         go to state 287
-    expresion_logica  go to state 124
+    '.'  shift, and go to state 290
 
 
 state 284
 
-  128 instruccion_bifurcacion: SI '(' expresion ')' bloque_instrucciones lista_otro_caso SINO . bloque_instrucciones
+  140 instruccion_bucle: PARA CADA IDENTIFICADOR EN '(' expresion . ')' bloque_instrucciones
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
 
-    PRINCIPIO  shift, and go to state 48
-
-    bloque_instrucciones  go to state 288
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
+    ')'  shift, and go to state 291
 
 
 state 285
 
-  136 instruccion_bucle: PARA CADA IDENTIFICADOR EN '(' expresion ')' bloque_instrucciones .
+  139 instruccion_bucle: PARA '(' lista_asignacion_una_o_mas ':' expresion ':' . lista_asignacion_una_o_mas ')' bloque_instrucciones
 
-    $default  reduce using rule 136 (instruccion_bucle)
+    IDENTIFICADOR  shift, and go to state 40
+    REF            shift, and go to state 88
+    '('            shift, and go to state 91
+    '^'            shift, and go to state 92
+
+    nombre                      go to state 93
+    asignacion                  go to state 201
+    lista_asignacion_una_o_mas  go to state 292
+    expresion_indexada          go to state 107
+    expresion_basica            go to state 108
 
 
 state 286
 
-  135 instruccion_bucle: PARA '(' lista_asignacion_una_o_mas ':' expresion ':' lista_asignacion_una_o_mas ')' . bloque_instrucciones
+  134 lista_otro_caso: ENCAMBIO . '(' expresion ')' bloque_instrucciones
+  135                | ENCAMBIO . '(' expresion ')' bloque_instrucciones lista_otro_caso
 
-    PRINCIPIO  shift, and go to state 48
-
-    bloque_instrucciones  go to state 289
+    '('  shift, and go to state 293
 
 
 state 287
 
-  130 lista_otro_caso: ENCAMBIO '(' expresion . ')' bloque_instrucciones
-  131                | ENCAMBIO '(' expresion . ')' bloque_instrucciones lista_otro_caso
-  168 expresion_logica: expresion . AND expresion
-  169                 | expresion . OR expresion
+  132 instruccion_bifurcacion: SI '(' expresion ')' bloque_instrucciones lista_otro_caso . SINO bloque_instrucciones
+  133                        | SI '(' expresion ')' bloque_instrucciones lista_otro_caso .
 
-    AND  shift, and go to state 186
-    OR   shift, and go to state 187
-    ')'  shift, and go to state 290
+    SINO  shift, and go to state 294
+
+    $default  reduce using rule 133 (instruccion_bifurcacion)
 
 
 state 288
 
-  128 instruccion_bifurcacion: SI '(' expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones .
+   56 declaracion_metodo: declaracion_metodo visibilidad_opt modificador_opt firma_funcion cuerpo_funcion .
 
-    $default  reduce using rule 128 (instruccion_bifurcacion)
+    $default  reduce using rule 56 (declaracion_metodo)
 
 
 state 289
 
-  135 instruccion_bucle: PARA '(' lista_asignacion_una_o_mas ':' expresion ':' lista_asignacion_una_o_mas ')' bloque_instrucciones .
+  170 expresion: expresion_logica PARA CADA IDENTIFICADOR EN expresion .
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
 
-    $default  reduce using rule 135 (instruccion_bucle)
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
+
+    AND       [reduce using rule 170 (expresion)]
+    OR        [reduce using rule 170 (expresion)]
+    $default  reduce using rule 170 (expresion)
 
 
 state 290
 
-  130 lista_otro_caso: ENCAMBIO '(' expresion ')' . bloque_instrucciones
-  131                | ENCAMBIO '(' expresion ')' . bloque_instrucciones lista_otro_caso
+  138 instruccion_bucle: HACER bloque_instrucciones MIENTRAS '(' expresion ')' '.' .
 
-    PRINCIPIO  shift, and go to state 48
-
-    bloque_instrucciones  go to state 291
+    $default  reduce using rule 138 (instruccion_bucle)
 
 
 state 291
 
-  130 lista_otro_caso: ENCAMBIO '(' expresion ')' bloque_instrucciones .
-  131                | ENCAMBIO '(' expresion ')' bloque_instrucciones . lista_otro_caso
+  140 instruccion_bucle: PARA CADA IDENTIFICADOR EN '(' expresion ')' . bloque_instrucciones
 
-    ENCAMBIO  shift, and go to state 276
+    PRINCIPIO  shift, and go to state 48
 
-    error          reduce using rule 130 (lista_otro_caso)
-    error          [reduce using rule 132 (lista_otro_caso)]
-    CONTINUAR      reduce using rule 130 (lista_otro_caso)
-    CONTINUAR      [reduce using rule 132 (lista_otro_caso)]
-    DEVOLVER       reduce using rule 130 (lista_otro_caso)
-    DEVOLVER       [reduce using rule 132 (lista_otro_caso)]
-    ESCAPE         reduce using rule 130 (lista_otro_caso)
-    ESCAPE         [reduce using rule 132 (lista_otro_caso)]
-    ETIQUETA       reduce using rule 130 (lista_otro_caso)
-    ETIQUETA       [reduce using rule 132 (lista_otro_caso)]
-    EXCEPCION      reduce using rule 130 (lista_otro_caso)
-    EXCEPCION      [reduce using rule 132 (lista_otro_caso)]
-    FIN            reduce using rule 130 (lista_otro_caso)
-    FIN            [reduce using rule 132 (lista_otro_caso)]
-    HACER          reduce using rule 130 (lista_otro_caso)
-    HACER          [reduce using rule 132 (lista_otro_caso)]
-    IDENTIFICADOR  reduce using rule 130 (lista_otro_caso)
-    IDENTIFICADOR  [reduce using rule 132 (lista_otro_caso)]
-    LANZA          reduce using rule 130 (lista_otro_caso)
-    LANZA          [reduce using rule 132 (lista_otro_caso)]
-    MIENTRAS       reduce using rule 130 (lista_otro_caso)
-    MIENTRAS       [reduce using rule 132 (lista_otro_caso)]
-    OTRA           reduce using rule 130 (lista_otro_caso)
-    OTRA           [reduce using rule 132 (lista_otro_caso)]
-    PARA           reduce using rule 130 (lista_otro_caso)
-    PARA           [reduce using rule 132 (lista_otro_caso)]
-    REF            reduce using rule 130 (lista_otro_caso)
-    REF            [reduce using rule 132 (lista_otro_caso)]
-    SALTAR         reduce using rule 130 (lista_otro_caso)
-    SALTAR         [reduce using rule 132 (lista_otro_caso)]
-    SI             reduce using rule 130 (lista_otro_caso)
-    SI             [reduce using rule 132 (lista_otro_caso)]
-    SINO           reduce using rule 130 (lista_otro_caso)
-    SINO           [reduce using rule 132 (lista_otro_caso)]
-    '('            reduce using rule 130 (lista_otro_caso)
-    '('            [reduce using rule 132 (lista_otro_caso)]
-    '^'            reduce using rule 130 (lista_otro_caso)
-    '^'            [reduce using rule 132 (lista_otro_caso)]
-    $default       reduce using rule 130 (lista_otro_caso)
-
-    lista_otro_caso  go to state 292
+    bloque_instrucciones  go to state 295
 
 
 state 292
 
-  131 lista_otro_caso: ENCAMBIO '(' expresion ')' bloque_instrucciones lista_otro_caso .
+  139 instruccion_bucle: PARA '(' lista_asignacion_una_o_mas ':' expresion ':' lista_asignacion_una_o_mas . ')' bloque_instrucciones
+  141 lista_asignacion_una_o_mas: lista_asignacion_una_o_mas . asignacion
 
-    $default  reduce using rule 131 (lista_otro_caso)
+    IDENTIFICADOR  shift, and go to state 40
+    REF            shift, and go to state 88
+    '('            shift, and go to state 91
+    ')'            shift, and go to state 296
+    '^'            shift, and go to state 92
+
+    nombre              go to state 93
+    asignacion          go to state 249
+    expresion_indexada  go to state 107
+    expresion_basica    go to state 108
+
+
+state 293
+
+  134 lista_otro_caso: ENCAMBIO '(' . expresion ')' bloque_instrucciones
+  135                | ENCAMBIO '(' . expresion ')' bloque_instrucciones lista_otro_caso
+
+    error  shift, and go to state 123
+
+    expresion         go to state 297
+    expresion_logica  go to state 126
+
+
+state 294
+
+  132 instruccion_bifurcacion: SI '(' expresion ')' bloque_instrucciones lista_otro_caso SINO . bloque_instrucciones
+
+    PRINCIPIO  shift, and go to state 48
+
+    bloque_instrucciones  go to state 298
+
+
+state 295
+
+  140 instruccion_bucle: PARA CADA IDENTIFICADOR EN '(' expresion ')' bloque_instrucciones .
+
+    $default  reduce using rule 140 (instruccion_bucle)
+
+
+state 296
+
+  139 instruccion_bucle: PARA '(' lista_asignacion_una_o_mas ':' expresion ':' lista_asignacion_una_o_mas ')' . bloque_instrucciones
+
+    PRINCIPIO  shift, and go to state 48
+
+    bloque_instrucciones  go to state 299
+
+
+state 297
+
+  134 lista_otro_caso: ENCAMBIO '(' expresion . ')' bloque_instrucciones
+  135                | ENCAMBIO '(' expresion . ')' bloque_instrucciones lista_otro_caso
+  172 expresion_logica: expresion . AND expresion
+  173                 | expresion . OR expresion
+
+    AND  shift, and go to state 189
+    OR   shift, and go to state 190
+    ')'  shift, and go to state 300
+
+
+state 298
+
+  132 instruccion_bifurcacion: SI '(' expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones .
+
+    $default  reduce using rule 132 (instruccion_bifurcacion)
+
+
+state 299
+
+  139 instruccion_bucle: PARA '(' lista_asignacion_una_o_mas ':' expresion ':' lista_asignacion_una_o_mas ')' bloque_instrucciones .
+
+    $default  reduce using rule 139 (instruccion_bucle)
+
+
+state 300
+
+  134 lista_otro_caso: ENCAMBIO '(' expresion ')' . bloque_instrucciones
+  135                | ENCAMBIO '(' expresion ')' . bloque_instrucciones lista_otro_caso
+
+    PRINCIPIO  shift, and go to state 48
+
+    bloque_instrucciones  go to state 301
+
+
+state 301
+
+  134 lista_otro_caso: ENCAMBIO '(' expresion ')' bloque_instrucciones .
+  135                | ENCAMBIO '(' expresion ')' bloque_instrucciones . lista_otro_caso
+
+    ENCAMBIO  shift, and go to state 286
+
+    error          reduce using rule 134 (lista_otro_caso)
+    error          [reduce using rule 136 (lista_otro_caso)]
+    CONTINUAR      reduce using rule 134 (lista_otro_caso)
+    CONTINUAR      [reduce using rule 136 (lista_otro_caso)]
+    DEVOLVER       reduce using rule 134 (lista_otro_caso)
+    DEVOLVER       [reduce using rule 136 (lista_otro_caso)]
+    ESCAPE         reduce using rule 134 (lista_otro_caso)
+    ESCAPE         [reduce using rule 136 (lista_otro_caso)]
+    ETIQUETA       reduce using rule 134 (lista_otro_caso)
+    ETIQUETA       [reduce using rule 136 (lista_otro_caso)]
+    EXCEPCION      reduce using rule 134 (lista_otro_caso)
+    EXCEPCION      [reduce using rule 136 (lista_otro_caso)]
+    FIN            reduce using rule 134 (lista_otro_caso)
+    FIN            [reduce using rule 136 (lista_otro_caso)]
+    HACER          reduce using rule 134 (lista_otro_caso)
+    HACER          [reduce using rule 136 (lista_otro_caso)]
+    IDENTIFICADOR  reduce using rule 134 (lista_otro_caso)
+    IDENTIFICADOR  [reduce using rule 136 (lista_otro_caso)]
+    LANZA          reduce using rule 134 (lista_otro_caso)
+    LANZA          [reduce using rule 136 (lista_otro_caso)]
+    MIENTRAS       reduce using rule 134 (lista_otro_caso)
+    MIENTRAS       [reduce using rule 136 (lista_otro_caso)]
+    OTRA           reduce using rule 134 (lista_otro_caso)
+    OTRA           [reduce using rule 136 (lista_otro_caso)]
+    PARA           reduce using rule 134 (lista_otro_caso)
+    PARA           [reduce using rule 136 (lista_otro_caso)]
+    REF            reduce using rule 134 (lista_otro_caso)
+    REF            [reduce using rule 136 (lista_otro_caso)]
+    SALTAR         reduce using rule 134 (lista_otro_caso)
+    SALTAR         [reduce using rule 136 (lista_otro_caso)]
+    SI             reduce using rule 134 (lista_otro_caso)
+    SI             [reduce using rule 136 (lista_otro_caso)]
+    SINO           reduce using rule 134 (lista_otro_caso)
+    SINO           [reduce using rule 136 (lista_otro_caso)]
+    '('            reduce using rule 134 (lista_otro_caso)
+    '('            [reduce using rule 136 (lista_otro_caso)]
+    '^'            reduce using rule 134 (lista_otro_caso)
+    '^'            [reduce using rule 136 (lista_otro_caso)]
+    $default       reduce using rule 134 (lista_otro_caso)
+
+    lista_otro_caso  go to state 302
+
+
+state 302
+
+  135 lista_otro_caso: ENCAMBIO '(' expresion ')' bloque_instrucciones lista_otro_caso .
+
+    $default  reduce using rule 135 (lista_otro_caso)
