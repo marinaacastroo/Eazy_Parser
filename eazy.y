@@ -18,7 +18,10 @@
 %token SI SINO SUMA_ASIG TAMANO TABLA TIPOS ULTIMA UNION VARIABLES XOR_ASIG
 
 
-
+%left '+' '-'
+%left '*' '/'
+%left MOD
+%right POTENCIA 
 
 %%
 
@@ -143,8 +146,14 @@ ultima_opt
       | ULTIMA
       ;
 lista_elemento_num
-      : elemento_numerico lista_elemento_num
-      ;
+    : elemento_numerico lista_elemento_num_opt
+    ;
+
+lista_elemento_num_opt
+    : elemento_numerico lista_elemento_num_opt
+    |
+    ;
+
 elemento_numerico
       : IDENTIFICADOR ASIG expresion
       ;
