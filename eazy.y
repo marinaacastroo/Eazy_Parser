@@ -18,19 +18,7 @@
 %token SI SINO SUMA_ASIG TAMANO TABLA TIPOS ULTIMA UNION VARIABLES XOR_ASIG
 
 
-%right '!'
-%right '-'
-%right '~'
-%left TAMANO
 
-%left '+' '-'
-%left '*' '/' '%'
-%right POTENCIA
-%left '<' '>' LE GE
-%left EQ NEQ
-%left AND OR
-%left '&' '@' '|'
-%left FLECHA_IZDA FLECHA_DCHA
 
 %%
 
