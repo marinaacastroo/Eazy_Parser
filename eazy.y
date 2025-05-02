@@ -76,12 +76,12 @@ declaraciones_tipos_opt
       | error              { printf("  ERROR: declaraciones_tipos_opt -> error\n");yyerrok; }
       ;
 declaraciones_tipos
-      : TIPOS lista_declaraciones_tipo FIN 
+      : TIPOS declaraciones_tipo_lista FIN 
       ;
 
-lista_declaraciones_tipo
-      : declaracion_tipo lista_declaraciones_tipo
-      |
+declaraciones_tipo_lista
+      : declaracion_tipo declaraciones_tipo_lista
+      | declaracion_tipo
       ;
 
 declaracion_tipo
@@ -127,10 +127,10 @@ especificacion_tipo
       ;
 
 tipo_estructurado
-    : ENUMERACION 'de' tipo_escalar lista_elemento_num 'fin'
-    | ESTRUCTURA lista_linea_campo 'fin'
-    | UNION lista_linea_campo 'fin'
-    | CLASE ultima_opt '(' lista_nombre_una_o_mas ')' componentes 'fin'
+    : ENUMERACION 'de' tipo_escalar elemento_num_lista 'fin'
+    | ESTRUCTURA linea_campo_lista 'fin'
+    | UNION linea_campo_lista 'fin'
+    | CLASE ultima_opt '(' nombre_lista ')' componentes 'fin'
     | CLASE ultima_opt componentes 'fin'
     ;
 
@@ -138,46 +138,40 @@ ultima_opt
       : 
       | ULTIMA
       ;
-lista_elemento_num
-    : elemento_numerico lista_elemento_num
-    | elemento_numerico
+elemento_num_lista
+    : elemento_enum elemento_num_lista
+    | elemento_enum
     ;
-
-
-elemento_numerico
+elemento_enum
       : IDENTIFICADOR ASIG expresion
       ;
 
-lista_linea_campo
-      : lista_linea_campo linea_campo
+linea_campo_lista
+      : linea_campo_lista linea_campo
       | linea_campo
       ;
 
 linea_campo
-      : lista_identificador_uno_o_mas ES especificacion_tipo
+      : identificador_lista ES especificacion_tipo
       ; 
 
 
-lista_identificador_uno_o_mas
-    : lista_identificador_uno_o_mas IDENTIFICADOR
-    ;
-
-
-lista_nombre_una_o_mas
-      : lista_nombre_una_o_mas nombre
+identificador_lista
+      : identificador_lista IDENTIFICADOR
+      | IDENTIFICADOR
       ;
+
 
 componentes
-      :
-      | declaraciones_tipos
-      | declaraciones_constantes_opt
-      | declaraciones_variables_opt
-      | declaracion_metodo
+      : declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt declaracion_metodo_lista
       ;
 
+declaracion_metodo_lista
+      : declaracion_metodo declaracion_metodo_lista
+      | declaracion_metodo
+      ;
 declaracion_metodo
       : visibilidad_opt modificador_opt firma_funcion cuerpo_funcion
-      | declaracion_metodo visibilidad_opt modificador_opt firma_funcion cuerpo_funcion
       ; 
 
 modificador_opt
@@ -198,11 +192,15 @@ declaraciones_constantes_opt
       | declaraciones_constantes
       ;
 declaraciones_constantes
-      : CONSTANTES lista_declaraciones_constantes FIN
+      : CONSTANTES declaraciones_constantes_lista FIN
       ;
-lista_declaraciones_constantes
+declaraciones_constantes_lista
+      : declaraciones_constantes_lista declaracion_constantes
+      | declaracion_constantes
+      ;
+
+declaracion_constantes
       : visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.'
-      | lista_declaraciones_constantes visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.'
       ;
 
 constante
@@ -221,23 +219,22 @@ constante_tabla
 
 lista_elemento_hash
       : lista_elemento_hash elemento_hash
-      | elemento_hash
       |
       ;
 elemento_hash
       : CTC_CADENA FLECHA_DCHA constante
-
-constante_estructurada
-      : '(' lista_campo_constante_una_o_mas ')'
       ;
 
-lista_campo_constante_una_o_mas
-      : lista_campo_constante_una_o_mas campo_constante
+constante_estructurada
+      : '(' campo_constante_lista ')'
+      ;
+
+campo_constante_lista
+      : campo_constante_lista campo_constante
       | campo_constante
       ;
 lista_campo_constante
       : lista_campo_constante campo_constante
-      | campo_constante
       |
       ;
 
