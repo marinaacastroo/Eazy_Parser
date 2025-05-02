@@ -29,24 +29,24 @@
 
 programa
       : cabecera_programa bloque_programa                  { printf("  ÉXITO: programa -> cabecera_programa bloque_programa\n"); }           
-      | error                           { printf("  ERROR: programa -> error\n");yyerrok; }
+      | error                                              { printf("  ERROR: programa -> error\n");yyerrok; }
       ;
 
 
 cabecera_programa
       : PROGRAMA IDENTIFICADOR '.' lista_librerias         { printf("  cabecera_programa -> PROGRAMA IDENTIFICADOR . lista_librerias\n"); }
-      | error                        { printf("  ERROR: cabecera_programa -> error\n");yyerrok; }      
+      | error                                              { printf("  ERROR: cabecera_programa -> error\n");yyerrok; }      
       ;
 
 lista_librerias
       : 
-      | lista_librerias libreria                              { printf("  lista_librerias -> lista_librerias libreria\n"); }
+      | lista_librerias libreria                           { printf("  lista_librerias -> lista_librerias libreria\n"); }
       ;
 
 libreria
-      : IMPORTAR nombre_lista '.'               { printf("  libreria -> IMPORTAR nombre_lista .\n"); }
-      | IMPORTAR nombre COMO IDENTIFICADOR '.'  { printf("  libreria -> IMPORTAR nombre COMO IDENTIFICADOR .\n"); }
-      | error                       { printf("  ERROR: libreria -> error\n");yyerrok; }
+      : IMPORTAR nombre_lista '.'                          { printf("  libreria -> IMPORTAR nombre_lista .\n"); }
+      | IMPORTAR nombre COMO IDENTIFICADOR '.'             { printf("  libreria -> IMPORTAR nombre COMO IDENTIFICADOR .\n"); }
+      | error                                              { printf("  ERROR: libreria -> error\n");yyerrok; }
       ;
 
 
