@@ -472,9 +472,9 @@ expresion_funcional
       : IDENTIFICADOR '(' expresion_lista ')'
 
 expresion
-      : expresion_logica SI expresion SINO expresion
+      : expresion_condicional
       | expresion_logica
-      | expresion_logica PARA CADA IDENTIFICADOR EN expresion
+      | expresion_para_cada
       | expresion_unaria_prefijo
       | expresion_potencia
       | expresion_aritmetica
@@ -483,6 +483,14 @@ expresion
       | expresion_logica_binaria
       | expresion_comparacion
       | error                 { printf("  ERROR: expresion -> error\n");yyerrok; }
+      ;
+
+expresion_condicional
+      : expresion_logica SI expresion SINO expresion
+      ;
+
+expresion_para_cada
+      : expresion_logica PARA CADA IDENTIFICADOR EN expresion
       ;
 
 expresion_unaria_prefijo
