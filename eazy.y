@@ -30,12 +30,13 @@
 
 programa
       : cabecera_programa bloque_programa                  { printf("  ÉXITO: programa -> cabecera_programa bloque_programa\n"); }           
+      | error                           { printf("  ERROR: programa -> error\n");yyerrok; }
       ;
 
 
 cabecera_programa
       : PROGRAMA IDENTIFICADOR '.' lista_librerias         { printf("  cabecera_programa -> PROGRAMA IDENTIFICADOR . lista_librerias\n"); }
-      ;       
+      | error                        { printf("  ERROR: cabecera_programa -> error\n");yyerrok; }      
       ;
 
 lista_librerias
@@ -46,6 +47,7 @@ lista_librerias
 libreria
       : IMPORTAR nombre_lista '.'               { printf("  libreria -> IMPORTAR nombre_lista .\n"); }
       | IMPORTAR nombre COMO IDENTIFICADOR '.'  { printf("  libreria -> IMPORTAR nombre COMO IDENTIFICADOR .\n"); }
+      | error                       { printf("  ERROR: libreria -> error\n");yyerrok; }
       ;
 
 
@@ -75,6 +77,7 @@ bloque_programa
 declaraciones_tipos_opt
       : 
       | declaraciones_tipos
+      | error              { printf("  ERROR: declaraciones_tipos_opt -> error\n");yyerrok; }
       ;
 declaraciones_tipos
       : TIPOS lista_declaraciones_tipo FIN 
@@ -255,17 +258,11 @@ declaraciones_variables
       ;
 
 lista_declaracion_variables
-      : visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion '.'
+      : visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_cero_o_mas '.'
       | visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo  '.'
-      | lista_declaracion_variables visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion '.'
+      | lista_declaracion_variables visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo ASIG lista_expresion_cero_o_mas '.'
       | lista_declaracion_variables visibilidad_opt lista_identificador_uno_o_mas ES especificacion_tipo  '.'
       ;
-
-
-lista_expresion
-    : expresion lista_expresion
-    | 
-    ;
 
 
 lista_expresion_cero_o_mas
@@ -285,6 +282,7 @@ lista_declaracion_funcion_cero_o_mas
       ;
 declaracion_funcion
       : visibilidad_opt firma_funcion cuerpo_funcion
+      | error                 { printf("  ERROR: declaracion_funcion -> error\n");yyerrok; }
       ;
 
 firma_funcion
@@ -339,6 +337,7 @@ instruccion
       | instruccion_lanzamiento_excepcion
       | instruccion_captura_excepcion
       | instruccion_vacia
+      | error             { printf("  ERROR: instruccion -> error\n");yyerrok; }    
       ;
 instruccion_expresion
       : expresion_funcional '.'
@@ -469,6 +468,8 @@ expresion
       : expresion_logica SI expresion SINO expresion
       | expresion_logica
       | expresion_logica PARA CADA IDENTIFICADOR EN expresion
+      | error                 { printf("  ERROR: expresion -> error\n");yyerrok; }
+      ;
 
 expresion_unaria_prefijo
       : '-' expresion      
