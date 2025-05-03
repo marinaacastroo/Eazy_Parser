@@ -1821,9 +1821,9 @@ state 111
     RESTA_ASIG   shift, and go to state 185
     SUMA_ASIG    shift, and go to state 186
     XOR_ASIG     shift, and go to state 187
-    '['          shift, and go to state 188
-    '{'          shift, and go to state 189
-    '?'          shift, and go to state 190
+    '?'          shift, and go to state 188
+    '['          shift, and go to state 189
+    '{'          shift, and go to state 190
 
     operador_asignacion  go to state 191
     indice               go to state 192
@@ -2375,9 +2375,9 @@ state 154
   217                   | expresion_indexada . indice
 
     INDIRECCION  shift, and go to state 180
-    '['          shift, and go to state 188
-    '{'          shift, and go to state 189
-    '?'          shift, and go to state 190
+    '?'          shift, and go to state 188
+    '['          shift, and go to state 189
+    '{'          shift, and go to state 190
 
     $default  reduce using rule 183 (expresion)
 
@@ -2444,6 +2444,7 @@ state 155
     '+'            [reduce using rule 213 (expresion_indexada)]
     '-'            reduce using rule 184 (expresion)
     '-'            [reduce using rule 213 (expresion_indexada)]
+    '?'            reduce using rule 213 (expresion_indexada)
     '&'            reduce using rule 184 (expresion)
     '&'            [reduce using rule 213 (expresion_indexada)]
     '@'            reduce using rule 184 (expresion)
@@ -2470,7 +2471,6 @@ state 155
     '{'            reduce using rule 213 (expresion_indexada)
     '}'            reduce using rule 184 (expresion)
     '}'            [reduce using rule 213 (expresion_indexada)]
-    '?'            reduce using rule 213 (expresion_indexada)
     '^'            reduce using rule 184 (expresion)
     '^'            [reduce using rule 213 (expresion_indexada)]
     $default       reduce using rule 184 (expresion)
@@ -2795,8 +2795,8 @@ state 180
     IDENTIFICADOR  shift, and go to state 43
     REF            shift, and go to state 92
     '('            shift, and go to state 95
-    '['            shift, and go to state 188
-    '{'            shift, and go to state 189
+    '['            shift, and go to state 189
+    '{'            shift, and go to state 190
     '^'            shift, and go to state 96
 
     nombre            go to state 97
@@ -2855,43 +2855,20 @@ state 187
 
 state 188
 
-  170 indice: '[' . expresion ']'
+  214 expresion_indexada: expresion_indexada '?' . expresion_basica
 
-    error          shift, and go to state 132
-    CTC_CADENA     shift, and go to state 133
-    CTC_CARACTER   shift, and go to state 134
-    CTC_ENTERA     shift, and go to state 135
-    CTC_REAL       shift, and go to state 136
-    IDENTIFICADOR  shift, and go to state 88
+    IDENTIFICADOR  shift, and go to state 43
     REF            shift, and go to state 92
-    '~'            shift, and go to state 137
-    '!'            shift, and go to state 138
-    'tamano'       shift, and go to state 139
-    '-'            shift, and go to state 140
     '('            shift, and go to state 95
     '^'            shift, and go to state 96
 
-    nombre                    go to state 97
-    expresion                 go to state 264
-    expresion_condicional     go to state 143
-    expresion_para_cada       go to state 144
-    expresion_logica          go to state 145
-    expresion_comparacion     go to state 146
-    expresion_aritmetica      go to state 147
-    expresion_desplazamiento  go to state 148
-    expresion_logica_binaria  go to state 149
-    expresion_potencia        go to state 150
-    expresion_numerica        go to state 151
-    expresion_unaria          go to state 152
-    expresion_funcional       go to state 153
-    expresion_indexada        go to state 154
-    expresion_basica          go to state 155
-    expresion_constante       go to state 156
+    nombre            go to state 97
+    expresion_basica  go to state 264
 
 
 state 189
 
-  171 indice: '{' . expresion '}'
+  170 indice: '[' . expresion ']'
 
     error          shift, and go to state 132
     CTC_CADENA     shift, and go to state 133
@@ -2927,15 +2904,38 @@ state 189
 
 state 190
 
-  214 expresion_indexada: expresion_indexada '?' . expresion_basica
+  171 indice: '{' . expresion '}'
 
-    IDENTIFICADOR  shift, and go to state 43
+    error          shift, and go to state 132
+    CTC_CADENA     shift, and go to state 133
+    CTC_CARACTER   shift, and go to state 134
+    CTC_ENTERA     shift, and go to state 135
+    CTC_REAL       shift, and go to state 136
+    IDENTIFICADOR  shift, and go to state 88
     REF            shift, and go to state 92
+    '~'            shift, and go to state 137
+    '!'            shift, and go to state 138
+    'tamano'       shift, and go to state 139
+    '-'            shift, and go to state 140
     '('            shift, and go to state 95
     '^'            shift, and go to state 96
 
-    nombre            go to state 97
-    expresion_basica  go to state 266
+    nombre                    go to state 97
+    expresion                 go to state 266
+    expresion_condicional     go to state 143
+    expresion_para_cada       go to state 144
+    expresion_logica          go to state 145
+    expresion_comparacion     go to state 146
+    expresion_aritmetica      go to state 147
+    expresion_desplazamiento  go to state 148
+    expresion_logica_binaria  go to state 149
+    expresion_potencia        go to state 150
+    expresion_numerica        go to state 151
+    expresion_unaria          go to state 152
+    expresion_funcional       go to state 153
+    expresion_indexada        go to state 154
+    expresion_basica          go to state 155
+    expresion_constante       go to state 156
 
 
 state 191
@@ -4447,6 +4447,13 @@ state 263
 
 state 264
 
+  214 expresion_indexada: expresion_indexada '?' expresion_basica .
+
+    $default  reduce using rule 214 (expresion_indexada)
+
+
+state 265
+
   170 indice: '[' expresion . ']'
   189 expresion_logica: expresion . AND expresion
   190                 | expresion . OR expresion
@@ -4490,7 +4497,7 @@ state 264
     ']'          shift, and go to state 323
 
 
-state 265
+state 266
 
   171 indice: '{' expresion . '}'
   189 expresion_logica: expresion . AND expresion
@@ -4533,13 +4540,6 @@ state 265
     '<'          shift, and go to state 240
     '>'          shift, and go to state 241
     '}'          shift, and go to state 324
-
-
-state 266
-
-  214 expresion_indexada: expresion_indexada '?' expresion_basica .
-
-    $default  reduce using rule 214 (expresion_indexada)
 
 
 state 267

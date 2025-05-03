@@ -19,6 +19,7 @@
 %left '*' '/' MOD        
 %left '+' '-'             
 %left FLECHA_IZDA FLECHA_DCHA 
+%left '?' INDIRECCION
 %left '&'               
 %left '@'               
 %left '|'                
