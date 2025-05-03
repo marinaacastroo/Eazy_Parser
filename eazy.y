@@ -275,10 +275,6 @@ declaracion_variables
       ;
 
 
-expresion_lista
-      : expresion_lista expresion
-      | expresion
-      ;
 
 /*--------------------------------------------------------------------*/
 /*  FUNCIONES    */
@@ -447,101 +443,102 @@ instruccion_vacia
 /*  EXPRESIONES    */
 /*--------------------------------------------------------------------*/
 
+
 indice
       : '[' expresion ']'
       | '{' expresion '}'
       ;
 
-
-expresion
-      : expresion_condicional
-      | expresion_para_cada
-      | expresion_logica
-      | expresion_comparacion
-      | expresion_aritmetica
-      | expresion_desplazamiento
-      | expresion_logica_binaria
-      | expresion_potencia
-      | expresion_numerica
-      | expresion_unaria
+expresion_primitiva
+      : '(' expresion ')' 
       | expresion_funcional
       | expresion_indexada
       | expresion_basica
       | expresion_constante
-      | error                 { printf("  ERROR: expresion -> error\n"); yyerrok; }
+      | error { printf("ERROR: expresión primitiva -> error\n"); yyerrok; }
+      ;
+
+expresion_unaria
+      : '-' expresion_unaria
+      | '~' expresion_unaria
+      | '!' expresion_unaria
+      | 'tamano' expresion_unaria
+      | expresion_primitiva
+      ;
+
+expresion_potencia
+      : expresion_unaria
+      | expresion_unaria POTENCIA expresion_potencia
+      ;
+
+expresion_multiplicativa
+      : expresion_multiplicativa '*' expresion_potencia
+      | expresion_multiplicativa '/' expresion_potencia
+      | expresion_multiplicativa MOD expresion_potencia
+      | expresion_potencia
+      ;
+
+expresion_aditiva
+      : expresion_aditiva '+' expresion_multiplicativa
+      | expresion_aditiva '-' expresion_multiplicativa
+      | expresion_multiplicativa
+      ;
+
+expresion_desplazamiento
+      : expresion_desplazamiento FLECHA_IZDA expresion_aditiva
+      | expresion_desplazamiento FLECHA_DCHA expresion_aditiva
+      | expresion_aditiva
+      ;
+
+expresion_comparacion
+      : expresion_desplazamiento
+      | expresion_desplazamiento '<' expresion_desplazamiento
+      | expresion_desplazamiento '>' expresion_desplazamiento
+      | expresion_desplazamiento LE expresion_desplazamiento
+      | expresion_desplazamiento GE expresion_desplazamiento
+      | expresion_desplazamiento EQ expresion_desplazamiento
+      | expresion_desplazamiento NEQ expresion_desplazamiento
+      ;
+
+expresion_logica_binaria
+      : expresion_comparacion
+      | expresion_comparacion '&' expresion_comparacion
+      | expresion_comparacion '@' expresion_comparacion
+      | expresion_comparacion '|' expresion_comparacion
+      ;
+
+expresion_logica
+      : expresion_logica_binaria
+      | expresion_logica_binaria AND expresion_logica_binaria
+      | expresion_logica_binaria OR expresion_logica_binaria
       ;
 
 expresion_condicional
       : expresion_logica SI expresion SINO expresion
+      | expresion_logica
       ;
-
 
 expresion_para_cada
       : expresion_logica PARA CADA IDENTIFICADOR EN expresion
       ;
 
-expresion_logica
-      : expresion AND expresion
-      | expresion OR expresion
+expresion
+      : expresion_condicional
+      | expresion_para_cada
       ;
 
-expresion_comparacion
-      : expresion '<' expresion
-      | expresion '>' expresion
-      | expresion LE expresion
-      | expresion GE expresion
-      | expresion EQ expresion
-      | expresion NEQ expresion
-      ;
-
-expresion_aritmetica
-      : expresion '*' expresion
-      | expresion '/' expresion
-      | expresion MOD expresion
-      ;
-
-
-expresion_desplazamiento
-      : expresion FLECHA_IZDA expresion
-      | expresion FLECHA_DCHA expresion
-      ;
-
-expresion_logica_binaria
-      : expresion '&' expresion
-      | expresion '@' expresion
-      | expresion '|' expresion
-      ;
- 
-expresion_potencia
-      : expresion POTENCIA expresion
-      ;
-
-expresion_numerica
-      : expresion '+' expresion
-      | expresion '-' expresion
-      ;
-
-
-expresion_unaria
-      : '-' expresion      
-      | '~' expresion      
-      | '!' expresion     
-      | 'tamano' expresion 
-      ;
 
 expresion_funcional
       : IDENTIFICADOR '(' expresion_lista ')'
       ;
-
 
 expresion_indexada 
       : expresion_basica
       | expresion_indexada '?' expresion_basica
       | expresion_indexada INDIRECCION expresion_basica
       | expresion_indexada INDIRECCION indice
-      | expresion_indexada indice     
+      | expresion_indexada indice
       ;
-
 
 expresion_basica
       : nombre
@@ -549,6 +546,7 @@ expresion_basica
       | '^' expresion_basica
       | REF expresion_basica
       ;
+
 expresion_constante 
       : CTC_ENTERA
       | CTC_REAL
@@ -556,6 +554,15 @@ expresion_constante
       | CTC_CADENA
       ;
 
+expresion_lista
+      : 
+      | lista_expresiones
+      ;
+
+lista_expresiones
+      : expresion
+      | lista_expresiones ',' expresion
+      ;
 
 %%
 
