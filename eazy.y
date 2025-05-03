@@ -221,7 +221,7 @@ constante
       ;
 
 constante_tabla
-      : '(' lista_campo_constante ')'
+      : '(' lista_constante ')'
       | '(' lista_elemento_hash')'
       ;
 
@@ -241,10 +241,11 @@ campo_constante_lista
       : campo_constante_lista campo_constante
       | campo_constante
       ;
-lista_campo_constante
-      : lista_campo_constante campo_constante
-      |
+lista_constante
+      : lista_constante constante
+      | 
       ;
+
 
 campo_constante
       : IDENTIFICADOR ASIG constante
@@ -472,6 +473,7 @@ expresion
 expresion_condicional
       : expresion_logica SI expresion SINO expresion
       ;
+
 
 expresion_para_cada
       : expresion_logica PARA CADA IDENTIFICADOR EN expresion

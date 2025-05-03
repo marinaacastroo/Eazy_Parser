@@ -3,11 +3,6 @@ Terminals which are not used
    TAMANO
 
 
-Rules never reduced
-
-   89 lista_campo_constante: /* empty */
-
-
 State 4 conflicts: 1 shift/reduce
 State 22 conflicts: 1 shift/reduce
 State 53 conflicts: 16 shift/reduce
@@ -15,7 +10,7 @@ State 88 conflicts: 1 shift/reduce
 State 98 conflicts: 17 shift/reduce
 State 145 conflicts: 2 shift/reduce
 State 155 conflicts: 40 reduce/reduce
-State 211 conflicts: 1 shift/reduce, 1 reduce/reduce
+State 211 conflicts: 2 reduce/reduce
 State 253 conflicts: 1 shift/reduce
 State 316 conflicts: 1 shift/reduce
 State 384 conflicts: 19 shift/reduce
@@ -137,7 +132,7 @@ Grammar
    78          | constante_tabla
    79          | constante_estructurada
 
-   80 constante_tabla: '(' lista_campo_constante ')'
+   80 constante_tabla: '(' lista_constante ')'
    81                | '(' lista_elemento_hash ')'
 
    82 lista_elemento_hash: lista_elemento_hash elemento_hash
@@ -150,8 +145,8 @@ Grammar
    86 campo_constante_lista: campo_constante_lista campo_constante
    87                      | campo_constante
 
-   88 lista_campo_constante: lista_campo_constante campo_constante
-   89                      | /* empty */
+   88 lista_constante: lista_constante constante
+   89                | /* empty */
 
    90 campo_constante: IDENTIFICADOR ASIG constante
 
@@ -525,7 +520,7 @@ declaraciones_constantes_lista (141)
 declaracion_constantes (142)
     on left: 73, on right: 71 72
 constante (143)
-    on left: 74 75 76 77 78 79, on right: 73 84 90
+    on left: 74 75 76 77 78 79, on right: 73 84 88 90
 constante_tabla (144)
     on left: 80 81, on right: 78
 lista_elemento_hash (145)
@@ -536,10 +531,10 @@ constante_estructurada (147)
     on left: 85, on right: 79
 campo_constante_lista (148)
     on left: 86 87, on right: 85 86
-lista_campo_constante (149)
+lista_constante (149)
     on left: 88 89, on right: 80 88
 campo_constante (150)
-    on left: 90, on right: 86 87 88
+    on left: 90, on right: 86 87
 declaraciones_variables_opt (151)
     on left: 91 92, on right: 14 57 112
 declaraciones_variables (152)
@@ -3138,20 +3133,21 @@ state 210
 
 state 211
 
-   80 constante_tabla: '(' . lista_campo_constante ')'
+   80 constante_tabla: '(' . lista_constante ')'
    81                | '(' . lista_elemento_hash ')'
    85 constante_estructurada: '(' . campo_constante_lista ')'
 
     IDENTIFICADOR  shift, and go to state 280
 
-    IDENTIFICADOR  [reduce using rule 89 (lista_campo_constante)]
-    ')'            reduce using rule 83 (lista_elemento_hash)
-    ')'            [reduce using rule 89 (lista_campo_constante)]
-    $default       reduce using rule 83 (lista_elemento_hash)
+    CTC_CADENA  reduce using rule 83 (lista_elemento_hash)
+    CTC_CADENA  [reduce using rule 89 (lista_constante)]
+    ')'         reduce using rule 83 (lista_elemento_hash)
+    ')'         [reduce using rule 89 (lista_constante)]
+    $default    reduce using rule 89 (lista_constante)
 
     lista_elemento_hash    go to state 281
     campo_constante_lista  go to state 282
-    lista_campo_constante  go to state 283
+    lista_constante        go to state 283
     campo_constante        go to state 284
 
 
@@ -4734,13 +4730,19 @@ state 282
 
 state 283
 
-   80 constante_tabla: '(' lista_campo_constante . ')'
-   88 lista_campo_constante: lista_campo_constante . campo_constante
+   80 constante_tabla: '(' lista_constante . ')'
+   88 lista_constante: lista_constante . constante
 
-    IDENTIFICADOR  shift, and go to state 280
-    ')'            shift, and go to state 342
+    CTC_CADENA    shift, and go to state 207
+    CTC_CARACTER  shift, and go to state 208
+    CTC_ENTERA    shift, and go to state 209
+    CTC_REAL      shift, and go to state 210
+    '('           shift, and go to state 211
+    ')'           shift, and go to state 342
 
-    campo_constante  go to state 343
+    constante               go to state 343
+    constante_tabla         go to state 213
+    constante_estructurada  go to state 214
 
 
 state 284
@@ -5941,16 +5943,16 @@ state 341
 
 state 342
 
-   80 constante_tabla: '(' lista_campo_constante ')' .
+   80 constante_tabla: '(' lista_constante ')' .
 
     $default  reduce using rule 80 (constante_tabla)
 
 
 state 343
 
-   88 lista_campo_constante: lista_campo_constante campo_constante .
+   88 lista_constante: lista_constante constante .
 
-    $default  reduce using rule 88 (lista_campo_constante)
+    $default  reduce using rule 88 (lista_constante)
 
 
 state 344
