@@ -222,10 +222,11 @@ lista_constante
 
 lista_elemento_hash
       : lista_elemento_hash ';' elemento_hash
-      |
+      | elemento_hash
       ;
 elemento_hash
-      : CTC_CADENA FLECHA_DCHA constante
+      : 
+      | CTC_CADENA FLECHA_DCHA constante
       ;
 
 constante_estructurada
@@ -236,8 +237,6 @@ campo_constante_lista
       : campo_constante_lista ';' campo_constante
       | campo_constante
       ;
-
-
 
 campo_constante
       : IDENTIFICADOR ASIG constante
