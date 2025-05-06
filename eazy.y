@@ -14,18 +14,7 @@
 %token MOD MOD_ASIG MULT_ASIG NADA NEQ OR OTRA OR_ASIG PARA POT_ASIG POTENCIA PRINCIPIO PRIVADO PROGRAMA PROTEGIDO
 %token PTOS PUBLICO REAL REF RESTA_ASIG SALTAR SI SINO SUMA_ASIG TAMANO TABLA TIPOS ULTIMA UNION VARIABLES XOR_ASIG
 
-%right '~' '!' 'tamano'  
-%right POTENCIA          
-%left '*' '/' MOD        
-%left '+' '-'             
-%left FLECHA_IZDA FLECHA_DCHA 
-%left '?' INDIRECCION
-%left '&'               
-%left '@'               
-%left '|'                
-%left '<' '>' LE GE      
-%left EQ NEQ                         
-%right SI SINO           
+        
 %%
 
 
@@ -457,45 +446,62 @@ expresion_logica_or
       : expresion_logica_and
       | expresion_logica_or OR expresion_logica_and
 expresion_logica_and
-      : expresion_logica_binaria
-      | expresion_logica_and AND expresion_logica_binaria
+      : expresion_igualdad
+      | expresion_logica_and AND expresion_igualdad
       ;
-expresion_logica_binaria
-      : expresion_comparacion
-      | expresion_comparacion '&' expresion_comparacion
-      | expresion_comparacion '@' expresion_comparacion
-      | expresion_comparacion '|' expresion_comparacion
+
+expresion_igualdad
+      : expresion_comparacion EQ expresion_comparacion
+      | expresion_comparacion NEQ expresion_comparacion
+      | expresion_comparacion
       ;
+
 expresion_comparacion
-      : expresion_desplazamiento
-      | expresion_desplazamiento '<' expresion_desplazamiento
-      | expresion_desplazamiento '>' expresion_desplazamiento
-      | expresion_desplazamiento LE expresion_desplazamiento
-      | expresion_desplazamiento GE expresion_desplazamiento
-      | expresion_desplazamiento EQ expresion_desplazamiento
-      | expresion_desplazamiento NEQ expresion_desplazamiento
+      : expresion_or_binario '<' expresion_or_binario
+      | expresion_or_binario '>' expresion_or_binario
+      | expresion_or_binario LE expresion_or_binario
+      | expresion_or_binario GE expresion_or_binario
+      | expresion_or_binario
       ;
+
+expresion_or_binario
+      : expresion_xor_binario '|' expresion_xor_binario
+      | expresion_xor_binario
+      ;
+
+expresion_xor_binario
+      : expresion_and_binario '@' expresion_and_binario
+      | expresion_and_binario
+      ;
+
+expresion_and_binario
+      : expresion_desplazamiento '&' expresion_desplazamiento
+      | expresion_desplazamiento
+      ;
+
 expresion_desplazamiento
       : expresion_aditiva
       | expresion_desplazamiento FLECHA_IZDA expresion_aditiva
       | expresion_desplazamiento FLECHA_DCHA expresion_aditiva
       ;
-
 expresion_aditiva
-      : expresion_aditiva '+' expresion_multiplicativa
+      : expresion_multiplicativa
+      | expresion_aditiva '+' expresion_multiplicativa
       | expresion_aditiva '-' expresion_multiplicativa
-      | expresion_multiplicativa
       ;
+
 expresion_multiplicativa
-      : expresion_multiplicativa '*' expresion_potencia
+      : expresion_potencia
+      | expresion_multiplicativa '*' expresion_potencia
       | expresion_multiplicativa '/' expresion_potencia
       | expresion_multiplicativa MOD expresion_potencia
-      | expresion_potencia
       ;
+
 expresion_potencia
       : expresion_unaria
       | expresion_unaria POTENCIA expresion_potencia
       ;
+
 expresion_unaria
       : '-' expresion_primitiva
       | '~' expresion_primitiva
