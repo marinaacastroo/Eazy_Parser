@@ -217,12 +217,11 @@ constante_tabla
 lista_constante
       : 
       | lista_constante ';' constante
-      | constante
       ;
+
 
 lista_elemento_hash
       : lista_elemento_hash ';' elemento_hash
-      | elemento_hash
       |
       ;
 elemento_hash
@@ -287,12 +286,17 @@ firma_funcion
       ;
 
 parametros_lista
+      : parametros_lista ';' parametros
+      | parametros
+      ;
+
+parametros
       : identificador_lista ES especificacion_tipo ASIG expresion_constante_lista 
       | identificador_lista ES especificacion_tipo
       ;
 
 expresion_constante_lista
-      : expresion_constante_lista expresion_constante
+      : expresion_constante_lista ';' expresion_constante
       | expresion_constante
       ;
 tipo_salida
@@ -374,7 +378,7 @@ instruccion_bucle
       ;
 
 asignacion_lista
-      : asignacion_lista asignacion
+      : asignacion_lista ';' asignacion
       | asignacion
       ;
 
