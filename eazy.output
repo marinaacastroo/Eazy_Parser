@@ -5,7 +5,7 @@ State 98 conflicts: 17 shift/reduce
 State 159 conflicts: 29 reduce/reduce
 State 165 conflicts: 1 reduce/reduce
 State 215 conflicts: 1 reduce/reduce
-State 419 conflicts: 1 shift/reduce
+State 420 conflicts: 1 shift/reduce
 
 
 Grammar
@@ -169,8 +169,8 @@ Grammar
   107 parametros: identificador_lista ES especificacion_tipo ASIG expresion_constante_lista
   108           | identificador_lista ES especificacion_tipo
 
-  109 expresion_constante_lista: expresion_constante_lista ';' expresion_constante
-  110                          | expresion_constante
+  109 expresion_constante_lista: expresion_constante
+  110                          | expresion_constante ';' expresion_constante_lista
 
   111 tipo_salida: especificacion_tipo
   112            | NADA
@@ -358,7 +358,7 @@ $end (0) 0
 '.' (46) 3 7 8 21 73 97 98 127 128 148 153 154 155 156 157 158 159
 '/' (47) 202
 ':' (58) 149
-';' (59) 11 49 52 55 83 84 89 105 109 151 219 222
+';' (59) 11 49 52 55 83 84 89 105 110 151 219 222
 '<' (60) 183
 '>' (62) 184
 '?' (63) 224
@@ -559,7 +559,7 @@ parametros_lista (155)
 parametros (156)
     on left: 107 108, on right: 105 106
 expresion_constante_lista (157)
-    on left: 109 110, on right: 107 109
+    on left: 109 110, on right: 107 110
 tipo_salida (158)
     on left: 111 112, on right: 103 104
 cuerpo_funcion (159)
@@ -5601,19 +5601,19 @@ state 418
 state 419
 
   107 parametros: identificador_lista ES especificacion_tipo ASIG expresion_constante_lista .
-  109 expresion_constante_lista: expresion_constante_lista . ';' expresion_constante
 
-    ';'  shift, and go to state 424
-
-    ';'       [reduce using rule 107 (parametros)]
     $default  reduce using rule 107 (parametros)
 
 
 state 420
 
-  110 expresion_constante_lista: expresion_constante .
+  109 expresion_constante_lista: expresion_constante .
+  110                          | expresion_constante . ';' expresion_constante_lista
 
-    $default  reduce using rule 110 (expresion_constante_lista)
+    ';'  shift, and go to state 424
+
+    ';'       [reduce using rule 109 (expresion_constante_lista)]
+    $default  reduce using rule 109 (expresion_constante_lista)
 
 
 state 421
@@ -5639,14 +5639,15 @@ state 423
 
 state 424
 
-  109 expresion_constante_lista: expresion_constante_lista ';' . expresion_constante
+  110 expresion_constante_lista: expresion_constante ';' . expresion_constante_lista
 
     CTC_CADENA    shift, and go to state 134
     CTC_CARACTER  shift, and go to state 135
     CTC_ENTERA    shift, and go to state 136
     CTC_REAL      shift, and go to state 137
 
-    expresion_constante  go to state 426
+    expresion_constante_lista  go to state 426
+    expresion_constante        go to state 420
 
 
 state 425
@@ -5660,9 +5661,9 @@ state 425
 
 state 426
 
-  109 expresion_constante_lista: expresion_constante_lista ';' expresion_constante .
+  110 expresion_constante_lista: expresion_constante ';' expresion_constante_lista .
 
-    $default  reduce using rule 109 (expresion_constante_lista)
+    $default  reduce using rule 110 (expresion_constante_lista)
 
 
 state 427

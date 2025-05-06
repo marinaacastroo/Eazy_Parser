@@ -295,9 +295,10 @@ parametros
       ;
 
 expresion_constante_lista
-      : expresion_constante_lista ';' expresion_constante
-      | expresion_constante
-      ;
+    : expresion_constante
+    | expresion_constante ';' expresion_constante_lista
+    ;
+
 tipo_salida
       : especificacion_tipo
       | NADA
