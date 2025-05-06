@@ -24,9 +24,7 @@
 %left '@'               
 %left '|'                
 %left '<' '>' LE GE      
-%left EQ NEQ         
-%left AND              
-%left OR                 
+%left EQ NEQ                         
 %right SI SINO           
 %%
 
@@ -449,17 +447,18 @@ indice
       : '[' expresion ']'
       | '{' expresion '}'
       ;
+
 expresion
-      : expresion_condicional
+      : expresion_logica_or
+      | expresion_logica_or SI expresion SINO expresion
+      | expresion_logica_or PARA CADA IDENTIFICADOR EN expresion
       ;
-expresion_condicional
-      : expresion_logica
-      | expresion_logica SI expresion SINO expresion
-      ;
-expresion_logica
+expresion_logica_or
+      : expresion_logica_and
+      | expresion_logica_or OR expresion_logica_and
+expresion_logica_and
       : expresion_logica_binaria
-      | expresion_logica_binaria AND expresion_logica
-      | expresion_logica_binaria OR expresion_logica
+      | expresion_logica_and AND expresion_logica_binaria
       ;
 expresion_logica_binaria
       : expresion_comparacion
@@ -498,10 +497,10 @@ expresion_potencia
       | expresion_unaria POTENCIA expresion_potencia
       ;
 expresion_unaria
-      : '-' expresion_unaria
-      | '~' expresion_unaria
-      | '!' expresion_unaria
-      | 'tamano' expresion_unaria
+      : '-' expresion_primitiva
+      | '~' expresion_primitiva
+      | '!' expresion_primitiva
+      | TAMANO expresion_primitiva
       | expresion_primitiva
       ;
 expresion_primitiva
@@ -515,27 +514,28 @@ expresion_funcional
       : IDENTIFICADOR '(' opt_expresion_lista ')'
       ;
 opt_expresion_lista
-      : /* empty */
+      :
       | lista_expresiones
       ;
 expresion_lista
       : lista_expresiones_opt
       ;
 lista_expresiones_opt
-      : /* empty */
+      : 
       | lista_expresiones
       ;
 lista_expresiones
-      : expresion
-      | lista_expresiones ',' expresion
+      :
+      | lista_expresiones ';' expresion
       ;
 expresion_indexada 
-      : expresion_basica
+      : expresion_basica 
       | expresion_indexada '?' expresion_basica
       | expresion_indexada INDIRECCION expresion_basica
       | expresion_indexada INDIRECCION indice
       | expresion_indexada indice
       ;
+
 expresion_basica
       : nombre
       | '(' expresion ')'
