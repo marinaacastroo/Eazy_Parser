@@ -211,11 +211,18 @@ constante
 
 constante_tabla
       : '(' lista_constante ')'
-      | '(' lista_elemento_hash')'
+      | '(' lista_elemento_hash ')'
+      ;
+
+lista_constante
+      : 
+      | lista_constante ';' constante
+      | constante
       ;
 
 lista_elemento_hash
-      : lista_elemento_hash elemento_hash
+      : lista_elemento_hash ';' elemento_hash
+      | elemento_hash
       |
       ;
 elemento_hash
@@ -227,13 +234,10 @@ constante_estructurada
       ;
 
 campo_constante_lista
-      : campo_constante_lista campo_constante
+      : campo_constante_lista ';' campo_constante
       | campo_constante
       ;
-lista_constante
-      : lista_constante constante
-      | 
-      ;
+
 
 
 campo_constante
