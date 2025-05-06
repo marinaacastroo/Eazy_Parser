@@ -123,11 +123,11 @@ especificacion_tipo
       ;
 
 tipo_estructurado
-    : ENUMERACION 'de' tipo_escalar elemento_num_lista 'fin'
-    | ESTRUCTURA linea_campo_lista 'fin'
-    | UNION linea_campo_lista 'fin'
-    | CLASE ultima_opt '(' nombre_lista ')' componentes 'fin'
-    | CLASE ultima_opt componentes 'fin'
+    : ENUMERACION DE tipo_escalar elemento_num_lista FIN
+    | ESTRUCTURA linea_campo_lista FIN
+    | UNION linea_campo_lista FIN
+    | CLASE ultima_opt '(' nombre_lista ')' componentes FIN
+    | CLASE ultima_opt componentes FIN
     ;
 
 ultima_opt
@@ -135,7 +135,7 @@ ultima_opt
       | ULTIMA
       ;
 elemento_num_lista
-    : elemento_enum elemento_num_lista
+    : elemento_enum ';' elemento_num_lista
     | elemento_enum
     ;
 elemento_enum
@@ -143,7 +143,7 @@ elemento_enum
       ;
 
 linea_campo_lista
-      : linea_campo_lista linea_campo
+      : linea_campo_lista ';' linea_campo
       | linea_campo
       ;
 
