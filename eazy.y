@@ -143,7 +143,7 @@ elemento_enum
       ;
 
 linea_campo_lista
-      : linea_campo_lista ';' linea_campo
+      : linea_campo ';' linea_campo_lista
       | linea_campo
       ;
 
@@ -216,12 +216,12 @@ constante_tabla
 
 lista_constante
       : 
-      | lista_constante ';' constante
+      | constante ';' lista_constante
       ;
 
 
 lista_elemento_hash
-      : lista_elemento_hash ';' elemento_hash
+      : elemento_hash ';' lista_elemento_hash
       | elemento_hash
       ;
 elemento_hash
