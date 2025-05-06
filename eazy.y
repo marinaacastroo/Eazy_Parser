@@ -200,13 +200,14 @@ declaraciones_constantes_opt
       : 
       | declaraciones_constantes
       ;
-declaraciones_constantes
-      : CONSTANTES declaraciones_constantes_lista FIN
-      ;
 declaraciones_constantes_lista
       : declaraciones_constantes_lista declaracion_constantes
       | declaracion_constantes
       ;
+declaraciones_constantes
+      : CONSTANTES declaraciones_constantes_lista FIN
+      ;
+
 
 declaracion_constantes
       : visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.'
@@ -480,7 +481,7 @@ expresion_desplazamiento
       | expresion_desplazamiento FLECHA_IZDA expresion_aditiva
       | expresion_desplazamiento FLECHA_DCHA expresion_aditiva
       ;
-/* Expresión aditiva */
+
 expresion_aditiva
       : expresion_aditiva '+' expresion_multiplicativa
       | expresion_aditiva '-' expresion_multiplicativa
@@ -504,8 +505,7 @@ expresion_unaria
       | expresion_primitiva
       ;
 expresion_primitiva
-      : '(' expresion ')'
-      | expresion_funcional
+      : expresion_funcional
       | expresion_indexada
       | expresion_basica
       | expresion_constante
