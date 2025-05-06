@@ -153,7 +153,7 @@ linea_campo
 
 
 identificador_lista
-      : identificador_lista IDENTIFICADOR
+      : identificador_lista ';' IDENTIFICADOR
       | IDENTIFICADOR
       ;
 
@@ -524,12 +524,10 @@ opt_expresion_lista
       | lista_expresiones
       ;
 expresion_lista
-      : lista_expresiones_opt
+      : lista_expresiones ';' expresion
+      | expresion
       ;
-lista_expresiones_opt
-      : 
-      | lista_expresiones
-      ;
+
 lista_expresiones
       :
       | lista_expresiones ';' expresion
