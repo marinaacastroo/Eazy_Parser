@@ -68,67 +68,67 @@ bloque_programa
 
 declaraciones_tipos_opt
       : 
-      | declaraciones_tipos
+      | declaraciones_tipos    { printf("  declaraciones_tipos_opt -> declaraciones_tipos\n");yyerrok; }
       | error '\n'             { printf("  ERROR: declaraciones_tipos_opt -> error\n");yyerrok; }
       ;
 declaraciones_tipos
-      : TIPOS declaraciones_tipo_lista FIN 
+      : TIPOS declaraciones_tipo_lista FIN    { printf("  declaraciones_tipos -> TIPOS declaraciones_tipo_lista FIN\n");yyerrok; }
       ;
 
 declaraciones_tipo_lista
-      : declaracion_tipo declaraciones_tipo_lista
-      | declaracion_tipo
+      : declaracion_tipo declaraciones_tipo_lista    { printf("  declaraciones_tipo_lista -> declaracion_tipo declaraciones_tipo_lista\n"); }
+      | declaracion_tipo                             { printf("  declaraciones_tipo_lista -> declaracion_tipo\n"); }
       ;
 
 declaracion_tipo
-      : visibilidad_opt IDENTIFICADOR ES lista_ref tipo_basico '.'
-      | visibilidad_opt IDENTIFICADOR ES lista_ref tipo_estructurado 
+      : visibilidad_opt IDENTIFICADOR ES lista_ref tipo_basico '.'      { printf("  declaracion_tipo -> visibilidad_opt IDENTIFICADOR ES lista_ref tipo_basico .\n"); }
+      | visibilidad_opt IDENTIFICADOR ES lista_ref tipo_estructurado    { printf("  declaracion_tipo -> visibilidad_opt IDENTIFICADOR ES lista_ref tipo_estructurado\n"); }
       ;
 
 
 visibilidad_opt
       : 
-      | PUBLICO
-      | PROTEGIDO
-      | PRIVADO
+      | PUBLICO         { printf("  visibilidad_opt -> PUBLICO\n"); }
+      | PROTEGIDO       { printf("  visibilidad_opt -> PROTEGIDO\n"); }
+      | PRIVADO         { printf("  visibilidad_opt -> PRIVADO\n"); }
       ;
 
 lista_ref
       : 
-      | lista_ref REF
+      | lista_ref REF   { printf("  lista_ref -> lista_ref REF\n"); }
       ;
 
 tipo_basico
-      : nombre
-      | tipo_escalar
-      | tipo_tabla
+      : nombre          { printf("  tipo_basico -> nombre\n"); }
+      | tipo_escalar    { printf("  tipo_basico -> tipo_escalar\n"); }
+      | tipo_tabla      { printf("  tipo_basico -> tipo_tabla\n"); }
       ;
 tipo_escalar
-      : ENTERO
-      | REAL
-      | CARACTER
-      | CADENA
-      | FICHERO
-      | EXCEPCION
+      : ENTERO          { printf("  tipo_escalar -> ENTERO\n"); }
+      | REAL            { printf("  tipo_escalar -> REAL\n"); }
+      | CARACTER        { printf("  tipo_escalar -> CARACTER\n"); }
+      | CADENA          { printf("  tipo_escalar -> CADENA\n"); }
+      | FICHERO         { printf("  tipo_escalar -> FICHERO\n"); }
+      | EXCEPCION       { printf("  tipo_escalar -> EXCEPCION\n"); }
       ;
 
 tipo_tabla
-      : TABLA DE especificacion_tipo
-      | TABLA HASH DE especificacion_tipo
+      : TABLA DE especificacion_tipo            { printf("  tipo_tabla -> TABLA DE especificacion_tipo\n"); }
+      | TABLA HASH DE especificacion_tipo       { printf("  tipo_tabla -> TABLA HASH DE especificacion_tipo\n"); }
       ;
 
 especificacion_tipo
-      : lista_ref tipo_basico
-      | lista_ref tipo_estructurado
+      : lista_ref tipo_basico                   { printf("  especificacion_tipo -> lista_ref tipo_basico\n"); }
+      | lista_ref tipo_estructurado             { printf("  especificacion_tipo -> lista_ref tipo_estructurado\n"); }
       ;
 
 tipo_estructurado
-    : ENUMERACION DE tipo_escalar elemento_num_lista FIN
-    | ESTRUCTURA linea_campo_lista FIN
-    | UNION linea_campo_lista FIN
-    | CLASE ultima_opt '(' nombre_lista ')' componentes FIN
-    | CLASE ultima_opt componentes FIN
-    ;
+      : ENUMERACION DE tipo_escalar elemento_num_lista FIN          { printf("  tipo_estructurado -> ENUMERACION DE tipo_escalar elemento_num_lista FIN\n"); }
+      | ESTRUCTURA linea_campo_lista FIN                            { printf("  tipo_estructurado -> ESTRUCTURA linea_campo_lista FIN\n"); }
+      | UNION linea_campo_lista FIN                                 { printf("  tipo_estructurado -> UNION linea_campo_lista FIN\n"); }  
+      | CLASE ultima_opt '(' nombre_lista ')' componentes FIN       { printf("  tipo_estructurado -> CLASE ultima_opt '(' nombre_lista ')' componentes FIN\n"); }
+      | CLASE ultima_opt componentes FIN                    { printf("  tipo_estructurado -> CLASE ultima_opt componentes FIN\n"); }
+      ;
 
 ultima_opt
       : 

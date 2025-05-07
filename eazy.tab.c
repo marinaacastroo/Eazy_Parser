@@ -2008,9 +2008,149 @@ yyreduce:
     { printf("  bloque_programa -> declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt lista_declaracion_funcion_cero_o_mas bloque_instrucciones\n"); ;}
     break;
 
+  case 17:
+#line 71 "eazy.y"
+    { printf("  declaraciones_tipos_opt -> declaraciones_tipos\n");yyerrok; ;}
+    break;
+
   case 18:
 #line 72 "eazy.y"
     { printf("  ERROR: declaraciones_tipos_opt -> error\n");yyerrok; ;}
+    break;
+
+  case 19:
+#line 75 "eazy.y"
+    { printf("  declaraciones_tipos -> TIPOS declaraciones_tipo_lista FIN\n");yyerrok; ;}
+    break;
+
+  case 20:
+#line 79 "eazy.y"
+    { printf("  declaraciones_tipo_lista -> declaracion_tipo declaraciones_tipo_lista\n"); ;}
+    break;
+
+  case 21:
+#line 80 "eazy.y"
+    { printf("  declaraciones_tipo_lista -> declaracion_tipo\n"); ;}
+    break;
+
+  case 22:
+#line 84 "eazy.y"
+    { printf("  declaracion_tipo -> visibilidad_opt IDENTIFICADOR ES lista_ref tipo_basico .\n"); ;}
+    break;
+
+  case 23:
+#line 85 "eazy.y"
+    { printf("  declaracion_tipo -> visibilidad_opt IDENTIFICADOR ES lista_ref tipo_estructurado\n"); ;}
+    break;
+
+  case 25:
+#line 91 "eazy.y"
+    { printf("  visibilidad_opt -> PUBLICO\n"); ;}
+    break;
+
+  case 26:
+#line 92 "eazy.y"
+    { printf("  visibilidad_opt -> PROTEGIDO\n"); ;}
+    break;
+
+  case 27:
+#line 93 "eazy.y"
+    { printf("  visibilidad_opt -> PRIVADO\n"); ;}
+    break;
+
+  case 29:
+#line 98 "eazy.y"
+    { printf("  lista_ref -> lista_ref REF\n"); ;}
+    break;
+
+  case 30:
+#line 102 "eazy.y"
+    { printf("  tipo_basico -> nombre\n"); ;}
+    break;
+
+  case 31:
+#line 103 "eazy.y"
+    { printf("  tipo_basico -> tipo_escalar\n"); ;}
+    break;
+
+  case 32:
+#line 104 "eazy.y"
+    { printf("  tipo_basico -> tipo_tabla\n"); ;}
+    break;
+
+  case 33:
+#line 107 "eazy.y"
+    { printf("  tipo_escalar -> ENTERO\n"); ;}
+    break;
+
+  case 34:
+#line 108 "eazy.y"
+    { printf("  tipo_escalar -> REAL\n"); ;}
+    break;
+
+  case 35:
+#line 109 "eazy.y"
+    { printf("  tipo_escalar -> CARACTER\n"); ;}
+    break;
+
+  case 36:
+#line 110 "eazy.y"
+    { printf("  tipo_escalar -> CADENA\n"); ;}
+    break;
+
+  case 37:
+#line 111 "eazy.y"
+    { printf("  tipo_escalar -> FICHERO\n"); ;}
+    break;
+
+  case 38:
+#line 112 "eazy.y"
+    { printf("  tipo_escalar -> EXCEPCION\n"); ;}
+    break;
+
+  case 39:
+#line 116 "eazy.y"
+    { printf("  tipo_tabla -> TABLA DE especificacion_tipo\n"); ;}
+    break;
+
+  case 40:
+#line 117 "eazy.y"
+    { printf("  tipo_tabla -> TABLA HASH DE especificacion_tipo\n"); ;}
+    break;
+
+  case 41:
+#line 121 "eazy.y"
+    { printf("  especificacion_tipo -> lista_ref tipo_basico\n"); ;}
+    break;
+
+  case 42:
+#line 122 "eazy.y"
+    { printf("  especificacion_tipo -> lista_ref tipo_estructurado\n"); ;}
+    break;
+
+  case 43:
+#line 126 "eazy.y"
+    { printf("  tipo_estructurado -> ENUMERACION DE tipo_escalar elemento_num_lista FIN\n"); ;}
+    break;
+
+  case 44:
+#line 127 "eazy.y"
+    { printf("  tipo_estructurado -> ESTRUCTURA linea_campo_lista FIN\n"); ;}
+    break;
+
+  case 45:
+#line 128 "eazy.y"
+    { printf("  tipo_estructurado -> UNION linea_campo_lista FIN\n"); ;}
+    break;
+
+  case 46:
+#line 129 "eazy.y"
+    { printf("  tipo_estructurado -> CLASE ultima_opt '(' nombre_lista ')' componentes FIN\n"); ;}
+    break;
+
+  case 47:
+#line 130 "eazy.y"
+    { printf("  tipo_estructurado -> CLASE ultima_opt componentes FIN\n"); ;}
     break;
 
   case 103:
@@ -2030,7 +2170,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 2034 "eazy.tab.c"
+#line 2174 "eazy.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
