@@ -16,7 +16,7 @@ NUM_HEXADECIMAL [0-9a-fA-F]+
 
 REAL_DECIMAL    ({NUM_DECIMAL}?","){NUM_DECIMAL}+
 REAL_OCTAL      "%"{NUM_OCTAL}?","{NUM_OCTAL}
-REAL_HEXADECIMAL "%[hH]"{NUM_HEXADECIMAL}?","{NUM_HEXADECIMAL}
+REAL_HEXADECIMAL "%[hH]"{NUM_HEXADECIMAL}","{NUM_HEXADECIMAL}
 
 CONST_DECIMAL     {NUM_DECIMAL}
 CONST_OCTAL       "%"{NUM_OCTAL}
@@ -107,13 +107,12 @@ IDENTIFICADOR  [A-Za-záéíóúÁÉÍÓÚñÑüÜ_][A-Za-záéíóúÁÉÍÓÚ�
 (?i:"union")         {printf("linea %d, palabra reservada: UNION\n" , yylineno); return UNION;}
 (?i:"variables")     {printf("linea %d, palabra reservada: VARIABLES\n" , yylineno); return VARIABLES;}
 
-
+{REAL_HEXADECIMAL} {printf("linea %d, constante real: %s\n" , yylineno, yytext); return CTC_REAL;}
 {CONST_DECIMAL}    {printf("linea %d, constante entera: %s\n" , yylineno, yytext); return CTC_ENTERA;}
 {CONST_OCTAL}      {printf("linea %d, constante entera: %s\n" , yylineno, yytext); return CTC_ENTERA;}
 {CONST_HEXADECIMAL} {printf("linea %d, constante entera: %s\n", yylineno, yytext); return CTC_ENTERA;}
 {REAL_DECIMAL}     {printf("linea %d, constante real: %s\n" , yylineno, yytext); return CTC_REAL;}
 {REAL_OCTAL}       {printf("linea %d, constante real: %s\n" , yylineno, yytext); return CTC_REAL;}
-{REAL_HEXADECIMAL} {printf("linea %d, constante real: %s\n" , yylineno, yytext); return CTC_REAL;}
 {REAL_DEC_EXP}     {printf("linea %d, constante real: %s\n" , yylineno, yytext); return CTC_REAL;}
 {REAL_OCT_EXP}     {printf("linea %d, constante real: %s\n" , yylineno, yytext); return CTC_REAL;}
 {REAL_HEX_EXP}     {printf("linea %d, constante real: %s\n" , yylineno, yytext); return CTC_REAL;}
