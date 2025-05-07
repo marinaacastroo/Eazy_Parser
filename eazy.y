@@ -280,7 +280,7 @@ firma_funcion
       ;
 
 parametros_lista
-      : parametros_lista ';' parametros          { printf("  parametros_lista -> parametros_lista ; parametros\n"); }
+      : parametros_lista ':' parametros          { printf("  parametros_lista -> parametros_lista : parametros\n"); }
       | parametros                               { printf("  parametros_lista -> parametros\n"); }     
       ;
 

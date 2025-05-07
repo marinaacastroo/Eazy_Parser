@@ -1,6 +1,3 @@
-State 412 conflicts: 1 shift/reduce
-
-
 Grammar
 
     0 $accept: programa $end
@@ -151,7 +148,7 @@ Grammar
    98 firma_funcion: FUNCION IDENTIFICADOR '(' parametros_lista ')' FLECHA_DCHA tipo_salida
    99              | FUNCION IDENTIFICADOR FLECHA_DCHA tipo_salida
 
-  100 parametros_lista: parametros_lista ';' parametros
+  100 parametros_lista: parametros_lista ':' parametros
   101                 | parametros
 
   102 parametros: identificador_lista ES especificacion_tipo ASIG expresion_constante_lista
@@ -339,8 +336,8 @@ $end (0) 0
 '-' (45) 193 200
 '.' (46) 2 5 6 17 69 93 94 121 122 142 147 148 149 150 151 152 153
 '/' (47) 196
-':' (58) 143
-';' (59) 8 45 48 51 80 81 85 100 105 145 164 211
+':' (58) 100 143
+';' (59) 8 45 48 51 80 81 85 105 145 164 211
 '<' (60) 177
 '>' (62) 178
 '?' (63) 214
@@ -4485,10 +4482,10 @@ state 332
 state 333
 
    98 firma_funcion: FUNCION IDENTIFICADOR '(' parametros_lista . ')' FLECHA_DCHA tipo_salida
-  100 parametros_lista: parametros_lista . ';' parametros
+  100 parametros_lista: parametros_lista . ':' parametros
 
-    ';'  shift, and go to state 362
-    ')'  shift, and go to state 363
+    ')'  shift, and go to state 362
+    ':'  shift, and go to state 363
 
 
 state 334
@@ -4852,19 +4849,19 @@ state 361
 
 state 362
 
-  100 parametros_lista: parametros_lista ';' . parametros
+   98 firma_funcion: FUNCION IDENTIFICADOR '(' parametros_lista ')' . FLECHA_DCHA tipo_salida
 
-    IDENTIFICADOR  shift, and go to state 45
-
-    identificador_lista  go to state 332
-    parametros           go to state 386
+    FLECHA_DCHA  shift, and go to state 386
 
 
 state 363
 
-   98 firma_funcion: FUNCION IDENTIFICADOR '(' parametros_lista ')' . FLECHA_DCHA tipo_salida
+  100 parametros_lista: parametros_lista ':' . parametros
 
-    FLECHA_DCHA  shift, and go to state 387
+    IDENTIFICADOR  shift, and go to state 45
+
+    identificador_lista  go to state 332
+    parametros           go to state 387
 
 
 state 364
@@ -5092,13 +5089,6 @@ state 385
 
 state 386
 
-  100 parametros_lista: parametros_lista ';' parametros .
-
-    $default  reduce using rule 100 (parametros_lista)
-
-
-state 387
-
    98 firma_funcion: FUNCION IDENTIFICADOR '(' parametros_lista ')' FLECHA_DCHA . tipo_salida
 
     NADA  shift, and go to state 329
@@ -5108,6 +5098,13 @@ state 387
     lista_ref            go to state 125
     especificacion_tipo  go to state 330
     tipo_salida          go to state 405
+
+
+state 387
+
+  100 parametros_lista: parametros_lista ':' parametros .
+
+    $default  reduce using rule 100 (parametros_lista)
 
 
 state 388
@@ -5338,7 +5335,6 @@ state 412
 
     ';'  shift, and go to state 416
 
-    ';'       [reduce using rule 104 (expresion_constante_lista)]
     $default  reduce using rule 104 (expresion_constante_lista)
 
 
