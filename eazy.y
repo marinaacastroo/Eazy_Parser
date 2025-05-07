@@ -248,20 +248,20 @@ campo_constante
 /*--------------------------------------------------------------------*/
 declaraciones_variables_opt
       : 
-      | declaraciones_variables
+      | declaraciones_variables                 { printf("  declaraciones_variables_opt -> declaraciones_variables\n"); }
       ;
 declaraciones_variables
-      : VARIABLES declaracion_variables_lista FIN
+      : VARIABLES declaracion_variables_lista FIN            { printf("  declaraciones_variables -> VARIABLES declaracion_variables_lista FIN\n"); }
       ;
 
 declaracion_variables_lista
-      : declaracion_variables_lista declaracion_variables
-      | declaracion_variables
-      ;
+      : declaracion_variables_lista declaracion_variables         { printf("  declaracion_variables_lista -> declaracion_variables_lista declaracion_variables\n"); }
+      | declaracion_variables                                     { printf("  declaracion_variables_lista -> declaracion_variables\n"); }      
+      ;     
 
 declaracion_variables
-      : visibilidad_opt identificador_lista ES especificacion_tipo ASIG expresion_lista '.'
-      | visibilidad_opt identificador_lista ES especificacion_tipo  '.'
+      : visibilidad_opt identificador_lista ES especificacion_tipo ASIG expresion_lista '.'           { printf("  declaracion_variables -> visibilidad_opt identificador_lista ES especificacion_tipo ASIG expresion_lista .\n"); }
+      | visibilidad_opt identificador_lista ES especificacion_tipo  '.'                               { printf("  declaracion_variables -> visibilidad_opt identificador_lista ES especificacion_tipo .\n"); }
       ;
 
 
@@ -270,33 +270,33 @@ declaracion_variables
 /*  FUNCIONES    */
 /*--------------------------------------------------------------------*/
 
-lista_declaracion_funcion
-      : lista_declaracion_funcion declaracion_funcion
+lista_declaracion_funcion                 
+      : lista_declaracion_funcion declaracion_funcion                   { printf("  lista_declaracion_funcion -> lista_declaracion_funcion declaracion_funcion\n"); }
       |
       ;
 declaracion_funcion
-      : visibilidad_opt firma_funcion cuerpo_funcion
+      : visibilidad_opt firma_funcion cuerpo_funcion                    { printf("  declaracion_funcion -> visibilidad_opt firma_funcion cuerpo_funcion\n"); }
       | error '\n'                 { printf("  ERROR: declaracion_funcion -> error\n");yyerrok; }
       ;
 
 firma_funcion
-      : FUNCION IDENTIFICADOR '(' parametros_lista ')' FLECHA_DCHA tipo_salida
-      | FUNCION IDENTIFICADOR FLECHA_DCHA tipo_salida
+      : FUNCION IDENTIFICADOR '(' parametros_lista ')' FLECHA_DCHA tipo_salida            { printf("  firma_funcion -> FUNCION IDENTIFICADOR '(' parametros_lista ')' FLECHA_DCHA tipo_salida\n"); }
+      | FUNCION IDENTIFICADOR FLECHA_DCHA tipo_salida                                     { printf("  firma_funcion -> FUNCION IDENTIFICADOR FLECHA_DCHA tipo_salida\n"); }
       ;
 
 parametros_lista
-      : parametros_lista ';' parametros
-      | parametros
+      : parametros_lista ';' parametros          { printf("  parametros_lista -> parametros_lista ; parametros\n"); }
+      | parametros                               { printf("  parametros_lista -> parametros\n"); }     
       ;
 
 parametros
-      : identificador_lista ES especificacion_tipo ASIG expresion_constante_lista 
-      | identificador_lista ES especificacion_tipo
+      : identificador_lista ES especificacion_tipo ASIG expresion_constante_lista         { printf("  parametros -> identificador_lista ES especificacion_tipo ASIG expresion_constante_lista\n"); }
+      | identificador_lista ES especificacion_tipo                                        { printf("  parametros -> identificador_lista ES especificacion_tipo\n"); }
       ;
 
 expresion_constante_lista
-    : expresion_constante
-    | expresion_constante ';' expresion_constante_lista
+    : expresion_constante                       { printf("  expresion_constante_lista -> expresion_constante\n"); }
+    | expresion_constante ';' expresion_constante_lista       { printf("  expresion_constante_lista -> expresion_constante ; expresion_constante_lista\n"); }
     ;
 
 tipo_salida

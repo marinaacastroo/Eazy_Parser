@@ -2353,9 +2353,89 @@ yyreduce:
     { printf("  campo_constante -> IDENTIFICADOR ASIG constante\n"); ;}
     break;
 
+  case 94:
+#line 251 "eazy.y"
+    { printf("  declaraciones_variables_opt -> declaraciones_variables\n"); ;}
+    break;
+
+  case 95:
+#line 254 "eazy.y"
+    { printf("  declaraciones_variables -> VARIABLES declaracion_variables_lista FIN\n"); ;}
+    break;
+
+  case 96:
+#line 258 "eazy.y"
+    { printf("  declaracion_variables_lista -> declaracion_variables_lista declaracion_variables\n"); ;}
+    break;
+
+  case 97:
+#line 259 "eazy.y"
+    { printf("  declaracion_variables_lista -> declaracion_variables\n"); ;}
+    break;
+
+  case 98:
+#line 263 "eazy.y"
+    { printf("  declaracion_variables -> visibilidad_opt identificador_lista ES especificacion_tipo ASIG expresion_lista .\n"); ;}
+    break;
+
+  case 99:
+#line 264 "eazy.y"
+    { printf("  declaracion_variables -> visibilidad_opt identificador_lista ES especificacion_tipo .\n"); ;}
+    break;
+
+  case 100:
+#line 274 "eazy.y"
+    { printf("  lista_declaracion_funcion -> lista_declaracion_funcion declaracion_funcion\n"); ;}
+    break;
+
+  case 102:
+#line 278 "eazy.y"
+    { printf("  declaracion_funcion -> visibilidad_opt firma_funcion cuerpo_funcion\n"); ;}
+    break;
+
   case 103:
 #line 279 "eazy.y"
     { printf("  ERROR: declaracion_funcion -> error\n");yyerrok; ;}
+    break;
+
+  case 104:
+#line 283 "eazy.y"
+    { printf("  firma_funcion -> FUNCION IDENTIFICADOR '(' parametros_lista ')' FLECHA_DCHA tipo_salida\n"); ;}
+    break;
+
+  case 105:
+#line 284 "eazy.y"
+    { printf("  firma_funcion -> FUNCION IDENTIFICADOR FLECHA_DCHA tipo_salida\n"); ;}
+    break;
+
+  case 106:
+#line 288 "eazy.y"
+    { printf("  parametros_lista -> parametros_lista ; parametros\n"); ;}
+    break;
+
+  case 107:
+#line 289 "eazy.y"
+    { printf("  parametros_lista -> parametros\n"); ;}
+    break;
+
+  case 108:
+#line 293 "eazy.y"
+    { printf("  parametros -> identificador_lista ES especificacion_tipo ASIG expresion_constante_lista\n"); ;}
+    break;
+
+  case 109:
+#line 294 "eazy.y"
+    { printf("  parametros -> identificador_lista ES especificacion_tipo\n"); ;}
+    break;
+
+  case 110:
+#line 298 "eazy.y"
+    { printf("  expresion_constante_lista -> expresion_constante\n"); ;}
+    break;
+
+  case 111:
+#line 299 "eazy.y"
+    { printf("  expresion_constante_lista -> expresion_constante ; expresion_constante_lista\n"); ;}
     break;
 
   case 127:
@@ -2370,7 +2450,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 2374 "eazy.tab.c"
+#line 2454 "eazy.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
