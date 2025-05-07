@@ -132,52 +132,52 @@ tipo_estructurado
 
 ultima_opt
       : 
-      | ULTIMA
+      | ULTIMA                      { printf("  ultima_opt -> ULTIMA\n"); }
       ;
 elemento_num_lista
-    : elemento_enum ';' elemento_num_lista
-    | elemento_enum
+    : elemento_enum ';' elemento_num_lista      { printf("  elemento_num_lista -> elemento_enum ; elemento_num_lista\n"); }
+    | elemento_enum                             { printf("  elemento_num_lista -> elemento_enum\n"); }
     ;
 elemento_enum
-      : IDENTIFICADOR ASIG expresion
+      : IDENTIFICADOR ASIG expresion            { printf("  elemento_enum -> IDENTIFICADOR ASIG expresion\n"); }
       ;
 
 linea_campo_lista
-      : linea_campo ';' linea_campo_lista
-      | linea_campo
+      : linea_campo ';' linea_campo_lista       { printf("  linea_campo_lista -> linea_campo ; linea_campo_lista\n"); }
+      | linea_campo                             { printf("  linea_campo_lista -> linea_campo\n"); }
       ;
 
 linea_campo
-      : identificador_lista ES especificacion_tipo
+      : identificador_lista ES especificacion_tipo    { printf("  linea_campo -> identificador_lista ES especificacion_tipo\n"); }
       ; 
 
 
 identificador_lista
-      : identificador_lista ';' IDENTIFICADOR
-      | IDENTIFICADOR
+      : identificador_lista ';' IDENTIFICADOR               { printf("  identificador_lista -> identificador_lista ; IDENTIFICADOR\n"); }
+      | IDENTIFICADOR                { printf("  identificador_lista -> IDENTIFICADOR\n"); }          
       ;
 
 
 componentes
-      : declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt declaracion_metodo_lista
+      : declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt declaracion_metodo_lista             { printf("  componentes -> declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt declaracion_metodo_lista\n"); }
       ;
 
 declaracion_metodo_lista
-      : declaracion_metodo declaracion_metodo_lista
-      | declaracion_metodo
+      : declaracion_metodo declaracion_metodo_lista               { printf("  declaracion_metodo_lista -> declaracion_metodo declaracion_metodo_lista\n"); }
+      | declaracion_metodo                { printf("  declaracion_metodo_lista -> declaracion_metodo\n"); } 
       ;
 declaracion_metodo
-      : visibilidad_opt modificador_opt firma_funcion cuerpo_funcion
+      : visibilidad_opt modificador_opt firma_funcion cuerpo_funcion          { printf("  declaracion_metodo -> visibilidad_opt modificador_opt firma_funcion cuerpo_funcion\n"); }
       ; 
 
 modificador_opt
       : 
-      | CONSTRUCTOR
-      | DESTRUCTOR
-      | GENERICO
-      | ABSTRACTO
-      | ESPECIFICO
-      | FINAL
+      | CONSTRUCTOR                 { printf("  modificador_opt -> CONSTRUCTOR\n"); }
+      | DESTRUCTOR                  { printf("  modificador_opt -> DESTRUCTOR\n"); }
+      | GENERICO                    { printf("  modificador_opt -> GENERICO\n"); }
+      | ABSTRACTO                   { printf("  modificador_opt -> ABSTRACTO\n"); }
+      | ESPECIFICO                  { printf("  modificador_opt -> ESPECIFICO\n"); }
+      | FINAL                       { printf("  modificador_opt -> FINAL\n"); }
       ;
 
 /*--------------------------------------------------------------------*/
@@ -185,19 +185,19 @@ modificador_opt
 /*--------------------------------------------------------------------*/
 declaraciones_constantes_opt
       : 
-      | declaraciones_constantes
+      | declaraciones_constantes          { printf("  declaraciones_constantes_opt -> declaraciones_constantes\n"); }
       ;
 declaraciones_constantes_lista
-      : declaraciones_constantes_lista declaracion_constantes
-      | declaracion_constantes
+      : declaraciones_constantes_lista declaracion_constantes           { printf("  declaraciones_constantes_lista -> declaraciones_constantes_lista declaracion_constantes\n"); }
+      | declaracion_constantes                                          { printf("  declaraciones_constantes_lista -> declaracion_constantes\n"); }   
       ;
 declaraciones_constantes
-      : CONSTANTES declaraciones_constantes_lista FIN
+      : CONSTANTES declaraciones_constantes_lista FIN                   { printf("  declaraciones_constantes -> CONSTANTES declaraciones_constantes_lista FIN\n"); }
       ;
 
 
 declaracion_constantes
-      : visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.'
+      : visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante '.'             { printf("  declaracion_constantes -> visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante .\n"); }
       ;
 
 constante

@@ -2153,6 +2153,126 @@ yyreduce:
     { printf("  tipo_estructurado -> CLASE ultima_opt componentes FIN\n"); ;}
     break;
 
+  case 49:
+#line 135 "eazy.y"
+    { printf("  ultima_opt -> ULTIMA\n"); ;}
+    break;
+
+  case 50:
+#line 138 "eazy.y"
+    { printf("  elemento_num_lista -> elemento_enum ; elemento_num_lista\n"); ;}
+    break;
+
+  case 51:
+#line 139 "eazy.y"
+    { printf("  elemento_num_lista -> elemento_enum\n"); ;}
+    break;
+
+  case 52:
+#line 142 "eazy.y"
+    { printf("  elemento_enum -> IDENTIFICADOR ASIG expresion\n"); ;}
+    break;
+
+  case 53:
+#line 146 "eazy.y"
+    { printf("  linea_campo_lista -> linea_campo ; linea_campo_lista\n"); ;}
+    break;
+
+  case 54:
+#line 147 "eazy.y"
+    { printf("  linea_campo_lista -> linea_campo\n"); ;}
+    break;
+
+  case 55:
+#line 151 "eazy.y"
+    { printf("  linea_campo -> identificador_lista ES especificacion_tipo\n"); ;}
+    break;
+
+  case 56:
+#line 156 "eazy.y"
+    { printf("  identificador_lista -> identificador_lista ; IDENTIFICADOR\n"); ;}
+    break;
+
+  case 57:
+#line 157 "eazy.y"
+    { printf("  identificador_lista -> IDENTIFICADOR\n"); ;}
+    break;
+
+  case 58:
+#line 162 "eazy.y"
+    { printf("  componentes -> declaraciones_tipos_opt declaraciones_constantes_opt declaraciones_variables_opt declaracion_metodo_lista\n"); ;}
+    break;
+
+  case 59:
+#line 166 "eazy.y"
+    { printf("  declaracion_metodo_lista -> declaracion_metodo declaracion_metodo_lista\n"); ;}
+    break;
+
+  case 60:
+#line 167 "eazy.y"
+    { printf("  declaracion_metodo_lista -> declaracion_metodo\n"); ;}
+    break;
+
+  case 61:
+#line 170 "eazy.y"
+    { printf("  declaracion_metodo -> visibilidad_opt modificador_opt firma_funcion cuerpo_funcion\n"); ;}
+    break;
+
+  case 63:
+#line 175 "eazy.y"
+    { printf("  modificador_opt -> CONSTRUCTOR\n"); ;}
+    break;
+
+  case 64:
+#line 176 "eazy.y"
+    { printf("  modificador_opt -> DESTRUCTOR\n"); ;}
+    break;
+
+  case 65:
+#line 177 "eazy.y"
+    { printf("  modificador_opt -> GENERICO\n"); ;}
+    break;
+
+  case 66:
+#line 178 "eazy.y"
+    { printf("  modificador_opt -> ABSTRACTO\n"); ;}
+    break;
+
+  case 67:
+#line 179 "eazy.y"
+    { printf("  modificador_opt -> ESPECIFICO\n"); ;}
+    break;
+
+  case 68:
+#line 180 "eazy.y"
+    { printf("  modificador_opt -> FINAL\n"); ;}
+    break;
+
+  case 70:
+#line 188 "eazy.y"
+    { printf("  declaraciones_constantes_opt -> declaraciones_constantes\n"); ;}
+    break;
+
+  case 71:
+#line 191 "eazy.y"
+    { printf("  declaraciones_constantes_lista -> declaraciones_constantes_lista declaracion_constantes\n"); ;}
+    break;
+
+  case 72:
+#line 192 "eazy.y"
+    { printf("  declaraciones_constantes_lista -> declaracion_constantes\n"); ;}
+    break;
+
+  case 73:
+#line 195 "eazy.y"
+    { printf("  declaraciones_constantes -> CONSTANTES declaraciones_constantes_lista FIN\n"); ;}
+    break;
+
+  case 74:
+#line 200 "eazy.y"
+    { printf("  declaracion_constantes -> visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante .\n"); ;}
+    break;
+
   case 103:
 #line 279 "eazy.y"
     { printf("  ERROR: declaracion_funcion -> error\n");yyerrok; ;}
@@ -2170,7 +2290,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 2174 "eazy.tab.c"
+#line 2294 "eazy.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
