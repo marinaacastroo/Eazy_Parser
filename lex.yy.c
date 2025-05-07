@@ -1092,7 +1092,7 @@ YY_DECL
 		}
 
 	{
-#line 41 "eazy.l"
+#line 42 "eazy.l"
 
 
 
@@ -1168,625 +1168,625 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 46 "eazy.l"
+#line 47 "eazy.l"
 ;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 48 "eazy.l"
+#line 49 "eazy.l"
 { }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 49 "eazy.l"
+#line 50 "eazy.l"
 { BEGIN(MULTILINE); }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 50 "eazy.l"
+#line 51 "eazy.l"
 { BEGIN(INITIAL); }
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 51 "eazy.l"
+#line 52 "eazy.l"
 {  }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 52 "eazy.l"
+#line 53 "eazy.l"
 { }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 55 "eazy.l"
+#line 56 "eazy.l"
 {printf("linea %d, palabra reservada: ABSTRACTO\n" , yylineno); return ABSTRACTO;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 56 "eazy.l"
+#line 57 "eazy.l"
 {printf("linea %d, palabra reservada: CADA\n" , yylineno); return CADA;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 57 "eazy.l"
+#line 58 "eazy.l"
 {printf("linea %d, palabra reservada: CADENA\n" , yylineno); return CADENA;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 58 "eazy.l"
+#line 59 "eazy.l"
 {printf("linea %d, palabra reservada: CARACTER\n" , yylineno); return CARACTER;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 59 "eazy.l"
+#line 60 "eazy.l"
 {printf("linea %d, palabra reservada: CLASE\n" , yylineno); return CLASE;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 60 "eazy.l"
+#line 61 "eazy.l"
 {printf("linea %d, palabra reservada: COMO\n" , yylineno); return COMO;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 61 "eazy.l"
+#line 62 "eazy.l"
 {printf("linea %d, palabra reservada: CONSTANTES\n" , yylineno); return CONSTANTES;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 62 "eazy.l"
+#line 63 "eazy.l"
 {printf("linea %d, palabra reservada: CONSTRUCTOR\n" , yylineno); return CONSTRUCTOR;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 63 "eazy.l"
+#line 64 "eazy.l"
 {printf("linea %d, palabra reservada: CONTINUAR\n" , yylineno); return CONTINUAR;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 64 "eazy.l"
+#line 65 "eazy.l"
 {printf("linea %d, palabra reservada: DE\n" , yylineno); return DE;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 65 "eazy.l"
+#line 66 "eazy.l"
 {printf("linea %d, palabra reservada: DEFECTO\n" , yylineno); return DEFECTO;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 66 "eazy.l"
+#line 67 "eazy.l"
 {printf("linea %d, palabra reservada: DESTRUCTOR\n" , yylineno); return DESTRUCTOR;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 67 "eazy.l"
+#line 68 "eazy.l"
 {printf("linea %d, palabra reservada: DEVOLVER\n" , yylineno); return DEVOLVER;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 68 "eazy.l"
+#line 69 "eazy.l"
 {printf("linea %d, palabra reservada: EJECUTA\n" , yylineno); return EJECUTA;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 69 "eazy.l"
+#line 70 "eazy.l"
 {printf("linea %d, palabra reservada: ENCAMBIO\n" , yylineno); return ENCAMBIO;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 70 "eazy.l"
+#line 71 "eazy.l"
 {printf("linea %d, palabra reservada: ENTERO\n" , yylineno); return ENTERO;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 71 "eazy.l"
+#line 72 "eazy.l"
 {printf("linea %d, palabra reservada: ENUMERACION\n" , yylineno); return ENUMERACION;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 72 "eazy.l"
+#line 73 "eazy.l"
 {printf("linea %d, palabra reservada: EN\n" , yylineno); return EN;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 73 "eazy.l"
+#line 74 "eazy.l"
 {printf("linea %d, palabra reservada: ES\n" , yylineno); return ES;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 74 "eazy.l"
+#line 75 "eazy.l"
 {printf("linea %d, palabra reservada: ESCAPE\n" , yylineno); return ESCAPE;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 75 "eazy.l"
+#line 76 "eazy.l"
 {printf("linea %d, palabra reservada: ESPECIFICO\n" , yylineno); return ESPECIFICO;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 76 "eazy.l"
+#line 77 "eazy.l"
 {printf("linea %d, palabra reservada: ESTRUCTURA\n" , yylineno); return ESTRUCTURA;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 77 "eazy.l"
+#line 78 "eazy.l"
 {printf("linea %d, palabra reservada: ETIQUETA\n" , yylineno); return ETIQUETA;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 78 "eazy.l"
+#line 79 "eazy.l"
 {printf("linea %d, palabra reservada: EXCEPCION\n" , yylineno); return EXCEPCION;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 79 "eazy.l"
+#line 80 "eazy.l"
 {printf("linea %d, palabra reservada: FICHERO\n" , yylineno); return FICHERO;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 80 "eazy.l"
+#line 81 "eazy.l"
 {printf("linea %d, palabra reservada: FIN\n" , yylineno); return FIN;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 81 "eazy.l"
+#line 82 "eazy.l"
 {printf("linea %d, palabra reservada: FINAL\n" , yylineno); return FINAL;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 82 "eazy.l"
+#line 83 "eazy.l"
 {printf("linea %d, palabra reservada: FUNCION\n" , yylineno); return FUNCION;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 83 "eazy.l"
+#line 84 "eazy.l"
 {printf("linea %d, palabra reservada: GENERICO\n" , yylineno); return GENERICO;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 84 "eazy.l"
+#line 85 "eazy.l"
 {printf("linea %d, palabra reservada: HASH\n" , yylineno); return HASH;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 85 "eazy.l"
+#line 86 "eazy.l"
 {printf("linea %d, palabra reservada: HACER\n" , yylineno); return HACER;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 86 "eazy.l"
+#line 87 "eazy.l"
 {printf("linea %d, palabra reservada: IMPORTAR\n" , yylineno); return IMPORTAR;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 87 "eazy.l"
+#line 88 "eazy.l"
 {printf("linea %d, palabra reservada: LANZA\n" , yylineno); return LANZA;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 88 "eazy.l"
+#line 89 "eazy.l"
 {printf("linea %d, palabra reservada: MIENTRAS\n" , yylineno); return MIENTRAS;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 89 "eazy.l"
+#line 90 "eazy.l"
 {printf("linea %d, palabra reservada: NADA\n" , yylineno); return NADA;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 90 "eazy.l"
+#line 91 "eazy.l"
 {printf("linea %d, palabra reservada: OR\n" , yylineno); return OR;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 91 "eazy.l"
+#line 92 "eazy.l"
 {printf("linea %d, palabra reservada: OTRA\n" , yylineno); return OTRA;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 92 "eazy.l"
+#line 93 "eazy.l"
 {printf("linea %d, palabra reservada: PARA\n" , yylineno); return PARA;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 93 "eazy.l"
+#line 94 "eazy.l"
 {printf("linea %d, palabra reservada: PRINCIPIO\n" , yylineno); return PRINCIPIO;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 94 "eazy.l"
+#line 95 "eazy.l"
 {printf("linea %d, palabra reservada: PRIVADO\n" , yylineno); return PRIVADO;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 95 "eazy.l"
+#line 96 "eazy.l"
 {printf("linea %d, palabra reservada: PROGRAMA\n" , yylineno); return PROGRAMA;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 96 "eazy.l"
+#line 97 "eazy.l"
 {printf("linea %d, palabra reservada: PROTEGIDO\n" , yylineno); return PROTEGIDO;}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 97 "eazy.l"
+#line 98 "eazy.l"
 {printf("linea %d, palabra reservada: PUBLICO\n" , yylineno); return PUBLICO;}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 98 "eazy.l"
+#line 99 "eazy.l"
 {printf("linea %d, palabra reservada: REAL\n" , yylineno); return REAL;}
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 99 "eazy.l"
+#line 100 "eazy.l"
 {printf("linea %d, palabra reservada: REF\n" , yylineno); return REF;}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 100 "eazy.l"
+#line 101 "eazy.l"
 {printf("linea %d, palabra reservada: SALTAR\n" , yylineno); return SALTAR;}
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 101 "eazy.l"
+#line 102 "eazy.l"
 {printf("linea %d, palabra reservada: SI\n" , yylineno); return SI;}
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 102 "eazy.l"
+#line 103 "eazy.l"
 {printf("linea %d, palabra reservada: SINO\n" , yylineno); return SINO;}
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 103 "eazy.l"
+#line 104 "eazy.l"
 {printf("linea %d, palabra reservada: TABLA\n" , yylineno); return TABLA;}
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 104 "eazy.l"
+#line 105 "eazy.l"
 {printf("linea %d, palabra reservada: TIPOS\n" , yylineno); return TIPOS;}
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 105 "eazy.l"
+#line 106 "eazy.l"
 {printf("linea %d, palabra reservada: ULTIMA\n" , yylineno); return ULTIMA;}
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 106 "eazy.l"
+#line 107 "eazy.l"
 {printf("linea %d, palabra reservada: UNION\n" , yylineno); return UNION;}
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 107 "eazy.l"
+#line 108 "eazy.l"
 {printf("linea %d, palabra reservada: VARIABLES\n" , yylineno); return VARIABLES;}
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 110 "eazy.l"
+#line 111 "eazy.l"
 {printf("linea %d, constante entera: %s\n" , yylineno, yytext); return CTC_ENTERA;}
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 111 "eazy.l"
+#line 112 "eazy.l"
 {printf("linea %d, constante entera: %s\n" , yylineno, yytext); return CTC_ENTERA;}
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 112 "eazy.l"
+#line 113 "eazy.l"
 {printf("linea %d, constante entera: %s\n", yylineno, yytext); return CTC_ENTERA;}
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 113 "eazy.l"
+#line 114 "eazy.l"
 {printf("linea %d, constante real: %s\n" , yylineno, yytext); return CTC_REAL;}
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 114 "eazy.l"
+#line 115 "eazy.l"
 {printf("linea %d, constante real: %s\n" , yylineno, yytext); return CTC_REAL;}
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 115 "eazy.l"
+#line 116 "eazy.l"
 {printf("linea %d, constante real: %s\n" , yylineno, yytext); return CTC_REAL;}
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 116 "eazy.l"
+#line 117 "eazy.l"
 {printf("linea %d, constante real: %s\n" , yylineno, yytext); return CTC_REAL;}
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 117 "eazy.l"
+#line 118 "eazy.l"
 {printf("linea %d, constante real: %s\n" , yylineno, yytext); return CTC_REAL;}
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 118 "eazy.l"
+#line 119 "eazy.l"
 {printf("linea %d, constante real: %s\n" , yylineno, yytext); return CTC_REAL;}
 	YY_BREAK
 case 69:
 /* rule 69 can match eol */
 YY_RULE_SETUP
-#line 119 "eazy.l"
+#line 120 "eazy.l"
 {printf("linea %d, caracter escapado: %s\n" , yylineno, yytext); return CARACTER;}
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 120 "eazy.l"
+#line 121 "eazy.l"
 {printf("linea %d, caracter octal: %s\n" , yylineno, yytext); return CARACTER;}
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 121 "eazy.l"
+#line 122 "eazy.l"
 {printf("linea %d, caracter hexadecimal: %s\n" , yylineno, yytext); return CARACTER;}
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 124 "eazy.l"
+#line 125 "eazy.l"
 {printf("linea %d, delimitador: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 125 "eazy.l"
+#line 126 "eazy.l"
 {printf("linea %d, delimitador: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 126 "eazy.l"
+#line 127 "eazy.l"
 {printf("linea %d, delimitador: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 127 "eazy.l"
+#line 128 "eazy.l"
 {printf("linea %d, delimitador: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 128 "eazy.l"
+#line 129 "eazy.l"
 {printf("linea %d, delimitador: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 129 "eazy.l"
+#line 130 "eazy.l"
 {printf("linea %d, delimitador: %s \n", yylineno, yytext); return PTOS;}
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 132 "eazy.l"
+#line 133 "eazy.l"
 {printf("linea %d, operador aritmetico: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 133 "eazy.l"
+#line 134 "eazy.l"
 {printf("linea %d, operador aritmetico: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 134 "eazy.l"
+#line 135 "eazy.l"
 {printf("linea %d, operador aritmetico: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 135 "eazy.l"
+#line 136 "eazy.l"
 {printf("linea %d, operador aritmetico: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 136 "eazy.l"
+#line 137 "eazy.l"
 {printf("linea %d, operador aritmetico: %s \n", yylineno, yytext); return MOD;}
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 137 "eazy.l"
+#line 138 "eazy.l"
 {printf("linea %d, operador aritmetico: %s \n", yylineno, yytext); return POTENCIA;}
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 139 "eazy.l"
+#line 140 "eazy.l"
 {printf("linea %d, operador de bits: %s \n", yylineno, yytext); return FLECHA_IZDA;}
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
-#line 140 "eazy.l"
+#line 141 "eazy.l"
 {printf("linea %d, operador de bits: %s \n", yylineno, yytext); return FLECHA_DCHA;}
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
-#line 141 "eazy.l"
+#line 142 "eazy.l"
 {printf("linea %d, operador de bits: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
-#line 142 "eazy.l"
+#line 143 "eazy.l"
 {printf("linea %d, operador de bits: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 143 "eazy.l"
+#line 144 "eazy.l"
 {printf("linea %d, operador de bits: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 144 "eazy.l"
+#line 145 "eazy.l"
 {printf("linea %d, operador de bits: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
-#line 146 "eazy.l"
+#line 147 "eazy.l"
 {printf("linea %d, operador relacional: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
-#line 147 "eazy.l"
+#line 148 "eazy.l"
 {printf("linea %d, operador relacional: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 92:
 YY_RULE_SETUP
-#line 148 "eazy.l"
+#line 149 "eazy.l"
 {printf("linea %d, operador relacional: %s \n", yylineno, yytext); return LE;}
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
-#line 149 "eazy.l"
+#line 150 "eazy.l"
 {printf("linea %d, operador relacional: %s \n", yylineno, yytext); return GE;}
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
-#line 150 "eazy.l"
+#line 151 "eazy.l"
 {printf("linea %d, operador relacional: %s \n", yylineno, yytext); return EQ;}
 	YY_BREAK
 case 95:
 YY_RULE_SETUP
-#line 151 "eazy.l"
+#line 152 "eazy.l"
 {printf("linea %d, operador relacional: %s \n", yylineno, yytext); return NEQ;}
 	YY_BREAK
 case 96:
 YY_RULE_SETUP
-#line 153 "eazy.l"
+#line 154 "eazy.l"
 {printf("linea %d, operador logico: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 97:
 YY_RULE_SETUP
-#line 154 "eazy.l"
+#line 155 "eazy.l"
 {printf("linea %d, operador logico: %s \n", yylineno, yytext); return AND;}
 	YY_BREAK
 case 98:
 YY_RULE_SETUP
-#line 155 "eazy.l"
+#line 156 "eazy.l"
 {printf("linea %d, operador logico: %s \n", yylineno, yytext); return OR;}
 	YY_BREAK
 case 99:
 YY_RULE_SETUP
-#line 157 "eazy.l"
+#line 158 "eazy.l"
 {printf("linea %d, operador de asignacion: %s \n", yylineno, yytext); return ASIG;}
 	YY_BREAK
 case 100:
 YY_RULE_SETUP
-#line 158 "eazy.l"
+#line 159 "eazy.l"
 {printf("linea %d, operador de asignacion: %s \n", yylineno, yytext); return SUMA_ASIG;}
 	YY_BREAK
 case 101:
 YY_RULE_SETUP
-#line 159 "eazy.l"
+#line 160 "eazy.l"
 {printf("linea %d, operador de asignacion: %s \n", yylineno, yytext); return RESTA_ASIG;}
 	YY_BREAK
 case 102:
 YY_RULE_SETUP
-#line 160 "eazy.l"
+#line 161 "eazy.l"
 {printf("linea %d, operador de asignacion: %s \n", yylineno, yytext); return MULT_ASIG;}
 	YY_BREAK
 case 103:
 YY_RULE_SETUP
-#line 161 "eazy.l"
+#line 162 "eazy.l"
 {printf("linea %d, operador de asignacion: %s \n", yylineno, yytext); return DIV_ASIG;}
 	YY_BREAK
 case 104:
 YY_RULE_SETUP
-#line 162 "eazy.l"
+#line 163 "eazy.l"
 {printf("linea %d, operador de asignacion: %s \n", yylineno, yytext); return MOD_ASIG;}
 	YY_BREAK
 case 105:
 YY_RULE_SETUP
-#line 163 "eazy.l"
+#line 164 "eazy.l"
 {printf("linea %d, operador de asignacion: %s \n", yylineno, yytext); return POT_ASIG;}
 	YY_BREAK
 case 106:
 YY_RULE_SETUP
-#line 164 "eazy.l"
+#line 165 "eazy.l"
 {printf("linea %d, operador de asignacion: %s \n", yylineno, yytext); return FI_ASIG;}
 	YY_BREAK
 case 107:
 YY_RULE_SETUP
-#line 165 "eazy.l"
+#line 166 "eazy.l"
 {printf("linea %d, operador de asignacion: %s \n", yylineno, yytext); return FD_ASIG;}
 	YY_BREAK
 case 108:
 YY_RULE_SETUP
-#line 166 "eazy.l"
+#line 167 "eazy.l"
 {printf("linea %d, operador de asignacion: %s \n", yylineno, yytext); return AND_ASIG;}
 	YY_BREAK
 case 109:
 YY_RULE_SETUP
-#line 167 "eazy.l"
+#line 168 "eazy.l"
 {printf("linea %d, operador de asignacion: %s \n", yylineno, yytext); return XOR_ASIG;}
 	YY_BREAK
 case 110:
 YY_RULE_SETUP
-#line 168 "eazy.l"
+#line 169 "eazy.l"
 {printf("linea %d, operador de asignacion: %s \n", yylineno, yytext); return OR_ASIG;}
 	YY_BREAK
 case 111:
 YY_RULE_SETUP
-#line 170 "eazy.l"
+#line 171 "eazy.l"
 {printf("linea %d, operador de acceso a memoria: %s \n", yylineno, yytext); return TAMANO;}
 	YY_BREAK
 case 112:
 YY_RULE_SETUP
-#line 171 "eazy.l"
+#line 172 "eazy.l"
 {printf("linea %d, Identificador: TAMANO\n" , yylineno); return TAMANO;}
 	YY_BREAK
 case 113:
 YY_RULE_SETUP
-#line 172 "eazy.l"
+#line 173 "eazy.l"
 {printf("linea %d, operador de acceso a memoria: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 114:
 YY_RULE_SETUP
-#line 173 "eazy.l"
+#line 174 "eazy.l"
 {printf("linea %d, operador de acceso a memoria: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 115:
 YY_RULE_SETUP
-#line 174 "eazy.l"
+#line 175 "eazy.l"
 {printf("linea %d, operador de acceso a memoria: %s \n", yylineno, yytext); return INDIRECCION;}
 	YY_BREAK
 case 116:
 YY_RULE_SETUP
-#line 175 "eazy.l"
+#line 176 "eazy.l"
 {printf("linea %d, operador de acceso a memoria: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 117:
 YY_RULE_SETUP
-#line 176 "eazy.l"
+#line 177 "eazy.l"
 {printf("linea %d, operador de acceso a memoria: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 118:
 YY_RULE_SETUP
-#line 177 "eazy.l"
+#line 178 "eazy.l"
 {printf("linea %d, operador de acceso a memoria: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 119:
 YY_RULE_SETUP
-#line 178 "eazy.l"
+#line 179 "eazy.l"
 {printf("linea %d, operador de acceso a memoria: %s \n", yylineno, yytext); return (int)yytext[0];}
 	YY_BREAK
 case 120:
 YY_RULE_SETUP
-#line 181 "eazy.l"
+#line 182 "eazy.l"
 {printf("linea %d, identificador: %s\n", yylineno, yytext); return IDENTIFICADOR;}
 	YY_BREAK
 case 121:
 YY_RULE_SETUP
-#line 182 "eazy.l"
+#line 183 "eazy.l"
 {printf("linea %d, caracter: %s\n" , yylineno, yytext); return CARACTER;}
 	YY_BREAK
 case 122:
 /* rule 122 can match eol */
 YY_RULE_SETUP
-#line 186 "eazy.l"
+#line 187 "eazy.l"
 { printf("linea %d, cadena: %s\n", yylineno, yytext); return CADENA; }
 	YY_BREAK
 case 123:
 YY_RULE_SETUP
-#line 188 "eazy.l"
+#line 189 "eazy.l"
 { fprintf(stdout, "ERROR en línea %d: carácter inesperado '%s'\n", yylineno, yytext); }
 	YY_BREAK
 case 124:
 YY_RULE_SETUP
-#line 190 "eazy.l"
+#line 191 "eazy.l"
 ECHO;
 	YY_BREAK
 #line 1792 "lex.yy.c"
@@ -2808,7 +2808,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 190 "eazy.l"
+#line 191 "eazy.l"
 
 
 
