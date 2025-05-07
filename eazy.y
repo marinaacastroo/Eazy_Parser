@@ -201,45 +201,45 @@ declaracion_constantes
       ;
 
 constante
-      : CTC_ENTERA
-      | CTC_REAL
-      | CTC_CARACTER
-      | CTC_CADENA
-      | constante_tabla
-      | constante_estructurada
+      : CTC_ENTERA                        { printf("  constante -> CTC_ENTERA\n"); }
+      | CTC_REAL                          { printf("  constante -> CTC_REAL\n"); }  
+      | CTC_CARACTER                      { printf("  constante -> CTC_CARACTER\n"); }    
+      | CTC_CADENA                        { printf("  constante -> CTC_CADENA\n"); }
+      | constante_tabla                   { printf("  constante -> constante_tabla\n"); }
+      | constante_estructurada            { printf("  constante -> constante_estructurada\n"); }
       ;
 
 constante_tabla
-      : '(' lista_constante ')'
-      | '(' lista_elemento_hash ')'
+      : '(' lista_constante ')'                 { printf("  constante -> '(' lista_constante ')'\n"); }
+      | '(' lista_elemento_hash ')'             { printf("  constante -> '(' lista_elemento_hash ')'\n"); }
       ;
 
 lista_constante
       : 
-      | constante ';' lista_constante
+      | constante ';' lista_constante           { printf("  lista_constante -> constante ; lista_constante\n"); }
       ;
 
 
 lista_elemento_hash
-      : elemento_hash ';' lista_elemento_hash
-      | elemento_hash
+      : elemento_hash ';' lista_elemento_hash   { printf("  lista_elemento_hash -> elemento_hash ; lista_elemento_hash\n"); }
+      | elemento_hash                           { printf("  lista_elemento_hash -> elemento_hash\n"); }     
       ;
 elemento_hash
       : 
-      | CTC_CADENA FLECHA_DCHA constante
+      | CTC_CADENA FLECHA_DCHA constante        { printf("  elemento_hash -> CTC_CADENA FLECHA_DCHA constante\n"); }
       ;
 
 constante_estructurada
-      : '(' campo_constante_lista ')'
+      : '(' campo_constante_lista ')'           { printf("  constante -> '(' campo_constante_lista ')'\n"); }
       ;
 
 campo_constante_lista
-      : campo_constante_lista ';' campo_constante
-      | campo_constante
+      : campo_constante_lista ';' campo_constante       { printf("  campo_constante_lista -> campo_constante_lista ; campo_constante\n"); }
+      | campo_constante                                 { printf("  campo_constante_lista -> campo_constante\n"); }      
       ;
 
 campo_constante
-      : IDENTIFICADOR ASIG constante
+      : IDENTIFICADOR ASIG constante                  { printf("  campo_constante -> IDENTIFICADOR ASIG constante\n"); }
       ;
 
 

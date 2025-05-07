@@ -2273,6 +2273,86 @@ yyreduce:
     { printf("  declaracion_constantes -> visibilidad_opt IDENTIFICADOR ES tipo_basico ASIG constante .\n"); ;}
     break;
 
+  case 75:
+#line 204 "eazy.y"
+    { printf("  constante -> CTC_ENTERA\n"); ;}
+    break;
+
+  case 76:
+#line 205 "eazy.y"
+    { printf("  constante -> CTC_REAL\n"); ;}
+    break;
+
+  case 77:
+#line 206 "eazy.y"
+    { printf("  constante -> CTC_CARACTER\n"); ;}
+    break;
+
+  case 78:
+#line 207 "eazy.y"
+    { printf("  constante -> CTC_CADENA\n"); ;}
+    break;
+
+  case 79:
+#line 208 "eazy.y"
+    { printf("  constante -> constante_tabla\n"); ;}
+    break;
+
+  case 80:
+#line 209 "eazy.y"
+    { printf("  constante -> constante_estructurada\n"); ;}
+    break;
+
+  case 81:
+#line 213 "eazy.y"
+    { printf("  constante -> '(' lista_constante ')'\n"); ;}
+    break;
+
+  case 82:
+#line 214 "eazy.y"
+    { printf("  constante -> '(' lista_elemento_hash ')'\n"); ;}
+    break;
+
+  case 84:
+#line 219 "eazy.y"
+    { printf("  lista_constante -> constante ; lista_constante\n"); ;}
+    break;
+
+  case 85:
+#line 224 "eazy.y"
+    { printf("  lista_elemento_hash -> elemento_hash ; lista_elemento_hash\n"); ;}
+    break;
+
+  case 86:
+#line 225 "eazy.y"
+    { printf("  lista_elemento_hash -> elemento_hash\n"); ;}
+    break;
+
+  case 88:
+#line 229 "eazy.y"
+    { printf("  elemento_hash -> CTC_CADENA FLECHA_DCHA constante\n"); ;}
+    break;
+
+  case 89:
+#line 233 "eazy.y"
+    { printf("  constante -> '(' campo_constante_lista ')'\n"); ;}
+    break;
+
+  case 90:
+#line 237 "eazy.y"
+    { printf("  campo_constante_lista -> campo_constante_lista ; campo_constante\n"); ;}
+    break;
+
+  case 91:
+#line 238 "eazy.y"
+    { printf("  campo_constante_lista -> campo_constante\n"); ;}
+    break;
+
+  case 92:
+#line 242 "eazy.y"
+    { printf("  campo_constante -> IDENTIFICADOR ASIG constante\n"); ;}
+    break;
+
   case 103:
 #line 279 "eazy.y"
     { printf("  ERROR: declaracion_funcion -> error\n");yyerrok; ;}
@@ -2290,7 +2370,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 2294 "eazy.tab.c"
+#line 2374 "eazy.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
