@@ -25,13 +25,13 @@
 
 programa
       : cabecera_programa bloque_programa                  { printf("  ÉXITO: programa -> cabecera_programa bloque_programa\n"); }           
-      | error                                              { printf("  ERROR: programa -> error\n");yyerrok; }
+      | error '\n'                                            { printf("  ERROR: programa -> error\n");yyerrok; }
       ;
 
 
 cabecera_programa
       : PROGRAMA IDENTIFICADOR '.' lista_librerias         { printf("  cabecera_programa -> PROGRAMA IDENTIFICADOR . lista_librerias\n"); }
-      | error                                              { printf("  ERROR: cabecera_programa -> error\n");yyerrok; }      
+      | error '\n'                                             { printf("  ERROR: cabecera_programa -> error\n");yyerrok; }      
       ;
 
 lista_librerias
@@ -42,7 +42,7 @@ lista_librerias
 libreria
       : IMPORTAR nombre_lista '.'                          { printf("  libreria -> IMPORTAR nombre_lista .\n"); }
       | IMPORTAR nombre COMO IDENTIFICADOR '.'             { printf("  libreria -> IMPORTAR nombre COMO IDENTIFICADOR .\n"); }
-      | error                                              { printf("  ERROR: libreria -> error\n");yyerrok; }
+      | error '\n'                                             { printf("  ERROR: libreria -> error\n");yyerrok; }
       ;
 
 
@@ -69,7 +69,7 @@ bloque_programa
 declaraciones_tipos_opt
       : 
       | declaraciones_tipos
-      | error              { printf("  ERROR: declaraciones_tipos_opt -> error\n");yyerrok; }
+      | error '\n'             { printf("  ERROR: declaraciones_tipos_opt -> error\n");yyerrok; }
       ;
 declaraciones_tipos
       : TIPOS declaraciones_tipo_lista FIN 
@@ -276,7 +276,7 @@ lista_declaracion_funcion
       ;
 declaracion_funcion
       : visibilidad_opt firma_funcion cuerpo_funcion
-      | error                 { printf("  ERROR: declaracion_funcion -> error\n");yyerrok; }
+      | error '\n'                 { printf("  ERROR: declaracion_funcion -> error\n");yyerrok; }
       ;
 
 firma_funcion
@@ -332,7 +332,7 @@ instruccion
       | instruccion_lanzamiento_excepcion
       | instruccion_captura_excepcion
       | instruccion_vacia
-      | error             { printf("  ERROR: instruccion -> error\n");yyerrok; }    
+      | error '\n'            { printf("  ERROR: instruccion -> error\n");yyerrok; }    
       ;
 instruccion_expresion
       : expresion_funcional '.'
@@ -522,7 +522,7 @@ expresion_primitiva
       | expresion_indexada
       | expresion_basica
       | expresion_constante
-      | error { printf("ERROR: expresión_primitiva -> error\n"); yyerrok; }
+      | error '\n'{ printf("ERROR: expresión_primitiva -> error\n"); yyerrok; }
       ;
 expresion_funcional
       : IDENTIFICADOR '(' opt_expresion_lista ')'
