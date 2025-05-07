@@ -431,7 +431,7 @@ clausula_defecto
       ;
 
 instruccion_vacia
-      : 
+      : ';'
       ;
       
 
@@ -520,9 +520,8 @@ expresion_unaria
 expresion_primitiva
       : expresion_funcional
       | expresion_indexada
-      | expresion_basica
       | expresion_constante
-      | error '\n'{ printf("ERROR: expresión_primitiva -> error\n"); yyerrok; }
+      | error '\n'{ printf("ERROR: expresión_primitiva -> error\n"); yyerrok; } 
       ;
 expresion_funcional
       : IDENTIFICADOR '(' opt_expresion_lista ')'
