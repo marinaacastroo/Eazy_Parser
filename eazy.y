@@ -528,17 +528,13 @@ expresion_funcional
       ;
 opt_expresion_lista
       :
-      | lista_expresiones
+      | expresion_lista
       ;
 expresion_lista
-      : lista_expresiones ';' expresion
+      : expresion_lista ';' expresion
       | expresion
       ;
 
-lista_expresiones
-      :
-      | lista_expresiones ';' expresion
-      ;
 expresion_indexada 
       : expresion_basica 
       | expresion_indexada '?' expresion_basica
