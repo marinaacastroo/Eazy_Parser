@@ -2536,9 +2536,439 @@ yyreduce:
     { printf("  instruccion_bifurcacion -> SI '(' expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones\n"); ;}
     break;
 
+  case 138:
+#line 356 "eazy.y"
+    { printf("  instruccion_bifurcacion -> SI '(' expresion ')' bloque_instrucciones lista_otro_caso\n"); ;}
+    break;
+
+  case 139:
+#line 360 "eazy.y"
+    { printf("  lista_otro_caso -> lista_otro_caso otro_caso\n"); ;}
+    break;
+
+  case 141:
+#line 364 "eazy.y"
+    { printf("  otro_caso -> ENCAMBIO '(' expresion ')' bloque_instrucciones\n"); ;}
+    break;
+
+  case 142:
+#line 368 "eazy.y"
+    { printf("  instruccion_bucle -> MIENTRAS '(' expresion ')' bloque_instrucciones\n"); ;}
+    break;
+
+  case 143:
+#line 369 "eazy.y"
+    { printf("  instruccion_bucle -> HACER bloque_instrucciones MIENTRAS '(' expresion ')' .\n"); ;}
+    break;
+
+  case 144:
+#line 370 "eazy.y"
+    { printf("  instruccion_bucle -> PARA '(' asignacion_lista ':' expresion ':' asignacion_lista ')' bloque_instrucciones\n"); ;}
+    break;
+
+  case 145:
+#line 371 "eazy.y"
+    { printf("  instruccion_bucle -> PARA CADA IDENTIFICADOR EN '(' expresion ')' bloque_instrucciones\n"); ;}
+    break;
+
+  case 146:
+#line 375 "eazy.y"
+    { printf("  asignacion_lista -> asignacion_lista ; asignacion\n"); ;}
+    break;
+
+  case 147:
+#line 376 "eazy.y"
+    { printf("  asignacion_lista -> asignacion\n"); ;}
+    break;
+
+  case 148:
+#line 380 "eazy.y"
+    { printf("  instruccion_salto -> SALTAR IDENTIFICADOR .\n"); ;}
+    break;
+
+  case 149:
+#line 381 "eazy.y"
+    { printf("  instruccion_salto -> CONTINUAR .\n"); ;}
+    break;
+
+  case 150:
+#line 382 "eazy.y"
+    { printf("  instruccion_salto -> ESCAPE .\n"); ;}
+    break;
+
+  case 151:
+#line 386 "eazy.y"
+    { printf("  instruccion_destino_salto -> ETIQUETA IDENTIFICADOR .\n"); ;}
+    break;
+
+  case 152:
+#line 390 "eazy.y"
+    { printf("  instruccion_devolver -> DEVOLVER expresion .\n"); ;}
+    break;
+
+  case 153:
+#line 391 "eazy.y"
+    { printf("  instruccion_devolver -> DEVOLVER .\n"); ;}
+    break;
+
+  case 154:
+#line 395 "eazy.y"
+    { printf("  instruccion_lanzamiento_excepcion -> LANZA EXCEPCION IDENTIFICADOR .\n"); ;}
+    break;
+
+  case 155:
+#line 399 "eazy.y"
+    { printf("  instruccion_captura_excepcion -> EJECUTA bloque_instrucciones clausulas\n"); ;}
+    break;
+
+  case 156:
+#line 403 "eazy.y"
+    { printf("  clausulas -> clausulas_excepcion clausula_defecto\n"); ;}
+    break;
+
+  case 157:
+#line 404 "eazy.y"
+    { printf("  clausulas -> clausulas_excepcion\n"); ;}
+    break;
+
+  case 158:
+#line 405 "eazy.y"
+    { printf("  clausulas -> clausula_defecto\n"); ;}
+    break;
+
+  case 159:
+#line 409 "eazy.y"
+    { printf("  clausulas_excepcion -> lista_clausula_excepcion_especifica clausula_excepcion_general\n"); ;}
+    break;
+
+  case 161:
+#line 413 "eazy.y"
+    { printf("  lista_clausula_excepcion_especifica -> lista_clausula_excepcion_especifica clausula_excepcion_especifica\n"); ;}
+    break;
+
+  case 162:
+#line 416 "eazy.y"
+    { printf("  clausula_excepcion_especifica -> EXCEPCION nombre bloque_instrucciones\n"); ;}
+    break;
+
+  case 163:
+#line 420 "eazy.y"
+    { printf("  clausula_excepcion_general -> OTRA EXCEPCION bloque_instrucciones\n"); ;}
+    break;
+
+  case 164:
+#line 424 "eazy.y"
+    { printf("  clausula_defecto -> DEFECTO bloque_instrucciones\n"); ;}
+    break;
+
+  case 165:
+#line 428 "eazy.y"
+    { printf("  instruccion_vacia -> ;\n"); ;}
+    break;
+
+  case 166:
+#line 438 "eazy.y"
+    { printf("  indice -> '[' expresion ']'\n"); ;}
+    break;
+
+  case 167:
+#line 439 "eazy.y"
+    { printf("  indice -> '{' expresion '}'\n"); ;}
+    break;
+
+  case 168:
+#line 443 "eazy.y"
+    { printf("  expresion -> expresion_logica_or\n"); ;}
+    break;
+
+  case 169:
+#line 444 "eazy.y"
+    { printf("  expresion -> expresion_logica_or SI expresion SINO expresion\n"); ;}
+    break;
+
+  case 170:
+#line 445 "eazy.y"
+    { printf("  expresion -> expresion_logica_or PARA CADA IDENTIFICADOR EN expresion\n"); ;}
+    break;
+
+  case 171:
+#line 448 "eazy.y"
+    { printf("  expresion_logica_or -> expresion_logica_and\n"); ;}
+    break;
+
+  case 172:
+#line 449 "eazy.y"
+    { printf("  expresion_logica_or -> expresion_logica_or OR expresion_logica_and\n"); ;}
+    break;
+
+  case 173:
+#line 451 "eazy.y"
+    { printf("  expresion_logica_and -> expresion_igualdad\n"); ;}
+    break;
+
+  case 174:
+#line 452 "eazy.y"
+    { printf("  expresion_logica_and -> expresion_logica_and AND expresion_igualdad\n"); ;}
+    break;
+
+  case 175:
+#line 456 "eazy.y"
+    { printf("  expresion_igualdad -> expresion_comparacion EQ expresion_comparacion\n"); ;}
+    break;
+
+  case 176:
+#line 457 "eazy.y"
+    { printf("  expresion_igualdad -> expresion_comparacion NEQ expresion_comparacion\n"); ;}
+    break;
+
+  case 177:
+#line 458 "eazy.y"
+    { printf("  expresion_igualdad -> expresion_comparacion\n"); ;}
+    break;
+
+  case 178:
+#line 462 "eazy.y"
+    { printf("  expresion_comparacion -> expresion_or_binario < expresion_or_binario\n"); ;}
+    break;
+
+  case 179:
+#line 463 "eazy.y"
+    { printf("  expresion_comparacion -> expresion_or_binario > expresion_or_binario\n"); ;}
+    break;
+
+  case 180:
+#line 464 "eazy.y"
+    { printf("  expresion_comparacion -> expresion_or_binario LE expresion_or_binario\n"); ;}
+    break;
+
+  case 181:
+#line 465 "eazy.y"
+    { printf("  expresion_comparacion -> expresion_or_binario GE expresion_or_binario\n"); ;}
+    break;
+
+  case 182:
+#line 466 "eazy.y"
+    { printf("  expresion_comparacion -> expresion_or_binario\n"); ;}
+    break;
+
+  case 183:
+#line 470 "eazy.y"
+    { printf("  expresion_or_binario -> expresion_xor_binario | expresion_xor_binario\n"); ;}
+    break;
+
+  case 184:
+#line 471 "eazy.y"
+    { printf("  expresion_or_binario -> expresion_xor_binario\n"); ;}
+    break;
+
+  case 185:
+#line 475 "eazy.y"
+    { printf("  expresion_xor_binario -> expresion_and_binario @ expresion_and_binario\n"); ;}
+    break;
+
+  case 186:
+#line 476 "eazy.y"
+    { printf("  expresion_xor_binario -> expresion_and_binario\n"); ;}
+    break;
+
+  case 187:
+#line 480 "eazy.y"
+    { printf("  expresion_and_binario -> expresion_desplazamiento & expresion_desplazamiento\n"); ;}
+    break;
+
+  case 188:
+#line 481 "eazy.y"
+    { printf("  expresion_and_binario -> expresion_desplazamiento\n"); ;}
+    break;
+
+  case 189:
+#line 485 "eazy.y"
+    { printf("  expresion_desplazamiento -> expresion_aditiva\n"); ;}
+    break;
+
+  case 190:
+#line 486 "eazy.y"
+    { printf("  expresion_desplazamiento -> expresion_desplazamiento FLECHA_IZDA expresion_aditiva\n"); ;}
+    break;
+
+  case 191:
+#line 487 "eazy.y"
+    { printf("  expresion_desplazamiento -> expresion_desplazamiento FLECHA_DCHA expresion_aditiva\n"); ;}
+    break;
+
+  case 192:
+#line 490 "eazy.y"
+    { printf("  expresion_aditiva -> expresion_multiplicativa\n"); ;}
+    break;
+
+  case 193:
+#line 491 "eazy.y"
+    { printf("  expresion_aditiva -> expresion_aditiva + expresion_multiplicativa\n"); ;}
+    break;
+
+  case 194:
+#line 492 "eazy.y"
+    { printf("  expresion_aditiva -> expresion_aditiva - expresion_multiplicativa\n"); ;}
+    break;
+
+  case 195:
+#line 496 "eazy.y"
+    { printf("  expresion_multiplicativa -> expresion_potencia\n"); ;}
+    break;
+
+  case 196:
+#line 497 "eazy.y"
+    { printf("  expresion_multiplicativa -> expresion_multiplicativa * expresion_potencia\n"); ;}
+    break;
+
+  case 197:
+#line 498 "eazy.y"
+    { printf("  expresion_multiplicativa -> expresion_multiplicativa / expresion_potencia\n"); ;}
+    break;
+
+  case 198:
+#line 499 "eazy.y"
+    { printf("  expresion_multiplicativa -> expresion_multiplicativa MOD expresion_potencia\n"); ;}
+    break;
+
+  case 199:
+#line 503 "eazy.y"
+    { printf("  expresion_potencia -> expresion_unaria\n"); ;}
+    break;
+
+  case 200:
+#line 504 "eazy.y"
+    { printf("  expresion_potencia -> expresion_unaria POTENCIA expresion_potencia\n"); ;}
+    break;
+
+  case 201:
+#line 508 "eazy.y"
+    { printf("  expresion_unaria -> - expresion_primitiva\n"); ;}
+    break;
+
+  case 202:
+#line 509 "eazy.y"
+    { printf("  expresion_unaria -> ~ expresion_primitiva\n"); ;}
+    break;
+
+  case 203:
+#line 510 "eazy.y"
+    { printf("  expresion_unaria -> ! expresion_primitiva\n"); ;}
+    break;
+
+  case 204:
+#line 511 "eazy.y"
+    { printf("  expresion_unaria -> TAMANO expresion_primitiva\n"); ;}
+    break;
+
+  case 205:
+#line 512 "eazy.y"
+    { printf("  expresion_unaria -> expresion_primitiva\n"); ;}
+    break;
+
+  case 206:
+#line 515 "eazy.y"
+    { printf("  expresion_primitiva -> expresion_funcional\n"); ;}
+    break;
+
+  case 207:
+#line 516 "eazy.y"
+    { printf("  expresion_primitiva -> expresion_indexada\n"); ;}
+    break;
+
+  case 208:
+#line 517 "eazy.y"
+    { printf("  expresion_primitiva -> expresion_constante\n"); ;}
+    break;
+
+  case 209:
+#line 520 "eazy.y"
+    { printf("  expresion_funcional -> IDENTIFICADOR '(' opt_expresion_lista ')'\n"); ;}
+    break;
+
+  case 211:
+#line 524 "eazy.y"
+    { printf("  opt_expresion_lista -> expresion_lista\n"); ;}
+    break;
+
+  case 212:
+#line 527 "eazy.y"
+    { printf("  expresion_lista -> expresion_lista ; expresion\n"); ;}
+    break;
+
+  case 213:
+#line 528 "eazy.y"
+    { printf("  expresion_lista -> expresion\n"); ;}
+    break;
+
+  case 214:
+#line 532 "eazy.y"
+    { printf("  expresion_indexada -> expresion_basica\n"); ;}
+    break;
+
+  case 215:
+#line 533 "eazy.y"
+    { printf("  expresion_indexada -> expresion_indexada ? expresion_basica\n"); ;}
+    break;
+
+  case 216:
+#line 534 "eazy.y"
+    { printf("  expresion_indexada -> expresion_indexada INDIRECCION expresion_basica\n"); ;}
+    break;
+
+  case 217:
+#line 535 "eazy.y"
+    { printf("  expresion_indexada -> expresion_indexada INDIRECCION indice\n"); ;}
+    break;
+
+  case 218:
+#line 536 "eazy.y"
+    { printf("  expresion_indexada -> expresion_indexada indice\n"); ;}
+    break;
+
+  case 219:
+#line 540 "eazy.y"
+    { printf("  expresion_basica -> nombre\n"); ;}
+    break;
+
+  case 220:
+#line 541 "eazy.y"
+    { printf("  expresion_basica -> '(' expresion ')'\n"); ;}
+    break;
+
+  case 221:
+#line 542 "eazy.y"
+    { printf("  expresion_basica -> ^ expresion_basica\n"); ;}
+    break;
+
+  case 222:
+#line 543 "eazy.y"
+    { printf("  expresion_basica -> REF expresion_basica\n"); ;}
+    break;
+
+  case 223:
+#line 546 "eazy.y"
+    { printf("  expresion_constante -> CTC_ENTERA\n"); ;}
+    break;
+
+  case 224:
+#line 547 "eazy.y"
+    { printf("  expresion_constante -> CTC_REAL\n"); ;}
+    break;
+
+  case 225:
+#line 548 "eazy.y"
+    { printf("  expresion_constante -> CTC_CARACTER\n"); ;}
+    break;
+
+  case 226:
+#line 549 "eazy.y"
+    { printf("  expresion_constante -> CTC_CADENA\n"); ;}
+    break;
+
 
 /* Line 1267 of yacc.c.  */
-#line 2542 "eazy.tab.c"
+#line 2972 "eazy.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);

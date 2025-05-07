@@ -352,80 +352,80 @@ operador_asignacion
       | OR_ASIG               { printf("  operador_asignacion -> OR_ASIG\n"); }
       ; 
 instruccion_bifurcacion
-      : SI '(' expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones           { printf("  instruccion_bifurcacion -> SI '(' expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones\n"); }
-      | SI '(' expresion ')' bloque_instrucciones lista_otro_caso 
+      : SI '(' expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones                   { printf("  instruccion_bifurcacion -> SI '(' expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones\n"); }
+      | SI '(' expresion ')' bloque_instrucciones lista_otro_caso                                                 { printf("  instruccion_bifurcacion -> SI '(' expresion ')' bloque_instrucciones lista_otro_caso\n"); }
       ;
 
 lista_otro_caso
-      : lista_otro_caso otro_caso
+      : lista_otro_caso otro_caso               { printf("  lista_otro_caso -> lista_otro_caso otro_caso\n"); }
       | 
       ;
 otro_caso
-      : ENCAMBIO '(' expresion ')' bloque_instrucciones
+      : ENCAMBIO '(' expresion ')' bloque_instrucciones           { printf("  otro_caso -> ENCAMBIO '(' expresion ')' bloque_instrucciones\n"); }
       ;
 
 instruccion_bucle
-      : MIENTRAS '(' expresion ')' bloque_instrucciones
-      | HACER bloque_instrucciones MIENTRAS '(' expresion ')' '.'
-      | PARA '(' asignacion_lista ':' expresion ':' asignacion_lista ')' bloque_instrucciones
-      | PARA CADA IDENTIFICADOR EN '(' expresion ')' bloque_instrucciones
+      : MIENTRAS '(' expresion ')' bloque_instrucciones                 { printf("  instruccion_bucle -> MIENTRAS '(' expresion ')' bloque_instrucciones\n"); }
+      | HACER bloque_instrucciones MIENTRAS '(' expresion ')' '.'       { printf("  instruccion_bucle -> HACER bloque_instrucciones MIENTRAS '(' expresion ')' .\n"); }
+      | PARA '(' asignacion_lista ':' expresion ':' asignacion_lista ')' bloque_instrucciones         { printf("  instruccion_bucle -> PARA '(' asignacion_lista ':' expresion ':' asignacion_lista ')' bloque_instrucciones\n"); }
+      | PARA CADA IDENTIFICADOR EN '(' expresion ')' bloque_instrucciones       { printf("  instruccion_bucle -> PARA CADA IDENTIFICADOR EN '(' expresion ')' bloque_instrucciones\n"); }
       ;
 
 asignacion_lista
-      : asignacion_lista ';' asignacion
-      | asignacion
+      : asignacion_lista ';' asignacion         { printf("  asignacion_lista -> asignacion_lista ; asignacion\n"); }
+      | asignacion                        { printf("  asignacion_lista -> asignacion\n"); }
       ;
 
 instruccion_salto
-      : SALTAR IDENTIFICADOR '.' 
-      | CONTINUAR '.'
-      | ESCAPE '.'
+      : SALTAR IDENTIFICADOR '.'          { printf("  instruccion_salto -> SALTAR IDENTIFICADOR .\n"); }
+      | CONTINUAR '.'                     { printf("  instruccion_salto -> CONTINUAR .\n"); }
+      | ESCAPE '.'                  { printf("  instruccion_salto -> ESCAPE .\n"); }
       ;
 
 instruccion_destino_salto
-      : ETIQUETA IDENTIFICADOR '.'
+      : ETIQUETA IDENTIFICADOR '.'        { printf("  instruccion_destino_salto -> ETIQUETA IDENTIFICADOR .\n"); }
       ;
 
 instruccion_devolver
-      : DEVOLVER expresion '.'
-      | DEVOLVER '.' 
+      : DEVOLVER expresion '.'            { printf("  instruccion_devolver -> DEVOLVER expresion .\n"); }
+      | DEVOLVER '.'            { printf("  instruccion_devolver -> DEVOLVER .\n"); }
       ;
 
 instruccion_lanzamiento_excepcion
-      : LANZA EXCEPCION IDENTIFICADOR '.'
+      : LANZA EXCEPCION IDENTIFICADOR '.'       { printf("  instruccion_lanzamiento_excepcion -> LANZA EXCEPCION IDENTIFICADOR .\n"); }
       ;
 
 instruccion_captura_excepcion
-      : EJECUTA bloque_instrucciones clausulas
+      : EJECUTA bloque_instrucciones clausulas              { printf("  instruccion_captura_excepcion -> EJECUTA bloque_instrucciones clausulas\n"); }
       ;
 
 clausulas 
-      : clausulas_excepcion clausula_defecto
-      | clausulas_excepcion
-      | clausula_defecto
+      : clausulas_excepcion clausula_defecto                { printf("  clausulas -> clausulas_excepcion clausula_defecto\n"); }
+      | clausulas_excepcion                     { printf("  clausulas -> clausulas_excepcion\n"); }
+      | clausula_defecto                  { printf("  clausulas -> clausula_defecto\n"); }
       ; 
 
 clausulas_excepcion
-      : lista_clausula_excepcion_especifica clausula_excepcion_general
+      : lista_clausula_excepcion_especifica clausula_excepcion_general        { printf("  clausulas_excepcion -> lista_clausula_excepcion_especifica clausula_excepcion_general\n"); }
       ;
 lista_clausula_excepcion_especifica
       : 
-      | lista_clausula_excepcion_especifica clausula_excepcion_especifica
+      | lista_clausula_excepcion_especifica clausula_excepcion_especifica           { printf("  lista_clausula_excepcion_especifica -> lista_clausula_excepcion_especifica clausula_excepcion_especifica\n"); }
       ;
 clausula_excepcion_especifica
-      : EXCEPCION nombre bloque_instrucciones
+      : EXCEPCION nombre bloque_instrucciones                     { printf("  clausula_excepcion_especifica -> EXCEPCION nombre bloque_instrucciones\n"); }
       ;
 
 clausula_excepcion_general
-      : OTRA EXCEPCION bloque_instrucciones
+      : OTRA EXCEPCION bloque_instrucciones                       { printf("  clausula_excepcion_general -> OTRA EXCEPCION bloque_instrucciones\n"); }
       ;
 
 clausula_defecto
-      : DEFECTO bloque_instrucciones
+      : DEFECTO bloque_instrucciones                  { printf("  clausula_defecto -> DEFECTO bloque_instrucciones\n"); }
       ;
 
 instruccion_vacia
-      : ';'
+      : ';'                     { printf("  instruccion_vacia -> ;\n"); }
       ;
       
 
@@ -435,118 +435,118 @@ instruccion_vacia
 
 
 indice
-      : '[' expresion ']'
-      | '{' expresion '}'
+      : '[' expresion ']'                 { printf("  indice -> '[' expresion ']'\n"); }
+      | '{' expresion '}'                 { printf("  indice -> '{' expresion '}'\n"); }
       ;
 
 expresion
-      : expresion_logica_or
-      | expresion_logica_or SI expresion SINO expresion
-      | expresion_logica_or PARA CADA IDENTIFICADOR EN expresion
+      : expresion_logica_or                     { printf("  expresion -> expresion_logica_or\n"); }
+      | expresion_logica_or SI expresion SINO expresion           { printf("  expresion -> expresion_logica_or SI expresion SINO expresion\n"); }
+      | expresion_logica_or PARA CADA IDENTIFICADOR EN expresion        { printf("  expresion -> expresion_logica_or PARA CADA IDENTIFICADOR EN expresion\n"); }
       ;
 expresion_logica_or
-      : expresion_logica_and
-      | expresion_logica_or OR expresion_logica_and
+      : expresion_logica_and              { printf("  expresion_logica_or -> expresion_logica_and\n"); }
+      | expresion_logica_or OR expresion_logica_and         { printf("  expresion_logica_or -> expresion_logica_or OR expresion_logica_and\n"); }
 expresion_logica_and
-      : expresion_igualdad
-      | expresion_logica_and AND expresion_igualdad
+      : expresion_igualdad                { printf("  expresion_logica_and -> expresion_igualdad\n"); }
+      | expresion_logica_and AND expresion_igualdad         { printf("  expresion_logica_and -> expresion_logica_and AND expresion_igualdad\n"); }
       ;
 
 expresion_igualdad
-      : expresion_comparacion EQ expresion_comparacion
-      | expresion_comparacion NEQ expresion_comparacion
-      | expresion_comparacion
+      : expresion_comparacion EQ expresion_comparacion            { printf("  expresion_igualdad -> expresion_comparacion EQ expresion_comparacion\n"); }
+      | expresion_comparacion NEQ expresion_comparacion           { printf("  expresion_igualdad -> expresion_comparacion NEQ expresion_comparacion\n"); }
+      | expresion_comparacion                               { printf("  expresion_igualdad -> expresion_comparacion\n"); }
       ;
 
 expresion_comparacion
-      : expresion_or_binario '<' expresion_or_binario
-      | expresion_or_binario '>' expresion_or_binario
-      | expresion_or_binario LE expresion_or_binario
-      | expresion_or_binario GE expresion_or_binario
-      | expresion_or_binario
+      : expresion_or_binario '<' expresion_or_binario             { printf("  expresion_comparacion -> expresion_or_binario < expresion_or_binario\n"); }
+      | expresion_or_binario '>' expresion_or_binario             { printf("  expresion_comparacion -> expresion_or_binario > expresion_or_binario\n"); }
+      | expresion_or_binario LE expresion_or_binario              { printf("  expresion_comparacion -> expresion_or_binario LE expresion_or_binario\n"); }
+      | expresion_or_binario GE expresion_or_binario              { printf("  expresion_comparacion -> expresion_or_binario GE expresion_or_binario\n"); }
+      | expresion_or_binario                          { printf("  expresion_comparacion -> expresion_or_binario\n"); }  
       ;
 
 expresion_or_binario
-      : expresion_xor_binario '|' expresion_xor_binario
-      | expresion_xor_binario
+      : expresion_xor_binario '|' expresion_xor_binario           { printf("  expresion_or_binario -> expresion_xor_binario | expresion_xor_binario\n"); }
+      | expresion_xor_binario                     { printf("  expresion_or_binario -> expresion_xor_binario\n"); }      
       ;
 
 expresion_xor_binario
-      : expresion_and_binario '@' expresion_and_binario
-      | expresion_and_binario
-      ;
+      : expresion_and_binario '@' expresion_and_binario           { printf("  expresion_xor_binario -> expresion_and_binario @ expresion_and_binario\n"); }
+      | expresion_and_binario               { printf("  expresion_xor_binario -> expresion_and_binario\n"); }     
+      ;     
 
 expresion_and_binario
-      : expresion_desplazamiento '&' expresion_desplazamiento
-      | expresion_desplazamiento
+      : expresion_desplazamiento '&' expresion_desplazamiento                 { printf("  expresion_and_binario -> expresion_desplazamiento & expresion_desplazamiento\n"); }
+      | expresion_desplazamiento                { printf("  expresion_and_binario -> expresion_desplazamiento\n"); }
       ;
 
 expresion_desplazamiento
-      : expresion_aditiva
-      | expresion_desplazamiento FLECHA_IZDA expresion_aditiva
-      | expresion_desplazamiento FLECHA_DCHA expresion_aditiva
+      : expresion_aditiva                 { printf("  expresion_desplazamiento -> expresion_aditiva\n"); }
+      | expresion_desplazamiento FLECHA_IZDA expresion_aditiva                { printf("  expresion_desplazamiento -> expresion_desplazamiento FLECHA_IZDA expresion_aditiva\n"); }
+      | expresion_desplazamiento FLECHA_DCHA expresion_aditiva                { printf("  expresion_desplazamiento -> expresion_desplazamiento FLECHA_DCHA expresion_aditiva\n"); }
       ;
 expresion_aditiva
-      : expresion_multiplicativa
-      | expresion_aditiva '+' expresion_multiplicativa
-      | expresion_aditiva '-' expresion_multiplicativa
+      : expresion_multiplicativa                { printf("  expresion_aditiva -> expresion_multiplicativa\n"); }
+      | expresion_aditiva '+' expresion_multiplicativa            { printf("  expresion_aditiva -> expresion_aditiva + expresion_multiplicativa\n"); }
+      | expresion_aditiva '-' expresion_multiplicativa            { printf("  expresion_aditiva -> expresion_aditiva - expresion_multiplicativa\n"); }
       ;
 
 expresion_multiplicativa
-      : expresion_potencia
-      | expresion_multiplicativa '*' expresion_potencia
-      | expresion_multiplicativa '/' expresion_potencia
-      | expresion_multiplicativa MOD expresion_potencia
+      : expresion_potencia                { printf("  expresion_multiplicativa -> expresion_potencia\n"); }
+      | expresion_multiplicativa '*' expresion_potencia                 { printf("  expresion_multiplicativa -> expresion_multiplicativa * expresion_potencia\n"); }
+      | expresion_multiplicativa '/' expresion_potencia                 { printf("  expresion_multiplicativa -> expresion_multiplicativa / expresion_potencia\n"); }
+      | expresion_multiplicativa MOD expresion_potencia                 { printf("  expresion_multiplicativa -> expresion_multiplicativa MOD expresion_potencia\n"); }
       ;
 
 expresion_potencia
-      : expresion_unaria
-      | expresion_unaria POTENCIA expresion_potencia
+      : expresion_unaria                        { printf("  expresion_potencia -> expresion_unaria\n"); }
+      | expresion_unaria POTENCIA expresion_potencia        { printf("  expresion_potencia -> expresion_unaria POTENCIA expresion_potencia\n"); }
       ;
 
 expresion_unaria
-      : '-' expresion_primitiva
-      | '~' expresion_primitiva
-      | '!' expresion_primitiva
-      | TAMANO expresion_primitiva
-      | expresion_primitiva
+      : '-' expresion_primitiva           { printf("  expresion_unaria -> - expresion_primitiva\n"); }
+      | '~' expresion_primitiva           { printf("  expresion_unaria -> ~ expresion_primitiva\n"); }
+      | '!' expresion_primitiva           { printf("  expresion_unaria -> ! expresion_primitiva\n"); }
+      | TAMANO expresion_primitiva        { printf("  expresion_unaria -> TAMANO expresion_primitiva\n"); }
+      | expresion_primitiva               { printf("  expresion_unaria -> expresion_primitiva\n"); }  
       ;
 expresion_primitiva
-      : expresion_funcional
-      | expresion_indexada
-      | expresion_constante
+      : expresion_funcional               { printf("  expresion_primitiva -> expresion_funcional\n"); }
+      | expresion_indexada                { printf("  expresion_primitiva -> expresion_indexada\n"); }
+      | expresion_constante               { printf("  expresion_primitiva -> expresion_constante\n"); }
       ;
 expresion_funcional
-      : IDENTIFICADOR '(' opt_expresion_lista ')'
+      : IDENTIFICADOR '(' opt_expresion_lista ')'           { printf("  expresion_funcional -> IDENTIFICADOR '(' opt_expresion_lista ')'\n"); }
       ;
 opt_expresion_lista
       :
-      | expresion_lista
+      | expresion_lista             { printf("  opt_expresion_lista -> expresion_lista\n"); }
       ;
 expresion_lista
-      : expresion_lista ';' expresion
-      | expresion
+      : expresion_lista ';' expresion           { printf("  expresion_lista -> expresion_lista ; expresion\n"); }
+      | expresion             { printf("  expresion_lista -> expresion\n"); }
       ;
 
 expresion_indexada 
-      : expresion_basica 
-      | expresion_indexada '?' expresion_basica
-      | expresion_indexada INDIRECCION expresion_basica
-      | expresion_indexada INDIRECCION indice
-      | expresion_indexada indice
+      : expresion_basica            { printf("  expresion_indexada -> expresion_basica\n"); }
+      | expresion_indexada '?' expresion_basica             { printf("  expresion_indexada -> expresion_indexada ? expresion_basica\n"); }
+      | expresion_indexada INDIRECCION expresion_basica           { printf("  expresion_indexada -> expresion_indexada INDIRECCION expresion_basica\n"); }
+      | expresion_indexada INDIRECCION indice               { printf("  expresion_indexada -> expresion_indexada INDIRECCION indice\n"); }
+      | expresion_indexada indice                     { printf("  expresion_indexada -> expresion_indexada indice\n"); }
       ;
 
 expresion_basica
-      : nombre
-      | '(' expresion ')'
-      | '^' expresion_basica
-      | REF expresion_basica
+      : nombre                { printf("  expresion_basica -> nombre\n"); }
+      | '(' expresion ')'            { printf("  expresion_basica -> '(' expresion ')'\n"); }
+      | '^' expresion_basica        { printf("  expresion_basica -> ^ expresion_basica\n"); }
+      | REF expresion_basica              { printf("  expresion_basica -> REF expresion_basica\n"); }
       ;
 expresion_constante 
-      : CTC_ENTERA
-      | CTC_REAL
-      | CTC_CARACTER
-      | CTC_CADENA
+      : CTC_ENTERA            { printf("  expresion_constante -> CTC_ENTERA\n"); }
+      | CTC_REAL                    { printf("  expresion_constante -> CTC_REAL\n"); }
+      | CTC_CARACTER                { printf("  expresion_constante -> CTC_CARACTER\n"); }
+      | CTC_CADENA                  { printf("  expresion_constante -> CTC_CADENA\n"); }
       ;
 
 
