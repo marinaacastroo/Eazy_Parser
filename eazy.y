@@ -25,13 +25,11 @@
 
 programa
       : cabecera_programa bloque_programa                  { printf("  ÉXITO: programa -> cabecera_programa bloque_programa\n"); }           
-      | error '\n'                                            { printf("  ERROR: programa -> error\n");yyerrok; }
       ;
 
 
 cabecera_programa
       : PROGRAMA IDENTIFICADOR '.' lista_librerias         { printf("  cabecera_programa -> PROGRAMA IDENTIFICADOR . lista_librerias\n"); }
-      | error '\n'                                             { printf("  ERROR: cabecera_programa -> error\n");yyerrok; }      
       ;
 
 lista_librerias
@@ -42,7 +40,6 @@ lista_librerias
 libreria
       : IMPORTAR nombre_lista '.'                          { printf("  libreria -> IMPORTAR nombre_lista .\n"); }
       | IMPORTAR nombre COMO IDENTIFICADOR '.'             { printf("  libreria -> IMPORTAR nombre COMO IDENTIFICADOR .\n"); }
-      | error '\n'                                             { printf("  ERROR: libreria -> error\n");yyerrok; }
       ;
 
 
@@ -69,7 +66,6 @@ bloque_programa
 declaraciones_tipos_opt
       : 
       | declaraciones_tipos    { printf("  declaraciones_tipos_opt -> declaraciones_tipos\n");yyerrok; }
-      | error '\n'             { printf("  ERROR: declaraciones_tipos_opt -> error\n");yyerrok; }
       ;
 declaraciones_tipos
       : TIPOS declaraciones_tipo_lista FIN    { printf("  declaraciones_tipos -> TIPOS declaraciones_tipo_lista FIN\n");yyerrok; }
@@ -210,12 +206,13 @@ constante
       ;
 
 constante_tabla
-      : '(' lista_constante ')'                 { printf("  constante -> '(' lista_constante ')'\n"); }
+      : '('')'
+      | '(' lista_constante ')'                 { printf("  constante -> '(' lista_constante ')'\n"); }
       | '(' lista_elemento_hash ')'             { printf("  constante -> '(' lista_elemento_hash ')'\n"); }
       ;
 
 lista_constante
-      : 
+      : constante
       | constante ';' lista_constante           { printf("  lista_constante -> constante ; lista_constante\n"); }
       ;
 
@@ -225,8 +222,7 @@ lista_elemento_hash
       | elemento_hash                           { printf("  lista_elemento_hash -> elemento_hash\n"); }     
       ;
 elemento_hash
-      : 
-      | CTC_CADENA FLECHA_DCHA constante        { printf("  elemento_hash -> CTC_CADENA FLECHA_DCHA constante\n"); }
+      :  CTC_CADENA FLECHA_DCHA constante        { printf("  elemento_hash -> CTC_CADENA FLECHA_DCHA constante\n"); }
       ;
 
 constante_estructurada
@@ -275,8 +271,7 @@ lista_declaracion_funcion
       |
       ;
 declaracion_funcion
-      : visibilidad_opt firma_funcion cuerpo_funcion                    { printf("  declaracion_funcion -> visibilidad_opt firma_funcion cuerpo_funcion\n"); }
-      | error '\n'                 { printf("  ERROR: declaracion_funcion -> error\n");yyerrok; }
+      : visibilidad_opt firma_funcion cuerpo_funcion                    { printf("  declaracion_funcion -> visibilidad_opt firma_funcion cuerpo_funcion\n"); }              
       ;
 
 firma_funcion
@@ -332,7 +327,6 @@ instruccion
       | instruccion_lanzamiento_excepcion { printf("  instruccion -> instruccion_lanzamiento_excepcion\n"); }
       | instruccion_captura_excepcion     { printf("  instruccion -> instruccion_captura_excepcion\n"); }
       | instruccion_vacia                 { printf("  instruccion -> instruccion_vacia\n"); }
-      | error '\n'                        { printf("  ERROR: instruccion -> error\n");yyerrok; }    
       ;
 instruccion_expresion
       : expresion_funcional '.'           { printf("  instruccion_expresion -> expresion_funcional .\n"); }
@@ -521,7 +515,6 @@ expresion_primitiva
       : expresion_funcional
       | expresion_indexada
       | expresion_constante
-      | error '\n'{ printf("ERROR: expresión_primitiva -> error\n"); yyerrok; } 
       ;
 expresion_funcional
       : IDENTIFICADOR '(' opt_expresion_lista ')'
