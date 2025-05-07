@@ -300,16 +300,16 @@ expresion_constante_lista
     ;
 
 tipo_salida
-      : especificacion_tipo
-      | NADA
+      : especificacion_tipo               { printf("  tipo_salida -> especificacion_tipo\n"); }
+      | NADA                              { printf("  tipo_salida -> NADA\n"); }
       ; 
 
 cuerpo_funcion
-      : declaraciones_constantes_opt declaraciones_variables_opt lista_declaracion_funcion bloque_instrucciones
-      ;
+      : declaraciones_constantes_opt declaraciones_variables_opt lista_declaracion_funcion bloque_instrucciones         { printf("  cuerpo_funcion -> declaraciones_constantes_opt declaraciones_variables_opt lista_declaracion_funcion bloque_instrucciones\n"); }
+      ;     
 
 bloque_instrucciones 
-      : PRINCIPIO instruccion_lista FIN
+      : PRINCIPIO instruccion_lista FIN               { printf("  bloque_instrucciones -> PRINCIPIO instruccion_lista FIN\n"); }
       ;
 
 
@@ -318,47 +318,47 @@ bloque_instrucciones
 /*--------------------------------------------------------------------*/
 
 instruccion_lista
-      : instruccion_lista instruccion
-      | instruccion
+      : instruccion_lista instruccion                 { printf("  instruccion_lista -> instruccion_lista instruccion\n"); }
+      | instruccion                       { printf("  instruccion_lista -> instruccion\n"); }
       ;
 
 instruccion 
-      : instruccion_expresion
-      | instruccion_bifurcacion
-      | instruccion_bucle
-      | instruccion_salto
-      | instruccion_destino_salto
-      | instruccion_devolver
-      | instruccion_lanzamiento_excepcion
-      | instruccion_captura_excepcion
-      | instruccion_vacia
-      | error '\n'            { printf("  ERROR: instruccion -> error\n");yyerrok; }    
+      : instruccion_expresion             { printf("  instruccion -> instruccion_expresion\n"); }
+      | instruccion_bifurcacion           { printf("  instruccion -> instruccion_bifurcacion\n"); }
+      | instruccion_bucle                 { printf("  instruccion -> instruccion_bucle\n"); }
+      | instruccion_salto                 { printf("  instruccion -> instruccion_salto\n"); }
+      | instruccion_destino_salto         { printf("  instruccion -> instruccion_destino_salto\n"); }
+      | instruccion_devolver              { printf("  instruccion -> instruccion_devolver\n"); }
+      | instruccion_lanzamiento_excepcion { printf("  instruccion -> instruccion_lanzamiento_excepcion\n"); }
+      | instruccion_captura_excepcion     { printf("  instruccion -> instruccion_captura_excepcion\n"); }
+      | instruccion_vacia                 { printf("  instruccion -> instruccion_vacia\n"); }
+      | error '\n'                        { printf("  ERROR: instruccion -> error\n");yyerrok; }    
       ;
 instruccion_expresion
-      : expresion_funcional '.'
-      | asignacion '.'
+      : expresion_funcional '.'           { printf("  instruccion_expresion -> expresion_funcional .\n"); }
+      | asignacion '.'                    { printf("  instruccion_expresion -> asignacion .\n"); }
       ;
 
 asignacion
-      : expresion_indexada operador_asignacion expresion
+      : expresion_indexada operador_asignacion expresion        { printf("  asignacion -> expresion_indexada operador_asignacion expresion\n"); }
       ; 
 
 operador_asignacion
-      : ASIG
-      | SUMA_ASIG
-      | RESTA_ASIG
-      | MULT_ASIG
-      | DIV_ASIG
-      | MOD_ASIG
-      | POT_ASIG
-      | FI_ASIG
-      | FD_ASIG
-      | AND_ASIG
-      | XOR_ASIG
-      | OR_ASIG 
+      : ASIG                  { printf("  operador_asignacion -> ASIG\n"); }
+      | SUMA_ASIG             { printf("  operador_asignacion -> SUMA_ASIG\n"); }
+      | RESTA_ASIG            { printf("  operador_asignacion -> RESTA_ASIG\n"); }
+      | MULT_ASIG             { printf("  operador_asignacion -> MULT_ASIG\n"); }
+      | DIV_ASIG              { printf("  operador_asignacion -> DIV_ASIG\n"); }
+      | MOD_ASIG              { printf("  operador_asignacion -> MOD_ASIG\n"); }
+      | POT_ASIG              { printf("  operador_asignacion -> POT_ASIG\n"); }
+      | FI_ASIG               { printf("  operador_asignacion -> FI_ASIG\n"); }      
+      | FD_ASIG               { printf("  operador_asignacion -> FD_ASIG\n"); }
+      | AND_ASIG              { printf("  operador_asignacion -> AND_ASIG\n"); }
+      | XOR_ASIG              { printf("  operador_asignacion -> XOR_ASIG\n"); }
+      | OR_ASIG               { printf("  operador_asignacion -> OR_ASIG\n"); }
       ; 
 instruccion_bifurcacion
-      : SI '(' expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones
+      : SI '(' expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones           { printf("  instruccion_bifurcacion -> SI '(' expresion ')' bloque_instrucciones lista_otro_caso SINO bloque_instrucciones\n"); }
       | SI '(' expresion ')' bloque_instrucciones lista_otro_caso 
       ;
 
