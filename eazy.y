@@ -206,7 +206,7 @@ constante
       ;
 
 constante_tabla
-      : '('')'
+      : '(' ')'
       | '(' lista_constante ')'                 { printf("  constante -> '(' lista_constante ')'\n"); }
       | '(' lista_elemento_hash ')'             { printf("  constante -> '(' lista_elemento_hash ')'\n"); }
       ;
